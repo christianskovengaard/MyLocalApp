@@ -1,5 +1,8 @@
+//SET GLOBALS
+var sAPIURL = 'http://localhost/MyLocalMenu/API/api.php';
+
 window.onload = function(){
-    
+     
     CheckInternetConnection();
     
     getMessagesAndStamps();
@@ -9,18 +12,18 @@ window.onload = function(){
     
     // se hvad der er i localStorage 
     // localStorage.clear();
-    console.log("ALLE I Localstoarge")
+    console.log("ALLE I Localstoarge");
     for (var key in localStorage){   
-        console.log(key)
+        console.log(key);
     }
     var aUserFavorits = JSON.parse(localStorage.getItem("aUserFavorits"));
     var aUserFavorits = JSON.stringify(aUserFavorits);
     console.log("aUserFavorits = "+aUserFavorits);
-}
+};
 
 function CheckInternetConnection() {
     var status = navigator.onLine;
-    if( status == true ){
+    if( status === true ){
         $('#Offline').hide();
     }
     else {
@@ -66,7 +69,7 @@ function FavoritDelete() {
             var iUserFavorits = Object.keys(aUserFavorits).length;
             
             for(var i = 0; i < iUserFavorits; i++){
-                if( aUserFavorits[i] == Id){
+                if( aUserFavorits[i] === Id){
                     delete aUserFavorits[i]; 
                 }
             }
@@ -92,7 +95,7 @@ function FavoritDelete() {
     });
 }
 
-function makeFavorits () {
+function makeFavorits() {
     $("#favoriteWrapper").empty();
     var aUserFavorits = JSON.parse(localStorage.getItem("aUserFavorits"));
     var iUserFavorits = Object.keys(aUserFavorits).length;
@@ -118,7 +121,7 @@ function getMessagesAndStamps() {
            if(index >0){
                menucards[index] = val;
            }  
-       })
+       });
        menucards['sCustomerId'] = 'abc123';
        aData = menucards;
        //Workaround with encoding issue in IE8 and JSON.stringify
@@ -147,7 +150,7 @@ function getMessagesAndStamps() {
                             $("#"+index).append("<div class='newMgs'><p></p><div>")
                         }
                         // s?t antal stempler p? menukortet
-                        var Stamps = val.iNumberOfStamps
+                        var Stamps = val.iNumberOfStamps;
                         localStorage.setItem(index+".stamps", Stamps);
                 });           
             }
@@ -159,7 +162,186 @@ function getMessagesAndStamps() {
 function findMenuCard() {
     $("#FindCafe").before('<div class="spinner"><div class="bar"></div></div>');
     var value = $("#FindCafe").val();
-    GetMenucardWithSerialNumber(value);
+    //GetMenucardWithSerialNumber(value);
+    GetMenucardWithRestuarentName(value);
+}
+
+function GetMenucardWithRestuarentName(sRestuarentName) {
+
+    $("#menu").empty();
+    addHeader(sRestuarentName);
+    var sRestuarentNameSearch = sRestuarentName;
+    
+    //Get data            
+            $.ajax({
+              type: "GET",
+              url: sAPIURL,
+              dataType: "jSON",
+              data: {sFunction:"GetMenucardWithRestuarentName",sRestuarentName:sRestuarentName}
+             }).done(function(result){
+                 
+             if(result.result === true){
+                    $(".spinner div").css('animation-name', 'none');
+                    $(".spinner div").css('width', '100%');
+                    $(".spinner").remove();
+                    
+                    $.mobile.changePage("#menu", {
+                        transition: "slide"
+                    });
+                    var sRestuarentName = result.sRestuarentName; 
+                    var sRestuarentAddress = result.sRestuarentAddress;
+                    $("#menu").append('<div class="menuheader"><h1>'+sRestuarentName+'</h1><img class="img_left" src="img/message.png" onclick="MessageToggle();"><p>'+sRestuarentAddress+'</p><img class="img_right" onclick="InfoToggle();" src="img/info.png"></div>');
+                    $("#menu").append("<ul></ul>");
+                    $("#menu ul").append('<div id="messageBlock" onclick="MessageToggle();"><ul class="messageBlock"></ul></div>');
+
+                    $("#messageBlock").hide();
+
+                    $("#messageBlock").after('<div id="infoBlock"></div>');
+                    $("#infoBlock").append('<li class="dishHeadline">info</li>');
+                    var sRestuarentPhone = result.sRestuarentPhone;
+                    var sRestuarentPhoneFormat = sRestuarentPhone.substring(0, 2)+' '+sRestuarentPhone.substring(2, 4)+' '+sRestuarentPhone.substring(4, 6)+' '+sRestuarentPhone.substring(6, 8);
+                    $("#infoBlock").append('<li class="dishPoint PhoneNumber"><img src="img/call up.png"><a href="tel:'+sRestuarentPhone+'" rel="external">'+sRestuarentPhoneFormat+'</a></li>');
+                    $("#infoBlock").append('<li class="dishPoint" id="OpeningHours"></li>');
+                    
+                    $.each(result.aMenucardOpeningHours, function(key,value){
+                            var OpeningHours = {
+                                         sDayName: value.sDayName,
+                                         iTimeFrom: value.iTimeFrom,
+                                         iTimeTo: value.iTimeTo
+                                     };
+                            $("#OpeningHours").append('<h1>'+OpeningHours.sDayName+'</h1><h2>'+OpeningHours.iTimeFrom+' - '+OpeningHours.iTimeTo+'</h2><br>');
+                            }); 
+                    $.each(result.aMenucardInfo, function(key,value){
+                            var Info = {
+                                         sMenucardInfoHeadline: value.sMenucardInfoHeadline,
+                                         sMenucardInfoParagraph: value.sMenucardInfoParagraph
+                                     };
+                            $("#infoBlock").append('<li li class="dishPoint">'+Info.sMenucardInfoHeadline+'<p>'+Info.sMenucardInfoParagraph+'</p></li>');
+                    }); 
+                    
+                    $("#infoBlock").append('<li class="dishPoint button" onclick="InfoToggle();"><img src="img/arrowUp.png"></li><br>');
+                    $("#infoBlock").hide();
+
+                    $.each(result.aMenucardCategory, function(key,value){
+//                              alert('liste index: '+key);
+                              var category = {
+                                  sMenucardCategoryName: value.sMenucardCategoryName,
+                                  sMenucardCategoryDescription: value.sMenucardCategoryDescription,
+//                                  iMenucardCategoryIdHashed: value.iMenucardCategoryIdHashed,
+                                  items:[]
+                              };
+                             $("#menu").append("<ul class='MenucardCategoryGroup"+key+"'></ul>");
+                             $(".MenucardCategoryGroup"+key).append('<li class="dishHeadline" onclick="MenucardItemsToggle('+key+');">'+category.sMenucardCategoryName+'<p>'+category.sMenucardCategoryDescription+'</p></li>');
+                             
+                              $.each(result['aMenucardCategoryItems'+key].sMenucardItemName, function(keyItem,value){
+
+                                  var sMenucardItemName = value;
+                                  var sMenucardItemDescription = result['aMenucardCategoryItems'+key].sMenucardItemDescription[keyItem];
+                                  var iMenucardItemPrice = result['aMenucardCategoryItems'+key].iMenucardItemPrice[keyItem];
+//                                  var iMenucardItemIdHashed = result['aMenucardCategoryItems'+key].iMenucardItemIdHashed[keyItem];
+//                                  var iMenucardItemPlaceInList = result['aMenucardCategoryItems'+key].iMenucardItemPlaceInList[keyItem];
+                                  
+                                  var item = {
+                                      sMenucardItemName: sMenucardItemName,
+                                      sMenucardItemDescription: sMenucardItemDescription,
+//                                      sMenucardItemNumber: sMenucardItemNumber,
+                                      iMenucardItemPrice: iMenucardItemPrice
+//                                      iMenucardItemIdHashed: iMenucardItemIdHashed,
+//                                      iMenucardItemPlaceInList: iMenucardItemPlaceInList
+                                  };
+                                  //Append the item to the items in the category obj
+//                                  category.items.push(item);
+                                  $(".MenucardCategoryGroup"+key).append('<li class="dishPoint"><h1>'+item.sMenucardItemName+'</h1><h2>'+item.iMenucardItemPrice+',-</h2><p>'+item.sMenucardItemDescription+'</p></li>');
+                              });
+
+
+                          
+                          });
+                          
+                          // generate StampCard
+                            $(".StampCardWrapper").empty();
+                            var iMenucardSerialNumber = result.iMenucardSerialNumber;
+                            var userStamps = localStorage.getItem(iMenucardSerialNumber+".stamps");
+                            var stampsForFree = result.oStampcard.iStampcardMaxStamps;
+                            for(var i=0; userStamps>0; i++){
+                                if(userStamps >= stampsForFree){
+                                    $(".StampCardWrapper").prepend("<div class='StampCard "+i+"'><h1>STEMPLEKORT</h1><h2>Du har 1 gratis kaffe</h2></div>");
+                                    for(var j=1; j<=stampsForFree; j++){
+                                    $(".StampCard."+i).append("<div class='Stamp Full'></div>");
+                                    }
+                                    $(".StampCard."+i).append('<a href="#HandInCard" onclick="makeHandinPage(\''+iMenucardSerialNumber+'\',\''+stampsForFree+'\');" class="ui-btn">Indl?s kort</a>');
+                                }
+                                else {
+                                    var rest = stampsForFree-userStamps;
+                                    $(".StampCardWrapper").prepend("<div class='StampCard "+i+"'><h1>STEMPLEKORT</h1><h2>Du har "+userStamps+" stempler og mangler "+rest+" for at f? en gratis kop</h2></div>");
+                                    for(var k=1; k<=userStamps; k++){
+                                    $(".StampCard."+i).append("<div class='Stamp Full'></div>");
+                                    }
+                                    for(var l=userStamps; l<stampsForFree; l++){
+                                    $(".StampCard."+i).append("<div class='Stamp'></div>");
+                                    }
+                                }
+                                userStamps = userStamps - stampsForFree;
+                            }
+                            
+                          // gemme lokalt
+                            localStorage.setItem(iMenucardSerialNumber+".fav.cafeName", sRestuarentName);
+                            localStorage.setItem(iMenucardSerialNumber+".fav.cafeAdress", sRestuarentAddress);
+                          
+                          // Opret Besked
+                            $("#messageBlock").show();
+                            $("#messageBlock ul").empty();
+                            var sMessageHeadline = result.oMessages[0].headline;
+                            var sMessageBodyText = result.oMessages[0].bodytext;
+                            $("#messageBlock ul").append("<li><p>dato</p><h1>"+sMessageHeadline+"</h1><h2>"+sMessageBodyText+"</h2></li>");
+
+                          
+                          // Tjekker om Cafen er i favoritter - opretter den hvis ikke 
+                          if( $("#"+iMenucardSerialNumber).length <= 0 ){
+                          // put id in storage
+
+                                  var aUserFavorits = {};
+                                  // for at sikre arrayet ikke er tom
+                                  aUserFavorits[0] = "favoritter";
+                                  localStorage.setItem("aUserFavorits", JSON.stringify(aUserFavorits));
+                                  // tilf?je fav i array
+                                  
+                                  var aUserFavorits = JSON.parse(localStorage.getItem("aUserFavorits"));
+                                  var iUserFavorits = Object.keys(aUserFavorits).length;
+                                  aUserFavorits[iUserFavorits]= iMenucardSerialNumber;
+                                  
+                                  localStorage.setItem("aUserFavorits", JSON.stringify(aUserFavorits));
+//                                  var MyFavorits = JSON.parse(localStorage.getItem("aUserFavorits"));
+
+//                                  var pesoFecha = {};
+//                                    pesoFecha["name"] = "dannnniel";
+//                                    pesoFecha[1] = "bejtrup";
+//                                    localStorage.setItem("data", JSON.stringify(pesoFecha));
+//                    
+//                                    var arrayDeObjetos = JSON.parse(localStorage.getItem("data"));
+
+                          // SKAL FJERNES - OG TILF?JE RELOAD AF MENU N?R MAN REMMER DEN...
+
+                          // make favorit block    
+                                $("#favoriteWrapper").append('<div class="favoriteItemWrapper"><a id="'+iMenucardSerialNumber+'" href="#" data-transition="slide" class="ui-btn" onclick="GetMenucardWithSerialNumber(\''+iMenucardSerialNumber+'\');">'+sRestuarentName+'<p>'+sRestuarentAddress+'</p></a></div>');
+                                $(".ui-btn").on( "swiperight", FavoritDelete );
+                                
+                          // henter Beskeder fra Cafe (der ikke er i favoritter)
+                                
+                          } 
+                          else {
+                              // hvis cafe er i favoritter - lav besked
+//                                  var data = localStorage.getItem("AA0000.Message.bodytext");
+                          }
+                }
+                else {
+                        $(".spinner div").css('animation-name', 'none');
+                        $(".spinner div").css('width', '100%');
+                        $(".spinner").remove();
+                        $('#FindCafe').before('<div class="popMgs">'+sRestuarentNameSearch+' findes ikke</div>');
+                        $('.popMgs').hide().fadeIn().delay(500).fadeOut(300,function(){ $(this).remove(); });        
+                }
+            });
 }
 
 function GetMenucardWithSerialNumber(sSerialNumber) {
@@ -167,7 +349,7 @@ function GetMenucardWithSerialNumber(sSerialNumber) {
     $("#menu").empty();
     addHeader(sSerialNumber);
     var sSerialNumberCaps = sSerialNumber.toUpperCase();
-                          
+    
     //Get data            
             $.ajax({
               type: "GET",
@@ -347,15 +529,15 @@ function addHeader() {
 
 function makeHandinPage(serial,maxstamps) {
     $("#HandInBox").html("");
-    var userStamps = localStorage.getItem(serial+".stamps")
-    var cafeName =  localStorage.getItem(serial+".fav.cafeName")
+    var userStamps = localStorage.getItem(serial+".stamps");
+    var cafeName =  localStorage.getItem(serial+".fav.cafeName");
     var StampsForFree = maxstamps;
    
     $("#HandInBox").append("<div style='display: table; margin:0 auto;'><div class='codebutton'>1</div><div class='codebutton'>2</div><div class='codebutton'>3</div><div class='codebutton'>4</div></div>");
     $("#HandInBox").append("Her indtaster caf?n Deres kode for at indl?se stempletkortet.");
     $("#HandInBox").append("<a href='#' id='HandInCardAccept'>indl?s test</a> ");
     $("#HandInBox").append("<h1>"+cafeName+"</h1>");
-    $("#HandInBox").append("<div class='StampCard' id='HandinCard'></div>")
+    $("#HandInBox").append("<div class='StampCard' id='HandinCard'></div>");
     for(var j=1; j<=StampsForFree; j++){
          $("#HandinCard").append("<div class='Stamp Full'></div>");
     }
