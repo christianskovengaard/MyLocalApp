@@ -567,7 +567,11 @@ function makeHandinPage(serial,maxstamps) {
     $("#HandInCardAccept").click(function(){
         
         var sCustomerId =  localStorage.getItem('sCustomerId');
-        var sSerialNumber = serial;
+        var sSerialNumber = serial;      
+        var StampsLeft = userStamps - StampsForFree;
+        localStorage.setItem(serial+".stamps", StampsLeft);
+        var sRedemeCode = $('#RedemeCode1').val() + $('#RedemeCode2').val() + $('#RedemeCode3').val() + $('#RedemeCode4').val(); 
+        
         
         //Only do this when the ajax call is successfull
         $("#HandinCard").fadeOut(1000,function(){
@@ -579,12 +583,8 @@ function makeHandinPage(serial,maxstamps) {
             
         });
         
-        var StampsLeft = userStamps - StampsForFree;
-        localStorage.setItem(serial+".stamps", StampsLeft);
-        var sRedemeCode = $('#RedemeCode1').val() + $('#RedemeCode2').val() + $('#RedemeCode3').val() + $('#RedemeCode4').val(); 
         
-        
-//        $.ajax({
+            //        $.ajax({
 //              type: "GET",
 //              url: sAPIURL,
 //              dataType: "jSON",
