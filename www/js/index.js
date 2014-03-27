@@ -7,19 +7,40 @@ window.onload = function(){
     
     getMessagesAndStamps();
     makeFavorits();
+    CheckForsCustomerId();
     
     $(".ui-btn").on( "swiperight", FavoritDelete );
     
     // se hvad der er i localStorage 
     // localStorage.clear();
-    console.log("ALLE I Localstoarge");
-    for (var key in localStorage){   
-        console.log(key);
-    }
-    var aUserFavorits = JSON.parse(localStorage.getItem("aUserFavorits"));
-    var aUserFavorits = JSON.stringify(aUserFavorits);
-    console.log("aUserFavorits = "+aUserFavorits);
+    //    console.log("ALLE I Localstoarge");
+    //    for (var key in localStorage){   
+    //        console.log(key);
+    //    }
+    //    var aUserFavorits = JSON.parse(localStorage.getItem("aUserFavorits"));
+    //    var aUserFavorits = JSON.stringify(aUserFavorits);
+    //    console.log("aUserFavorits = "+aUserFavorits);
 };
+
+function CheckForsCustomerId() {
+    
+    //Check for sCustomerId in localStorage
+    if(localStorage.getItem("sCustomerId") === null || localStorage.getItem("sCustomerId") === '') {
+        //If no sCutomerId then create new sCutomerId
+        localStorage.setItem("sCustomerId",MakeRandomId());
+    }  
+}
+
+function MakeRandomId()
+{
+    var text = "";
+    var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
+    for( var i=0; i < 25; i++ )
+        text += possible.charAt(Math.floor(Math.random() * possible.length));
+
+    return text;
+}
 
 function CheckInternetConnection() {
     var status = navigator.onLine;
@@ -122,7 +143,8 @@ function getMessagesAndStamps() {
                menucards[index] = val;
            }  
        });
-       menucards['sCustomerId'] = 'abc123';
+       //Get the sCustomerId in localStorage
+       menucards['sCustomerId'] = localStorage.getItem("sCustomerId");
        aData = menucards;
        //Workaround with encoding issue in IE8 and JSON.stringify
        for (var i in aData) {
@@ -134,7 +156,7 @@ function getMessagesAndStamps() {
        //Make ajax call
    $.ajax({
         type: "GET",
-        url: "http://xn--spjl-xoa.dk/MyLocalMenu/API/api.php",
+        url: sAPIURL,
         dataType: "json",
         data: {sFunction:"GetMessagesAndStampsApp",sJSONMenucards:sJSON}
        }).done(function(result) 
@@ -147,9 +169,9 @@ function getMessagesAndStamps() {
                $.each(result.Menucards, function(index,val){
 
                         if (val.Messages[0].sMessageHeadline){
-                            $("#"+index).append("<div class='newMgs'><p></p><div>")
+                            $("#"+index).append("<div class='newMgs'><p></p><div>");
                         }
-                        // s?t antal stempler p? menukortet
+                        // sæt antal stempler på menukortet
                         var Stamps = val.iNumberOfStamps;
                         localStorage.setItem(index+".stamps", Stamps);
                 });           
@@ -269,11 +291,11 @@ function GetMenucardWithRestuarentName(sRestuarentName) {
                                     for(var j=1; j<=stampsForFree; j++){
                                     $(".StampCard."+i).append("<div class='Stamp Full'></div>");
                                     }
-                                    $(".StampCard."+i).append('<a href="#HandInCard" onclick="makeHandinPage(\''+iMenucardSerialNumber+'\',\''+stampsForFree+'\');" class="ui-btn">Indl?s kort</a>');
+                                    $(".StampCard."+i).append('<a href="#HandInCard" onclick="makeHandinPage(\''+iMenucardSerialNumber+'\',\''+stampsForFree+'\');" class="ui-btn">Indløs kort</a>');
                                 }
                                 else {
                                     var rest = stampsForFree-userStamps;
-                                    $(".StampCardWrapper").prepend("<div class='StampCard "+i+"'><h1>STEMPLEKORT</h1><h2>Du har "+userStamps+" stempler og mangler "+rest+" for at f? en gratis kop</h2></div>");
+                                    $(".StampCardWrapper").prepend("<div class='StampCard "+i+"'><h1>STEMPLEKORT</h1><h2>Du har "+userStamps+" stempler og mangler "+rest+" for at få en gratis kop</h2></div>");
                                     for(var k=1; k<=userStamps; k++){
                                     $(".StampCard."+i).append("<div class='Stamp Full'></div>");
                                     }
@@ -353,7 +375,7 @@ function GetMenucardWithSerialNumber(sSerialNumber) {
     //Get data            
             $.ajax({
               type: "GET",
-              url: "http://xn--spjl-xoa.dk/MyLocalMenu/API/api.php",
+              url: sAPIURL,
               dataType: "jSON",
               data: {sFunction:"GetMenucardWithSerialNumber",iMenucardSerialNumber:sSerialNumber}
              }).done(function(result){
@@ -447,11 +469,11 @@ function GetMenucardWithSerialNumber(sSerialNumber) {
                                     for(var j=1; j<=stampsForFree; j++){
                                     $(".StampCard."+i).append("<div class='Stamp Full'></div>");
                                     }
-                                    $(".StampCard."+i).append('<a href="#HandInCard" onclick="makeHandinPage(\''+sSerialNumberCaps+'\',\''+stampsForFree+'\');" class="ui-btn">Indl?s kort</a>');
+                                    $(".StampCard."+i).append('<a href="#HandInCard" onclick="makeHandinPage(\''+sSerialNumberCaps+'\',\''+stampsForFree+'\');" class="ui-btn">Indløs kort</a>');
                                 }
                                 else {
                                     var rest = stampsForFree-userStamps;
-                                    $(".StampCardWrapper").prepend("<div class='StampCard "+i+"'><h1>STEMPLEKORT</h1><h2>Du har "+userStamps+" stempler og mangler "+rest+" for at f? en gratis kop</h2></div>");
+                                    $(".StampCardWrapper").prepend("<div class='StampCard "+i+"'><h1>STEMPLEKORT</h1><h2>Du har "+userStamps+" stempler og mangler "+rest+" for at få en gratis kop</h2></div>");
                                     for(var k=1; k<=userStamps; k++){
                                     $(".StampCard."+i).append("<div class='Stamp Full'></div>");
                                     }
@@ -533,9 +555,9 @@ function makeHandinPage(serial,maxstamps) {
     var cafeName =  localStorage.getItem(serial+".fav.cafeName");
     var StampsForFree = maxstamps;
    
-    $("#HandInBox").append("<div style='display: table; margin:0 auto;'><div class='codebutton'>1</div><div class='codebutton'>2</div><div class='codebutton'>3</div><div class='codebutton'>4</div></div>");
-    $("#HandInBox").append("Her indtaster caf?n Deres kode for at indl?se stempletkortet.");
-    $("#HandInBox").append("<a href='#' id='HandInCardAccept'>indl?s test</a> ");
+    $("#HandInBox").append("<div style='display: table; margin:0 auto;'><div class='codebutton'><input type='text' id='RedemeCode1' class='codebutton'></div><div class='codebutton'><input type='text' id='RedemeCode2' class='codebutton'></div><div class='codebutton'><input type='text' id='RedemeCode3' class='codebutton'></div><div class='codebutton'><input type='text' id='RedemeCode4' class='codebutton'></div></div>");
+    $("#HandInBox").append("Her indtaster caféen Deres kode for at indløse stempletkortet.");
+    $("#HandInBox").append("<a href='#' id='HandInCardAccept'>indløs test</a> ");
     $("#HandInBox").append("<h1>"+cafeName+"</h1>");
     $("#HandInBox").append("<div class='StampCard' id='HandinCard'></div>");
     for(var j=1; j<=StampsForFree; j++){
@@ -544,31 +566,33 @@ function makeHandinPage(serial,maxstamps) {
     
     $("#HandInCardAccept").click(function(){
         
+        var sCustomerId =  localStorage.getItem('sCustomerId');
+        var sSerialNumber = serial;
+        
+        //Only do this when the ajax call is successfull
         $("#HandinCard").fadeOut(1000,function(){
             $("#HandinCard").remove();
             GetMenucardWithSerialNumber(serial);
             $.mobile.changePage("#stamp", {
-                        transition: "slideup"
+                transition: "slideup"
             });
             
         });
         
         var StampsLeft = userStamps - StampsForFree;
         localStorage.setItem(serial+".stamps", StampsLeft);
-     
-        // update i database
+        var sRedemeCode = $('#RedemeCode1').val() + $('#RedemeCode2').val() + $('#RedemeCode3').val() + $('#RedemeCode4').val(); 
         
-//        var sCustomerId = "abc123";
-//        var sSerialNumber = serial;
-//        
+        
 //        $.ajax({
 //              type: "GET",
-//              url: "http://xn--spjl-xoa.dk/MyLocalMenu/API/api.php",
+//              url: sAPIURL,
 //              dataType: "jSON",
-//              data: {sFunction:"RedemeStampcard",iMenucardSerialNumber:sSerialNumber,sCustomerId:sCustomerId}
+//              data: {sFunction:"RedemeStampcard",iMenucardSerialNumber:sSerialNumber,sCustomerId:sCustomerId,sRedemeCode:sRedemeCode}
 //             }).done(function(result){
 //                 
 //                    if(result.result === true){
+//                          alert('Hurra det lykkedes! Så er der gratis kaffe på vej :)');
 //                    }
 //            });
     });
