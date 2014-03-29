@@ -593,35 +593,35 @@ function makeHandinPage(serial,maxstamps) {
         
         if($('#RedemeCode1').val() !== '' && $('#RedemeCode2').val() !== '' && $('#RedemeCode3').val() !== '' && $('#RedemeCode4').val() !== '') {
         
-        var sCustomerId =  localStorage.getItem('sCustomerId');
-        var sSerialNumber = serial;      
-        var StampsLeft = userStamps - StampsForFree;
-        localStorage.setItem(serial+".stamps", StampsLeft);
-        var sRedemeCode = $('#RedemeCode1').val() + $('#RedemeCode2').val() + $('#RedemeCode3').val() + $('#RedemeCode4').val(); 
-        
-        
-        //Only do this when the ajax call is successfull
-        $("#HandinCard").fadeOut(1000,function(){
-            $("#HandinCard").remove();
-            GetMenucardWithSerialNumber(serial);
-            $.mobile.changePage("#stamp", {
-                transition: "slideup"
+            var sCustomerId =  localStorage.getItem('sCustomerId');
+            var sSerialNumber = serial;      
+            var StampsLeft = userStamps - StampsForFree;          
+            var sRedemeCode = $('#RedemeCode1').val() + $('#RedemeCode2').val() + $('#RedemeCode3').val() + $('#RedemeCode4').val(); 
+
+             $.ajax({
+              type: "GET",
+              url: sAPIURL,
+              dataType: "jSON",
+              data: {sFunction:"RedemeStampcard",iMenucardSerialNumber:sSerialNumber,sCustomerId:sCustomerId,sRedemeCode:sRedemeCode}
+             }).done(function(result){
+                    if(result.result === 'true'){
+                            alert('Hurra det lykkedes! Så er der gratis kaffe på vej :)');
+                            //Only do this when the ajax call is successfull
+                            //Set the remening stamps in localStorage
+                            localStorage.setItem(serial+".stamps", StampsLeft);
+                            
+                            $("#HandinCard").fadeOut(1000,function(){
+                                $("#HandinCard").remove();
+                                GetMenucardWithSerialNumber(serial);
+                                $.mobile.changePage("#stamp", {
+                                    transition: "slideup"
+                                });
+                            });
+                     }
+                     if(result.result === 'wrong redemecode') {
+                         alert('Forkert kodeord!');
+                     }
             });
-            
-        });
-        
-        
-            //        $.ajax({
-//              type: "GET",
-//              url: sAPIURL,
-//              dataType: "jSON",
-//              data: {sFunction:"RedemeStampcard",iMenucardSerialNumber:sSerialNumber,sCustomerId:sCustomerId,sRedemeCode:sRedemeCode}
-//             }).done(function(result){
-//                 
-//                    if(result.result === true){
-//                          alert('Hurra det lykkedes! Så er der gratis kaffe på vej :)');
-//                    }
-//            });
 
         } else {
             alert('Husk at indtaste koden');
