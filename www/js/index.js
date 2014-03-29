@@ -1,5 +1,10 @@
 //SET GLOBALS
+
+//Offline
 var sAPIURL = 'http://localhost/MyLocalMenu/API/api.php';
+
+//Online
+//var sAPIURL = 'http://mylocalcafe.dk/API/api.php';
 
 window.onload = function(){
      
@@ -95,6 +100,8 @@ function FavoritDelete() {
                 }
             }
             localStorage.setItem("aUserFavorits", JSON.stringify(aUserFavorits));
+            
+            //TODO: Also remove the cafeAddress and cafeName
             
          //     var iUserFavorits = Object.keys(aUserFavorits).length;
               
@@ -284,7 +291,15 @@ function GetMenucardWithRestuarentName(sRestuarentName) {
                             $(".StampCardWrapper").empty();
                             var iMenucardSerialNumber = result.iMenucardSerialNumber;
                             var userStamps = localStorage.getItem(iMenucardSerialNumber+".stamps");
+                            var userStampsCheck = userStamps;
                             var stampsForFree = result.oStampcard.iStampcardMaxStamps;
+                            var rest = stampsForFree-userStamps;
+                            if(userStampsCheck === '0') {
+                                $(".StampCardWrapper").prepend("<div class='StampCard'><h1>STEMPLEKORT</h1><h2>Du har 0 stempler og mangler "+rest+" for at få en gratis kop</h2></div>");                              
+                                for(var l=userStamps; l<stampsForFree; l++){
+                                    $(".StampCard").append("<div class='Stamp'></div>");
+                                }
+                            }
                             for(var i=0; userStamps>0; i++){
                                 if(userStamps >= stampsForFree){
                                     $(".StampCardWrapper").prepend("<div class='StampCard "+i+"'><h1>STEMPLEKORT</h1><h2>Du har 1 gratis kaffe</h2></div>");
@@ -293,8 +308,7 @@ function GetMenucardWithRestuarentName(sRestuarentName) {
                                     }
                                     $(".StampCard."+i).append('<a href="#HandInCard" onclick="makeHandinPage(\''+iMenucardSerialNumber+'\',\''+stampsForFree+'\');" class="ui-btn">Indløs kort</a>');
                                 }
-                                else {
-                                    var rest = stampsForFree-userStamps;
+                                else {                  
                                     $(".StampCardWrapper").prepend("<div class='StampCard "+i+"'><h1>STEMPLEKORT</h1><h2>Du har "+userStamps+" stempler og mangler "+rest+" for at få en gratis kop</h2></div>");
                                     for(var k=1; k<=userStamps; k++){
                                     $(".StampCard."+i).append("<div class='Stamp Full'></div>");
@@ -313,10 +327,14 @@ function GetMenucardWithRestuarentName(sRestuarentName) {
                           // Opret Besked
                             $("#messageBlock").show();
                             $("#messageBlock ul").empty();
-                            var sMessageHeadline = result.oMessages[0].headline;
-                            var sMessageBodyText = result.oMessages[0].bodytext;
-                            $("#messageBlock ul").append("<li><p>dato</p><h1>"+sMessageHeadline+"</h1><h2>"+sMessageBodyText+"</h2></li>");
-
+                            //Check for messages
+                            if(typeof result.oMessages[0] !== "undefined") {
+                                var sMessageHeadline = result.oMessages[0].headline;
+                                if(sMessageHeadline !== '') {
+                                    var sMessageBodyText = result.oMessages[0].bodytext;
+                                    $("#messageBlock ul").append("<li><p>dato</p><h1>"+sMessageHeadline+"</h1><h2>"+sMessageBodyText+"</h2></li>");
+                                }
+                            }
                           
                           // Tjekker om Cafen er i favoritter - opretter den hvis ikke 
                           if( $("#"+iMenucardSerialNumber).length <= 0 ){
@@ -462,7 +480,9 @@ function GetMenucardWithSerialNumber(sSerialNumber) {
                           // generate StampCard
                             $(".StampCardWrapper").empty();
                             var userStamps = localStorage.getItem(sSerialNumberCaps+".stamps");
+                            var userStampsCheck = userStamps;
                             var stampsForFree = result.oStampcard.iStampcardMaxStamps;
+                            var rest = stampsForFree-userStamps;
                             for(var i=0; userStamps>0; i++){
                                 if(userStamps >= stampsForFree){
                                     $(".StampCardWrapper").prepend("<div class='StampCard "+i+"'><h1>STEMPLEKORT</h1><h2>Du har 1 gratis kaffe</h2></div>");
@@ -471,8 +491,7 @@ function GetMenucardWithSerialNumber(sSerialNumber) {
                                     }
                                     $(".StampCard."+i).append('<a href="#HandInCard" onclick="makeHandinPage(\''+sSerialNumberCaps+'\',\''+stampsForFree+'\');" class="ui-btn">Indløs kort</a>');
                                 }
-                                else {
-                                    var rest = stampsForFree-userStamps;
+                                else {                                  
                                     $(".StampCardWrapper").prepend("<div class='StampCard "+i+"'><h1>STEMPLEKORT</h1><h2>Du har "+userStamps+" stempler og mangler "+rest+" for at få en gratis kop</h2></div>");
                                     for(var k=1; k<=userStamps; k++){
                                     $(".StampCard."+i).append("<div class='Stamp Full'></div>");
@@ -482,6 +501,12 @@ function GetMenucardWithSerialNumber(sSerialNumber) {
                                     }
                                 }
                                 userStamps = userStamps - stampsForFree;
+                            }
+                            if(userStampsCheck === '0') {
+                                $(".StampCardWrapper").prepend("<div class='StampCard "+i+"'><h1>STEMPLEKORT</h1><h2>Du har 0 stempler og mangler "+rest+" for at få en gratis kop</h2></div>");
+                                for(var l=userStamps; l<stampsForFree; l++){
+                                    $(".StampCard").append("<div class='Stamp'></div>");
+                                }    
                             }
                             
                           // gemme lokalt
@@ -557,7 +582,7 @@ function makeHandinPage(serial,maxstamps) {
    
     $("#HandInBox").append("<div style='display: table; margin:0 auto;'><div class='codebutton'><input type='text' id='RedemeCode1' class='codebutton'></div><div class='codebutton'><input type='text' id='RedemeCode2' class='codebutton'></div><div class='codebutton'><input type='text' id='RedemeCode3' class='codebutton'></div><div class='codebutton'><input type='text' id='RedemeCode4' class='codebutton'></div></div>");
     $("#HandInBox").append("Her indtaster caféen Deres kode for at indløse stempletkortet.");
-    $("#HandInBox").append("<a href='#' id='HandInCardAccept'>indløs test</a> ");
+    $("#HandInBox").append("<a href='' class='ui-btn' id='HandInCardAccept'>Indløs stempelkort</a> ");
     $("#HandInBox").append("<h1>"+cafeName+"</h1>");
     $("#HandInBox").append("<div class='StampCard' id='HandinCard'></div>");
     for(var j=1; j<=StampsForFree; j++){
@@ -565,6 +590,8 @@ function makeHandinPage(serial,maxstamps) {
     }
     
     $("#HandInCardAccept").click(function(){
+        
+        if($('#RedemeCode1').val() !== '' && $('#RedemeCode2').val() !== '' && $('#RedemeCode3').val() !== '' && $('#RedemeCode4').val() !== '') {
         
         var sCustomerId =  localStorage.getItem('sCustomerId');
         var sSerialNumber = serial;      
@@ -595,6 +622,10 @@ function makeHandinPage(serial,maxstamps) {
 //                          alert('Hurra det lykkedes! Så er der gratis kaffe på vej :)');
 //                    }
 //            });
+
+        } else {
+            alert('Husk at indtaste koden');
+        }
     });
 }
 
