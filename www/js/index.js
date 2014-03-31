@@ -1,10 +1,10 @@
 //SET GLOBALS
 
 //Offline
-var sAPIURL = 'http://localhost/MyLocalMenu/API/api.php';
+//var sAPIURL = 'http://localhost/MyLocalMenu/API/api.php';
 
 //Online
-//var sAPIURL = 'http://mylocalcafe.dk/API/api.php';
+var sAPIURL = 'http://mylocalcafe.dk/API/api.php';
 
 window.onload = function(){
      
@@ -18,13 +18,13 @@ window.onload = function(){
     
     // se hvad der er i localStorage 
     // localStorage.clear();
-    //    console.log("ALLE I Localstoarge");
-    //    for (var key in localStorage){   
-    //        console.log(key);
-    //    }
-    //    var aUserFavorits = JSON.parse(localStorage.getItem("aUserFavorits"));
-    //    var aUserFavorits = JSON.stringify(aUserFavorits);
-    //    console.log("aUserFavorits = "+aUserFavorits);
+        console.log("ALLE I Localstoarge");
+        for (var key in localStorage){   
+            console.log(key);
+        }
+        var aUserFavorits = JSON.parse(localStorage.getItem("aUserFavorits"));
+        var aUserFavorits = JSON.stringify(aUserFavorits);
+        console.log("aUserFavorits = "+aUserFavorits);
 };
 
 function CheckForsCustomerId() {
@@ -68,7 +68,6 @@ function InfoToggle(){
 
 function MessageToggle() {
     $("#messageBlock").slideToggle(100);
-    getMessages();
 }
 
 function MenucardItemsToggle(num) {
@@ -175,7 +174,12 @@ function getMessagesAndStamps() {
                $(".newMgs").remove();
                $.each(result.Menucards, function(index,val){
 
-                        if (val.Messages[0].sMessageHeadline){
+                        var sMessageDate = val.Messages[0].dtMessageDate;
+                        var PrevMessageDate = localStorage.getItem(index+".message");
+                        if (sMessageDate == PrevMessageDate ){
+                            $("#"+index+" .newMgs").remove();
+                        }
+                        else {
                             $("#"+index).append("<div class='newMgs'><p></p><div>");
                         }
                         // sæt antal stempler på menukortet
@@ -325,16 +329,38 @@ function GetMenucardWithRestuarentName(sRestuarentName) {
                             localStorage.setItem(iMenucardSerialNumber+".fav.cafeAdress", sRestuarentAddress);
                           
                           // Opret Besked
-                            $("#messageBlock").show();
+//                            $("#messageBlock").show();
+//                            $("#messageBlock ul").empty();
+//                            //Check for messages
+//                            if(typeof result.oMessages[0] !== "undefined") {
+//                                var sMessageHeadline = result.oMessages[0].headline;
+//                                if(sMessageHeadline !== '') {
+//                                    var sMessageBodyText = result.oMessages[0].bodytext;
+//                                    var sMessageDate = result.oMessages[0].date;
+//                                    var sMessageDate = sMessageDate.substring(0,10);
+//                                    $("#messageBlock ul").append("<li><p>"+sMessageDate+"</p><h1>"+sMessageHeadline+"</h1><h2>"+sMessageBodyText+"</h2></li>");
+//                                }
+//                            }
+                            
+                            
                             $("#messageBlock ul").empty();
-                            //Check for messages
-                            if(typeof result.oMessages[0] !== "undefined") {
-                                var sMessageHeadline = result.oMessages[0].headline;
-                                if(sMessageHeadline !== '') {
-                                    var sMessageBodyText = result.oMessages[0].bodytext;
-                                    $("#messageBlock ul").append("<li><p>dato</p><h1>"+sMessageHeadline+"</h1><h2>"+sMessageBodyText+"</h2></li>");
-                                }
-                            }
+                            var sMessageHeadline = result.oMessages[0].headline;
+                            var sMessageBodyText = result.oMessages[0].bodytext;
+                            var sMessageDate = result.oMessages[0].date;
+                            var sMessageDateCut = sMessageDate.substring(0,10);
+                            $("#messageBlock ul").append("<li><p>"+sMessageDateCut+"</p><h1>"+sMessageHeadline+"</h1><h2>"+sMessageBodyText+"</h2></li>");
+                            var sSerialNumber = result.iMenucardSerialNumber;
+                            var PrevMessageDate = localStorage.getItem(sSerialNumber+".message");
+                          // tjek if massege is Seen
+                          if( sMessageDate == PrevMessageDate){
+                              $("#messageBlock").hide();
+                          }
+                          else {
+                            $("#messageBlock").show();
+                            
+                            localStorage.setItem(sSerialNumber+".message", sMessageDate);
+                          }
+                            
                           
                           // Tjekker om Cafen er i favoritter - opretter den hvis ikke 
                           if( $("#"+iMenucardSerialNumber).length <= 0 ){
@@ -351,16 +377,9 @@ function GetMenucardWithRestuarentName(sRestuarentName) {
                                   aUserFavorits[iUserFavorits]= iMenucardSerialNumber;
                                   
                                   localStorage.setItem("aUserFavorits", JSON.stringify(aUserFavorits));
-//                                  var MyFavorits = JSON.parse(localStorage.getItem("aUserFavorits"));
 
-//                                  var pesoFecha = {};
-//                                    pesoFecha["name"] = "dannnniel";
-//                                    pesoFecha[1] = "bejtrup";
-//                                    localStorage.setItem("data", JSON.stringify(pesoFecha));
-//                    
-//                                    var arrayDeObjetos = JSON.parse(localStorage.getItem("data"));
 
-                          // SKAL FJERNES - OG TILF?JE RELOAD AF MENU N?R MAN REMMER DEN...
+                          // SKAL FJERNES - OG TILF?JE RELOAD AF MENU N?R MAN RAMMER DEN...
 
                           // make favorit block    
                                 $("#favoriteWrapper").append('<div class="favoriteItemWrapper"><a id="'+iMenucardSerialNumber+'" href="#" data-transition="slide" class="ui-btn" onclick="GetMenucardWithSerialNumber(\''+iMenucardSerialNumber+'\');">'+sRestuarentName+'<p>'+sRestuarentAddress+'</p></a></div>');
@@ -514,13 +533,23 @@ function GetMenucardWithSerialNumber(sSerialNumber) {
                             localStorage.setItem(sSerialNumberCaps+".fav.cafeAdress", sRestuarentAddress);
                           
                           // Opret Besked
-                            $("#messageBlock").show();
-                            $("#messageBlock ul").empty();
+                          
+                          
+                          $("#messageBlock ul").empty();
                             var sMessageHeadline = result.oMessages[0].headline;
                             var sMessageBodyText = result.oMessages[0].bodytext;
-                            $("#messageBlock ul").append("<li><p>dato</p><h1>"+sMessageHeadline+"</h1><h2>"+sMessageBodyText+"</h2></li>");
-
-                          
+                            var sMessageDate = result.oMessages[0].date;
+                            var sMessageDateCut = sMessageDate.substring(0,10);
+                            $("#messageBlock ul").append("<li><p>"+sMessageDateCut+"</p><h1>"+sMessageHeadline+"</h1><h2>"+sMessageBodyText+"</h2></li>");
+                          var PrevMessageDate = localStorage.getItem(sSerialNumberCaps+".message");
+                          // tjek if massege is Seen
+                          if( sMessageDate == PrevMessageDate){
+                              $("#messageBlock").hide();
+                          }
+                          else {
+                            $("#messageBlock").show();
+                            localStorage.setItem(sSerialNumberCaps+".message", sMessageDate);
+                          }
                           // Tjekker om Cafen er i favoritter - opretter den hvis ikke 
                           if( $("#"+sSerialNumberCaps).length <= 0 ){
                           // put id in storage
