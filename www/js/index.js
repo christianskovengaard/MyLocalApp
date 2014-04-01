@@ -176,7 +176,7 @@ function getMessagesAndStamps() {
 
                         var sMessageDate = val.Messages[0].dtMessageDate;
                         var PrevMessageDate = localStorage.getItem(index+".message");
-                        if (sMessageDate == PrevMessageDate ){
+                        if (sMessageDate === PrevMessageDate ){
                             $("#"+index+" .newMgs").remove();
                         }
                         else {
@@ -185,6 +185,8 @@ function getMessagesAndStamps() {
                         // sæt antal stempler på menukortet
                         var Stamps = val.iNumberOfStamps;
                         localStorage.setItem(index+".stamps", Stamps);
+                        // gem stempelkort tekst
+                        localStorage.setItem(index+".sStampcardText", val.sStampcardText);
                 });           
             }
             else{
