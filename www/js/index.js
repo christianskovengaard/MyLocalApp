@@ -1,10 +1,10 @@
 //SET GLOBALS
 
 //Offline
-var sAPIURL = 'http://localhost/MyLocalMenu/API/api.php';
+//var sAPIURL = 'http://localhost/MyLocalMenu/API/api.php';
 
 //Online
-//var sAPIURL = 'http://mylocalcafe.dk/API/api.php';
+var sAPIURL = 'http://mylocalcafe.dk/API/api.php';
 
 window.onload = function(){
      
@@ -15,16 +15,6 @@ window.onload = function(){
     CheckForsCustomerId();
     
     $(".ui-btn").on( "swiperight", FavoritDelete );
-    
-    // se hvad der er i localStorage 
-    // localStorage.clear();
-        console.log("ALLE I Localstoarge");
-        for (var key in localStorage){   
-            console.log(key);
-        }
-        var aUserFavorits = JSON.parse(localStorage.getItem("aUserFavorits"));
-        var aUserFavorits = JSON.stringify(aUserFavorits);
-        console.log("aUserFavorits = "+aUserFavorits);
 };
 
 function CheckForsCustomerId() {
@@ -184,6 +174,7 @@ function getMessagesAndStamps() {
                         }
                         // sæt antal stempler på menukortet
                         var Stamps = val.iNumberOfStamps;
+                        if ( Stamps == null ) { var Stamps = 0; }
                         localStorage.setItem(index+".stamps", Stamps);
                         // gem stempelkort tekst
                         localStorage.setItem(index+".sStampcardText", val.sStampcardText);
@@ -299,23 +290,25 @@ function GetMenucardWithRestuarentName(sRestuarentName) {
                             var userStamps = localStorage.getItem(iMenucardSerialNumber+".stamps");
                             var userStampsCheck = userStamps;
                             var stampsForFree = result.oStampcard.iStampcardMaxStamps;
-                            var rest = stampsForFree-userStamps;
-                            if(userStampsCheck === '0') {
-                                $(".StampCardWrapper").prepend("<div class='StampCard'><h1>STEMPLEKORT</h1><h2>Du har 0 stempler og mangler "+rest+" for at få en gratis "+localStorage.getItem(iMenucardSerialNumber+".sStampcardText")+"</h2></div>");                              
+                            
+                            var rest = userStamps - stampsForFree;
+                            
+                            if(userStampsCheck == '0') {
+                                $(".StampCardWrapper").prepend("<div class='StampCard'><h1>STEMPLEKORT1</h1><h2>Du har 0 stempler og mangler "+rest+" for at få en gratis "+localStorage.getItem(iMenucardSerialNumber+".sStampcardText")+"</h2></div>");                              
                                 for(var l=userStamps; l<stampsForFree; l++){
                                     $(".StampCard").append("<div class='Stamp'></div>");
                                 }
                             }
                             for(var i=0; userStamps>0; i++){
                                 if(userStamps >= stampsForFree){
-                                    $(".StampCardWrapper").prepend("<div class='StampCard "+i+"'><h1>STEMPLEKORT</h1><h2>Du har 1 gratis "+localStorage.getItem(iMenucardSerialNumber+".sStampcardText")+"</h2></div>");
+                                    $(".StampCardWrapper").prepend("<div class='StampCard "+i+"'><h1>STEMPLEKORT2</h1><h2>Du har 1 gratis "+localStorage.getItem(iMenucardSerialNumber+".sStampcardText")+"</h2></div>");
                                     for(var j=1; j<=stampsForFree; j++){
                                     $(".StampCard."+i).append("<div class='Stamp Full'></div>");
                                     }
                                     $(".StampCard."+i).append('<a href="#HandInCard" onclick="makeHandinPage(\''+iMenucardSerialNumber+'\',\''+stampsForFree+'\');" class="ui-btn">Indløs kort</a>');
                                 }
                                 else {                  
-                                    $(".StampCardWrapper").prepend("<div class='StampCard "+i+"'><h1>STEMPLEKORT</h1><h2>Du har "+userStamps+" stempler og mangler "+rest+" for at få en gratis "+localStorage.getItem(iMenucardSerialNumber+".sStampcardText")+"</h2></div>");
+                                    $(".StampCardWrapper").prepend("<div class='StampCard "+i+"'><h1>STEMPLEKORT3</h1><h2>Du har "+userStamps+" stempler og mangler "+rest+" for at få en gratis "+localStorage.getItem(iMenucardSerialNumber+".sStampcardText")+"</h2></div>");
                                     for(var k=1; k<=userStamps; k++){
                                     $(".StampCard."+i).append("<div class='Stamp Full'></div>");
                                     }
@@ -503,32 +496,57 @@ function GetMenucardWithSerialNumber(sSerialNumber) {
                             var userStamps = localStorage.getItem(sSerialNumberCaps+".stamps");
                             var userStampsCheck = userStamps;
                             var stampsForFree = result.oStampcard.iStampcardMaxStamps;
-                            var rest = stampsForFree-userStamps;
-                            for(var i=0; userStamps>0; i++){
-                                if(userStamps >= stampsForFree){
-                                    $(".StampCardWrapper").prepend("<div class='StampCard "+i+"'><h1>STEMPLEKORT</h1><h2>Du har 1 gratis "+localStorage.getItem(sSerialNumberCaps+".sStampcardText")+"</h2></div>");
-                                    for(var j=1; j<=stampsForFree; j++){
-                                    $(".StampCard."+i).append("<div class='Stamp Full'></div>");
-                                    }
-                                    $(".StampCard."+i).append('<a href="#HandInCard" onclick="makeHandinPage(\''+sSerialNumberCaps+'\',\''+stampsForFree+'\');" class="ui-btn">Indløs kort</a>');
-                                }
-                                else {                                  
-                                    $(".StampCardWrapper").prepend("<div class='StampCard "+i+"'><h1>STEMPLEKORT</h1><h2>Du har "+userStamps+" stempler og mangler "+rest+" for at få en gratis "+localStorage.getItem(sSerialNumberCaps+".sStampcardText")+"</h2></div>");
-                                    for(var k=1; k<=userStamps; k++){
-                                    $(".StampCard."+i).append("<div class='Stamp Full'></div>");
-                                    }
-                                    for(var l=userStamps; l<stampsForFree; l++){
-                                    $(".StampCard."+i).append("<div class='Stamp'></div>");
-                                    }
-                                }
-                                userStamps = userStamps - stampsForFree;
+                            //var rest = stampsForFree - userStamps;
+                            var sStampcardText =  localStorage.getItem(sSerialNumberCaps+".sStampcardText")
+                            
+                            if( userStamps == null ) { 
+                                    localStorage.setItem(sSerialNumberCaps+".stamps", 0);
+                                    var userStamps = 0;
                             }
-                            if(userStampsCheck === '0') {
-                                $(".StampCardWrapper").prepend("<div class='StampCard "+i+"'><h1>STEMPLEKORT</h1><h2>Du har 0 stempler og mangler "+rest+" for at få en gratis "+localStorage.getItem(iMenucardSerialNumber+".sStampcardText")+"</h2></div>");
-                                for(var l=userStamps; l<stampsForFree; l++){
-                                    $(".StampCard").append("<div class='Stamp'></div>");
-                                }    
+                            
+                         
+                            var sNameStamp = "stempler";
+                            if ( userStamps == 1 ) { var sNameStamp = "stempel"; }
+                            var totalfree = userStamps / stampsForFree;
+                            var totalfree = Math.floor(totalfree);
+                            var usedstamps = totalfree * stampsForFree;
+                            var rest = userStamps - usedstamps;
+                            var rest = stampsForFree - rest;
+                             
+                            $(".StampCardWrapper").append("<h2>samel "+stampsForFree+" stempler og få en gratis "+sStampcardText+"</h2>");
+                            if(userStamps == 0){
+                                $(".StampCardWrapper").append("<h2>Klik på 'FÅ STEMPLE' for at få det 1. stemple.</h2>");
                             }
+                            else{
+                                $(".StampCardWrapper").append("<h2>Du har i alt fået <div class='stamp'>"+userStamps+"</div> "+sNameStamp+" af "+sRestuarentName+"</h2>");
+                                if(totalfree != 0){
+                                    $(".StampCardWrapper").append("<h2>Så du har  <div class='stamp'>"+totalfree+"</div> gratis "+sStampcardText+"</h2>");
+                                }
+                               $(".StampCardWrapper").append("<h2>.. og mangle <div class='stamp'>"+rest+"</div> stempler for at få en gratis "+sStampcardText+"</h2>");
+                            }
+//                            for(var i=0; userStamps>0; i++){
+//                                
+//                                if(userStamps >= stampsForFree){
+//                                    $(".StampCardWrapper").prepend("<div class='StampCard "+i+"'><h1>STEMPLEKORT4</h1><h2>Du har 1 gratis "+localStorage.getItem(sSerialNumberCaps+".sStampcardText")+"</h2></div>");
+//                                    for(var j=1; j<=stampsForFree; j++){
+//                                    $(".StampCard."+i).append("<div class='Stamp Full'></div>");
+//                                    }
+//                                    $(".StampCard."+i).append('<a href="#HandInCard" onclick="makeHandinPage(\''+sSerialNumberCaps+'\',\''+stampsForFree+'\');" class="ui-btn">Indløs kort</a>');
+//
+//                                }
+//                                
+//                                else {                                  
+//                                    $(".StampCardWrapper").prepend("<div class='StampCard "+i+"'><h1>STEMPLEKORT-5</h1><h2>Du har "+userStamps+" stempler og mangler "+rest+" for at få en gratis "+localStorage.getItem(sSerialNumberCaps+".sStampcardText")+"</h2></div>");
+//                                    for(var k=1; k<=userStamps; k++){
+//                                    $(".StampCard."+i).append("<div class='Stamp Full'></div>");
+//                                    }
+//                                    for(var l=userStamps; l<stampsForFree; l++){
+//                                    $(".StampCard."+i).append("<div class='Stamp'></div>");
+//                                    }
+//                                }
+//                                var userStamps = userStamps - stampsForFree;
+//                            }
+                            
                             
                           // gemme lokalt
                             localStorage.setItem(sSerialNumberCaps+".fav.cafeName", sRestuarentName);
@@ -602,7 +620,7 @@ function GetMenucardWithSerialNumber(sSerialNumber) {
     
 function addHeader() {
         
-        $("#menu").append('<div class="header"><a href="#home" data-transition="slide" data-direction="reverse" id="backButtonL"><img src="img/backBlack.png"></a><h2>MyLocal<span>Cafe</span></h2><a href="#stamp" data-transition="slide" id="backButtonR"><img src="img/stampBlack2.png"></a></div>');
+        $("#menu").append('<div class="header"><a href="#home" data-transition="slide" data-direction="reverse" id="backButtonL"><img src="img/backBlack.png"></a><h2>MyLocal<span>Cafe</span></h2><a href="#stamp" data-transition="slide" id="backButtonR"><h3>stempler</h3><a></div>');
 }
 
 function makeHandinPage(serial,maxstamps) {

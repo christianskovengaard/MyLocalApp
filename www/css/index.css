@@ -249,8 +249,12 @@ margin: 0 auto;
     height: 40px;
     text-align: center;
 }
-.header img {
-    opacity: 0.8;
+.header h3 {
+    display: inline-block;
+    float: right;
+    margin: 9px 10px 0 0;
+    font-size: 15px;
+    color: #333;
 }
 .header h2 {
     font-family: 'Raleway', sans-serif;
@@ -436,8 +440,10 @@ height: 100%;
     margin-bottom: 10px;
     text-align: center;
 }
-
-.Stamp{
+.stamp {
+    display: inline-table;
+}
+/*.Stamp{
     position: relative;
     background: #d1d1d1; 
     display: inline-table;
@@ -464,7 +470,7 @@ height: 100%;
 }
 .Stamp.Full{
     background: #473a35;
-}
+}*/
 .StampCard h2 {
     margin: 5px 0 5px 0;
     line-height: 20px;
