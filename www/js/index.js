@@ -1,10 +1,10 @@
 //SET GLOBALS
 
 //Offline
-var sAPIURL = 'http://localhost/MyLocalMenu/API/api.php';
+//var sAPIURL = 'http://localhost/MyLocalMenu/API/api.php';
 
 //Online
-//var sAPIURL = 'http://mylocalcafe.dk/API/api.php';
+var sAPIURL = 'http://mylocalcafe.dk/API/api.php';
 
 window.onload = function(){
      
@@ -38,8 +38,9 @@ function MakeRandomId()
 }
 
 function CheckInternetConnection() {
-    var status = navigator.onLine;
-    if( status === true ){
+    //var status = navigator.onLine;
+    //if( status === true ){
+    if( window.jQuery ){
         $('#Offline').hide();
     }
     else {
@@ -48,8 +49,9 @@ function CheckInternetConnection() {
 }   
 
 function InfoToggle(){
-    $("#infoBlock .dishPoint").show();
-    $("#infoBlock").slideToggle(400);
+   // $("#infoBlock .dishPoint").show();
+  //  $("#infoBlock").slideToggle(400);
+    $("#infoBlock .dishPoint").toggleClass('out');
     var scrollTop = $("#menu").scrollTop();
     if( scrollTop >= 150 ){
         $("#menu").animate({ scrollTop: 0 }, 400);
@@ -57,11 +59,13 @@ function InfoToggle(){
 }
 
 function MessageToggle() {
-    $("#messageBlock").slideToggle(100);
+   // $("#messageBlock").slideToggle(100);
+    $(".messageBlock").toggleClass('out');
 }
 
 function MenucardItemsToggle(num) {
-    $(".MenucardCategoryGroup"+num+" .dishPoint").slideToggle();
+  // $(".MenucardCategoryGroup"+num+" .dishPoint").slideToggle();
+    $(".MenucardCategoryGroup"+num+" .dishPoint").toggleClass('out');
 }
 
 function FavoritDelete() {
@@ -69,7 +73,7 @@ function FavoritDelete() {
     var widthWindow = $( window ).width();
     var Id = $(this).attr("id");
     
-    $(this).before('<div class="FavoritDeleteTjek" id="'+Id+'Wrapper"><a id="'+Id+'Del" href="#">Slet</a><p>.</p><a id="'+Id+'Cancel" href="#">Fortryd</a> </div>')
+    $(this).before('<div class="FavoritDeleteTjek" id="'+Id+'Wrapper"><a id="'+Id+'Del" href="#">Slet</a><p>.</p><a id="'+Id+'Cancel" href="#">Fortryd</a> </div>');
     
     
     $(this).css({
@@ -219,11 +223,8 @@ function GetMenucardWithRestuarentName(sRestuarentName) {
                     $("#menu").append('<div class="menuheader"><h1>'+sRestuarentName+'</h1><img class="img_left" src="img/message.png" onclick="MessageToggle();"><p>'+sRestuarentAddress+'</p><img class="img_right" onclick="InfoToggle();" src="img/info.png"></div>');
                     $("#menu").append("<ul></ul>");
                     $("#menu ul").append('<div id="messageBlock" onclick="MessageToggle();"><ul class="messageBlock"></ul></div>');
-
-                    $("#messageBlock").hide();
-
                     $("#messageBlock").after('<div id="infoBlock"></div>');
-                    $("#infoBlock").append('<li class="dishHeadline">info</li>');
+                    $("#infoBlock").append('<li class="dishPoint"><h1>info</h1></li>');
                     var sRestuarentPhone = result.sRestuarentPhone;
                     var sRestuarentPhoneFormat = sRestuarentPhone.substring(0, 2)+' '+sRestuarentPhone.substring(2, 4)+' '+sRestuarentPhone.substring(4, 6)+' '+sRestuarentPhone.substring(6, 8);
                     $("#infoBlock").append('<li class="dishPoint PhoneNumber"><img src="img/call up.png"><a href="tel:'+sRestuarentPhone+'" rel="external">'+sRestuarentPhoneFormat+'</a></li>');
@@ -246,7 +247,6 @@ function GetMenucardWithRestuarentName(sRestuarentName) {
                     }); 
                     
                     $("#infoBlock").append('<li class="dishPoint button" onclick="InfoToggle();"><img src="img/arrowUp.png"></li><br>');
-                    $("#infoBlock").hide();
 
                     $.each(result.aMenucardCategory, function(key,value){
 //                              alert('liste index: '+key);
@@ -348,10 +348,10 @@ function GetMenucardWithRestuarentName(sRestuarentName) {
                             var PrevMessageDate = localStorage.getItem(sSerialNumber+".message");
                           // tjek if massege is Seen
                           if( sMessageDate == PrevMessageDate){
-                              $("#messageBlock").hide();
+                              $(".messageBlock").removeClass('out');
                           }
                           else {
-                            $("#messageBlock").show();
+                            $(".messageBlock").addClass('out');
                             
                             localStorage.setItem(sSerialNumber+".message", sMessageDate);
                           }
@@ -400,6 +400,7 @@ function GetMenucardWithRestuarentName(sRestuarentName) {
 
 function GetMenucardWithSerialNumber(sSerialNumber) {
 //    var sSerialNumber = "AA0001";
+    CheckInternetConnection(); 
     $("#menu").empty();
     addHeader(sSerialNumber);
     var sSerialNumberCaps = sSerialNumber.toUpperCase();
@@ -425,12 +426,10 @@ function GetMenucardWithSerialNumber(sSerialNumber) {
                     $("#menu").append('<div class="menuheader"><h1>'+sRestuarentName+'</h1><img class="img_left" src="img/message.png" onclick="MessageToggle();"><p>'+sRestuarentAddress+'</p><img class="img_right" onclick="InfoToggle();" src="img/info.png"></div>');
                     $("#menu").append("<ul></ul>");
                     $("#menu ul").append('<div id="messageBlock" onclick="MessageToggle();"><ul class="messageBlock"></ul></div>');
-
-                    $("#messageBlock").hide();
 //                    getMessages(sSerialNumberCaps);
 
                     $("#messageBlock").after('<div id="infoBlock"></div>');
-                    $("#infoBlock").append('<li class="dishHeadline">info</li>');
+                    $("#infoBlock").append('<li class="dishPoint"><h1>info</h1></li>');
                     var sRestuarentPhone = result.sRestuarentPhone;
                     var sRestuarentPhoneFormat = sRestuarentPhone.substring(0, 2)+' '+sRestuarentPhone.substring(2, 4)+' '+sRestuarentPhone.substring(4, 6)+' '+sRestuarentPhone.substring(6, 8);
                     $("#infoBlock").append('<li class="dishPoint PhoneNumber"><img src="img/call up.png"><a href="tel:'+sRestuarentPhone+'" rel="external">'+sRestuarentPhoneFormat+'</a></li>');
@@ -453,7 +452,6 @@ function GetMenucardWithSerialNumber(sSerialNumber) {
                     }); 
                     
                     $("#infoBlock").append('<li class="dishPoint button" onclick="InfoToggle();"><img src="img/arrowUp.png"></li><br>');
-                    $("#infoBlock").hide();
 
                     $.each(result.aMenucardCategory, function(key,value){
 //                              alert('liste index: '+key);
@@ -484,6 +482,7 @@ function GetMenucardWithSerialNumber(sSerialNumber) {
                                   };
                                   //Append the item to the items in the category obj
 //                                  category.items.push(item);
+                                    
                                   $(".MenucardCategoryGroup"+key).append('<li class="dishPoint"><h1>'+item.sMenucardItemName+'</h1><h2>'+item.iMenucardItemPrice+',-</h2><p>'+item.sMenucardItemDescription+'</p></li>');
                               });
 
@@ -564,10 +563,10 @@ function GetMenucardWithSerialNumber(sSerialNumber) {
                           var PrevMessageDate = localStorage.getItem(sSerialNumberCaps+".message");
                           // tjek if massege is Seen
                           if( sMessageDate == PrevMessageDate){
-                              $("#messageBlock").hide();
+                              $(".messageBlock").removeClass("out");
                           }
                           else {
-                            $("#messageBlock").show();
+                            $(".messageBlock").addClass("out");
                             localStorage.setItem(sSerialNumberCaps+".message", sMessageDate);
                           }
                           // Tjekker om Cafen er i favoritter - opretter den hvis ikke 
@@ -619,8 +618,8 @@ function GetMenucardWithSerialNumber(sSerialNumber) {
     }
     
 function addHeader() {
-        
-        $("#menu").append('<div class="header"><a href="#home" data-transition="slide" data-direction="reverse" id="backButtonL"><img src="img/backBlack.png"></a><h2>MyLocal<span>Cafe</span></h2><a href="#stamp" data-transition="slide" id="backButtonR"><h3>stempler</h3><a></div>');
+       // $("#menu").append('<div class="header"><a href="#home" data-transition="slide" data-direction="reverse" id="backButtonL"><img src="img/backBlack.png"></a><h2>MyLocal<span>Cafe</span></h2><a href="#stamp" data-transition="slide" id="backButtonR"><h3>stempler</h3><a></div>');
+        $("#menu").append('<div class="header"><a href="#home" data-transition="slide" data-direction="reverse" id="backButtonL"><img src="img/backBlack.png"></a><h2>MyLocal<span>Cafe</span></h2></div>');
 }
 
 function makeHandinPage(serial,maxstamps) {
