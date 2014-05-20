@@ -9,7 +9,7 @@
         <script src="js/jquery.mobile-1.4.0.js"></script>
 
         
-
+        
         <script type="text/javascript" src="js/jquery.touchSwipe.min.js"></script>
 
 
@@ -30,11 +30,11 @@
                        <h3>Du skal være online for at bruge appen</h3>
                    </div>
                    <div class="form">
-                        <input data-role="none" type="search" name="text-basic" id="FindCafe" value="" placeholder="Cafénavn..." onkeyup="if (event.keyCode == 13) { findMenuCard();} //else { changeKeyboard(); }">
+                        <input onkeyup="AutocompleteCafename();" data-role="none" type="search" name="text-basic" id="FindCafe" value="" placeholder="Cafénavn..." onkeyup="if (event.keyCode == 13) { findMenuCard();} //else { changeKeyboard(); }">
                         <img src="img/search.png" onclick="findMenuCard();">
-                    </div>
-
-                <div class="favoriteWrapper" id="favoriteWrapper"></div>
+                   </div>
+                   <div class="searchWrapper" id="searchWrapper"></div>
+                   <div class="favoriteWrapper" id="favoriteWrapper"></div>
         </div>
    
         <div id="menu" data-role="page">
@@ -77,5 +77,6 @@
         <script type="text/javascript">
             app.initialize();
         </script>
+        
     </body>
 </html>

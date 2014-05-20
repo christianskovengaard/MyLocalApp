@@ -1,10 +1,10 @@
 //SET GLOBALS
 
 //Offline
-//var sAPIURL = 'http://localhost/MyLocalMenu/API/api.php';
+var sAPIURL = 'http://localhost/MyLocalMenu/API/api.php';
 
 //Online
-var sAPIURL = 'http://mylocalcafe.dk/API/api.php';
+//var sAPIURL = 'http://mylocalcafe.dk/API/api.php';
 
 window.onload = function(){
      
@@ -16,6 +16,35 @@ window.onload = function(){
     
     $(".ui-btn").on( "swiperight", FavoritDelete );
 };
+
+function AutocompleteCafename() {
+
+   if($('#FindCafe').val().length >= 3) {
+       //console.log('search');
+       var sCafename = $('#FindCafe').val();
+       
+       $.ajax({
+              type: "GET",
+              url: sAPIURL,
+              dataType: "jSON",
+              data: {sFunction:"AutocompleteCafename",sCafename:sCafename}
+             }).done(function(result){
+                 if(result.result == 'true') {
+                 //Clear the list
+                 $('#searchWrapper').html('');
+                 $('#searchWrapper').append('<h6>Søge resultater</h6>');
+                 $.each(result.cafe, function(key,value){
+                     //console.log('name: '+value);
+                     //Show list of posible cafenames
+                     $('#searchWrapper').append('<div class="searchItemWrapper"><a class="ui-btn">'+value.name+'<p>'+value.address+'</p></a></div>');
+                 }); 
+                 }
+             });
+       
+   }
+}
+
+
 
 function CheckForsCustomerId() {
     
