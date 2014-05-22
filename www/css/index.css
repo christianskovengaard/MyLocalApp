@@ -640,8 +640,9 @@ left: 9px;
 }
 .popMgs {
     position: absolute;
-    top: -20px; left: 0px; right: 0px;
-    height: 20px;
+    top: -59px; left: 0px; right: 0px;
+    margin-bottom: 5px;
+    height: 59px;
     color: #ddd;
     background: #333;
     z-index: 10;

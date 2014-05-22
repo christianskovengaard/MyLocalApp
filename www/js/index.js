@@ -1,10 +1,10 @@
 //SET GLOBALS
 
 //Offline
-var sAPIURL = 'http://localhost/MyLocalMenu/API/api.php';
+//var sAPIURL = 'http://localhost/MyLocalMenu/API/api.php';
 
 //Online
-//var sAPIURL = 'http://mylocalcafe.dk/API/api.php';
+var sAPIURL = 'http://mylocalcafe.dk/API/api.php';
 
 window.onload = function(){
      
@@ -36,7 +36,7 @@ function AutocompleteCafename() {
                  $.each(result.cafe, function(key,value){
                      //console.log('name: '+value);
                      //Show list of posible cafenames
-                     $('#searchWrapper').append('<div class="searchItemWrapper"><a class="ui-btn">'+value.name+'<p>'+value.address+'</p></a></div>');
+                     $('#searchWrapper').append('<div class="searchItemWrapper"><a class="ui-btn" onclick="findMenuCard();">'+value.name+'<p>'+value.address+'</p></a></div>');
                  }); 
                  }
              });
@@ -421,8 +421,9 @@ function GetMenucardWithRestuarentName(sRestuarentName) {
                         $(".spinner div").css('animation-name', 'none');
                         $(".spinner div").css('width', '100%');
                         $(".spinner").remove();
-                        $('#FindCafe').before('<div class="popMgs">'+sRestuarentNameSearch+' findes ikke</div>');
-                        $('.popMgs').hide().fadeIn().delay(500).fadeOut(300,function(){ $(this).remove(); });        
+                        //$('#FindCafe').before('<div class="popMgs">'+sRestuarentNameSearch+' findes ikke</div>');
+                        $('#FindCafe').before('<div class="popMgs">Denne café er endnu ikke medlem af My Local Café. Følg med og like os på facebook. Der kommer hele tiden nye Caféer til.</div>');
+                        $('.popMgs').hide().fadeIn().delay(500).fadeOut(4300,function(){ $(this).remove(); });        
                 }
             });
 }
