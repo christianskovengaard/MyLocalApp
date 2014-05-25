@@ -36,7 +36,7 @@ function AutocompleteCafename() {
                  $.each(result.cafe, function(key,value){
                      //console.log('name: '+value);
                      //Show list of posible cafenames
-                     $('#searchWrapper').append('<div class="searchItemWrapper"><a class="ui-btn" onclick="findMenuCard();">'+value.name+'<p>'+value.address+'</p></a></div>');
+                     $('#searchWrapper').append('<div class="searchItemWrapper"><a class="ui-btn"  onclick="findMenuCardAutocomplete(\''+value.name+'\');">'+value.name+'<p>'+value.address+'</p></a></div>');
                  }); 
                  }
              });
@@ -219,10 +219,19 @@ function getMessagesAndStamps() {
 }
 
 function findMenuCard() {
-    $("#FindCafe").before('<div class="spinner"><div class="bar"></div></div>');
-    var value = $("#FindCafe").val();
-    //GetMenucardWithSerialNumber(value);
-    GetMenucardWithRestuarentName(value);
+    if($("#FindCafe").val() !== '') {
+        $("#FindCafe").before('<div class="spinner"><div class="bar"></div></div>');
+        var value = $("#FindCafe").val();
+        //GetMenucardWithSerialNumber(value);
+        GetMenucardWithRestuarentName(value);
+    }else {
+        $('#FindCafe').before('<div class="popMgs">Skriv venligt et navn i søgeboksen</div>');
+        $('.popMgs').hide().fadeIn().delay(500).fadeOut(4300,function(){ $(this).remove(); }); 
+    }
+}
+
+function findMenuCardAutocomplete(name) {
+    GetMenucardWithRestuarentName(name);
 }
 
 function GetMenucardWithRestuarentName(sRestuarentName) {
@@ -249,7 +258,7 @@ function GetMenucardWithRestuarentName(sRestuarentName) {
                     });
                     var sRestuarentName = result.sRestuarentName; 
                     var sRestuarentAddress = result.sRestuarentAddress;
-                    $("#menu").append('<div class="menuheader"><h1>'+sRestuarentName+'</h1><img class="img_left" src="img/message.png" onclick="MessageToggle();"><p>'+sRestuarentAddress+'</p><img class="img_right" onclick="InfoToggle();" src="img/info.png"></div>');
+                    $("#menu").append('<div class="menuheader"><h1>'+sRestuarentName+'</h1><img class="img_left" src="img/message.png" onclick="MessageToggle();"><p>'+sRestuarentAddress+'</p><p>'+result.iRestuarentInfoZipcode+', '+result.sRestuarentInfoCity+'</p><img class="img_right" onclick="InfoToggle();" src="img/info.png"></div>');
                     $("#menu").append("<ul></ul>");
                     $("#menu ul").append('<div id="messageBlock" onclick="MessageToggle();"><ul class="messageBlock"></ul></div>');
                     $("#messageBlock").after('<div id="infoBlock"></div>');
