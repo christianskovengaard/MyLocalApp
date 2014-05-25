@@ -89,7 +89,10 @@ function InfoToggle(){
 
 function MessageToggle() {
    // $("#messageBlock").slideToggle(100);
+   //Check if there are message to display
+   if($('.messageBlock').html() !== '') {
     $(".messageBlock").toggleClass('out');
+    }else {}
 }
 
 function MenucardItemsToggle(num) {
