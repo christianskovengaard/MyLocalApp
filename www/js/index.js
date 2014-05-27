@@ -155,11 +155,11 @@ function makeFavorits() {
     
     if(iUserFavorits > 1){
         $("#favoriteWrapper").append("<h6>FAVORITTER</h6>");
-        for(var i = 1; i < iUserFavorits; i++){
-
-            var sCafeId = aUserFavorits[i];
-            var sCafeName = localStorage.getItem(sCafeId+".fav.cafeName");
-            var sCcafeAdress = localStorage.getItem(sCafeId+".fav.cafeAdress");
+        for(var i = 0; i < iUserFavorits; i++){
+            
+            var sCafeId = aUserFavorits[i].iMenucardSerialNumber;
+            var sCafeName = aUserFavorits[i].cafename;
+            var sCcafeAdress = aUserFavorits[i].cafeaddress;
 
             $("#favoriteWrapper").append('<div class="favoriteItemWrapper"><a id="'+sCafeId+'" href="#" data-transition="slide" class="ui-btn" onclick="GetMenucardWithSerialNumber(\''+sCafeId+'\');">'+sCafeName+'<p>'+sCcafeAdress+'</p></a></div>');
         }
@@ -300,6 +300,8 @@ function GetMenucardWithRestuarentName(sRestuarentName) {
                              $("#menu").append("<ul class='MenucardCategoryGroup"+key+"'></ul>");
                              $(".MenucardCategoryGroup"+key).append('<li class="dishHeadline" onclick="MenucardItemsToggle('+key+');">'+category.sMenucardCategoryName+'<p>'+category.sMenucardCategoryDescription+'</p></li>');
                              
+                             if(typeof result['aMenucardCategoryItems'+key].sMenucardItemName !== "undefined") {
+                             
                               $.each(result['aMenucardCategoryItems'+key].sMenucardItemName, function(keyItem,value){
 
                                   var sMenucardItemName = value;
@@ -321,7 +323,7 @@ function GetMenucardWithRestuarentName(sRestuarentName) {
                                   $(".MenucardCategoryGroup"+key).append('<li class="dishPoint"><h1>'+item.sMenucardItemName+'</h1><h2>'+item.iMenucardItemPrice+',-</h2><p>'+item.sMenucardItemDescription+'</p></li>');
                               });
 
-
+                              }
                           
                           });
                           
@@ -360,9 +362,7 @@ function GetMenucardWithRestuarentName(sRestuarentName) {
                                 userStamps = userStamps - stampsForFree;
                             }
                             
-                          // gemme lokalt
-                            localStorage.setItem(iMenucardSerialNumber+".fav.cafeName", sRestuarentName);
-                            localStorage.setItem(iMenucardSerialNumber+".fav.cafeAdress", sRestuarentAddress);
+                          
                           
                           // Opret Besked
 //                            $("#messageBlock").show();
@@ -379,61 +379,87 @@ function GetMenucardWithRestuarentName(sRestuarentName) {
 //                            }
                             
                             
-                            $("#messageBlock ul").empty();
-                            var sMessageHeadline = result.oMessages[0].headline;
-                            var sMessageBodyText = result.oMessages[0].bodytext;
-                            var sMessageDate = result.oMessages[0].date;
-                            var sMessageDateCut = sMessageDate.substring(0,10);
-                            $("#messageBlock ul").append("<li><p>"+sMessageDateCut+"</p><h1>"+sMessageHeadline+"</h1><h2>"+sMessageBodyText+"</h2></li>");
-                            var sSerialNumber = result.iMenucardSerialNumber;
-                            var PrevMessageDate = localStorage.getItem(sSerialNumber+".message");
-                          // tjek if massege is Seen
-                          if( sMessageDate == PrevMessageDate){
-                              $(".messageBlock").removeClass('out');
+                          $("#messageBlock ul").empty();
+                          if(typeof result.oMessages[0] !== "undefined") {
+                              
+                                var sMessageHeadline = result.oMessages[0].headline;
+                                var sMessageBodyText = result.oMessages[0].bodytext;
+                                var sMessageDate = result.oMessages[0].date;
+                                var sMessageDateCut = sMessageDate.substring(0,10);
+                                $("#messageBlock ul").append("<li><p>"+sMessageDateCut+"</p><h1>"+sMessageHeadline+"</h1><h2>"+sMessageBodyText+"</h2></li>");
+                                var sSerialNumber = result.iMenucardSerialNumber;
+                                var PrevMessageDate = localStorage.getItem(sSerialNumber+".message");
+
+                                // tjek if massege is Seen
+                                if( sMessageDate == PrevMessageDate){
+                                    $(".messageBlock").removeClass('out');
+                                }
+                                else {
+                                  $(".messageBlock").addClass('out');
+
+                                  localStorage.setItem(sSerialNumber+".message", sMessageDate);
+                                }
                           }
-                          else {
-                            $(".messageBlock").addClass('out');
-                            
-                            localStorage.setItem(sSerialNumber+".message", sMessageDate);
-                          }
-                            
                           
-                          // Tjekker om Cafen er i favoritter - opretter den hvis ikke 
-                          if( $("#"+iMenucardSerialNumber).length <= 0 ){
-                          // put id in storage
+                          
+                          //Save user favorites
+                          
+                           // Set objects
+                          var aMenucard = {};
+                          
+                          //Get the old user favorites
+                          var aUserFavorites = JSON.parse(localStorage.getItem("aUserFavorits"));
+                          //alert('aUserFavorites before '+aUserFavorites);
+                          if(aUserFavorites !== null) {
+                              
+                            //Check if menucard is in localStorage.aUserFavorites
+                            var bNewMenucard = false;
+                            $.each(aUserFavorites, function(keyItem,value){
+                                //alert('JSON: '+value.iMenucardSerialNumber+' -- New '+iMenucardSerialNumber);                           
+                                if(value.iMenucardSerialNumber !== iMenucardSerialNumber) { 
+                                    bNewMenucard = true;
+                                }else {
+                                    //alert('findes allerede: '+value.iMenucardSerialNumber);
+                                    bNewMenucard = false;
+                                    //Break foreach
+                                    return false;
+                                }
+                            });
+                            if(bNewMenucard === true) {
+                                 var favoritesLength = Object.keys(aUserFavorites).length;                                              
 
-                                  var aUserFavorits = {};
-                                  // for at sikre arrayet ikke er tom
-                                  aUserFavorits[0] = "favoritter";
-                                  localStorage.setItem("aUserFavorits", JSON.stringify(aUserFavorits));
-                                  // tilf?je fav i array
-                                  
-                                  var aUserFavorits = JSON.parse(localStorage.getItem("aUserFavorits"));
-                                  var iUserFavorits = Object.keys(aUserFavorits).length;
-                                  aUserFavorits[iUserFavorits]= iMenucardSerialNumber;
-                                  
-                                  localStorage.setItem("aUserFavorits", JSON.stringify(aUserFavorits));
+                                    aMenucard['iMenucardSerialNumber'] = iMenucardSerialNumber;
+                                    aMenucard['cafename'] = sRestuarentName;
+                                    aMenucard['cafeaddress'] = sRestuarentAddress;
 
-
-                          // SKAL FJERNES - OG TILF?JE RELOAD AF MENU N?R MAN RAMMER DEN...
-
-                          // make favorit block    
-                                $("#favoriteWrapper").append('<div class="favoriteItemWrapper"><a id="'+iMenucardSerialNumber+'" href="#" data-transition="slide" class="ui-btn" onclick="GetMenucardWithSerialNumber(\''+iMenucardSerialNumber+'\');">'+sRestuarentName+'<p>'+sRestuarentAddress+'</p></a></div>');
-                                $(".ui-btn").on( "swiperight", FavoritDelete );
-                                
-                          // henter Beskeder fra Cafe (der ikke er i favoritter)
-                                
-                          } 
-                          else {
-                              // hvis cafe er i favoritter - lav besked
-//                                  var data = localStorage.getItem("AA0000.Message.bodytext");
+                                    aUserFavorites[favoritesLength] = aMenucard;
+                                    aUserFavorites = JSON.stringify(aUserFavorites);
+                                    localStorage.setItem("aUserFavorits", aUserFavorites);
+                                    //alert('insert new menucard');
+                            }
+                          }else {
+                              
+                             var aUserFavorites = {}; 
+                             aMenucard['iMenucardSerialNumber'] = iMenucardSerialNumber;
+                             aMenucard['cafename'] = sRestuarentName;
+                             aMenucard['cafeaddress'] = sRestuarentAddress;
+                            
+                             aUserFavorites[0]= aMenucard;
+                             aUserFavorites = JSON.stringify(aUserFavorites);
+                             //alert('aUserFavorites firsttime: '+aUserFavorites);                           
+                             localStorage.setItem("aUserFavorits", aUserFavorites); 
                           }
+                          // make favorit block
+                          $("#favoriteWrapper").append('<div class="favoriteItemWrapper"><a id="'+iMenucardSerialNumber+'" href="#" data-transition="slide" class="ui-btn" onclick="GetMenucardWithSerialNumber(\''+iMenucardSerialNumber+'\');">'+sRestuarentName+'<p>'+sRestuarentAddress+'</p></a></div>');
+        
+                          //$("#favoriteWrapper").append('<div class="favoriteItemWrapper"><a id="'+iMenucardSerialNumber+'" href="#" data-transition="slide" class="ui-btn" onclick="GetMenucardWithSerialNumber(\''+iMenucardSerialNumber+'\');">'+sRestuarentName+'<p>'+sRestuarentAddress+'</p></a></div>');
+                          $(".ui-btn").on( "swiperight", FavoritDelete );
+                                
                 }
                 else {
                         $(".spinner div").css('animation-name', 'none');
                         $(".spinner div").css('width', '100%');
                         $(".spinner").remove();
-                        //$('#FindCafe').before('<div class="popMgs">'+sRestuarentNameSearch+' findes ikke</div>');
                         $('#FindCafe').before('<div class="popMgs">Denne café er endnu ikke medlem af My Local Café. Følg med og like os på facebook. Der kommer hele tiden nye Caféer til.</div>');
                         $('.popMgs').hide().fadeIn().delay(500).fadeOut(4300,function(){ $(this).remove(); });        
                 }
@@ -441,7 +467,7 @@ function GetMenucardWithRestuarentName(sRestuarentName) {
 }
 
 function GetMenucardWithSerialNumber(sSerialNumber) {
-//    var sSerialNumber = "AA0001";
+
     CheckInternetConnection(); 
     $("#menu").empty();
     addHeader(sSerialNumber);
@@ -589,65 +615,27 @@ function GetMenucardWithSerialNumber(sSerialNumber) {
 //                            }
                             
                             
-                          // gemme lokalt
-                            localStorage.setItem(sSerialNumberCaps+".fav.cafeName", sRestuarentName);
-                            localStorage.setItem(sSerialNumberCaps+".fav.cafeAdress", sRestuarentAddress);
-                          
                           // Opret Besked
                           
                           
                           $("#messageBlock ul").empty();
-                            var sMessageHeadline = result.oMessages[0].headline;
-                            var sMessageBodyText = result.oMessages[0].bodytext;
-                            var sMessageDate = result.oMessages[0].date;
-                            var sMessageDateCut = sMessageDate.substring(0,10);
-                            $("#messageBlock ul").append("<li><p>"+sMessageDateCut+"</p><h1>"+sMessageHeadline+"</h1><h2>"+sMessageBodyText+"</h2></li>");
-                          var PrevMessageDate = localStorage.getItem(sSerialNumberCaps+".message");
-                          // tjek if massege is Seen
-                          if( sMessageDate == PrevMessageDate){
-                              $(".messageBlock").removeClass("out");
+                          if(typeof result.oMessages[0] != "undefined") {
+                                var sMessageHeadline = result.oMessages[0].headline;
+                                var sMessageBodyText = result.oMessages[0].bodytext;
+                                var sMessageDate = result.oMessages[0].date;
+                                var sMessageDateCut = sMessageDate.substring(0,10);
+                                $("#messageBlock ul").append("<li><p>"+sMessageDateCut+"</p><h1>"+sMessageHeadline+"</h1><h2>"+sMessageBodyText+"</h2></li>");
+                                var PrevMessageDate = localStorage.getItem(sSerialNumberCaps+".message");
+                                // tjek if massege is Seen
+                                if( sMessageDate == PrevMessageDate){
+                                    $(".messageBlock").removeClass("out");
+                                }
+                                else {
+                                  $(".messageBlock").addClass("out");
+                                  localStorage.setItem(sSerialNumberCaps+".message", sMessageDate);
+                                }
                           }
-                          else {
-                            $(".messageBlock").addClass("out");
-                            localStorage.setItem(sSerialNumberCaps+".message", sMessageDate);
-                          }
-                          // Tjekker om Cafen er i favoritter - opretter den hvis ikke 
-                          if( $("#"+sSerialNumberCaps).length <= 0 ){
-                          // put id in storage
-
-                                  var aUserFavorits = {};
-                                  // for at sikre arrayet ikke er tom
-                                  aUserFavorits[0] = "favoritter";
-                                  localStorage.setItem("aUserFavorits", JSON.stringify(aUserFavorits));
-                                  // tilf?je fav i array
-                                  
-                                  var aUserFavorits = JSON.parse(localStorage.getItem("aUserFavorits"));
-                                  var iUserFavorits = Object.keys(aUserFavorits).length;
-                                  aUserFavorits[iUserFavorits]= sSerialNumberCaps;
-                                  
-                                  localStorage.setItem("aUserFavorits", JSON.stringify(aUserFavorits));
-//                                  var MyFavorits = JSON.parse(localStorage.getItem("aUserFavorits"));
-
-//                                  var pesoFecha = {};
-//                                    pesoFecha["name"] = "dannnniel";
-//                                    pesoFecha[1] = "bejtrup";
-//                                    localStorage.setItem("data", JSON.stringify(pesoFecha));
-//                    
-//                                    var arrayDeObjetos = JSON.parse(localStorage.getItem("data"));
-
-                          // SKAL FJERNES - OG TILF?JE RELOAD AF MENU N?R MAN REMMER DEN...
-
-                          // make favorit block    
-                                $("#favoriteWrapper").append('<div class="favoriteItemWrapper"><a id="'+sSerialNumberCaps+'" href="#" data-transition="slide" class="ui-btn" onclick="GetMenucardWithSerialNumber(\''+sSerialNumberCaps+'\');">'+sRestuarentName+'<p>'+sRestuarentAddress+'</p></a></div>');
-                                $(".ui-btn").on( "swiperight", FavoritDelete );
-                                
-                          // henter Beskeder fra Cafe (der ikke er i favoritter)
-                                
-                          } 
-                          else {
-                              // hvis cafe er i favoritter - lav besked
-//                                  var data = localStorage.getItem("AA0000.Message.bodytext");
-                          }
+                          
                 }
                 else {
                         $(".spinner div").css('animation-name', 'none');
@@ -660,7 +648,6 @@ function GetMenucardWithSerialNumber(sSerialNumber) {
     }
     
 function addHeader() {
-       // $("#menu").append('<div class="header"><a href="#home" data-transition="slide" data-direction="reverse" id="backButtonL"><img src="img/backBlack.png"></a><h2>MyLocal<span>Cafe</span></h2><a href="#stamp" data-transition="slide" id="backButtonR"><h3>stempler</h3><a></div>');
         $("#menu").append('<div class="header"><a href="#home" data-transition="slide" data-direction="reverse" id="backButtonL"><img src="img/backBlack.png"></a><h2>MyLocal<span>Cafe</span></h2></div>');
 }
 
