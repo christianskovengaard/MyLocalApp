@@ -153,7 +153,7 @@ function makeFavorits() {
     var aUserFavorits = JSON.parse(localStorage.getItem("aUserFavorits"));
     var iUserFavorits = Object.keys(aUserFavorits).length;
     
-    if(iUserFavorits > 1){
+    if(iUserFavorits > 0){
         $("#favoriteWrapper").append("<h6>FAVORITTER</h6>");
         for(var i = 0; i < iUserFavorits; i++){
             
@@ -450,6 +450,10 @@ function GetMenucardWithRestuarentName(sRestuarentName) {
                              localStorage.setItem("aUserFavorits", aUserFavorites); 
                           }
                           // make favorit block
+                          if($("#favoriteWrapper").html() === ''){
+                              $("#favoriteWrapper").append("<h6>FAVORITTER</h6>");
+                          }
+                          
                           $("#favoriteWrapper").append('<div class="favoriteItemWrapper"><a id="'+iMenucardSerialNumber+'" href="#" data-transition="slide" class="ui-btn" onclick="GetMenucardWithSerialNumber(\''+iMenucardSerialNumber+'\');">'+sRestuarentName+'<p>'+sRestuarentAddress+'</p></a></div>');
         
                           //$("#favoriteWrapper").append('<div class="favoriteItemWrapper"><a id="'+iMenucardSerialNumber+'" href="#" data-transition="slide" class="ui-btn" onclick="GetMenucardWithSerialNumber(\''+iMenucardSerialNumber+'\');">'+sRestuarentName+'<p>'+sRestuarentAddress+'</p></a></div>');
