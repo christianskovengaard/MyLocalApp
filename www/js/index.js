@@ -10,7 +10,7 @@ window.onload = function(){
      
     CheckInternetConnection();
     
-    getMessagesAndStamps();
+    //getMessagesAndStamps();
     makeFavorits();
     CheckForsCustomerId();
     
@@ -92,7 +92,10 @@ function MessageToggle() {
    //Check if there are message to display
    if($('.messageBlock').html() !== '') {
     $(".messageBlock").toggleClass('out');
-    }else {}
+    }else {
+        $('.messageBlock').append('<li><p></p><h1></h1><h2>Der er ingen beskeder at vise!</h2></li>');
+        $(".messageBlock").toggleClass('out');
+    }
 }
 
 function MenucardItemsToggle(num) {
@@ -495,7 +498,7 @@ function GetMenucardWithSerialNumber(sSerialNumber) {
                     });
                     var sRestuarentName = result.sRestuarentName; 
                     var sRestuarentAddress = result.sRestuarentAddress;
-                    $("#menu").append('<div class="menuheader"><h1>'+sRestuarentName+'</h1><img class="img_left" src="img/message.png" onclick="MessageToggle();"><p>'+sRestuarentAddress+'</p><img class="img_right" onclick="InfoToggle();" src="img/info.png"></div>');
+                    $("#menu").append('<div class="menuheader"><h1>'+sRestuarentName+'</h1><img class="img_left" src="img/message.png" onclick="MessageToggle();"><p>'+sRestuarentAddress+'</p><p>'+result.iRestuarentInfoZipcode+', '+result.sRestuarentInfoCity+'</p><img class="img_right" onclick="InfoToggle();" src="img/info.png"></div>');
                     $("#menu").append("<ul></ul>");
                     $("#menu ul").append('<div id="messageBlock" onclick="MessageToggle();"><ul class="messageBlock"></ul></div>');
 //                    getMessages(sSerialNumberCaps);
