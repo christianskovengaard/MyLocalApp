@@ -70,7 +70,7 @@ function CheckInternetConnection() {
     //var status = navigator.onLine;
     //if( status === true ){
     if( window.jQuery ){
-        $('#Offline').hide();
+        //App is online
     }
     else {
         $('#Offline').show();
