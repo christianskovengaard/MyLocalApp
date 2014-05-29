@@ -18,7 +18,12 @@ window.onload = function(){
 };
 
 function AutocompleteCafename() {
-
+   
+   //Check if FindCafe input element is empty
+   if($('#FindCafe').val().length === 0) {
+       $('#searchWrapper').html('');
+   }
+   
    if($('#FindCafe').val().length >= 3) {
        //console.log('search');
        var sCafename = $('#FindCafe').val();
