@@ -109,10 +109,11 @@ function MenucardItemsToggle(num) {
 }
 
 function FavoritDelete() {
+    
     var widthBlock = $(this).width();
     var widthWindow = $( window ).width();
     var Id = $(this).attr("id");
-    
+
     $(this).before('<div class="FavoritDeleteTjek" id="'+Id+'Wrapper"><a id="'+Id+'Del" href="#">Slet</a><p>.</p><a id="'+Id+'Cancel" href="#">Fortryd</a> </div>');
     
     
@@ -125,11 +126,13 @@ function FavoritDelete() {
             $('#'+Id).parent().remove();
              
             var aUserFavorits = JSON.parse(localStorage.getItem("aUserFavorits"));
+            
             var iUserFavorits = Object.keys(aUserFavorits).length;
             
             for(var i = 0; i < iUserFavorits; i++){
-                if( aUserFavorits[i] === Id){
-                    delete aUserFavorits[i]; 
+                if( aUserFavorits[i]['iMenucardSerialNumber'] === Id){
+                    delete aUserFavorits[i];
+                    aUserFavorits[i] = '';
                 }
             }
             localStorage.setItem("aUserFavorits", JSON.stringify(aUserFavorits));
@@ -164,12 +167,13 @@ function makeFavorits() {
     if(iUserFavorits > 0){
         $("#favoriteWrapper").append("<h6>FAVORITTER</h6>");
         for(var i = 0; i < iUserFavorits; i++){
-            
-            var sCafeId = aUserFavorits[i].iMenucardSerialNumber;
-            var sCafeName = aUserFavorits[i].cafename;
-            var sCcafeAdress = aUserFavorits[i].cafeaddress;
+            if(aUserFavorits[i].iMenucardSerialNumber !==  undefined) {
+                var sCafeId = aUserFavorits[i].iMenucardSerialNumber;
+                var sCafeName = aUserFavorits[i].cafename;
+                var sCcafeAdress = aUserFavorits[i].cafeaddress;
 
-            $("#favoriteWrapper").append('<div class="favoriteItemWrapper"><a id="'+sCafeId+'" href="#" data-transition="slide" class="ui-btn" onclick="GetMenucardWithSerialNumber(\''+sCafeId+'\');">'+sCafeName+'<p>'+sCcafeAdress+'</p></a></div>');
+                $("#favoriteWrapper").append('<div class="favoriteItemWrapper"><a id="'+sCafeId+'" href="#" data-transition="slide" class="ui-btn" onclick="GetMenucardWithSerialNumber(\''+sCafeId+'\');">'+sCafeName+'<p>'+sCcafeAdress+'</p></a></div>');
+            }
         }
     }
 }
@@ -283,9 +287,14 @@ function GetMenucardWithRestuarentName(sRestuarentName) {
                             var OpeningHours = {
                                          sDayName: value.sDayName,
                                          iTimeFrom: value.iTimeFrom,
-                                         iTimeTo: value.iTimeTo
+                                         iTimeTo: value.iTimeTo,
+                                         iClosed: value.iClosed
                                      };
-                            $("#OpeningHours").append('<h1>'+OpeningHours.sDayName+'</h1><h2>'+OpeningHours.iTimeFrom+' - '+OpeningHours.iTimeTo+'</h2><br>');
+                            if(OpeningHours.iClosed === '0'){
+                                $("#OpeningHours").append('<h1>'+OpeningHours.sDayName+'</h1><h2>'+OpeningHours.iTimeFrom+' - '+OpeningHours.iTimeTo+'</h2><br>');
+                            }else if(OpeningHours.iClosed === '1'){                              
+                               $("#OpeningHours").append('<h1>'+OpeningHours.sDayName+'</h1><h2>Lukket</h2><br>');
+                            }
                             }); 
                     $.each(result.aMenucardInfo, function(key,value){
                             var Info = {
@@ -519,9 +528,14 @@ function GetMenucardWithSerialNumber(sSerialNumber) {
                             var OpeningHours = {
                                          sDayName: value.sDayName,
                                          iTimeFrom: value.iTimeFrom,
-                                         iTimeTo: value.iTimeTo
+                                         iTimeTo: value.iTimeTo,
+                                         iClosed: value.iClosed
                                      };
-                            $("#OpeningHours").append('<h1>'+OpeningHours.sDayName+'</h1><h2>'+OpeningHours.iTimeFrom+' - '+OpeningHours.iTimeTo+'</h2><br>');
+                            if(OpeningHours.iClosed === '0'){
+                                $("#OpeningHours").append('<h1>'+OpeningHours.sDayName+'</h1><h2>'+OpeningHours.iTimeFrom+' - '+OpeningHours.iTimeTo+'</h2><br>');
+                            }else if(OpeningHours.iClosed === '1'){
+                               $("#OpeningHours").append('<h1>'+OpeningHours.sDayName+'</h1><h2>Lukket</h2><br>');
+                            }
                             }); 
                     $.each(result.aMenucardInfo, function(key,value){
                             var Info = {
