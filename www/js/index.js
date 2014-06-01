@@ -41,7 +41,11 @@ function AutocompleteCafename() {
                  $.each(result.cafe, function(key,value){
                      //console.log('name: '+value);
                      //Show list of posible cafenames
-                     $('#searchWrapper').append('<div class="searchItemWrapper"><a class="ui-btn"  onclick="findMenuCardAutocomplete(\''+value.name+'\');">'+value.name+'<p>'+value.address+'</p></a></div>');
+                     
+                     //escape single quoates from string 
+                     var name = value.name.replace(/'/g, "\\'");
+                     
+                     $('#searchWrapper').append('<div class="searchItemWrapper"><a class="ui-btn"  onclick="findMenuCardAutocomplete(\''+name+'\');">'+value.name+'<p>'+value.address+'</p></a></div>');
                  }); 
                  }
              });
