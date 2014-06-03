@@ -457,6 +457,9 @@ function GetMenucardWithRestuarentName(sRestuarentName) {
                                     aUserFavorites = JSON.stringify(aUserFavorites);
                                     localStorage.setItem("aUserFavorits", aUserFavorites);
                                     //alert('insert new menucard');
+                                    // make favorit block
+                                    $("#favoriteWrapper").append('<div class="favoriteItemWrapper"><a id="'+iMenucardSerialNumber+'" href="#" data-transition="slide" class="ui-btn" onclick="GetMenucardWithSerialNumber(\''+iMenucardSerialNumber+'\');">'+sRestuarentName+'<p>'+sRestuarentAddress+'</p></a></div>');
+        
                             }
                           }else {
                               
@@ -469,14 +472,18 @@ function GetMenucardWithRestuarentName(sRestuarentName) {
                              aUserFavorites = JSON.stringify(aUserFavorites);
                              //alert('aUserFavorites firsttime: '+aUserFavorites);                           
                              localStorage.setItem("aUserFavorits", aUserFavorites); 
+                             
+                             //make favorit block
+                             $("#favoriteWrapper").append('<div class="favoriteItemWrapper"><a id="'+iMenucardSerialNumber+'" href="#" data-transition="slide" class="ui-btn" onclick="GetMenucardWithSerialNumber(\''+iMenucardSerialNumber+'\');">'+sRestuarentName+'<p>'+sRestuarentAddress+'</p></a></div>');
+                             
+                             
                           }
+                          
                           // make favorit block
                           if($("#favoriteWrapper").html() === ''){
                               $("#favoriteWrapper").append("<h6>FAVORITTER</h6>");
-                          }
+                          }                        
                           
-                          $("#favoriteWrapper").append('<div class="favoriteItemWrapper"><a id="'+iMenucardSerialNumber+'" href="#" data-transition="slide" class="ui-btn" onclick="GetMenucardWithSerialNumber(\''+iMenucardSerialNumber+'\');">'+sRestuarentName+'<p>'+sRestuarentAddress+'</p></a></div>');
-        
                           //$("#favoriteWrapper").append('<div class="favoriteItemWrapper"><a id="'+iMenucardSerialNumber+'" href="#" data-transition="slide" class="ui-btn" onclick="GetMenucardWithSerialNumber(\''+iMenucardSerialNumber+'\');">'+sRestuarentName+'<p>'+sRestuarentAddress+'</p></a></div>');
                           $(".ui-btn").on( "swiperight", FavoritDelete );
                                 
