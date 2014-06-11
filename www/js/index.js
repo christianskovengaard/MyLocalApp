@@ -319,7 +319,7 @@ function GetMenucardWithRestuarentName(sRestuarentName) {
                                   items:[]
                               };
                              $("#menu").append("<ul class='MenucardCategoryGroup"+key+"'></ul>");
-                             $(".MenucardCategoryGroup"+key).append('<li class="dishHeadline" onclick="MenucardItemsToggle('+key+');">'+category.sMenucardCategoryName+'<p>'+category.sMenucardCategoryDescription+'</p></li>');
+                             $(".MenucardCategoryGroup"+key).append('<li class="dishHeadline" onclick="MenucardItemsToggle('+key+');">'+category.sMenucardCategoryName+'<p>'+category.sMenucardCategoryDescription+'</p><img src="img/down_arrow.svg">/li>');
                              
                              if(typeof result['aMenucardCategoryItems'+key].sMenucardItemName !== "undefined") {
                              
@@ -341,7 +341,14 @@ function GetMenucardWithRestuarentName(sRestuarentName) {
                                   };
                                   //Append the item to the items in the category obj
 //                                  category.items.push(item);
-                                  $(".MenucardCategoryGroup"+key).append('<li class="dishPoint"><h1>'+item.sMenucardItemName+'</h1><h2>'+item.iMenucardItemPrice+',-</h2><p>'+item.sMenucardItemDescription+'</p></li>');
+
+                                  if( item.iMenucardItemPrice != ''){ 
+                                    var Price = '<h2>'+item.iMenucardItemPrice+',-</h2>';
+                                  }
+                                  else{
+                                    var Price = '';
+                                  }
+                                  $(".MenucardCategoryGroup"+key).append('<li class="dishPoint"><h1>'+item.sMenucardItemName+'</h1>'+Price+'<p>'+item.sMenucardItemDescription+'</p></li>');
                               });
 
                               }
@@ -567,7 +574,7 @@ function GetMenucardWithSerialNumber(sSerialNumber) {
                                   items:[]
                               };
                              $("#menu").append("<ul class='MenucardCategoryGroup"+key+"'></ul>");
-                             $(".MenucardCategoryGroup"+key).append('<li class="dishHeadline" onclick="MenucardItemsToggle('+key+');">'+category.sMenucardCategoryName+'<p>'+category.sMenucardCategoryDescription+'</p></li>');
+                             $(".MenucardCategoryGroup"+key).append('<li class="dishHeadline" onclick="MenucardItemsToggle('+key+');">'+category.sMenucardCategoryName+'<p>'+category.sMenucardCategoryDescription+'</p><img src="img/down_arrow.svg"></li>');
                              
                               $.each(result['aMenucardCategoryItems'+key].sMenucardItemName, function(keyItem,value){
 
@@ -587,8 +594,15 @@ function GetMenucardWithSerialNumber(sSerialNumber) {
                                   };
                                   //Append the item to the items in the category obj
 //                                  category.items.push(item);
-                                    
-                                  $(".MenucardCategoryGroup"+key).append('<li class="dishPoint"><h1>'+item.sMenucardItemName+'</h1><h2>'+item.iMenucardItemPrice+',-</h2><p>'+item.sMenucardItemDescription+'</p></li>');
+                                  
+                                  if( item.iMenucardItemPrice != ''){ 
+                                    var Price = '<h2>'+item.iMenucardItemPrice+',-</h2>';
+                                  }
+                                  else{
+                                    var Price = '';
+                                  }
+
+                                  $(".MenucardCategoryGroup"+key).append('<li class="dishPoint"><h1>'+item.sMenucardItemName+'</h1>'+Price+'<p>'+item.sMenucardItemDescription+'</p></li>');
                               });
 
 
