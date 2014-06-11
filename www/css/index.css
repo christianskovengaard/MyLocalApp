@@ -56,10 +56,10 @@ background-attachment:fixed;*/
     width: 100%;
     padding: 30px 0 20px 0;
     text-align: center;
-    -moz-transition-duration: 1s;
-    -webkit-transition-duration: 1s;
-    -o-transition-duration: 1s;
-    transition-duration: 1s;
+    -moz-transition: 1s;
+    -webkit-transition: 1s;
+    -o-transition: 1s;
+    transition: 1s;
 }
 .logo_home img {
     width: 40%;
@@ -90,8 +90,8 @@ background-attachment:fixed;*/
 }
 .logo_home_small img {
     width: 0px;
-      -webkit-animation: stretch 0.5s;
-      animation: stretch 0.5s;
+      -webkit-animation: stretch 0.2s;
+      animation: stretch 0.2s;
 }
 @-webkit-keyframes stretch {
   0% { width: 40%; max-width: 150px; }
@@ -347,9 +347,9 @@ margin: 0 auto;
 }
 
 #menu ul {
-    list-style-type: none ;
-    margin: 20px auto; padding: 0;
+    list-style-type: none ; padding: 0;
     width: 90%;
+    margin: 20px auto;
 }
 #menu li {
     margin: 0;
@@ -413,10 +413,10 @@ margin: 0 auto;
     max-height: 0;
     padding: 0 12px 0px 20px !important;
     margin: 0 !important;
-    -moz-transition-duration: 0.1s;
-    -webkit-transition-duration: 0.1s;
-    -o-transition-duration: 0.1s;
-    transition-duration: 0.1s;
+    -moz-transition: 0.1s;
+    -webkit-transition: 0.1s;
+    -o-transition: 0.1s;
+    transition: 0.1s;
 }
 
 .dishPoint.out { 
@@ -425,10 +425,10 @@ margin: 0 auto;
     max-height: 50%;
     overflow: hidden;
     
-    -moz-transition-duration: 0.3s;
-    -webkit-transition-duration: 0.3s;
-    -o-transition-duration: 0.3s;
-    transition-duration: 0.3s;
+    -moz-transition: 0.3s;
+    -webkit-transition: 0.3s;
+    -o-transition: 0.3s;
+    transition: 0.3s;
 }
 
 .dishPoint h1 { 
@@ -576,13 +576,14 @@ height: 100%;
     width: 100%;
     background: #F4A720;
     overflow: hidden;
+    height: 0px;
     max-height: 0;
     padding: 0  !important;
     margin: 0 !important;
-    -moz-transition-duration: 0.5s;
-    -webkit-transition-duration: 0.5s;
-    -o-transition-duration: 0.5s;
-    transition-duration: 0.5s;
+    -moz-transition: 0.5s;
+    -webkit-transition: 0.5s;
+    -o-transition: 0.5s;
+    transition: 0.5s;
 }
 .messageBlock:after {
 content: '';
@@ -599,14 +600,14 @@ left: 9px;
 
 .messageBlock.out { 
     padding: 0px 0px 10px 0px !important;
-    margin: 0 0 0 0 !important;
+    min-height: 80px;
     max-height: 50%;
-    overflow: hidden;
-    
-    -moz-transition-duration: 0.5s;
-    -webkit-transition-duration: 0.5s;
-    -o-transition-duration: 0.5s;
-    transition-duration: 0.5s;
+    overflow: none;
+    display: table;
+    -moz-transition: 0.5s;
+    -webkit-transition: 0.5s;
+    -o-transition: 0.5s;
+    transition: 0.5s;
 }
 
 .messageBlock h1 {
@@ -725,4 +726,10 @@ left: 9px;
   100% { 
     width: 5%;
   }
+}
+
+.rotate {
+transform:rotate(180deg);
+-ms-transform:rotate(180deg); /* IE 9 */
+-webkit-transform:rotate(180deg); /* Opera, Chrome, and Safari */
 }

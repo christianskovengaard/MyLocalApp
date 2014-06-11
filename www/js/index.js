@@ -17,6 +17,12 @@ window.onload = function(){
     $(".ui-btn").on( "swiperight", FavoritDelete );
 };
 
+function ClearSearchInput(){
+      $('#FindCafe').val('');
+      AutocompleteCafename();
+      getMessagesAndStamps();
+}
+
 function AutocompleteCafename() {
    
    //Check if FindCafe input element is empty
@@ -26,8 +32,10 @@ function AutocompleteCafename() {
        // UX-stuff
        $(".logo_home_small").removeClass('logo_home_small').addClass('logo_home');
    }
-   
+
    if($('#FindCafe').val().length >= 3) {
+      // UX-stuff
+      $(".logo_home").removeClass('logo_home').addClass('logo_home_small');
        //console.log('search');
        var sCafename = $('#FindCafe').val();
        
@@ -49,11 +57,7 @@ function AutocompleteCafename() {
                      var name = value.name.replace(/'/g, "\\'");
                      
                      $('#searchWrapper').append('<div class="searchItemWrapper"><a class="ui-btn"  onclick="findMenuCardAutocomplete(\''+name+'\');">'+value.name+'<p>'+value.address+'</p></a></div>');
-                 
-                    // UX-stuff
-                    $(".logo_home").removeClass('logo_home').addClass('logo_home_small');
-
-                 }); 
+                   }); 
                  }
              });
        
@@ -117,6 +121,7 @@ function MessageToggle() {
 function MenucardItemsToggle(num) {
   // $(".MenucardCategoryGroup"+num+" .dishPoint").slideToggle();
     $(".MenucardCategoryGroup"+num+" .dishPoint").toggleClass('out');
+    $(".MenucardCategoryGroup"+num+" img").toggleClass('rotate');
 }
 
 function FavoritDelete() {
@@ -285,7 +290,7 @@ function GetMenucardWithRestuarentName(sRestuarentName) {
                     var sRestuarentName = result.sRestuarentName; 
                     var sRestuarentAddress = result.sRestuarentAddress;
                     $("#menu").append('<div class="menuheader"><h1>'+sRestuarentName+'</h1><img class="img_left" src="img/message.png" onclick="MessageToggle();"><p>'+sRestuarentAddress+'</p><p>'+result.iRestuarentInfoZipcode+', '+result.sRestuarentInfoCity+'</p><img class="img_right" onclick="InfoToggle();" src="img/info.png"></div>');
-                    $("#menu").append("<ul></ul>");
+                    $("#menu").append("<ul style='margin: 0 auto -20px auto;'></ul>");
                     $("#menu ul").append('<div id="messageBlock" onclick="MessageToggle();"><ul class="messageBlock"></ul></div>');
                     $("#messageBlock").after('<div id="infoBlock"></div>');
                     $("#infoBlock").append('<li class="dishPoint"><h1>info</h1></li>');
@@ -326,7 +331,7 @@ function GetMenucardWithRestuarentName(sRestuarentName) {
                                   items:[]
                               };
                              $("#menu").append("<ul class='MenucardCategoryGroup"+key+"'></ul>");
-                             $(".MenucardCategoryGroup"+key).append('<li class="dishHeadline" onclick="MenucardItemsToggle('+key+');">'+category.sMenucardCategoryName+'<p>'+category.sMenucardCategoryDescription+'</p><img src="img/down_arrow.svg">/li>');
+                             $(".MenucardCategoryGroup"+key).append('<li class="dishHeadline" onclick="MenucardItemsToggle('+key+');">'+category.sMenucardCategoryName+'<p>'+category.sMenucardCategoryDescription+'</p><img src="img/down_arrow.svg"></li>');
                              
                              if(typeof result['aMenucardCategoryItems'+key].sMenucardItemName !== "undefined") {
                              
@@ -538,7 +543,7 @@ function GetMenucardWithSerialNumber(sSerialNumber) {
                     var sRestuarentName = result.sRestuarentName; 
                     var sRestuarentAddress = result.sRestuarentAddress;
                     $("#menu").append('<div class="menuheader"><h1>'+sRestuarentName+'</h1><img class="img_left" src="img/message.png" onclick="MessageToggle();"><p>'+sRestuarentAddress+'</p><p>'+result.iRestuarentInfoZipcode+', '+result.sRestuarentInfoCity+'</p><img class="img_right" onclick="InfoToggle();" src="img/info.png"></div>');
-                    $("#menu").append("<ul></ul>");
+                    $("#menu").append("<ul style='margin: 0 auto -20px auto;'></ul>");
                     $("#menu ul").append('<div id="messageBlock" onclick="MessageToggle();"><ul class="messageBlock"></ul></div>');
 //                    getMessages(sSerialNumberCaps);
 
@@ -706,7 +711,7 @@ function GetMenucardWithSerialNumber(sSerialNumber) {
     }
     
 function addHeader() {
-        $("#menu").append('<div class="header"><a href="#home" data-transition="slide" data-direction="reverse" id="backButtonL"><img src="img/backBlack.png"></a><h2>MyLocal<span>Cafe</span></h2></div>');
+        $("#menu").append('<div class="header"><a href="#home" data-transition="slide" data-direction="reverse" id="backButtonL" onclick="ClearSearchInput();"><img src="img/backBlack.png"></a><h2>MyLocal<span>Cafe</span></h2></div>');
 }
 
 function makeHandinPage(serial,maxstamps) {
