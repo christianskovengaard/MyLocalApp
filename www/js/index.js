@@ -493,7 +493,7 @@ function GetMenucardWithRestuarentName(sRestuarentName) {
                         $(".spinner div").css('width', '100%');
                         $(".spinner").remove();
                         $('#FindCafe').before('<div class="popMgs">Denne café er endnu ikke medlem af My Local Café. Følg med og like os på facebook. Der kommer hele tiden nye Caféer til.</div>');
-                        $('.popMgs').hide().fadeIn().delay(500).fadeOut(4300,function(){ $(this).remove(); });        
+                        $('.popMgs').hide().fadeIn().delay(4800).fadeOut(500,function(){ $(this).remove(); });        
                 }
             });
 }
