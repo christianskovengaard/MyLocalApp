@@ -56,6 +56,10 @@ background-attachment:fixed;*/
     width: 100%;
     padding: 30px 0 20px 0;
     text-align: center;
+    -moz-transition-duration: 1s;
+    -webkit-transition-duration: 1s;
+    -o-transition-duration: 1s;
+    transition-duration: 1s;
 }
 .logo_home img {
     width: 40%;
@@ -68,9 +72,45 @@ background-attachment:fixed;*/
     margin: 0;
     color: #333;
 }
-.logo_home  span {
+.logo_home  span,.logo_home_small span {
     font-weight: 200;
     color:#333;
+}
+.logo_home_small {
+    width: 100%;
+    padding: 0px;
+    height: 60px;
+    text-align: center;
+}
+.logo_home_small  h1 {
+    font-family: 'Raleway', sans-serif;
+    font-weight: 800;
+    margin: -10px;
+    color: #333;
+}
+.logo_home_small img {
+    width: 0px;
+      -webkit-animation: stretch 0.5s;
+      animation: stretch 0.5s;
+}
+@-webkit-keyframes stretch {
+  0% { width: 40%; max-width: 150px; }
+  99% { width: 40%; margin-top: -100%;}
+  100% { width: 0%;}
+}
+
+@keyframes stretchd {
+  0% { 
+    width: 40%;
+    max-width: 150px;
+  }  
+    99% { 
+        width: 40%;
+        margin-top: -100%; 
+    }
+  100% { 
+    width: 0%;
+  }
 }
 
 #home .form {

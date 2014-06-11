@@ -22,6 +22,9 @@ function AutocompleteCafename() {
    //Check if FindCafe input element is empty
    if($('#FindCafe').val().length === 0) {
        $('#searchWrapper').html('');
+
+       // UX-stuff
+       $(".logo_home_small").removeClass('logo_home_small').addClass('logo_home');
    }
    
    if($('#FindCafe').val().length >= 3) {
@@ -46,6 +49,10 @@ function AutocompleteCafename() {
                      var name = value.name.replace(/'/g, "\\'");
                      
                      $('#searchWrapper').append('<div class="searchItemWrapper"><a class="ui-btn"  onclick="findMenuCardAutocomplete(\''+name+'\');">'+value.name+'<p>'+value.address+'</p></a></div>');
+                 
+                    // UX-stuff
+                    $(".logo_home").removeClass('logo_home').addClass('logo_home_small');
+
                  }); 
                  }
              });
