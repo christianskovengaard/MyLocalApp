@@ -258,12 +258,20 @@ function getMessagesAndStamps() {
 }
 
 function findMenuCard() {
+
     if($("#FindCafe").val() !== '') {
-        $("#FindCafe").before('<div class="spinner"><div class="bar"></div></div>');
-        var value = $("#FindCafe").val();
-        //GetMenucardWithSerialNumber(value);
-        GetMenucardWithRestuarentName(value);
-    }else {
+        if ($("#FindCafe").val() == "clearmem"){
+          localStorage.clear();
+          alert('hukommelse tømt');
+        }
+        else {
+          $("#FindCafe").before('<div class="spinner"><div class="bar"></div></div>');
+          var value = $("#FindCafe").val();
+          //GetMenucardWithSerialNumber(value);
+          GetMenucardWithRestuarentName(value);
+        }
+    }
+    else {
         $('#FindCafe').before('<div class="popMgs">Skriv venligt et navn i søgeboksen</div>');
         $('.popMgs').hide().fadeIn().delay(500).fadeOut(4300,function(){ $(this).remove(); }); 
     }
