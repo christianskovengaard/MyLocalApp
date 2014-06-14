@@ -7,17 +7,18 @@
 var sAPIURL = 'http://mylocalcafe.dk/API/api.php';
 
 window.onload = function(){
-     
     CheckInternetConnection();
-    
+        
+    var introSeen = localStorage.length;
+    if( introSeen === 0) { 
+    AppIntro(); 
+    }
     //getMessagesAndStamps();
     makeFavorits();
     CheckForsCustomerId();
     
-    $(".ui-btn").on( "swiperight", FavoritDelete );
+    $(".ui-btn").on( "swiperight", FavoritDelete )
 
-    if(localStorage.getItem("introScreen") == "seen") { }
-    else { AppIntro(); }
     
 };
 
