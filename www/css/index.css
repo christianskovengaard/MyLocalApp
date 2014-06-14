@@ -124,7 +124,7 @@ background-attachment:fixed;*/
     position: relative;
     display: inline-table;
     border: 0;
-    width: 75%;
+    width: 65%;
     font-size: 23px;
     outline: none;
     margin: 0 0 0 10px; 
@@ -137,15 +137,22 @@ input[type="search"]::-webkit-search-cancel-button {
 
 #home .form img {
     vertical-align: middle;
+    display: inline-table;
     float: right;
     margin: 0 10px 0 10px;
     width: 28px;
+}
+
+#home .form .clear {
+    margin: 0;
+    display: none;
 }
 
 .searchWrapper {
     position: relative;
     width: 90%;
     margin: 0 auto;
+    min-height: 25px;
 }
 
 .searchItemWrapper {
@@ -732,4 +739,41 @@ left: 9px;
 transform:rotate(180deg);
 -ms-transform:rotate(180deg); /* IE 9 */
 -webkit-transform:rotate(180deg); /* Opera, Chrome, and Safari */
+}
+
+.introScreen {
+    position: fixed;
+    top: 0px; bottom: 0px;
+    left: 0px; right: 0px;
+    padding: 30px 20px 0px 20px;
+    background: #ddd;
+    text-align: center;
+}
+.introScreen img {
+    height: 30%;
+}
+.introScreen h1 {
+    margin: 0 0 20px 0;
+}
+.introScreen h1 span {
+    font-weight: 100;
+}
+.introScreen h2 {
+    margin: 10px 0;
+    font-size: 17px;
+    font-weight: 100;
+}
+.introScreen h3 {
+    margin: 0;
+    font-weight: 100;
+}
+.introScreen .btn {
+    display: block;
+    margin: 20px auto 0 auto;
+    padding: 10px 0;
+    background: #FCA142;
+    font-size: 20px;
+    text-shadow: none;
+    color: #fff;
+    width: 50%;
 }

@@ -15,28 +15,36 @@ window.onload = function(){
     CheckForsCustomerId();
     
     $(".ui-btn").on( "swiperight", FavoritDelete );
+
+    if(localStorage.getItem("introScreen") == "seen") { }
+    else { AppIntro(); }
+    
 };
 
 function ClearSearchInput(){
       $('#FindCafe').val('');
       AutocompleteCafename();
       getMessagesAndStamps();
+      $(".clear").hide();
 }
 
 function AutocompleteCafename() {
    
    //Check if FindCafe input element is empty
-   if($('#FindCafe').val().length === 0) {
+   if($('#FindCafe').val().length === 0 ) {
        $('#searchWrapper').html('');
 
        // UX-stuff
        $(".logo_home_small").removeClass('logo_home_small').addClass('logo_home');
+       $(".clear").hide();
    }
-
+   if($('#FindCafe').val().length === 1) {
+       $(".clear").show();
+   }
    if($('#FindCafe').val().length >= 3) {
       // UX-stuff
       $(".logo_home").removeClass('logo_home').addClass('logo_home_small');
-       //console.log('search');
+            //console.log('search');
        var sCafename = $('#FindCafe').val();
        
        $.ajax({
@@ -769,3 +777,20 @@ function makeHandinPage(serial,maxstamps) {
     });
 }
 
+function AppIntro() {
+
+  var introHead = "<h3>Velkommen til</h3><h1>MyLocal<span>Café</span></h1>";
+  var introDec = "<h2>Her kan du følge dine favorit caféer.</h2><h2>Du kan se info om deres sted, se deres menukort, samt få aktuelle tilbud og beskeder direkte.</h2><h2>Søg blot på dine lokale favorit caféer i søgefeltet for at komme i gang!</h2>";
+
+  var introDelBtn = "<a class='btn' onclick='ClearAppIntro();'>Til appen</a>"
+
+  $('body').append("<div class='introScreen'><img src='img/logo_4.png'><br>"+introHead+introDec+introDelBtn+"</div>");
+
+}
+
+function ClearAppIntro() {
+  $(".introScreen").remove();
+  $("#FindCafe").focus();
+
+  localStorage.setItem("introScreen", "seen");
+}
