@@ -263,6 +263,7 @@ function findMenuCard() {
         if ($("#FindCafe").val() == "clearmem"){
           localStorage.clear();
           alert('hukommelse tømt');
+          location.reload();
         }
         else {
           $("#FindCafe").before('<div class="spinner"><div class="bar"></div></div>');
