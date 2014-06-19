@@ -162,9 +162,14 @@ function FavoritDelete() {
             }
             localStorage.setItem("aUserFavorits", JSON.stringify(aUserFavorits));
             
-            //TODO: Also remove the cafeAddress and cafeName
             
-         //     var iUserFavorits = Object.keys(aUserFavorits).length;
+            //TODO: Remove the empty JSON from localStorage
+            
+            //TODO: If the localStorage aUserFavorits is empty then remove the 'Favoritter' headline
+            
+            //TODO: Also remove the cafe stamps
+            
+           //var iUserFavorits = Object.keys(aUserFavorits).length;
               
             
            // aUserFavorits[iUserFavorits]= sSerialNumberCaps;
@@ -449,7 +454,7 @@ function GetMenucardWithRestuarentName(sRestuarentName) {
                                 var PrevMessageDate = localStorage.getItem(sSerialNumber+".message");
 
                                 // tjek if massege is Seen
-                                if( sMessageDate == PrevMessageDate){
+                                if( sMessageDate === PrevMessageDate){
                                     $(".messageBlock").removeClass('out');
                                 }
                                 else {
@@ -511,6 +516,7 @@ function GetMenucardWithRestuarentName(sRestuarentName) {
                              localStorage.setItem("aUserFavorits", aUserFavorites); 
                              
                              //make favorit block
+                             $("#favoriteWrapper").append("<h6>FAVORITTER</h6>");
                              $("#favoriteWrapper").append('<div class="favoriteItemWrapper"><a id="'+iMenucardSerialNumber+'" href="#" data-transition="slide" class="ui-btn" onclick="GetMenucardWithSerialNumber(\''+iMenucardSerialNumber+'\');">'+sRestuarentName+'<p>'+sRestuarentAddress+'</p></a></div>');
                              
                              
