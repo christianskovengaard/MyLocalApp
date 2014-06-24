@@ -1,10 +1,10 @@
 //SET GLOBALS
 
 //Offline
-var sAPIURL = 'http://localhost/MyLocalMenu/API/api.php';
+//var sAPIURL = 'http://localhost/MyLocalMenu/API/api.php';
 
 //Online
-//var sAPIURL = 'http://mylocalcafe.dk/API/api.php';
+var sAPIURL = 'http://mylocalcafe.dk/API/api.php';
 
 window.onload = function(){
     CheckInternetConnection();
