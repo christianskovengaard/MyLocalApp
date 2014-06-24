@@ -1,10 +1,10 @@
 //SET GLOBALS
 
 //Offline
-//var sAPIURL = 'http://localhost/MyLocalMenu/API/api.php';
+var sAPIURL = 'http://localhost/MyLocalMenu/API/api.php';
 
 //Online
-var sAPIURL = 'http://mylocalcafe.dk/API/api.php';
+//var sAPIURL = 'http://mylocalcafe.dk/API/api.php';
 
 window.onload = function(){
     CheckInternetConnection();
@@ -356,7 +356,7 @@ function GetMenucardWithRestuarentName(sRestuarentName) {
                              $("#menu").append("<ul class='MenucardCategoryGroup"+key+"'></ul>");
                              $(".MenucardCategoryGroup"+key).append('<li class="dishHeadline" onclick="MenucardItemsToggle('+key+');">'+category.sMenucardCategoryName+'<p>'+category.sMenucardCategoryDescription+'</p><img src="img/down_arrow.svg"></li>');
                              
-                             if(typeof result['aMenucardCategoryItems'+key].sMenucardItemName !== "undefined") {
+                             if(typeof result['aMenucardCategoryItems'+key] !== "undefined") {
                              
                               $.each(result['aMenucardCategoryItems'+key].sMenucardItemName, function(keyItem,value){
 
@@ -612,6 +612,8 @@ function GetMenucardWithSerialNumber(sSerialNumber) {
                              $("#menu").append("<ul class='MenucardCategoryGroup"+key+"'></ul>");
                              $(".MenucardCategoryGroup"+key).append('<li class="dishHeadline" onclick="MenucardItemsToggle('+key+');">'+category.sMenucardCategoryName+'<p>'+category.sMenucardCategoryDescription+'</p><img src="img/down_arrow.svg"></li>');
                              
+                             if(typeof result['aMenucardCategoryItems'+key] !== "undefined") {
+                             
                               $.each(result['aMenucardCategoryItems'+key].sMenucardItemName, function(keyItem,value){
 
                                   var sMenucardItemName = value;
@@ -640,7 +642,7 @@ function GetMenucardWithSerialNumber(sSerialNumber) {
 
                                   $(".MenucardCategoryGroup"+key).append('<li class="dishPoint"><h1>'+item.sMenucardItemName+'</h1>'+Price+'<p>'+item.sMenucardItemDescription+'</p></li>');
                               });
-
+                          }
 
                           
                           });
