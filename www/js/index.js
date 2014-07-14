@@ -443,24 +443,26 @@ function GetMenucardWithRestuarentName(sRestuarentName) {
                             
                             
                           $("#messageBlock ul").empty();
-                          if(typeof result.oMessages[0] !== "undefined") {
-                              
+                          if(typeof result.oMessages[0] != "undefined") {
                                 var sMessageHeadline = result.oMessages[0].headline;
                                 var sMessageBodyText = result.oMessages[0].bodytext;
+                                var sMessageImage = result.oMessages[0].image;
                                 var sMessageDate = result.oMessages[0].date;
                                 var sMessageDateCut = sMessageDate.substring(0,10);
-                                $("#messageBlock ul").append("<li><p>"+sMessageDateCut+"</p><h1>"+sMessageHeadline+"</h1><h2>"+sMessageBodyText+"</h2></li>");
-                                var sSerialNumber = result.iMenucardSerialNumber;
-                                var PrevMessageDate = localStorage.getItem(sSerialNumber+".message");
-
+                                if(sMessageImage === undefined) {
+                                    $("#messageBlock ul").append("<li><p>"+sMessageDateCut+"</p><h1>"+sMessageHeadline+"</h1><h2>"+sMessageBodyText+"</h2></li>");
+                                }else {                              
+                                  $("#messageBlock ul").append("<li><p>"+sMessageDateCut+"</p><img width='200' height='200' src='data:image/x-icon;base64,"+sMessageImage+"'><h1>"+sMessageHeadline+"</h1><h2>"+sMessageBodyText+"</h2></li>");
+                                  
+                                }
+                                var PrevMessageDate = localStorage.getItem(sSerialNumberCaps+".message");
                                 // tjek if massege is Seen
-                                if( sMessageDate === PrevMessageDate){
-                                    $(".messageBlock").removeClass('out');
+                                if( sMessageDate == PrevMessageDate){
+                                    $(".messageBlock").removeClass("out");
                                 }
                                 else {
-                                  $(".messageBlock").addClass('out');
-
-                                  localStorage.setItem(sSerialNumber+".message", sMessageDate);
+                                  $(".messageBlock").addClass("out");
+                                  localStorage.setItem(sSerialNumberCaps+".message", sMessageDate);
                                 }
                           }
                           
