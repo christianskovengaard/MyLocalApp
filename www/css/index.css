@@ -1,7 +1,8 @@
-@import url(http://fonts.googleapis.com/css?family=Exo+2:400,100,200,300,500,600,700,800,900);
 @import url(http://fonts.googleapis.com/css?family=Raleway:400,900,100,200,300,500,600,700,800);
 
-
+a,h1,h2,h3,h4,h5,p{
+    font-family: 'Raleway', sans-serif;
+}
 .img_left { position: absolute; left: 10px; bottom: 5px; width: 25px; }
 .img_right { position: absolute; right: 10px; bottom: 5px; width: 25px; }
 
@@ -53,7 +54,6 @@
 }
 
 .logo_home  h1 {
-    font-family: 'Raleway', sans-serif;
     font-weight: 800;
     margin: 0;
     color: #333;
@@ -69,7 +69,6 @@
     text-align: center;
 }
 .logo_home_small  h1 {
-    font-family: 'Raleway', sans-serif;
     font-weight: 800;
     margin: -10px;
     color: #333;
@@ -166,7 +165,6 @@ input[type="search"]::-webkit-search-cancel-button {
     display: inline-table;
     text-decoration: none;
     margin: 15px 50px 0px 50px;
-    font-family: 'Raleway', sans-serif;
     font-weight: 500;
 }
 .FavoritDeleteTjek p {
@@ -258,6 +256,7 @@ input[type="search"]::-webkit-search-cancel-button {
     font-weight: 100;
     text-shadow: 1px 1px 0 #F3B850, -1px -1px 0px #EFA31F; /* Nede - oppe */
 }
+
 /*   :::::: MENU PAGE :::::: */
 
 #menu { 
@@ -274,61 +273,31 @@ margin: 0 auto;
     margin: 50% auto 0 auto;
     font-weight: bold;
 }
-
-.header { 
-    position: fixed; 
-    width: 100%;
-    background: #dddddd;
-    z-index: 5;
-    height: 40px;
-    text-align: center;
-}
-.header h3 {
+#backButtonL{
     display: inline-block;
-    float: right;
-    margin: 9px 10px 0 0;
-    font-size: 15px;
-    color: #333;
-}
-.header h2 {
-    font-family: 'Raleway', sans-serif;
-    font-weight: 800;
-    display: inline-block;
-    font-size: 23px;
-    color: #333;
-    margin: 6px 0 0 0;
-}
-.header h2 span {
-    font-weight: 300;
 }
 #backButtonL img {
-    position: absolute;
-    left: 7px; top: 7px;
-    width: 25px;
-}
-#backButtonR img {
-    position: absolute;
-    right: 7px; top: 7px;
     width: 25px;
 }
 .menuheader { 
     position: relative;
-    font-family: 'Exo 2', sans-serif;
     background: #333;
-    text-align: center;
-    margin: 50px auto 0 auto; padding: 10px 0 5px 0; 
-    width: 90%; 
+    margin: 0px auto 0 auto; 
+    padding: 10px 0 5px 0; 
+    width: 100%; 
     overflow-x: hidden;
+    z-index: 10;
 }
 .menuheader h1 { 
+    display: inline-block;
     color: #fff;
+    margin: 0px 0 0 10px;
 }
 .menuheader p { 
     font-size: 12px;
     color: #fff;
-    margin: 0 0 2px 0;
+    margin: 0 0 2px 37px;
 }
-
 #menu ul {
     list-style-type: none ; padding: 0;
     width: 90%;
@@ -336,7 +305,6 @@ margin: 0 auto;
 }
 #menu li {
     margin: 0;
-    font-family: 'Exo 2', sans-serif;
     padding: 8px 12px 8px 20px;
     margin: 0 0 2px 0;
 }
@@ -344,6 +312,10 @@ margin: 0 auto;
     margin: 5px 0 0 0;
 }
 
+#infoBlock ul{
+    width: 100%;
+    margin: 0px auto;
+}
 .dishPoint.PhoneNumber {
     text-align: center;
 }
@@ -365,6 +337,44 @@ margin: 0 auto;
     width: 180px;
     text-align: left;
 }
+
+.messageBlock{
+    position: relative;
+    padding: 0 20px;
+    margin-bottom: 40px;
+}
+.messageBlock:after 
+{
+    content: '';
+    position: absolute;
+    border-style: solid;
+    border-width: 0 17px 25px;
+    border-color: #FFFFFF transparent;
+    display: block;
+    width: 0;
+    z-index: 1;
+    top: -19px;
+    left: 43px;
+}
+.messageBlock div{
+    background: #fff;
+    padding: 10px;
+    border: 1px solid #FCA142 0px 0px 0px;
+}
+.messageBlock p{
+    margin: 0 0 5px 0;
+    font-size: 13px;
+    float: right;
+}
+.messageBlock h1 {
+    font-size: 20px;
+    margin: 10px 0 0px 0;
+}
+.messageBlock h2{
+    font-size: 15px;
+    margin: 10px 0 20px 0;
+}
+
 .dishPoint.button {  
     text-align: right;
     background: #c6c6c6;
@@ -433,176 +443,6 @@ margin: 0 auto;
     text-transform: none;
 }
 
-#stamp { 
-/*    background: url(../img/bg_menu3.png) left top; 
-    background: #efeeec;
-    background-size: auto 100%;
-    background-attachment:fixed;*/
-/*height: 100%; width: 100%;
-background: rgb(191,190,183);
-background: -moz-linear-gradient(top, rgba(191,190,183,1) 0%, rgba(94,88,85,1) 99%);
-background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(191,190,183,1)), color-stop(99%,rgba(94,88,85,1)));
-background: -webkit-linear-gradient(top, rgba(191,190,183,1) 0%,rgba(94,88,85,1) 99%);
-background: -o-linear-gradient(top, rgba(191,190,183,1) 0%,rgba(94,88,85,1) 99%);
-background: -ms-linear-gradient(top, rgba(191,190,183,1) 0%,rgba(94,88,85,1) 99%);
-background: linear-gradient(to bottom, rgba(191,190,183,1) 0%,rgba(94,88,85,1) 99%);
-filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#bfbeb7', endColorstr='#5e5855',GradientType=0 );*/
-background: #ddd;
-background-attachment:fixed;
-text-shadow: none;
-height: 100%;
-}
-
-.QrScanner {
-    display: block;
-    position: fixed;
-    text-align: center;
-    top: 60px; left: 50%;
-    width: 90%; height: 200px;
-    background: rgba(0,0,0,0.5);
-    margin: 0 0 10px -45%;
-}
-.QrScanner a {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    margin-left: -40px;
-    margin-top: -40px;
-    text-decoration: none;
-} 
-
-.QrScanner img {
-    width: 60px;
-}
-.QrScanner p {
-    font-family: 'Exo 2', sans-serif;
-    color: #fff;
-    margin: 0;
-}
-
-.StampCardWrapper {
-    display: block;
-    position: fixed;
-    top: 280px; left: 50%; bottom: 0px;
-    width: 90%; 
-    margin: 0 0 0 -45%;
-    overflow-y: auto;
-    overflow-x: hidden;
-}
-.StampCard{
-    width: 90%;
-    padding: 10px 20px;
-    background: #fff;
-    margin-bottom: 10px;
-    text-align: center;
-}
-.stamp {
-    display: inline-table;
-}
-/*.Stamp{
-    position: relative;
-    background: #d1d1d1; 
-    display: inline-table;
-    width: 23px; height: 23px;
-    -webkit-border-radius: 100%;
-    -moz-border-radius: 100%;
-    border-radius: 100%;
-    vertical-align: middle;
-    margin: 10px 12px 10px 0;
-    box-shadow: inset 1px 1px 2px -2px #000,1px 1px 5px -3px #333;
-    border: 5px solid #ddd;
-}
-.Stamp:after {
-    content: ""; 
-    position: absolute;
-    top: 50%; right: -12px;
-    margin-top: -4px; 
-    width: 10px; height: 8px;
-    -webkit-border-radius: 2px;
-    -moz-border-radius: 2px;
-    border-radius: 2px;
-    background: #ddd;
-    z-index: 0;  
-}
-.Stamp.Full{
-    background: #473a35;
-}*/
-.StampCard h2 {
-    margin: 5px 0 5px 0;
-    line-height: 20px;
-    display: block;
-    font-size: 16px;
-    font-weight: 300;
-    text-align: left;
-}
-.StampCard h1 {
-    font-family: 'Exo 2', sans-serif;
-    font-size: 16px;
-    display: inline-table;
-    margin: 0;
-    width: 100%;
-    text-align: left;
-}
-
-
-.StampCard .ui-btn {
-    display: table;
-    width: 90%;
-    margin: 0;
-    background: #f7b850;
-}
-
-#messageBlock ul { width: 100%; padding: 0 0 10px 0; }
-#messageBlock li { width: 90%; }
-.messageBlock {
-    position: relative;
-    width: 100%;
-    background: #F4A720;
-    overflow: hidden;
-    height: 0px;
-    max-height: 0;
-    padding: 0  !important;
-    margin: 0 !important;
-    -moz-transition: 0.5s;
-    -webkit-transition: 0.5s;
-    -o-transition: 0.5s;
-    transition: 0.5s;
-}
-.messageBlock:after {
-content: '';
-position: absolute;
-border-style: solid;
-border-width: 0 11px 12px;
-border-color: #F4A720 transparent;
-display: block;
-width: 0;
-z-index: 1;
-top: -12px;
-left: 9px;
-}
-
-.messageBlock.out { 
-    padding: 0px 0px 10px 0px !important;
-    min-height: 80px;
-    max-height: 50%;
-    overflow: none;
-    display: table;
-    -moz-transition: 0.5s;
-    -webkit-transition: 0.5s;
-    -o-transition: 0.5s;
-    transition: 0.5s;
-}
-
-.messageBlock h1 {
-    font-size: 15px;
-    margin: 0;
-}
-.messageBlock p {
-    margin: 0 0 15px 0; 
-    font-size: 10px; text-align: right;
-    line-height: 10px;
-    color:rgba(0,0,0,0.3);
-}
 
 #HandInCard {
     background: #dddddd;
@@ -618,7 +458,6 @@ left: 9px;
     text-align: center;
 }
 .HandInCardWrapper p {
-    font-family: 'Exo 2', sans-serif;
     font-size: 25px;
     color: #333;
     text-align: center;
@@ -648,7 +487,6 @@ left: 9px;
     border: 2px solid #F4A720;
     box-shadow: inset 1px 1px 3px #f4ba55; 
     color: #fff;
-    font-family: 'Exo 2', sans-serif;
 }
 .HandInBotton h1 {
     display: block;
@@ -752,4 +590,90 @@ transform:rotate(180deg);
     text-shadow: none;
     color: #fff;
     width: 50%;
+}
+#stampPage{
+    text-align: center;
+}
+#stampBlock{
+    padding-bottom: 15px;
+    text-align: right;
+}
+#stampBlock h3 {
+    display: inline-block;
+    color: #333;
+}
+.backStampBtn{
+    color: #333 !important;
+}
+.stampCircleIcon{
+    position: relative;
+    display: inline-block;
+    height: 40px;
+    width: 40px;
+    margin-right: 5px;
+    background: #FDA142;
+  -webkit-border-radius: 100%;
+     -moz-border-radius: 100%;
+      -ms-border-radius: 100%;
+          border-radius: 100%;
+    z-index: 0;
+    color: #fff;
+    vertical-align: middle;
+    text-align: center;
+}
+.stampCircleIcon p{
+    line-height: 5px;
+}
+.StampsForNext{
+    width: 100%;
+    text-align: center;
+}
+.stampCircle {
+    position: relative;
+    display: block;
+    height: 200px;
+    width: 200px;
+    background: #333;
+    margin: 0 auto;
+    padding: 30px;
+    overflow: hidden;
+  -webkit-border-radius: 100%;
+     -moz-border-radius: 100%;
+      -ms-border-radius: 100%;
+          border-radius: 100%;
+    z-index: 0;
+    color: #fff;
+}
+.stampCircle  p{
+    position: absolute;
+    top: 50%;
+    left: 36%;
+    font-size: 170px;
+    line-height: 0px;
+    margin: 0;
+    font-weight: 100;
+    z-index: 2;
+}
+.stampCircle  h3{
+    margin: 5px 0;
+    color: #fff;
+    font-size: 18px;
+    line-height: 18px;
+    font-weight: 100;
+    z-index: 2;
+}
+.stampCircleFill{
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background: #FDA142;
+    z-index: -1;
+}
+#FreeItemsBlock{
+    margin-bottom: 15px;
+}
+.useStampsBtn{
+    font-size: 25px;
+    color: #333 !important;
 }

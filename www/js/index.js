@@ -116,16 +116,6 @@ function InfoToggle(){
     }
 }
 
-function MessageToggle() {
-   // $("#messageBlock").slideToggle(100);
-   //Check if there are message to display
-   if($('.messageBlock').html() !== '') {
-    $(".messageBlock").toggleClass('out');
-    }else {
-        $('.messageBlock').append('<li><p></p><h1></h1><h2>Der er ingen beskeder at vise!</h2></li>');
-        $(".messageBlock").toggleClass('out');
-    }
-}
 
 function MenucardItemsToggle(num) {
   // $(".MenucardCategoryGroup"+num+" .dishPoint").slideToggle();
@@ -389,57 +379,6 @@ function GetMenucardWithRestuarentName(sRestuarentName) {
                               }
                           
                           });
-                          
-                          // generate StampCard
-                            $(".StampCardWrapper").empty();
-                            var iMenucardSerialNumber = result.iMenucardSerialNumber;
-                            var userStamps = localStorage.getItem(iMenucardSerialNumber+".stamps");
-                            var userStampsCheck = userStamps;
-                            var stampsForFree = result.oStampcard.iStampcardMaxStamps;
-                            
-                            var rest = userStamps - stampsForFree;
-                            
-                            if(userStampsCheck == '0') {
-                                $(".StampCardWrapper").prepend("<div class='StampCard'><h1>STEMPLEKORT1</h1><h2>Du har 0 stempler og mangler "+rest+" for at få en gratis "+localStorage.getItem(iMenucardSerialNumber+".sStampcardText")+"</h2></div>");                              
-                                for(var l=userStamps; l<stampsForFree; l++){
-                                    $(".StampCard").append("<div class='Stamp'></div>");
-                                }
-                            }
-                            for(var i=0; userStamps>0; i++){
-                                if(userStamps >= stampsForFree){
-                                    $(".StampCardWrapper").prepend("<div class='StampCard "+i+"'><h1>STEMPLEKORT2</h1><h2>Du har 1 gratis "+localStorage.getItem(iMenucardSerialNumber+".sStampcardText")+"</h2></div>");
-                                    for(var j=1; j<=stampsForFree; j++){
-                                    $(".StampCard."+i).append("<div class='Stamp Full'></div>");
-                                    }
-                                    $(".StampCard."+i).append('<a href="#HandInCard" onclick="makeHandinPage(\''+iMenucardSerialNumber+'\',\''+stampsForFree+'\');" class="ui-btn">Indløs kort</a>');
-                                }
-                                else {                  
-                                    $(".StampCardWrapper").prepend("<div class='StampCard "+i+"'><h1>STEMPLEKORT3</h1><h2>Du har "+userStamps+" stempler og mangler "+rest+" for at få en gratis "+localStorage.getItem(iMenucardSerialNumber+".sStampcardText")+"</h2></div>");
-                                    for(var k=1; k<=userStamps; k++){
-                                    $(".StampCard."+i).append("<div class='Stamp Full'></div>");
-                                    }
-                                    for(var l=userStamps; l<stampsForFree; l++){
-                                    $(".StampCard."+i).append("<div class='Stamp'></div>");
-                                    }
-                                }
-                                userStamps = userStamps - stampsForFree;
-                            }
-                            
-                          
-                          
-                          // Opret Besked
-//                            $("#messageBlock").show();
-//                            $("#messageBlock ul").empty();
-//                            //Check for messages
-//                            if(typeof result.oMessages[0] !== "undefined") {
-//                                var sMessageHeadline = result.oMessages[0].headline;
-//                                if(sMessageHeadline !== '') {
-//                                    var sMessageBodyText = result.oMessages[0].bodytext;
-//                                    var sMessageDate = result.oMessages[0].date;
-//                                    var sMessageDate = sMessageDate.substring(0,10);
-//                                    $("#messageBlock ul").append("<li><p>"+sMessageDate+"</p><h1>"+sMessageHeadline+"</h1><h2>"+sMessageBodyText+"</h2></li>");
-//                                }
-//                            }
                             
                             
                           $("#messageBlock ul").empty();
@@ -547,7 +486,7 @@ function GetMenucardWithSerialNumber(sSerialNumber) {
 
     CheckInternetConnection(); 
     $("#menu").empty();
-    addHeader(sSerialNumber);
+    
     var sSerialNumberCaps = sSerialNumber.toUpperCase();
     
     //Get data            
@@ -566,19 +505,23 @@ function GetMenucardWithSerialNumber(sSerialNumber) {
                     $.mobile.changePage("#menu", {
                         transition: "slide"
                     });
+
+                    // HEAD
+
                     var sRestuarentName = result.sRestuarentName; 
                     var sRestuarentAddress = result.sRestuarentAddress;
-                    $("#menu").append('<div class="menuheader"><h1>'+sRestuarentName+'</h1><img class="img_left" src="img/message.png" onclick="MessageToggle();"><p>'+sRestuarentAddress+'</p><p>'+result.iRestuarentInfoZipcode+', '+result.sRestuarentInfoCity+'</p><img class="img_right" onclick="InfoToggle();" src="img/info.png"></div>');
-                    $("#menu").append("<ul style='margin: 0 auto -20px auto;'></ul>");
-                    $("#menu ul").append('<div id="messageBlock" onclick="MessageToggle();"><ul class="messageBlock"></ul></div>');
-//                    getMessages(sSerialNumberCaps);
 
-                    $("#messageBlock").after('<div id="infoBlock"></div>');
-                    $("#infoBlock").append('<li class="dishPoint"><h1>info</h1></li>');
+                    $("#menu").append('<div class="menuheader"><a href="#home" data-transition="slide" data-direction="reverse" id="backButtonL" onclick="ClearSearchInput();"><img src="img/backWhite.png"></a><h1>'+sRestuarentName+'</h1><p>'+sRestuarentAddress+'</p><p>'+result.iRestuarentInfoZipcode+', '+result.sRestuarentInfoCity+'</p><img class="img_right" onclick="InfoToggle();" src="img/info.png"></div>');
+                    
+                    $("#menu").append("<ul style='margin: 0 auto -20px auto;'></ul>");
+                    
+                    // INFO
+
+                    $(".menuheader").after('<div id="infoBlock"><ul></ul></div>');
                     var sRestuarentPhone = result.sRestuarentPhone;
                     var sRestuarentPhoneFormat = sRestuarentPhone.substring(0, 2)+' '+sRestuarentPhone.substring(2, 4)+' '+sRestuarentPhone.substring(4, 6)+' '+sRestuarentPhone.substring(6, 8);
-                    $("#infoBlock").append('<li class="dishPoint PhoneNumber"><img src="img/call up.png"><a href="tel:'+sRestuarentPhone+'" rel="external">'+sRestuarentPhoneFormat+'</a></li>');
-                    $("#infoBlock").append('<li class="dishPoint" id="OpeningHours"></li>');
+                    $("#infoBlock ul").append('<li class="dishPoint PhoneNumber"><img src="img/call up.png"><a href="tel:'+sRestuarentPhone+'" rel="external">'+sRestuarentPhoneFormat+'</a></li>');
+                    $("#infoBlock ul").append('<li class="dishPoint" id="OpeningHours"></li>');
                     
                     $.each(result.aMenucardOpeningHours, function(key,value){
                             var OpeningHours = {
@@ -598,11 +541,50 @@ function GetMenucardWithSerialNumber(sSerialNumber) {
                                          sMenucardInfoHeadline: value.sMenucardInfoHeadline,
                                          sMenucardInfoParagraph: value.sMenucardInfoParagraph
                                      };
-                            $("#infoBlock").append('<li li class="dishPoint">'+Info.sMenucardInfoHeadline+'<p>'+Info.sMenucardInfoParagraph+'</p></li>');
+                            $("#infoBlock ul").append('<li class="dishPoint">'+Info.sMenucardInfoHeadline+'<p>'+Info.sMenucardInfoParagraph+'</p></li>');
                     }); 
                     
-                    $("#infoBlock").append('<li class="dishPoint button" onclick="InfoToggle();"><img src="img/arrowUp.png"></li><br>');
+                    $("#infoBlock ul").append('<li class="dishPoint button" onclick="InfoToggle();"><img src="img/arrowUp.png"></li>');
 
+                    // STAMPS
+
+                    var iStamps = 22;
+                    $("#infoBlock").after('<div id="stampBlock"><a onclick="makeStampPage();"><h3>Stempler</h3> <div id="stampTotal" class="stampCircleIcon"><p>'+iStamps+'</p></div></a></div>');
+
+                    // MESSAGES
+
+                    $("#stampBlock").after('<div id="messageBlock" class="messageBlock"></div>');
+//                    getMessages(sSerialNumberCaps);
+                    $("#messageBlock").empty();
+
+                          if(typeof result.oMessages[0] != "undefined") {
+                                var sMessageHeadline = result.oMessages[0].headline;
+                                var sMessageBodyText = result.oMessages[0].bodytext;
+                                var sMessageImage = result.oMessages[0].image;
+                                var sMessageDate = result.oMessages[0].date;
+                                var sMessageDateCut = sMessageDate.substring(0,10);
+                                if(sMessageImage === undefined) {
+                                    $("#messageBlock").append("<div><p>"+sMessageDateCut+"</p><h1>"+sMessageHeadline+"</h1><h2>"+sMessageBodyText+"</h2></div>");
+                                }else {                              
+                                  $("#messageBlock").append("<div><p>"+sMessageDateCut+"</p><img width='100%' height='auto' src='data:image/x-icon;base64,"+sMessageImage+"'><h1>"+sMessageHeadline+"</h1><h2>"+sMessageBodyText+"</h2></div>");
+                                  
+                                }
+                                //var PrevMessageDate = localStorage.getItem(sSerialNumberCaps+".message");
+                                // tjek if massege is Seen
+                                //if( sMessageDate == PrevMessageDate){
+                                //    $(".messageBlock").removeClass("out");
+                                //}
+                                //else {
+                                //  $(".messageBlock").addClass("out");
+                                //  localStorage.setItem(sSerialNumberCaps+".message", sMessageDate);
+                                //}
+                          }
+
+
+
+                    // MENU
+
+                    $("#menu").append("<div id='menuBlock'></div>");
                     $.each(result.aMenucardCategory, function(key,value){
 //                              alert('liste index: '+key);
                               var category = {
@@ -611,7 +593,7 @@ function GetMenucardWithSerialNumber(sSerialNumber) {
 //                                  iMenucardCategoryIdHashed: value.iMenucardCategoryIdHashed,
                                   items:[]
                               };
-                             $("#menu").append("<ul class='MenucardCategoryGroup"+key+"'></ul>");
+                             $("#menuBlock").append("<ul class='MenucardCategoryGroup"+key+"'></ul>");
                              $(".MenucardCategoryGroup"+key).append('<li class="dishHeadline" onclick="MenucardItemsToggle('+key+');">'+category.sMenucardCategoryName+'<p>'+category.sMenucardCategoryDescription+'</p><img src="img/down_arrow.svg"></li>');
                              
                              if(typeof result['aMenucardCategoryItems'+key] !== "undefined") {
@@ -647,92 +629,7 @@ function GetMenucardWithSerialNumber(sSerialNumber) {
                           }
 
                           
-                          });
-                          
-                          // generate StampCard
-                            $(".StampCardWrapper").empty();
-                            var userStamps = localStorage.getItem(sSerialNumberCaps+".stamps");
-                            var userStampsCheck = userStamps;
-                            var stampsForFree = result.oStampcard.iStampcardMaxStamps;
-                            //var rest = stampsForFree - userStamps;
-                            var sStampcardText =  localStorage.getItem(sSerialNumberCaps+".sStampcardText")
-                            
-                            if( userStamps == null ) { 
-                                    localStorage.setItem(sSerialNumberCaps+".stamps", 0);
-                                    var userStamps = 0;
-                            }
-                            
-                         
-                            var sNameStamp = "stempler";
-                            if ( userStamps == 1 ) { var sNameStamp = "stempel"; }
-                            var totalfree = userStamps / stampsForFree;
-                            var totalfree = Math.floor(totalfree);
-                            var usedstamps = totalfree * stampsForFree;
-                            var rest = userStamps - usedstamps;
-                            var rest = stampsForFree - rest;
-                             
-                            $(".StampCardWrapper").append("<h2>samel "+stampsForFree+" stempler og få en gratis "+sStampcardText+"</h2>");
-                            if(userStamps == 0){
-                                $(".StampCardWrapper").append("<h2>Klik på 'FÅ STEMPLE' for at få det 1. stemple.</h2>");
-                            }
-                            else{
-                                $(".StampCardWrapper").append("<h2>Du har i alt fået <div class='stamp'>"+userStamps+"</div> "+sNameStamp+" af "+sRestuarentName+"</h2>");
-                                if(totalfree != 0){
-                                    $(".StampCardWrapper").append("<h2>Så du har  <div class='stamp'>"+totalfree+"</div> gratis "+sStampcardText+"</h2>");
-                                }
-                               $(".StampCardWrapper").append("<h2>.. og mangle <div class='stamp'>"+rest+"</div> stempler for at få en gratis "+sStampcardText+"</h2>");
-                            }
-//                            for(var i=0; userStamps>0; i++){
-//                                
-//                                if(userStamps >= stampsForFree){
-//                                    $(".StampCardWrapper").prepend("<div class='StampCard "+i+"'><h1>STEMPLEKORT4</h1><h2>Du har 1 gratis "+localStorage.getItem(sSerialNumberCaps+".sStampcardText")+"</h2></div>");
-//                                    for(var j=1; j<=stampsForFree; j++){
-//                                    $(".StampCard."+i).append("<div class='Stamp Full'></div>");
-//                                    }
-//                                    $(".StampCard."+i).append('<a href="#HandInCard" onclick="makeHandinPage(\''+sSerialNumberCaps+'\',\''+stampsForFree+'\');" class="ui-btn">Indløs kort</a>');
-//
-//                                }
-//                                
-//                                else {                                  
-//                                    $(".StampCardWrapper").prepend("<div class='StampCard "+i+"'><h1>STEMPLEKORT-5</h1><h2>Du har "+userStamps+" stempler og mangler "+rest+" for at få en gratis "+localStorage.getItem(sSerialNumberCaps+".sStampcardText")+"</h2></div>");
-//                                    for(var k=1; k<=userStamps; k++){
-//                                    $(".StampCard."+i).append("<div class='Stamp Full'></div>");
-//                                    }
-//                                    for(var l=userStamps; l<stampsForFree; l++){
-//                                    $(".StampCard."+i).append("<div class='Stamp'></div>");
-//                                    }
-//                                }
-//                                var userStamps = userStamps - stampsForFree;
-//                            }
-                            
-                            
-                          // Opret Besked
-                          
-                          
-                          $("#messageBlock ul").empty();
-                          if(typeof result.oMessages[0] != "undefined") {
-                                var sMessageHeadline = result.oMessages[0].headline;
-                                var sMessageBodyText = result.oMessages[0].bodytext;
-                                var sMessageImage = result.oMessages[0].image;
-                                var sMessageDate = result.oMessages[0].date;
-                                var sMessageDateCut = sMessageDate.substring(0,10);
-                                if(sMessageImage === undefined) {
-                                    $("#messageBlock ul").append("<li><p>"+sMessageDateCut+"</p><h1>"+sMessageHeadline+"</h1><h2>"+sMessageBodyText+"</h2></li>");
-                                }else {                              
-                                  $("#messageBlock ul").append("<li><p>"+sMessageDateCut+"</p><img width='200' height='200' src='data:image/x-icon;base64,"+sMessageImage+"'><h1>"+sMessageHeadline+"</h1><h2>"+sMessageBodyText+"</h2></li>");
-                                  
-                                }
-                                var PrevMessageDate = localStorage.getItem(sSerialNumberCaps+".message");
-                                // tjek if massege is Seen
-                                if( sMessageDate == PrevMessageDate){
-                                    $(".messageBlock").removeClass("out");
-                                }
-                                else {
-                                  $(".messageBlock").addClass("out");
-                                  localStorage.setItem(sSerialNumberCaps+".message", sMessageDate);
-                                }
-                          }
-                          
+                          });                                                   
                 }
                 else {
                         $(".spinner div").css('animation-name', 'none');
@@ -744,63 +641,84 @@ function GetMenucardWithSerialNumber(sSerialNumber) {
             });
     }
     
-function addHeader() {
-        $("#menu").append('<div class="header"><a href="#home" data-transition="slide" data-direction="reverse" id="backButtonL" onclick="ClearSearchInput();"><img src="img/backBlack.png"></a><h2>MyLocal<span>Cafe</span></h2></div>');
+
+
+function makeStampPage(){
+  var iUserStamps = $("#stampTotal").text();
+  var iStampsForFree = 6;
+  
+  var iFreeItems = Math.floor(iUserStamps / iStampsForFree);
+  var iStampsLeft = iUserStamps - ( iFreeItems * iStampsForFree);
+
+
+  $("#stampBlock").velocity("transition.slideUpBigOut",400);
+  $("#messageBlock").velocity("transition.slideDownBigOut",600);
+  $("#menuBlock").velocity("transition.slideDownBigOut", 400, function(){
+  
+  $("#stampBlock").after("<div id='stampPage'></div>");
+
+      $("#stampPage").before("<a class='backStampBtn' onclick='removeStampPage();'>tilbage</a>");
+      $("#stampPage a").hide().velocity("transition.bounceDownIn",400);
+        // $("#stampPage").append("<h3>Stempler ("+iUserStamps+")</h3>")
+        
+      $("#stampPage").append("<div class='StampsForNext' onclick='GetStamp();'><div class='stampCircle'><p>+</p></div></div>");
+      $(".stampCircle").hide().velocity("transition.expandIn", 200, function(){
+          $(".stampCircle").prepend("<h3>Stempler</h3><h3>"+iStampsLeft+"/"+iStampsForFree+"</h3>");
+          $(".stampCircle h3").hide().velocity("transition.slideDownIn", { stagger: 100, duration: 150 });
+          
+          setTimeout(makeStampCounter(iStampsLeft,iStampsForFree), 10000);
+
+          $("#stampPage").append("<h4>For hver "+iStampsForFree+". stemple, får du en gratis Kaffe.</h4>");
+          $("#stampPage").append("<h4>Du har nu "+iFreeItems+" gratis:</h4>");
+          $("#stampPage").append("<div id='FreeItemsBlock'></div>");
+          for (var i = 1; i <= iFreeItems; i++){
+              $("#FreeItemsBlock").append("<div class='stampCircleIcon'><p>"+i+"</p></div>");
+          } 
+          $("#FreeItemsBlock .stampCircleIcon").hide().velocity("transition.slideUpBigIn", { display:"inline-block", stagger: 100, duration: 150 });
+          $("#stampPage").append("<a class='useStampsBtn' onclick=''>Brug</a>");
+      });
+  });
 }
 
-function makeHandinPage(serial,maxstamps) {
-    $("#HandInBox").html("");
-    var userStamps = localStorage.getItem(serial+".stamps");
-    var cafeName =  localStorage.getItem(serial+".fav.cafeName");
-    var StampsForFree = maxstamps;
-   
-    $("#HandInBox").append("<div style='display: table; margin:0 auto;'><div class='codebutton'><input type='text' id='RedemeCode1' class='codebutton'></div><div class='codebutton'><input type='text' id='RedemeCode2' class='codebutton'></div><div class='codebutton'><input type='text' id='RedemeCode3' class='codebutton'></div><div class='codebutton'><input type='text' id='RedemeCode4' class='codebutton'></div></div>");
-    $("#HandInBox").append("Her indtaster caféen Deres kode for at indløse stempletkortet.");
-    $("#HandInBox").append("<a href='' class='ui-btn' id='HandInCardAccept'>Indløs stempelkort</a> ");
-    $("#HandInBox").append("<h1>"+cafeName+"</h1>");
-    $("#HandInBox").append("<div class='StampCard' id='HandinCard'></div>");
-    for(var j=1; j<=StampsForFree; j++){
-         $("#HandinCard").append("<div class='Stamp Full'></div>");
-    }
-    
-    $("#HandInCardAccept").click(function(){
-        
-        if($('#RedemeCode1').val() !== '' && $('#RedemeCode2').val() !== '' && $('#RedemeCode3').val() !== '' && $('#RedemeCode4').val() !== '') {
-        
-            var sCustomerId =  localStorage.getItem('sCustomerId');
-            var sSerialNumber = serial;      
-            var StampsLeft = userStamps - StampsForFree;          
-            var sRedemeCode = $('#RedemeCode1').val() + $('#RedemeCode2').val() + $('#RedemeCode3').val() + $('#RedemeCode4').val(); 
+function removeStampPage(){
+  $("#stampPage").remove();
+  $(".backStampBtn").remove();
+  $("#stampBlock").velocity("transition.slideDownBigIn",400);
+  $("#messageBlock").velocity("transition.slideUpBigIn",600);
+  $("#menuBlock").velocity("transition.slideUpBigIn", 400);
+}
 
-             $.ajax({
-              type: "GET",
-              url: sAPIURL,
-              dataType: "jSON",
-              data: {sFunction:"RedemeStampcard",iMenucardSerialNumber:sSerialNumber,sCustomerId:sCustomerId,sRedemeCode:sRedemeCode}
-             }).done(function(result){
-                    if(result.result === 'true'){
-                            alert('Hurra det lykkedes! Så er der gratis '+localStorage.getItem(iMenucardSerialNumber+".sStampcardText")+' på vej :)');
-                            //Only do this when the ajax call is successfull
-                            //Set the remening stamps in localStorage
-                            localStorage.setItem(serial+".stamps", StampsLeft);
-                            
-                            $("#HandinCard").fadeOut(1000,function(){
-                                $("#HandinCard").remove();
-                                GetMenucardWithSerialNumber(serial);
-                                $.mobile.changePage("#stamp", {
-                                    transition: "slideup"
-                                });
-                            });
-                     }
-                     if(result.result === 'wrong redemecode') {
-                         alert('Forkert kodeord!');
-                     }
-            });
+function makeStampCounter(iStampsLeft,iStampsForFree){
+  
+    $(".stampCircle").append("<div class='stampCircleFill'></div>");
+    var height = parseInt($(".stampCircle").outerHeight());
+    var stampIntivals = height / iStampsForFree;
+    var fillHeigth = stampIntivals * iStampsLeft;
+    $(".stampCircleFill").css("height", fillHeigth);
+    $(".stampCircleFill").hide().velocity("transition.slideUpBigIn", 400 );
+}
 
-        } else {
-            alert('Husk at indtaste koden');
-        }
-    });
+function GetStamp(){
+  $(".backGetStampBtn").remove();
+  $("#getStampPage").remove();
+  $("#stampPage").velocity("transition.shrinkOut", 400, function(){
+        $(".backStampBtn").hide();
+        $("#stampPage").hide();
+        $("#stampBlock").after("<div id='getStampPage'></div>");
+        
+        $("#getStampPage").before("<a class='backGetStampBtn' onclick='removeGetStampsPage();'>tilbage</a>");
+        $("#getStampPage").append("Antal stempler:");
+        $("#getStampPage").append("-1+");
+        $("#getStampPage").append("[][][][]");
+        $("#getStampPage").append("tastatur");
+  });  
+  
+}
+function removeGetStampsPage(){
+  $(".backGetStampBtn").remove();
+  $("#getStampPage").remove();
+  $(".backStampBtn").show();
+  $("#stampPage").velocity("transition.shrinkIn", 400);
 }
 
 function AppIntro() {

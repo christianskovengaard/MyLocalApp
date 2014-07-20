@@ -1,0 +1,17 @@
+{
+	"folders":
+	[
+		{
+			"follow_symlinks": true,
+			"path": "C:\\wamp\\www\\MyLocalMenu"
+		},
+		{
+			"follow_symlinks": true,
+			"path": "C:\\wamp\\www\\MyLocalApp"
+		},
+		{
+			"follow_symlinks": true,
+			"path": "C:\\wamp\\www\\MyLocalApptestAni"
+		}
+	]
+}
