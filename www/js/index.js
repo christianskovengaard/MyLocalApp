@@ -13,7 +13,7 @@ window.onload = function(){
     if( introSeen === 0) { 
     AppIntro(); 
     }
-    //getMessagesAndStamps();
+    getMessagesAndStamps();
     makeFavorits();
     CheckForsCustomerId();
     
@@ -204,7 +204,7 @@ function getMessagesAndStamps() {
        var menucards = {};
        $.each(aUserFavorits,function(index, val){
            if(index >0){
-               menucards[index] = val;
+               menucards[index] = val['iMenucardSerialNumber'];
            }  
        });
        //Get the sCustomerId in localStorage
@@ -231,9 +231,14 @@ function getMessagesAndStamps() {
                //opret nye new meggages
                $(".newMgs").remove();
                $.each(result.Menucards, function(index,val){
-
-                        var sMessageDate = val.Messages[0].dtMessageDate;
+                        
+                        if(typeof val.Messages !== "undefined") {
+                        var sMessageDate = val.Messages[0].dtMessageDate;                     
                         var PrevMessageDate = localStorage.getItem(index+".message");
+                        //If only one message has been sent then set a default date
+                        if(PrevMessageDate === ''){
+                            PrevMessageDate = '0000-00-00 00:00:00';
+                        }
                         if (sMessageDate === PrevMessageDate ){
                             $("#"+index+" .newMgs").remove();
                         }
@@ -246,6 +251,7 @@ function getMessagesAndStamps() {
                         localStorage.setItem(index+".stamps", Stamps);
                         // gem stempelkort tekst
                         localStorage.setItem(index+".sStampcardText", val.sStampcardText);
+                        }
                 });           
             }
             else{
