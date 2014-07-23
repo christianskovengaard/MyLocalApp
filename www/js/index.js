@@ -73,8 +73,6 @@ function AutocompleteCafename() {
    }
 }
 
-
-
 function CheckForsCustomerId() {
     
     //Check for sCustomerId in localStorage
@@ -116,13 +114,10 @@ function InfoToggle(){
     }
 }
 
-
 function MenucardItemsToggle(num) {
 
     $(".MenucardCategoryGroup"+num+" .dishPoint").toggleClass('out');
     $(".MenucardCategoryGroup"+num+" img").toggleClass('rotate');
-
-
 }
 
 function FavoritDelete() {
@@ -788,8 +783,6 @@ function GetMenucardWithSerialNumber(sSerialNumber) {
             });
     }
     
-
-
 function makeStampPage(iMenucardSerialNumber,iUserStamps,MaxStamps){
   var iUserStamps = iUserStamps;
   var iStampsForFree = MaxStamps;
@@ -803,17 +796,16 @@ function makeStampPage(iMenucardSerialNumber,iUserStamps,MaxStamps){
   $("#menuBlock").velocity("transition.slideDownBigOut", 400, function(){
   
   $("#stampBlock").after("<div id='stampPage'></div>");
-
       $("#stampPage").before("<a class='backStampBtn' onclick='removeStampPage();'>tilbage</a>");
       $("#stampPage a").hide().velocity("transition.bounceDownIn",400);
         // $("#stampPage").append("<h3>Stempler ("+iUserStamps+")</h3>")
         
       $("#stampPage").append("<div class='StampsForNext' onclick='GetStamp();'><div class='stampCircle'><p>+</p></div></div>");
       $(".stampCircle").hide().velocity("transition.expandIn", 200, function(){
-          $(".stampCircle").prepend("<h3>Stempler</h3><h3>"+iStampsLeft+"/"+iStampsForFree+"</h3>");
+          $(".stampCircle").prepend("<h3>Stempler</h3>");
           $(".stampCircle h3").hide().velocity("transition.slideDownIn", { stagger: 100, duration: 150 });
           
-          setTimeout(makeStampCounter(iStampsLeft,iStampsForFree), 10000);
+          makeStampCounter(iStampsLeft,iStampsForFree);
 
           $("#stampPage").append("<h4>For hver "+iStampsForFree+". stemple, får du en gratis Kaffe.</h4>");
           $("#stampPage").append("<h4>Du har nu "+iFreeItems+" gratis:</h4>");
@@ -836,7 +828,8 @@ function removeStampPage(){
 }
 
 function makeStampCounter(iStampsLeft,iStampsForFree){
-  
+    $("#stampsCounterText").remove();
+    $(".stampCircle h3").after("<h3 id='stampsCounterText'>"+iStampsLeft+"/"+iStampsForFree+"</h3>");
     $(".stampCircle").append("<div class='stampCircleFill'></div>");
     var height = parseInt($(".stampCircle").outerHeight());
     var stampIntivals = height / iStampsForFree;
@@ -852,20 +845,87 @@ function GetStamp(){
         $(".backStampBtn").hide();
         $("#stampPage").hide();
         $("#stampBlock").after("<div id='getStampPage'></div>");
-        
         $("#getStampPage").before("<a class='backGetStampBtn' onclick='removeGetStampsPage();'>tilbage</a>");
         $("#getStampPage").append("<p>Antal stempler:</p>");
-        $("#getStampPage").append("<a>-</a><h1 id='numOfStamps'>1</h1><a>+</a><br>");
-        $("#getStampPage").append("<div class='inputGetStamp'></div><div class='inputGetStamp'></div><div class='inputGetStamp'></div><div class='inputGetStamp'></div><br>");
-        $("#getStampPage").append("<div class='keyboard'><a>1</a><a>2</a><a>3</a><a>4</a><a>5</a><a>6</a><a>7</a><a>8</a><a>9</a><a>-</a><a>0</a><a>ok</a><div>");
-  });  
-  
+        $("#getStampPage").append("<a onclick='numOfStampsChange(-1);'>-</a><h1 id='numOfStamps'>1</h1><a onclick='numOfStampsChange(1);'>+</a>");
+        $("#getStampPage").append("<div class='inputGetStampwrapper'><div id='inputGetStamp1' class='inputGetStamp'></div><div id='inputGetStamp2' class='inputGetStamp'></div><div id='inputGetStamp3' class='inputGetStamp'></div><div id='inputGetStamp4' class='inputGetStamp'></div></div>");
+        makeKeypad('getStampPage');    
+        $("#getStampPage").hide().velocity("transition.slideUpBigIn", 200);   
+  }); 
+} 
+function numOfStampsChange(num){
+  var numbersOfStamps = parseInt( $("#numOfStamps").text() );
+  var numbersOfStamps = numbersOfStamps + num;
+  if( numbersOfStamps <= 0 ){ numbersOfStamps = 1; }
+  $("#numOfStamps").text(numbersOfStamps);
 }
-function removeGetStampsPage(){
-  $(".backGetStampBtn").remove();
-  $("#getStampPage").remove();
-  $(".backStampBtn").show();
-  $("#stampPage").velocity("transition.shrinkIn", 400);
+function makeKeypad(id){
+      $("#"+id).append("<div class='keypad'><div>");
+      for( var i = 1; i <= 9; i++){
+          $("#"+id+" .keypad").append("<a onclick='btnKeypad("+i+");'>"+i+"</a>");
+      }        
+      $("#"+id+" .keypad").append("<a onclick='btnKeypad(-1);'><-</a>");
+      $("#"+id+" .keypad").append("<a onclick='btnKeypad(0);'>0</a>");
+      $("#"+id+" .keypad").append("<a onclick='KeypadOk();'>ok</a>");
+}
+function btnKeypad(num){
+  var i = 1;
+  if( num < 0 ){
+     for( var j = 1; j <= 4; j++ ){
+        var a = $("#inputGetStamp"+j+" span").length;
+        if($("#inputGetStamp"+j+" span").length == 1){ var i = j; }
+      }
+      $("#inputGetStamp"+i+" span").remove();
+  }
+  else{      
+      for( var j = 1; j <= 4; j++ ){
+        var a = $("#inputGetStamp"+j+" span").length;
+        if($("#inputGetStamp"+j+" span").length == 1){ var i = j+1; }
+      }
+      $("#inputGetStamp"+i).append("<span>"+num+"</span>");
+  }
+}
+
+function KeypadOk(){
+  var numbersOfStamps = $("#numOfStamps").text();
+  if ($("#inputGetStamp4 span").length == 1){
+      // slet
+      var stamps = localStorage.getItem("AA0024.stamps");
+      var stamps = parseInt(stamps) + parseInt(numbersOfStamps);
+      localStorage.setItem("AA0024.stamps",stamps);
+
+      // animation
+       $("#getStampPage").velocity("transition.slideDownBigOut", 200, function() {
+               $(".succesAlert").remove();
+               $(".backGetStampBtn").remove();
+               $("#getStampPage").remove();
+               $(".backStampBtn").show();
+               $("#stampPage").velocity("transition.expandIn", 400, function(){
+      //             var stampsCounterText = $("#stampsCounterText").text().split('/');;
+      //             var iStampsLeft = parseInt(stampsCounterText[0]) + stamps;
+      //             var iStampsForFree = parseInt(stampsCounterText[1]);
+      //             $("#stampTotal p").text(iStampsLeft);
+      //             makeStampCounter(iStampsLeft,iStampsForFree);
+              });
+       });  
+  }
+  else{
+   for ( var i = 1; i <= 4; i++){
+          if($("#inputGetStamp"+i+" span").length == 0){
+                $("#inputGetStamp"+i).velocity("callout.tada", 400 );
+          }
+      }   
+  }
+}
+
+function removeGetStampsPage(){  
+  $("#getStampPage").velocity("transition.slideDownBigOut", 200, function() {
+      $(".backGetStampBtn").remove();
+      $("#getStampPage").remove();
+      $(".backStampBtn").show();
+      $("#stampPage").velocity("transition.shrinkIn", 400);
+  });
+  
 }
 
 function AppIntro() {
