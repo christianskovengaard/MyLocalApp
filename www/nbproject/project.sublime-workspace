@@ -4,6 +4,22 @@
 		"selected_items":
 		[
 			[
+				"slide",
+				"slideUpBigIn"
+			],
+			[
+				"number",
+				"numbersOfStamps"
+			],
+			[
+				"br",
+				"Break"
+			],
+			[
+				"inputGet",
+				"inputGetStamp"
+			],
+			[
 				"font",
 				"font-weight"
 			],
@@ -155,7 +171,7 @@
 			"file": "/C/wamp/www/MyLocalApp/www/js/index.js",
 			"settings":
 			{
-				"buffer_size": 37860,
+				"buffer_size": 49175,
 				"line_ending": "Windows"
 			}
 		},
@@ -163,7 +179,7 @@
 			"file": "/C/wamp/www/MyLocalApp/www/css/index.css",
 			"settings":
 			{
-				"buffer_size": 14321,
+				"buffer_size": 15037,
 				"line_ending": "Windows"
 			}
 		},
@@ -171,7 +187,7 @@
 			"file": "/C/wamp/www/MyLocalApp/www/index.html",
 			"settings":
 			{
-				"buffer_size": 2569,
+				"buffer_size": 2567,
 				"line_ending": "Windows"
 			}
 		}
@@ -280,6 +296,20 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"image",
+			"img",
+			"after",
+			"getstamps",
+			"gets",
+			"makeStampCounter",
+			"makeStampPage",
+			"removeGetStampsPage",
+			"makeStampCounter",
+			"starage",
+			"getlo",
+			"gets",
+			"keyboard",
+			"handin",
 			"after",
 			"antal s",
 			"MenucardItemsToggle",
@@ -356,15 +386,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 37860,
+						"buffer_size": 49175,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								35109,
-								35109
+								45728,
+								45728
 							]
 						],
 						"settings":
@@ -374,7 +404,7 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 9739.0,
+						"translation.y": 12314.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 1,
@@ -386,15 +416,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 14321,
+						"buffer_size": 15037,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								7476,
-								7476
+								7782,
+								7782
 							]
 						],
 						"settings":
@@ -404,7 +434,7 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 4849.0,
+						"translation.y": 4791.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 0,
@@ -416,15 +446,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 2569,
+						"buffer_size": 2567,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								2185,
-								2185
+								2502,
+								2502
 							]
 						],
 						"settings":
@@ -434,7 +464,7 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 225.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 2,
@@ -514,6 +544,15 @@
 	},
 	"settings":
 	{
+		"last_automatic_layout":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		]
 	},
 	"show_minimap": true,
 	"show_open_files": false,
@@ -523,5 +562,6 @@
 	"status_bar_visible": true,
 	"template_settings":
 	{
+		"max_columns": 1
 	}
 }
