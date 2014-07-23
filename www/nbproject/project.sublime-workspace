@@ -4,12 +4,36 @@
 		"selected_items":
 		[
 			[
-				"bo",
-				"bottom"
+				"font",
+				"font-weight"
 			],
 			[
 				"ma",
 				"margin"
+			],
+			[
+				"in",
+				"inline-table"
+			],
+			[
+				"p",
+				"position"
+			],
+			[
+				"di",
+				"display"
+			],
+			[
+				"add",
+				"addClass"
+			],
+			[
+				"v",
+				"velocity"
+			],
+			[
+				"bo",
+				"bottom"
 			],
 			[
 				"text",
@@ -52,10 +76,6 @@
 				"important"
 			],
 			[
-				"font",
-				"font-size"
-			],
-			[
 				"bac",
 				"background"
 			],
@@ -64,20 +84,8 @@
 				"font-weight"
 			],
 			[
-				"in",
-				"inline-table"
-			],
-			[
 				"b",
 				"background"
-			],
-			[
-				"v",
-				"vertical-align"
-			],
-			[
-				"p",
-				"padding"
 			],
 			[
 				"le",
@@ -106,10 +114,6 @@
 			[
 				"to",
 				"toggleClass"
-			],
-			[
-				"di",
-				"display"
 			],
 			[
 				"fun",
@@ -151,7 +155,7 @@
 			"file": "/C/wamp/www/MyLocalApp/www/js/index.js",
 			"settings":
 			{
-				"buffer_size": 46716,
+				"buffer_size": 37860,
 				"line_ending": "Windows"
 			}
 		},
@@ -159,7 +163,7 @@
 			"file": "/C/wamp/www/MyLocalApp/www/css/index.css",
 			"settings":
 			{
-				"buffer_size": 16626,
+				"buffer_size": 14321,
 				"line_ending": "Windows"
 			}
 		},
@@ -167,7 +171,7 @@
 			"file": "/C/wamp/www/MyLocalApp/www/index.html",
 			"settings":
 			{
-				"buffer_size": 2574,
+				"buffer_size": 2569,
 				"line_ending": "Windows"
 			}
 		}
@@ -212,6 +216,7 @@
 	},
 	"file_history":
 	[
+		"/C/wamp/www/MyLocalApptestAni/www/js/index.js",
 		"/C/wamp/www/MyLocalApp/www/index.html",
 		"/C/wamp/www/MyLocalApp/www/spec/helper.js",
 		"/C/wamp/www/MyLocalMenu/Controllers/mailgun/vendor/guzzle/guzzle/src/Guzzle/Http/Exception/HttpException.php",
@@ -231,7 +236,6 @@
 		"/C/wamp/www/MyLocalMenu/imagetable.sql",
 		"/C/wamp/www/MyLocalMenu/index.php",
 		"/C/wamp/www/MyLocalApptestAni/www/css/index.css",
-		"/C/wamp/www/MyLocalApptestAni/www/js/index.js",
 		"/C/Users/db/Dropbox/Delemappe - Daniel/KODE/bejt/js/general.js",
 		"/C/wamp/www/MyLocalMenu/js/general.js",
 		"/C/wamp/www/MyLocalMenu/admin.php",
@@ -276,6 +280,26 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"after",
+			"antal s",
+			"MenucardItemsToggle",
+			"MenucardItemsToggle()",
+			":after",
+			"stampcir",
+			"info",
+			"infoblock",
+			"stam",
+			"addhe",
+			"stampBlock",
+			"messageBlock",
+			"infoBlock",
+			"messageBlock",
+			"mes",
+			"header",
+			"makehead",
+			"Stempler",
+			"vel",
+			"font-family:",
 			"scroll",
 			".box",
 			"619px",
@@ -323,7 +347,7 @@
 	"groups":
 	[
 		{
-			"selected": 0,
+			"selected": 1,
 			"sheets":
 			[
 				{
@@ -332,15 +356,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 46716,
+						"buffer_size": 37860,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								31423,
-								31423
+								35109,
+								35109
 							]
 						],
 						"settings":
@@ -350,10 +374,10 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 8915.0,
+						"translation.y": 9739.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 0,
+					"stack_index": 1,
 					"type": "text"
 				},
 				{
@@ -362,15 +386,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 16626,
+						"buffer_size": 14321,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								16263,
-								16263
+								7476,
+								7476
 							]
 						],
 						"settings":
@@ -380,10 +404,10 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 11250.0,
+						"translation.y": 4849.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 2,
+					"stack_index": 0,
 					"type": "text"
 				},
 				{
@@ -392,15 +416,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 2574,
+						"buffer_size": 2569,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1249,
-								1249
+								2185,
+								2185
 							]
 						],
 						"settings":
@@ -410,10 +434,10 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 94.0,
+						"translation.y": 225.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 1,
+					"stack_index": 2,
 					"type": "text"
 				}
 			]

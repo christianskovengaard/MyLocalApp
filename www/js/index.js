@@ -118,9 +118,11 @@ function InfoToggle(){
 
 
 function MenucardItemsToggle(num) {
-  // $(".MenucardCategoryGroup"+num+" .dishPoint").slideToggle();
+
     $(".MenucardCategoryGroup"+num+" .dishPoint").toggleClass('out');
     $(".MenucardCategoryGroup"+num+" img").toggleClass('rotate');
+
+
 }
 
 function FavoritDelete() {
@@ -729,7 +731,7 @@ function GetMenucardWithSerialNumber(sSerialNumber) {
 
                     // MENU
 
-                    $("#menu").append("<div id='menuBlock'></div>");
+                    $("#menu").append("<div id='menuBlock'><h3>Menu</h3></div>");
                     $.each(result.aMenucardCategory, function(key,value){
 //                              alert('liste index: '+key);
                               var category = {
@@ -817,7 +819,7 @@ function makeStampPage(iMenucardSerialNumber,iUserStamps,MaxStamps){
           $("#stampPage").append("<h4>Du har nu "+iFreeItems+" gratis:</h4>");
           $("#stampPage").append("<div id='FreeItemsBlock'></div>");
           for (var i = 1; i <= iFreeItems; i++){
-              $("#FreeItemsBlock").append("<div class='stampCircleIcon'><p>"+i+"</p></div>");
+              $("#FreeItemsBlock").append("<div class='stampCircleIcon black'><p>"+i+"</p></div>");
           } 
           $("#FreeItemsBlock .stampCircleIcon").hide().velocity("transition.slideUpBigIn", { display:"inline-block", stagger: 100, duration: 150 });
           $("#stampPage").append("<a class='useStampsBtn' onclick=''>Brug</a>");
@@ -852,10 +854,10 @@ function GetStamp(){
         $("#stampBlock").after("<div id='getStampPage'></div>");
         
         $("#getStampPage").before("<a class='backGetStampBtn' onclick='removeGetStampsPage();'>tilbage</a>");
-        $("#getStampPage").append("Antal stempler:");
-        $("#getStampPage").append("-1+");
-        $("#getStampPage").append("[][][][]");
-        $("#getStampPage").append("tastatur");
+        $("#getStampPage").append("<p>Antal stempler:</p>");
+        $("#getStampPage").append("<a>-</a><h1 id='numOfStamps'>1</h1><a>+</a><br>");
+        $("#getStampPage").append("<div class='inputGetStamp'></div><div class='inputGetStamp'></div><div class='inputGetStamp'></div><div class='inputGetStamp'></div><br>");
+        $("#getStampPage").append("<div class='keyboard'><a>1</a><a>2</a><a>3</a><a>4</a><a>5</a><a>6</a><a>7</a><a>8</a><a>9</a><a>-</a><a>0</a><a>ok</a><div>");
   });  
   
 }

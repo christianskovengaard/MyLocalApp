@@ -8,6 +8,7 @@ body {
 a,h1,h2,h3,h4,h5,p{
     font-family: 'Raleway', sans-serif;
 }
+
 .img_left { position: absolute; left: 10px; bottom: 5px; width: 25px; }
 .img_right { position: absolute; right: 10px; bottom: 5px; width: 25px; }
 
@@ -348,19 +349,19 @@ margin: 0 auto;
     padding: 0 20px;
     margin-bottom: 40px;
 }
-.messageBlock:after 
+/*.messageBlock:after 
 {
     content: '';
     position: absolute;
     border-style: solid;
-    border-width: 0 17px 25px;
+    border-width: 0 13px 15px;
     border-color: #FFFFFF transparent;
     display: block;
     width: 0;
     z-index: 1;
-    top: -19px;
+    top: -14px;
     left: 43px;
-}
+}*/
 .messageBlock div{
     background: #fff;
     padding: 10px;
@@ -380,6 +381,13 @@ margin: 0 auto;
     margin: 10px 0 20px 0;
 }
 
+#menuBlock h3{
+    text-align: center;
+    font-size: 30px;
+    margin: 0;
+    font-weight: 100;
+    color: #7F7871;
+}
 .dishPoint.button {  
     text-align: right;
     background: #c6c6c6;
@@ -602,10 +610,14 @@ transform:rotate(180deg);
 #stampBlock{
     padding-bottom: 15px;
     text-align: right;
+    background: #333;
+    padding: 0;
+    margin-bottom: 30px;
 }
 #stampBlock h3 {
     display: inline-block;
-    color: #333;
+    color: #fff;
+    margin-right: 5px;
 }
 .backStampBtn{
     color: #333 !important;
@@ -616,18 +628,23 @@ transform:rotate(180deg);
     height: 40px;
     width: 40px;
     margin-right: 5px;
-    background: #FDA142;
+    background: none;
+    border: 1px solid #FDA142;
   -webkit-border-radius: 100%;
      -moz-border-radius: 100%;
       -ms-border-radius: 100%;
           border-radius: 100%;
     z-index: 0;
-    color: #fff;
+    color: #FDA142;
     vertical-align: middle;
     text-align: center;
 }
 .stampCircleIcon p{
     line-height: 5px;
+}
+.stampCircleIcon.black{
+    border: 1px solid #333;
+    color: #333;
 }
 .StampsForNext{
     width: 100%;
@@ -681,4 +698,43 @@ transform:rotate(180deg);
 .useStampsBtn{
     font-size: 25px;
     color: #333 !important;
+}
+#getStampPage{
+    text-align: center;
+    width: 100%;
+}
+#getStampPage a{
+    display: inline-table;
+    width: 90px;
+    color: #333;
+    font-size: 90px;
+    font-weight: 100;
+}
+#getStampPage h1{
+    display: inline-table;
+    width: 50px;
+    font-weight: 100;
+    font-size: 90px;
+    line-height: 0;
+}
+#getStampPage p {
+    font-weight: 100;
+    line-height: 0;
+    margin: 20px 0 -10px 0;
+}
+.inputGetStamp {
+    display: inline-table;
+    font-weight: 100;
+    width: 50px;
+    height: 50px;
+    margin: 0px 5px;
+    border: 1px solid #333;
+}
+.keyboard{
+
+}
+.keyboard a {
+    width: 32% !important;
+    padding: 10px 0;
+    font-size: 60px !important;
 }
