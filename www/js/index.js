@@ -893,9 +893,6 @@ function KeypadOk(iMenucardSerialNumber){
   var numbersOfStamps = $("#numOfStamps").text();
   if ($("#inputGetStamp4 span").length == 1){
       
-      
-      alert('Do ajax: '+iMenucardSerialNumber);
-      
       var Stampcode = $('#inputGetStamp1 span').html()+''+$('#inputGetStamp2 span').html()+''+$('#inputGetStamp3 span').html()+''+$('#inputGetStamp4 span').html();
       Stampcode = parseInt(Stampcode);
       var sCustomerId = localStorage.getItem("sCustomerId");
