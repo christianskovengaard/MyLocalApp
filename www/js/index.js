@@ -349,7 +349,7 @@ function GetMenucardWithRestuarentName(sRestuarentName) {
                     //Get Stamps for the user
                     var iStamps = localStorage.getItem(result.iMenucardSerialNumber+".stamps");
                     if(iStamps === null){iStamps = 0;} 
-                    $("#infoBlock").after('<div id="stampBlock"><a onclick="makeStampPage(\''+result.iMenucardSerialNumber+'\','+iStamps+','+result.oStampcard.iStampcardMaxStamps+');"><h3>Stempler</h3> <div id="stampTotal" class="stampCircleIcon"><p>'+iStamps+'</p></div></a></div>');
+                    $("#infoBlock").after('<div id="stampBlock"><a id="makeStampPageBtn" onclick="makeStampPage(\''+result.iMenucardSerialNumber+'\','+iStamps+','+result.oStampcard.iStampcardMaxStamps+');"><h3>Stempler</h3> <div id="stampTotal" class="stampCircleIcon"><p>'+iStamps+'</p></div></a></div>');
 
                     // MESSAGES
 
@@ -695,7 +695,7 @@ function GetMenucardWithSerialNumber(sSerialNumber) {
                     var iFreeItems = Math.floor(iStamps / result.oStampcard.iStampcardMaxStamps);
                     var iStampsLeft = iStamps - ( iFreeItems * result.oStampcard.iStampcardMaxStamps); 
                     if(iStampsLeft === null){iStampsLeft = 0;} 
-                    $("#infoBlock").after('<div id="stampBlock"><a onclick="makeStampPage(\''+sSerialNumberCaps+'\','+iStamps+','+result.oStampcard.iStampcardMaxStamps+');"><h3>Stempler</h3> <div id="stampTotal" class="stampCircleIcon"><p>'+iStampsLeft+'</p></div></a></div>');
+                    $("#infoBlock").after('<div id="stampBlock"><a id="makeStampPageBtn" onclick="makeStampPage(\''+sSerialNumberCaps+'\','+iStamps+','+result.oStampcard.iStampcardMaxStamps+');"><h3>Stempler</h3> <div id="stampTotal" class="stampCircleIcon"><p>'+iStampsLeft+'</p></div></a></div>');
 
                     // MESSAGES
 
@@ -913,6 +913,7 @@ function KeypadOk(iMenucardSerialNumber){
 
                         // animation
                          $("#getStampPage").velocity("transition.slideDownBigOut", 200, function() {
+                                 
                                  $(".succesAlert").remove();
                                  $(".backGetStampBtn").remove();
                                  $("#getStampPage").remove();
@@ -921,7 +922,7 @@ function KeypadOk(iMenucardSerialNumber){
                                      var stampsCounterText = $("#stampsCounterText").text().split('/');;
                                      var iStampsLeft = parseInt(stampsCounterText[0]) + stamps;
                                      var iStampsForFree = parseInt(stampsCounterText[1]);
-
+                                     
                                      //Set free items
                                      var iStampsCalc = parseInt(stampsCounterText[0]) + parseInt(numbersOfStamps);
                                      var iFreeItems = Math.floor(iStampsCalc / iStampsForFree);
@@ -945,6 +946,10 @@ function KeypadOk(iMenucardSerialNumber){
                                      var iStampsLeft = stamps - ( iFreeItems * iStampsForFree);                  
                                      $("#stampTotal p").text(iStampsLeft);
                                      makeStampCounter(iStampsLeft,iStampsForFree);
+                                     
+                                     //Change onlick event of btn
+                                     $('#makeStampPageBtn').attr('onclick','makeStampPage(\''+iMenucardSerialNumber+'\','+stamps+','+iStampsForFree+')');
+                                 
                                 });
                          }); 
                      
