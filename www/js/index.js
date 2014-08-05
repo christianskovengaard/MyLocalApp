@@ -932,9 +932,9 @@ function KeypadOk(iMenucardSerialNumber){
 
                                      //Calcualte total free items
                                      iFreeItems = parseInt(oldFreeItems) + parseInt(iFreeItems);
-
+                                     
                                      //Update text for free items
-                                     $(".StampsForNext h4:nth-child(2)").html("Du har nu "+iFreeItems+" gratis:");
+                                     $("#stampPage h4:nth-child(3)").html("Du har nu "+iFreeItems+" gratis:");
                                      //Clear old free items
                                      $("#FreeItemsBlock").html("");
                                      //Display all the free items
