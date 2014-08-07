@@ -5,7 +5,51 @@
 		[
 			[
 				"slide",
-				"slideUpBigIn"
+				"slideUpIn"
+			],
+			[
+				"ma",
+				"margin"
+			],
+			[
+				"ap",
+				"append"
+			],
+			[
+				"border-r",
+				"border-right"
+			],
+			[
+				"in",
+				"inline-block"
+			],
+			[
+				"div",
+				"TeamDivWrapper"
+			],
+			[
+				"f",
+				"float"
+			],
+			[
+				"fon",
+				"font-size"
+			],
+			[
+				"m",
+				"margin"
+			],
+			[
+				"wid",
+				"width"
+			],
+			[
+				"te",
+				"teamCode"
+			],
+			[
+				"r",
+				"right"
 			],
 			[
 				"number",
@@ -22,14 +66,6 @@
 			[
 				"font",
 				"font-weight"
-			],
-			[
-				"ma",
-				"margin"
-			],
-			[
-				"in",
-				"inline-table"
 			],
 			[
 				"p",
@@ -96,10 +132,6 @@
 				"background"
 			],
 			[
-				"fon",
-				"font-weight"
-			],
-			[
 				"b",
 				"background"
 			],
@@ -110,10 +142,6 @@
 			[
 				"max",
 				"max-width"
-			],
-			[
-				"div",
-				"device-width"
 			],
 			[
 				"lin",
@@ -158,10 +186,6 @@
 			[
 				"back",
 				"background"
-			],
-			[
-				"m",
-				"margin-right"
 			]
 		]
 	},
@@ -171,7 +195,7 @@
 			"file": "/C/wamp/www/MyLocalApp/www/js/index.js",
 			"settings":
 			{
-				"buffer_size": 49175,
+				"buffer_size": 54258,
 				"line_ending": "Windows"
 			}
 		},
@@ -179,15 +203,7 @@
 			"file": "/C/wamp/www/MyLocalApp/www/css/index.css",
 			"settings":
 			{
-				"buffer_size": 15037,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "/C/wamp/www/MyLocalApp/www/index.html",
-			"settings":
-			{
-				"buffer_size": 2567,
+				"buffer_size": 15061,
 				"line_ending": "Windows"
 			}
 		}
@@ -232,8 +248,25 @@
 	},
 	"file_history":
 	[
-		"/C/wamp/www/MyLocalApptestAni/www/js/index.js",
+		"/C/wamp/www/ScavengerHuntWeb/ToDo.txt",
+		"/C/Users/db/Dropbox/iboligen/popup - velkomest/elements/closeBtn.svg",
+		"/C/Users/db/Desktop/SelfSaleEstateActivation.html",
+		"/C/wamp/www/ScavengerHuntWeb/js/general.js",
+		"/C/wamp/www/ScavengerHuntWeb/HQ/Scoreboard.php",
+		"/C/wamp/www/ScavengerHuntWeb/css/indexHQ.css",
+		"/C/wamp/www/ScavengerHuntWeb/index.php",
+		"/C/wamp/www/ScavengerHuntWeb/HQ/index.php",
+		"/C/wamp/www/ScavengerHuntWeb/css/index.css",
+		"/C/wamp/www/ScavengerHuntWeb/HQ/picflow.php",
+		"/C/wamp/www/ScavengerHuntWeb/webapp.php",
+		"/C/wamp/www/ScavengerHuntWeb/Controllers/TaskController.php",
+		"/C/Users/db/Desktop/designer_boliga.html",
+		"/C/Users/db/Desktop/629a6d28_panel-da-dk.js",
+		"/C/Users/db/Downloads/video-js-4.6.4/video-js/demo.html",
+		"/C/wamp/www/MyLocalApp/www/js/index.js",
+		"/C/wamp/www/MyLocalApp/www/css/index.css",
 		"/C/wamp/www/MyLocalApp/www/index.html",
+		"/C/wamp/www/MyLocalApptestAni/www/js/index.js",
 		"/C/wamp/www/MyLocalApp/www/spec/helper.js",
 		"/C/wamp/www/MyLocalMenu/Controllers/mailgun/vendor/guzzle/guzzle/src/Guzzle/Http/Exception/HttpException.php",
 		"/C/wamp/www/MyLocalApp/www/css/themes/default/images/icons-svg/heart-black.svg",
@@ -268,8 +301,6 @@
 		"/C/wamp/www/MyLocalMenu/login.php",
 		"/C/wamp/www/MyLocalMenu/Controllers/UserController.php",
 		"/C/wamp/www/MyLocalMenu/Controllers/EmailController.php",
-		"/C/wamp/www/MyLocalApp/www/css/index.css",
-		"/C/wamp/www/MyLocalApp/www/js/index.js",
 		"/C/wamp/www/MyLocalMenu/mustache_templates/openinghours_register.html",
 		"/C/wamp/www/MyLocalMenu/css/general_admin.css",
 		"/C/wamp/www/MyLocalMenu/Classes/DatabaseClass.php",
@@ -296,6 +327,22 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"velocity",
+			"makeStampCounter",
+			"stempler",
+			"cir",
+			"keypadok",
+			"stampPage",
+			"StampsForNext",
+			"keypadok",
+			"wscrCookieConsent",
+			"TeamNum",
+			"teamNum",
+			"id=teamNum",
+			"id=\"teamNum",
+			"maketasks",
+			".update",
+			"update",
 			"image",
 			"img",
 			"after",
@@ -377,7 +424,7 @@
 	"groups":
 	[
 		{
-			"selected": 1,
+			"selected": 0,
 			"sheets":
 			[
 				{
@@ -386,15 +433,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 49175,
+						"buffer_size": 54258,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								45728,
-								45728
+								52006,
+								52006
 							]
 						],
 						"settings":
@@ -404,10 +451,10 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 12314.0,
+						"translation.y": 13920.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 1,
+					"stack_index": 0,
 					"type": "text"
 				},
 				{
@@ -416,15 +463,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 15037,
+						"buffer_size": 15061,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								7782,
-								7782
+								12877,
+								12877
 							]
 						],
 						"settings":
@@ -434,40 +481,10 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 4791.0,
+						"translation.y": 9334.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 0,
-					"type": "text"
-				},
-				{
-					"buffer": 2,
-					"file": "/C/wamp/www/MyLocalApp/www/index.html",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 2567,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								2502,
-								2502
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/HTML/HTML.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 2,
+					"stack_index": 1,
 					"type": "text"
 				}
 			]

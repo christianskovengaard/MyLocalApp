@@ -806,7 +806,7 @@ function makeStampPage(iMenucardSerialNumber,iUserStamps,MaxStamps){
       $("#stampPage").append("<div class='StampsForNext' onclick='GetStamp(\""+iMenucardSerialNumber+"\");'><div class='stampCircle'><p>+</p></div></div>");
       $(".stampCircle").hide().velocity("transition.expandIn", 200, function(){
           $(".stampCircle").prepend("<h3>Stempler</h3>");
-          $(".stampCircle h3").hide().velocity("transition.slideDownIn", { stagger: 100, duration: 150 });
+          
           
           makeStampCounter(iStampsLeft,iStampsForFree);
 
@@ -816,7 +816,7 @@ function makeStampPage(iMenucardSerialNumber,iUserStamps,MaxStamps){
           for (var i = 1; i <= iFreeItems; i++){
               $("#FreeItemsBlock").append("<div class='stampCircleIcon black'><p>"+i+"</p></div>");
           } 
-          $("#FreeItemsBlock .stampCircleIcon").hide().velocity("transition.slideUpBigIn", { display:"inline-block", stagger: 100, duration: 150 });
+          $("#FreeItemsBlock .stampCircleIcon").hide().velocity("transition.slideUpIn", { display:"inline-block", duration: 800 });
           $("#stampPage").append("<a class='useStampsBtn' onclick=''>Brug</a>");
       });
   });
@@ -833,6 +833,7 @@ function removeStampPage(){
 function makeStampCounter(iStampsLeft,iStampsForFree){
     $("#stampsCounterText").remove();
     $(".stampCircle h3").after("<h3 id='stampsCounterText'>"+iStampsLeft+"/"+iStampsForFree+"</h3>");
+    $(".stampCircle h3").hide().velocity("transition.slideDownIn", { stagger: 100, duration: 150 });
     $(".stampCircle").append("<div class='stampCircleFill'></div>");
     var height = parseInt($(".stampCircle").outerHeight());
     var stampIntivals = height / iStampsForFree;
@@ -931,22 +932,57 @@ function KeypadOk(iMenucardSerialNumber){
                                      var oldFreeItems = $("#FreeItemsBlock > div").length;
 
                                      //Calcualte total free items
-                                     iFreeItems = parseInt(oldFreeItems) + parseInt(iFreeItems);
-                                     
+                                     iFreeItems = parseInt(oldFreeItems) + parseInt(iFreeItems);                                     
+
+
                                      //Update text for free items
                                      $("#stampPage h4:nth-child(3)").html("Du har nu "+iFreeItems+" gratis:");
                                      //Clear old free items
                                      $("#FreeItemsBlock").html("");
-                                     //Display all the free items
-                                     for (var i = 1; i <= iFreeItems; i++){
-                                          $("#FreeItemsBlock").append("<div class='stampCircleIcon black'><p>"+i+"</p></div>");
-                                     } 
 
                                      //Calculate stamps left
-                                     var iStampsLeft = stamps - ( iFreeItems * iStampsForFree);                  
-                                     $("#stampTotal p").text(iStampsLeft);
-                                     makeStampCounter(iStampsLeft,iStampsForFree);
+                                     var iStampsLeft = stamps - ( iFreeItems * iStampsForFree);
                                      
+                                     // animation filled circleCounter
+                                     var newChecker = parseInt(numbersOfStamps)+parseInt(stampsCounterText[0]);
+                                    if( newChecker >= iStampsForFree ){          
+                                        var counterFree =  Math.floor( newChecker / iStampsForFree );
+                                        
+                                      makeStampCounter(iStampsForFree,iStampsForFree);
+                                      setTimeout(function(){
+                                          $(".stampCircle").append("<div class='stampCircleFillNew'><h1>tillykke</h1><h2>"+counterFree+"</h2><h1>gratis</h1></div>");
+                                          $("body").append("<div id='bgFade' class='dim color'></div>");
+                                          $(".stampCircle").velocity("callout.pulse", 400);
+                                          $("#bgFade").hide().velocity("transition.shrinkIn",100, function(){
+                                            $("#bgFade").velocity("transition.shrinkOut",100, function(){
+                                                $("#bgFade").remove();
+                                            });
+                                          });
+                                          $(".stampCircleFillNew").velocity("callout.pulse", 400, function(){
+                                            $(".stampCircleFillNew").velocity("transition.expandOut",{ delay: 200 }, 400);                                        
+                                          });
+                                          makeStampCounter(0,iStampsForFree);
+                                      }, 200);
+
+                                        
+                                        var restStamps = newChecker - ( iStampsForFree * counterFree );
+                                        setTimeout(function(){makeStampCounter(restStamps,iStampsForFree);},1600);
+                                        $("#stampTotal p").text(restStamps);
+
+                                     //Display all the free items
+                                     for (var i = 1; i < iFreeItems; i++){
+                                          $("#FreeItemsBlock").append("<div class='stampCircleIcon black'><p>"+i+"</p></div>");
+                                     } 
+                                     $("#FreeItemsBlock").append("<div id='getNewfreeAni' class='stampCircleIcon black'><p>"+i+"</p></div>");
+                                     // New Free item Animation
+                                     if( iFreeItems > parseInt(oldFreeItems) ) {                                        
+                                        $("#getNewfreeAni").hide().velocity("transition.bounceIn", { display:"inline-block", stagger: 100, duration: 800 });
+                                     }                                                                                                                 
+                                    }
+                                    else{
+                                        $("#stampTotal p").text(iStampsLeft);
+                                        makeStampCounter(iStampsLeft,iStampsForFree);
+                                    }
                                      //Change onlick event of btn
                                      $('#makeStampPageBtn').attr('onclick','makeStampPage(\''+iMenucardSerialNumber+'\','+stamps+','+iStampsForFree+')');
                                  
@@ -954,7 +990,7 @@ function KeypadOk(iMenucardSerialNumber){
                          }); 
                      
                     }else{
-                        alert('Forkert kodeord!');
+                        alert('Forkert kodeord!');   // lav!
                     }
        });
   }
@@ -965,6 +1001,10 @@ function KeypadOk(iMenucardSerialNumber){
           }
       }   
   }
+}
+
+function markStampsForUse() {
+
 }
 
 function removeGetStampsPage(){  

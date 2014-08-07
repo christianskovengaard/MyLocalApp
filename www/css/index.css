@@ -1,6 +1,7 @@
 @import url(http://fonts.googleapis.com/css?family=Raleway:400,900,100,200,300,500,600,700,800);
 
 body {
+    position: relative;
  /*TEST for velocity scroling */
     -webkit-overflow-scrolling: touch;
 }
@@ -34,7 +35,17 @@ a,h1,h2,h3,h4,h5,p{
     text-align: center;
 }
 
-
+.dim{
+    position: absolute;
+    top: 0px;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+    z-index: 0;
+}
+.dim.color {
+    background: rgba(253,161,66,0.2);
+}
 
 #home{ 
     background: #ddd url("../img/bg.jpg") 0 0 no-repeat;
@@ -249,7 +260,7 @@ input[type="search"]::-webkit-search-cancel-button {
     border-color: #F4A720 transparent;
     display: block;
     width: 0;
-    z-index: 1;
+    z-index: -1;
     bottom: -7px;
     left: 4px;
 }
@@ -649,13 +660,14 @@ transform:rotate(180deg);
     height: 40px;
     width: 40px;
     margin-right: 5px;
+    margin-bottom: 5px;
     background: none;
     border: 1px solid #FDA142;
   -webkit-border-radius: 100%;
      -moz-border-radius: 100%;
       -ms-border-radius: 100%;
           border-radius: 100%;
-    z-index: 0;
+    z-index: 1;
     color: #FDA142;
     vertical-align: middle;
     text-align: center;
@@ -684,7 +696,7 @@ transform:rotate(180deg);
      -moz-border-radius: 100%;
       -ms-border-radius: 100%;
           border-radius: 100%;
-    z-index: 0;
+    z-index: 1;
     color: #fff;
 }
 .stampCircle  p{
@@ -695,7 +707,7 @@ transform:rotate(180deg);
     line-height: 0px;
     margin: 0;
     font-weight: 100;
-    z-index: 2;
+    z-index: 3;
 }
 .stampCircle  h3{
     margin: 5px 0;
@@ -703,7 +715,7 @@ transform:rotate(180deg);
     font-size: 18px;
     line-height: 18px;
     font-weight: 100;
-    z-index: 2;
+    z-index: 3;
 }
 .stampCircleFill{
     position: absolute;
@@ -713,6 +725,35 @@ transform:rotate(180deg);
     background: #FDA142;
     z-index: -1;
 }
+.stampCircleFillNew {
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: block;
+    height: 200px;
+    width: 200px;
+    background: #FDA142;
+    margin: 0 auto;
+    padding: 30px;
+    overflow: hidden;
+  -webkit-border-radius: 100%;
+     -moz-border-radius: 100%;
+      -ms-border-radius: 100%;
+          border-radius: 100%;
+    z-index: 5;
+    color: #fff;
+}
+.stampCircleFillNew h1{
+    font-size: 20px;
+    font-weight: 100;    
+}
+.stampCircleFillNew h2{
+    font-size: 90px;
+    line-height: 66px;
+    margin: 0px 0px 27px 0px;
+    font-weight: 100;
+}
+
 #FreeItemsBlock{
     margin-bottom: 15px;
 }
