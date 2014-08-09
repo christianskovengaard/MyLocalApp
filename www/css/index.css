@@ -760,6 +760,7 @@ transform:rotate(180deg);
 .useStampsBtn{
     font-size: 25px;
     color: #333 !important;
+    display: none;
 }
 #getStampPage{
     text-align: center;
@@ -812,3 +813,8 @@ transform:rotate(180deg);
     padding: 10px 0;
     font-size: 40px !important;
 }
+
+.choosenstampicon {
+    background-color: darkgreen;
+}
+
