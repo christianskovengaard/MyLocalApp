@@ -816,13 +816,9 @@ function makeStampPage(iMenucardSerialNumber,iUserStamps,MaxStamps){
           for (var i = 1; i <= iFreeItems; i++){
               $("#FreeItemsBlock").append("<div class='stampCircleIcon black' onclick='ChooseStampCircle(this);'><p>"+i+"</p></div>");
           } 
-<<<<<<< HEAD
+
           $("#FreeItemsBlock .stampCircleIcon").hide().velocity("transition.slideUpIn", { display:"inline-block", duration: 800 });
-          $("#stampPage").append("<a class='useStampsBtn' onclick=''>Brug</a>");
-=======
-          $("#FreeItemsBlock .stampCircleIcon").hide().velocity("transition.slideUpBigIn", { display:"inline-block", stagger: 100, duration: 150 });
           $("#stampPage").append("<a class='useStampsBtn' onclick='GetStamp(\""+iMenucardSerialNumber+"\",2,"+MaxStamps+");'>Brug</a>");
->>>>>>> origin/master
       });
   });
 }
@@ -897,6 +893,7 @@ function GetStamp(iMenucardSerialNumber,sFunction,iMaxStamp){
     }); 
   }
 } 
+
 function numOfStampsChange(num){
   var numbersOfStamps = parseInt( $("#numOfStamps").text() );
   var numbersOfStamps = numbersOfStamps + num;
@@ -1068,19 +1065,14 @@ function KeypadOk(iMenucardSerialNumber){
 
 
                                      //Update text for free items
-<<<<<<< HEAD
+
                                      $("#stampPage h4:nth-child(3)").html("Du har nu "+iFreeItems+" gratis:");
                                      //Clear old free items
                                      $("#FreeItemsBlock").html("");
-=======
+
                                      $(".iFreeItemCounter").html("Du har nu "+iFreeItems+" gratis:");
                                      //Clear old free items
                                      $("#FreeItemsBlock").html("");
-                                     //Display all the free items
-                                     for (var i = 1; i <= iFreeItems; i++){
-                                          $("#FreeItemsBlock").append("<div class='stampCircleIcon black' onclick='ChooseStampCircle(this);'><p>"+i+"</p></div>");
-                                     } 
->>>>>>> origin/master
 
                                      //Calculate stamps left
                                      var iStampsLeft = stamps - ( iFreeItems * iStampsForFree);
@@ -1111,16 +1103,19 @@ function KeypadOk(iMenucardSerialNumber){
                                         setTimeout(function(){makeStampCounter(restStamps,iStampsForFree);},1600);
                                         $("#stampTotal p").text(restStamps);
 
-                                     //Display all the free items
-                                     for (var i = 1; i < iFreeItems; i++){
-                                          $("#FreeItemsBlock").append("<div class='stampCircleIcon black'><p>"+i+"</p></div>");
-                                     } 
-                                     $("#FreeItemsBlock").append("<div id='getNewfreeAni' class='stampCircleIcon black'><p>"+i+"</p></div>");
-                                     // New Free item Animation
-                                     if( iFreeItems > parseInt(oldFreeItems) ) {                                        
-                                        $("#getNewfreeAni").hide().velocity("transition.bounceIn", { display:"inline-block", stagger: 100, duration: 800 });
-                                     }                                                                                                                 
-                                    }
+                                        //Display all the free items
+                                         for (var i = 1; i < iFreeItems; i++){
+                                              $("#FreeItemsBlock").append("<div class='stampCircleIcon black' onclick='ChooseStampCircle(this);'><p>"+i+"</p></div>");
+                                         } 
+
+                                        setTimeout(function(){
+                                           $("#FreeItemsBlock").append("<div id='getNewfreeAni' class='stampCircleIcon black' onclick='ChooseStampCircle(this);'><p>"+i+"</p></div>");
+                                           // New Free item Animation
+                                           if( iFreeItems > parseInt(oldFreeItems) ) {                                        
+                                              $("#getNewfreeAni").velocity("transition.shrinkIn", { display:"inline-block", stagger: 100, duration: 900 });
+                                           }     
+                                        }, 600);                                                                                                            
+                                    } 
                                     else{
                                         $("#stampTotal p").text(iStampsLeft);
                                         makeStampCounter(iStampsLeft,iStampsForFree);
