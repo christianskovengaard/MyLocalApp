@@ -826,6 +826,8 @@ function makeStampPage(iMenucardSerialNumber,iUserStamps,MaxStamps){
 function ChooseStampCircle(elem) {
     
     $(elem).toggleClass("choosenstampicon");
+
+
     
     //Hide show useStampsBtn
     if($('.choosenstampicon').length >= 1){
@@ -870,7 +872,12 @@ function GetStamp(iMenucardSerialNumber,sFunction,iMaxStamp){
           $("#getStampPage").append("<a onclick='numOfStampsChange(-1);'>-</a><h1 id='numOfStamps'>1</h1><a onclick='numOfStampsChange(1);'>+</a>");
           $("#getStampPage").append("<div class='inputGetStampwrapper'><div id='inputGetStamp1' class='inputGetStamp'></div><div id='inputGetStamp2' class='inputGetStamp'></div><div id='inputGetStamp3' class='inputGetStamp'></div><div id='inputGetStamp4' class='inputGetStamp'></div></div>");
           makeKeypad('getStampPage',iMenucardSerialNumber,1);    
-          $("#getStampPage").hide().velocity("transition.slideUpBigIn", 200);   
+          $(".keypad").hide();
+           $(".inputGetStampwrapper").hide();
+          $("#getStampPage").hide().velocity("transition.slideDownBigIn", 200, function(){
+              $(".keypad").velocity("transition.slideUpBigIn", 200);
+              $(".inputGetStampwrapper").velocity("transition.slideUpBigIn", 200);
+          });   
     });
   }else if(sFunction === 2){
         //Redeme stamp
@@ -1108,7 +1115,7 @@ function KeypadOk(iMenucardSerialNumber){
                                               $("#FreeItemsBlock").append("<div class='stampCircleIcon black' onclick='ChooseStampCircle(this);'><p>"+i+"</p></div>");
                                          } 
 
-                                        setTimeout(function(){
+                                        setTimeout(function(){                 
                                            $("#FreeItemsBlock").append("<div id='getNewfreeAni' class='stampCircleIcon black' onclick='ChooseStampCircle(this);'><p>"+i+"</p></div>");
                                            // New Free item Animation
                                            if( iFreeItems > parseInt(oldFreeItems) ) {                                        
@@ -1119,6 +1126,9 @@ function KeypadOk(iMenucardSerialNumber){
                                     else{
                                         $("#stampTotal p").text(iStampsLeft);
                                         makeStampCounter(iStampsLeft,iStampsForFree);
+                                        for (var i = 1; i <= iFreeItems; i++){
+                                              $("#FreeItemsBlock").append("<div class='stampCircleIcon black' onclick='ChooseStampCircle(this);'><p>"+i+"</p></div>");
+                                         } 
                                     }
                                      //Change onlick event of btn
                                      $('#makeStampPageBtn').attr('onclick','makeStampPage(\''+iMenucardSerialNumber+'\','+stamps+','+iStampsForFree+')');
@@ -1127,7 +1137,11 @@ function KeypadOk(iMenucardSerialNumber){
                          }); 
                      
                     }else{
-                        alert('Forkert kodeord!');   // lav!
+                      $("#menu").addClass("error");
+                      setTimeout(function(){
+                          $("#menu").removeClass("error");
+                      },300);
+                      $(".inputGetStamp span").remove();
                     }
        });
   } else{
@@ -1144,11 +1158,14 @@ function markStampsForUse() {
 }
 
 function removeGetStampsPage(){  
-  $("#getStampPage").velocity("transition.slideDownBigOut", 200, function() {
+  $(".keypad").velocity("transition.slideDownBigIn", 400);
+ $(".inputGetStampwrapper").remove();
+  $("#getStampPage").velocity("transition.slideUpBigOut", 200, function() {
       $(".backGetStampBtn").remove();
       $("#getStampPage").remove();
       $(".backStampBtn").show();
       $("#stampPage").velocity("transition.shrinkIn", 400);
+
   });
   
 }
