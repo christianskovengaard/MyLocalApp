@@ -811,23 +811,32 @@ function makeStampPage(iMenucardSerialNumber,iUserStamps,MaxStamps){
           makeStampCounter(iStampsLeft,iStampsForFree);
 
           $("#stampPage").append("<h4>For hver "+iStampsForFree+". stemple, får du en gratis Kaffe.</h4>");
-          $("#stampPage").append("<h4 class='iFreeItemCounter'>Du har nu "+iFreeItems+" gratis:</h4>");
+          $("#stampPage").append("<h4 class='iFreeItemCounter'>Du har nu "+iFreeItems+" gratis</h4>");
           $("#stampPage").append("<div id='FreeItemsBlock'></div>");
           for (var i = 1; i <= iFreeItems; i++){
               $("#FreeItemsBlock").append("<div class='stampCircleIcon black' onclick='ChooseStampCircle(this);'><p>"+i+"</p></div>");
           } 
 
           $("#FreeItemsBlock .stampCircleIcon").hide().velocity("transition.slideUpIn", { display:"inline-block", duration: 800 });
-          $("#stampPage").append("<a class='useStampsBtn' onclick='GetStamp(\""+iMenucardSerialNumber+"\",2,"+MaxStamps+");'>Brug</a>");
+          if( iFreeItems > 0 ){
+              $("#FreeItemsBlock").prepend("<h3>brug:</h3>");
+          }
+          $("#stampPage").append("<a class='useStampsBtn' onclick='GetStamp(\""+iMenucardSerialNumber+"\",2,"+MaxStamps+");'>OK</a>");
       });
   });
 }
 
 function ChooseStampCircle(elem) {
     
-    $(elem).toggleClass("choosenstampicon");
+    $( "#FreeItemsBlock div" ).removeClass("choosenstampicon");
 
-
+    var elemNum = $(elem).index();
+    $( "#FreeItemsBlock div" ).each(function() {
+        if ( $(this).index() <= elemNum ){
+          $(this).toggleClass("choosenstampicon");
+        }
+    });
+    
     
     //Hide show useStampsBtn
     if($('.choosenstampicon').length >= 1){
@@ -986,6 +995,7 @@ function UseStamp(iMenucardSerialNumber,iMaxStamp) {
                  localStorage.setItem(iMenucardSerialNumber+".stamps",stamps);
                  
                  // animation
+                  $(".inputGetStampwrapper").remove();
                  $("#getStampPage").velocity("transition.slideDownBigOut", 200, function() {
 
                          $(".succesAlert").remove();
@@ -1007,10 +1017,24 @@ function UseStamp(iMenucardSerialNumber,iMaxStamp) {
 
                         });
                  });
-                 
+                
+                $(".useStampsBtn").hide(); 
+                if( $("#FreeItemsBlock > div").length <= 0){
+                  $("#FreeItemsBlock h3").remove();
+                }
+                // rename freeCircles 
+                $( "#FreeItemsBlock div" ).each(function() {
+                  var num = $(this).index();
+                  $(this).html("<p>"+num+"</p>");
+                });
+
              }else{
-                 alert('Forkert kodeord!');
-             }
+                  $("#menu").addClass("error");
+                      setTimeout(function(){
+                          $("#menu").removeClass("error");
+                      },300);
+                      $(".inputGetStamp span").remove();
+                  }
          });
 
         } else {
@@ -1111,6 +1135,7 @@ function KeypadOk(iMenucardSerialNumber){
                                         $("#stampTotal p").text(restStamps);
 
                                         //Display all the free items
+                                        $("#FreeItemsBlock").prepend("<h3>brug:</h3>");
                                          for (var i = 1; i < iFreeItems; i++){
                                               $("#FreeItemsBlock").append("<div class='stampCircleIcon black' onclick='ChooseStampCircle(this);'><p>"+i+"</p></div>");
                                          } 
