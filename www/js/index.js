@@ -342,6 +342,15 @@ function GetMenucardWithRestuarentName(sRestuarentName) {
                             $("#infoBlock ul").append('<li class="dishPoint">'+Info.sMenucardInfoHeadline+'<p>'+Info.sMenucardInfoParagraph+'</p></li>');
                     }); 
                     
+                    //GALLERY
+                    if(typeof result.oGallery[0] !== "undefined") {
+                        $.each(result.oGallery, function(key,value){
+                            var sMessageImage = result.oGallery[key].image;
+                            var sPlaceInList = result.oGallery[key].placeinlist;                         
+                            $("#infoBlock ul").append("<li class='dishPoint'><img width='100%' height='auto' src='data:image/x-icon;base64,"+sMessageImage+"'></li>");                                 
+                        });        
+                    }
+                    
                     $("#infoBlock ul").append('<li class="dishPoint button" onclick="InfoToggle();"><img src="img/arrowUp.png"></li>');
 
                     // STAMPS
@@ -365,8 +374,7 @@ function GetMenucardWithRestuarentName(sRestuarentName) {
                                 if(sMessageImage === undefined) {
                                     $("#messageBlock").append("<div><p>"+sMessageDateCut+"</p><h1>"+sMessageHeadline+"</h1><h2>"+sMessageBodyText+"</h2></div>");
                                 }else {                              
-                                  $("#messageBlock").append("<div><p>"+sMessageDateCut+"</p><img width='100%' height='auto' src='data:image/x-icon;base64,"+sMessageImage+"'><h1>"+sMessageHeadline+"</h1><h2>"+sMessageBodyText+"</h2></div>");
-                                  
+                                  $("#messageBlock").append("<div><p>"+sMessageDateCut+"</p><img width='100%' height='auto' src='data:image/x-icon;base64,"+sMessageImage+"'><h1>"+sMessageHeadline+"</h1><h2>"+sMessageBodyText+"</h2></div>");                                 
                                 }
                                 //Check if message has been seen
                                 var PrevMessageDate = localStorage.getItem(result.iMenucardSerialNumber+".message");
@@ -686,8 +694,17 @@ function GetMenucardWithSerialNumber(sSerialNumber) {
                             $("#infoBlock ul").append('<li class="dishPoint">'+Info.sMenucardInfoHeadline+'<p>'+Info.sMenucardInfoParagraph+'</p></li>');
                     }); 
                     
+                    //GALLERY
+                    if(typeof result.oGallery[0] !== "undefined") {
+                        $.each(result.oGallery, function(key,value){
+                            var sMessageImage = result.oGallery[key].image;
+                            var sPlaceInList = result.oGallery[key].placeinlist;                         
+                            $("#infoBlock ul").append("<li class='dishPoint'><img width='100%' height='auto' src='data:image/x-icon;base64,"+sMessageImage+"'></li>");                                 
+                        });        
+                    }
+                    
                     $("#infoBlock ul").append('<li class="dishPoint button" onclick="InfoToggle();"><img src="img/arrowUp.png"></li>');
-
+                    
                     // STAMPS
                     //Get user stamps
                     var iStamps = localStorage.getItem(sSerialNumberCaps+".stamps");
