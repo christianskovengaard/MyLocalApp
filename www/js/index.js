@@ -696,11 +696,14 @@ function GetMenucardWithSerialNumber(sSerialNumber) {
                     
                     //GALLERY
                     if(typeof result.oGallery[0] !== "undefined") {
+                        $(".menuheader").prepend('<div class="swiper-container"><div class="swiper-wrapper"></div></div><div class="pagination"></div>')          
                         $.each(result.oGallery, function(key,value){
                             var sMessageImage = result.oGallery[key].image;
-                            var sPlaceInList = result.oGallery[key].placeinlist;                         
-                            $("#infoBlock ul").append("<li class='dishPoint'><img width='100%' height='auto' src='data:image/x-icon;base64,"+sMessageImage+"'></li>");                                 
-                        });        
+                            var sPlaceInList = result.oGallery[key].placeinlist;           
+                            $(".swiper-wrapper").append("<div class='swiper-slide'><img width='100%' height='auto' src='data:image/x-icon;base64,"+sMessageImage+"' /></div>");                                 
+                        });
+                        $(".swiper-wrapper").append("<div class='headerGalleryFade'></div>");
+                        makeheaderGallery();        
                     }
                     
                     $("#infoBlock ul").append('<li class="dishPoint button" onclick="InfoToggle();"><img src="img/arrowUp.png"></li>');
@@ -802,6 +805,24 @@ function GetMenucardWithSerialNumber(sSerialNumber) {
                 }
             });
     }
+
+function makeheaderGallery() {
+  var mySwiper = new Swiper('.swiper-container',{
+                pagination: '.pagination',
+                loop:true,
+                grabCursor: true,
+                paginationClickable: true
+              });
+              // $('.arrow-left').on('click', function(e){
+              //   e.preventDefault()
+              //   mySwiper.swipePrev()
+              // });
+              // $('.arrow-right').on('click', function(e){
+              //   e.preventDefault()
+              //   mySwiper.swipeNext()
+              // });
+}
+    
     
 function makeStampPage(iMenucardSerialNumber,iUserStamps,MaxStamps){
   var iUserStamps = iUserStamps;
