@@ -301,6 +301,12 @@ margin: 0 auto;
 #backButtonL img {
     width: 25px;
 }
+/*.backBtn {
+    position: fixed;
+    top: 5px;
+    left: 5px;
+    z-index: 20000;
+}*/
 .menuheader { 
     position: relative;
     background: #333;
@@ -412,19 +418,8 @@ margin: 0 auto;
     top: -30px;
     left: 20px;
 }*/
-.messageBlock:after 
+/*.messageBlock:after 
 {
-    /*content: '';
-    position: absolute;
-    background: #DADADA;
-    width: 30px;
-    height: 30px;
-    top: -30px;
-    left: 20px;
-    -webkit-border-radius: 0 0 0 30px;
-    -moz-border-radius: 0 0 0 30px;
-    -ms-border-radius: 0 0 0 30px;
-     border-radius: 0 0 0 30px;*/
     content: '';
     position: absolute;
     border-style: solid;
@@ -435,7 +430,7 @@ margin: 0 auto;
     z-index: 1;
     top: -18px;
     left: 20px;
-}
+}*/
 .messageBlock div{
     background: #fff;
     padding: 10px;
