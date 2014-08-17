@@ -362,8 +362,7 @@ function GetMenucard(sName_sNumber,sFunction){
                             $(".swiper-wrapper").append("<div class='swiper-slide'><img width='100%' height='auto' src='data:image/x-icon;base64,"+sMessageImage+"' /></div>");                                 
                         });
                         $(".swiper-wrapper").append("<div class='headerGalleryFade'></div>");
-                        makeheaderGallery();                                     
-                        });        
+                        makeheaderGallery();                                            
                     }
                     
                     $("#infoBlock ul").append('<li class="dishPoint button" onclick="InfoToggle();"><img src="img/arrowUp.png"></li>');
