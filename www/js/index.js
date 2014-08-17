@@ -355,27 +355,15 @@ function GetMenucard(sName_sNumber,sFunction){
                     
                     //GALLERY
                     if(typeof result.oGallery[0] !== "undefined") {
-<<<<<<< HEAD
                         $(".menuheader").prepend('<div class="swiper-container"><div class="swiper-wrapper"></div></div><div class="pagination"></div>')          
-=======
-                        
-                        $(".menuheader").prepend('<div class="swiper-container"><div class="swiper-wrapper"></div></div><div class="pagination"></div>'); 
->>>>>>> FETCH_HEAD
                         $.each(result.oGallery, function(key,value){
                             var sPlaceInList = result.oGallery[key].placeinlist;
-                            var sMessageImage = result.oGallery[key].image;
-<<<<<<< HEAD
-                            var sPlaceInList = result.oGallery[key].placeinlist;                         
+                            var sMessageImage = result.oGallery[key].image;                                                  
                             $(".swiper-wrapper").append("<div class='swiper-slide'><img width='100%' height='auto' src='data:image/x-icon;base64,"+sMessageImage+"' /></div>");                                 
                         });
                         $(".swiper-wrapper").append("<div class='headerGalleryFade'></div>");
-                        makeheaderGallery();         
-=======
-                            $(".swiper-wrapper").append("<div class='swiper-slide'><img width='100%' height='auto' src='data:image/x-icon;base64,"+sMessageImage+"' /></div>");                                 
-                            $(".swiper-wrapper").append("<div class='headerGalleryFade'></div>");
-                            makeheaderGallery();                              
+                        makeheaderGallery();                                     
                         });        
->>>>>>> FETCH_HEAD
                     }
                     
                     $("#infoBlock ul").append('<li class="dishPoint button" onclick="InfoToggle();"><img src="img/arrowUp.png"></li>');
