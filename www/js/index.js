@@ -355,10 +355,14 @@ function GetMenucard(sName_sNumber,sFunction){
                     
                     //GALLERY
                     if(typeof result.oGallery[0] !== "undefined") {
+                        
+                        $(".menuheader").prepend('<div class="swiper-container"><div class="swiper-wrapper"></div></div><div class="pagination"></div>'); 
                         $.each(result.oGallery, function(key,value){
+                            var sPlaceInList = result.oGallery[key].placeinlist;
                             var sMessageImage = result.oGallery[key].image;
-                            var sPlaceInList = result.oGallery[key].placeinlist;                         
-                            $("#infoBlock ul").append("<li class='dishPoint'><img width='100%' height='auto' src='data:image/x-icon;base64,"+sMessageImage+"'></li>");                                 
+                            $(".swiper-wrapper").append("<div class='swiper-slide'><img width='100%' height='auto' src='data:image/x-icon;base64,"+sMessageImage+"' /></div>");                                 
+                            $(".swiper-wrapper").append("<div class='headerGalleryFade'></div>");
+                            makeheaderGallery();                              
                         });        
                     }
                     
