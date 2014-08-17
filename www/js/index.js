@@ -17,7 +17,7 @@ window.onload = function(){
     makeFavorits();
     CheckForsCustomerId();
 
-    moveScrollerHead();
+    //moveScrollerHead();
 };
 
 function ClearSearchInput(){
@@ -118,58 +118,48 @@ function MenucardItemsToggle(num) {
     $(".MenucardCategoryGroup"+num+" img").toggleClass('rotate');
 }
 
-function FavoritDelete() {
-    
-    var Id = $(this).attr("id");
+function FavoritDelete(i) {
 
-    $(this).before('<div class="FavoritDeleteTjek" id="'+Id+'Wrapper"><a id="'+Id+'Del" href="#">Slet</a><p>.</p><a id="'+Id+'Cancel" href="#">Fortryd</a> </div>');
-    
-    
-    $(this).css({
-        width: widthBlock+"px"
-    });
-    $(this).animate({ marginLeft: widthWindow+"px"} , 200, function() {
-        
-        $("#"+Id+"Del").click( function(){
-            $('#'+Id).parent().remove();
-             
+  var id = i.parentNode.id;
+  
+
+  $('#'+id).velocity("transition.expandOut", 600, function(){
+      $('#'+id).before("<a class='undoDelFavorite "+id+"' data-clicked='no'><i class='fa fa-undo'></i> Fortryd</a>");
+      
+      $('.undoDelFavorite.'+id).click(function() {
+         $(this).attr("data-clicked","yes");
+         $(this).hide();
+         $('#'+id).velocity("transition.expandIn", { display:"block", duration: 600 });
+       });
+
+      setTimeout(function(){
+      $(".undoDelFavorite").velocity({ opacity: 0, height : 0 }, 300, function(){
+        $('.undoDelFavorite.'+id).remove();
+      });
+
+      var isClicked = $(".undoDelFavorite").data('clicked');
+      if (isClicked == "no" ){
+            $('#'+id).remove();
             var aUserFavorits = JSON.parse(localStorage.getItem("aUserFavorits"));
-            
             var iUserFavorits = Object.keys(aUserFavorits).length;
-            
             for(var i = 0; i < iUserFavorits; i++){
-                if( aUserFavorits[i]['iMenucardSerialNumber'] === Id){
-                    delete aUserFavorits[i];
-                    aUserFavorits[i] = '';
-                }
+              if( aUserFavorits[i]['iMenucardSerialNumber'] === id){
+              delete aUserFavorits[i];
+              aUserFavorits[i] = '';
+              }
             }
             localStorage.setItem("aUserFavorits", JSON.stringify(aUserFavorits));
-            
-            
-            //TODO: Remove the empty JSON from localStorage
-            
-            //TODO: If the localStorage aUserFavorits is empty then remove the 'Favoritter' headline
-            
-            //TODO: Also remove the cafe stamps
-            
-           //var iUserFavorits = Object.keys(aUserFavorits).length;
-              
-            
-           // aUserFavorits[iUserFavorits]= sSerialNumberCaps;
-
-           //   localStorage.setItem("aUserFavorits", JSON.stringify(aUserFavorits));
-           //   var MyFavorits = JSON.parse(localStorage.getItem("aUserFavorits"));
-            
-            
-        });
-        
-        $("#"+Id+"Cancel").click( function(){
-            var newWidth = $('#favoriteWrapper').width();
-            $('#'+Id).css({width: newWidth - 20 +"px"});
-            $('#'+Id).animate({ marginLeft: 0+"px"});
-            $('#'+Id+'Wrapper').remove();
-        });
-    });
+      }
+      }, 3000);
+  });
+  
+  
+  
+  //TODO: Remove the empty JSON from localStorage
+  
+  //TODO: If the localStorage aUserFavorits is empty then remove the 'Favoritter' headline
+  
+  //TODO: Also remove the cafe stamps
 }
 
 function makeFavorits() {
@@ -178,7 +168,7 @@ function makeFavorits() {
     var iUserFavorits = Object.keys(aUserFavorits).length;
     
     if(iUserFavorits > 0){
-        $("#favoriteWrapper").append("<h6>FAVORITTER</h6><a onclick='editFavorits'>e</a>");
+        $("#favoriteWrapper").append("<h6>FAVORITTER</h6><a class='editFavorits' onclick='editFavorits();'><i class='fa fa-cog'></i> </a>");
         for(var i = 0; i < iUserFavorits; i++){
             if(aUserFavorits[i].iMenucardSerialNumber !==  undefined) {
                 var sCafeId = aUserFavorits[i].iMenucardSerialNumber;
@@ -191,7 +181,21 @@ function makeFavorits() {
     }
 }
 
-
+function editFavorits(){
+  if( $(".deleteFavorite").length > 0 ){
+    $(".deleteFavorite").remove();
+    $(".favoriteWrapper .ui-btn").each(function(i){
+      var id = $(this).attr('id');
+      $(this).attr("onclick","GetMenucard('"+id+"',2);");
+    });
+  }
+  else{
+        $(".favoriteWrapper .ui-btn").each(function(i){
+        $(this).append('<div class="deleteFavorite" onclick="FavoritDelete(this);"> <i class="fa fa-trash-o fa-2x"></i></div>');
+        $(this).removeAttr("onclick");
+      });
+  }
+}
 
 function getMessagesAndStamps() {
        var aUserFavorits = JSON.parse(localStorage.getItem("aUserFavorits"));
@@ -367,6 +371,10 @@ function GetMenucard(sName_sNumber,sFunction){
                     
                     $("#infoBlock ul").append('<li class="dishPoint button" onclick="InfoToggle();"><img src="img/arrowUp.png"></li>');
 
+
+
+
+
                     // STAMPS
                     //Get user stamps
                     if(sName_sNumber == undefined){
@@ -473,7 +481,6 @@ function GetMenucard(sName_sNumber,sFunction){
             
             
     }
-    
 }
 
 function SaveUserFavorites(iMenucardSerialNumber,sRestuarentName,sRestuarentAddress) {

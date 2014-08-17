@@ -175,37 +175,37 @@ input[type="search"]::-webkit-search-cancel-button {
     position: relative;
 }
 
-.FavoritDeleteTjek {
+.editFavorits{  
+    color: #868080; 
     position: absolute;
+    right: 5px;
     top: 0px;
-    width: 100%;
-    height: 51px;
-    background: #eee;
+}
+.deleteFavorite {
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    margin-top: -16px; 
+}
+.undoDelFavorite {
+    display: block;
     text-align: center;
-}
-.FavoritDeleteTjek a {
-    display: inline-table;
-    text-decoration: none;
-    margin: 15px 50px 0px 50px;
-    font-weight: 500;
-}
-.FavoritDeleteTjek p {
-    display: inline-table;
-    color: #aaa;
-    background: #aaa;
-    overflow: hidden;
-    width: 1px;
-    height: 30px;
-    font-size: 1px;
-    margin: -2px 0 0 0; 
+    margin: 15px 20px;
+    padding: 15px 0px;
+    line-height: 1px;
+    background: tomato;
+    -webkit-border-radius: 20px;
+    -moz-border-radius: 20px;
+    border-radius: 20px;
 }
 
 .box { background: red; z-index: 10000; }
 
 #home h6 { 
+    display: inline-block;
     font-size: 0.6em; 
     color: rgba(0,0,0,0.5);
-    margin: 0px 0 2px 10px; 
+    margin: 5px 0 7px 10px; 
 }
 .ui-btn { 
     text-align: left;
