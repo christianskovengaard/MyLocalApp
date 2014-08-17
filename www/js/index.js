@@ -16,8 +16,6 @@ window.onload = function(){
     getMessagesAndStamps();
     makeFavorits();
     CheckForsCustomerId();
-    
-    $(".ui-btn").on( "swiperight", FavoritDelete )
 
     moveScrollerHead();
 };
@@ -65,7 +63,7 @@ function AutocompleteCafename() {
                      //escape single quoates from string 
                      var name = value.name.replace(/'/g, "\\'");
                      
-                     $('#searchWrapper').append('<div class="searchItemWrapper"><a class="ui-btn"  onclick="GetMenucard(\''+name+'\',1);">'+value.name+'<p>'+value.address+'</p></a></div>');
+                     $('#searchWrapper').append('<a class="ui-btn" onclick="GetMenucard(\''+name+'\',1);"><h1>'+value.name+'</h1><p>'+value.address+'</p></a>');
                    }); 
                  }
              });
@@ -122,8 +120,6 @@ function MenucardItemsToggle(num) {
 
 function FavoritDelete() {
     
-    var widthBlock = $(this).width();
-    var widthWindow = $( window ).width();
     var Id = $(this).attr("id");
 
     $(this).before('<div class="FavoritDeleteTjek" id="'+Id+'Wrapper"><a id="'+Id+'Del" href="#">Slet</a><p>.</p><a id="'+Id+'Cancel" href="#">Fortryd</a> </div>');
@@ -182,18 +178,20 @@ function makeFavorits() {
     var iUserFavorits = Object.keys(aUserFavorits).length;
     
     if(iUserFavorits > 0){
-        $("#favoriteWrapper").append("<h6>FAVORITTER</h6>");
+        $("#favoriteWrapper").append("<h6>FAVORITTER</h6><a onclick='editFavorits'>e</a>");
         for(var i = 0; i < iUserFavorits; i++){
             if(aUserFavorits[i].iMenucardSerialNumber !==  undefined) {
                 var sCafeId = aUserFavorits[i].iMenucardSerialNumber;
                 var sCafeName = aUserFavorits[i].cafename;
                 var sCcafeAdress = aUserFavorits[i].cafeaddress;
 
-                $("#favoriteWrapper").append('<div class="favoriteItemWrapper"><a id="'+sCafeId+'" href="#" data-transition="slide" class="ui-btn" onclick="GetMenucard(\''+sCafeId+'\',2);">'+sCafeName+'<p>'+sCcafeAdress+'</p></a></div>');
+                $("#favoriteWrapper").append('<a id="'+sCafeId+'" href="#" class="ui-btn" onclick="GetMenucard(\''+sCafeId+'\',2);"><h1>'+sCafeName+'</h1><p>'+sCcafeAdress+'</p></a>');
             }
         }
     }
 }
+
+
 
 function getMessagesAndStamps() {
        var aUserFavorits = JSON.parse(localStorage.getItem("aUserFavorits"));
@@ -249,7 +247,10 @@ function getMessagesAndStamps() {
                         // gem stempelkort tekst
                         localStorage.setItem(index+".sStampcardText", val.sStampcardText);
                         }
-                });           
+                        // make stamp
+                        //var iNumberOfStamps = val.iNumberOfStamps;
+                        //$("#"+index).append("<div class='stampCircleIcon'>"+iNumberOfStamps+"<div>");
+                });
             }
             else{
             }
@@ -292,8 +293,8 @@ function GetMenucard(sName_sNumber,sFunction){
     if(sFunction === 2){
         sFunction = 'GetMenucardWithSerialNumber';      
     }
-    
-    $("#menu").empty();
+
+    $("#menu").empty()
 
             //Get data            
             $.ajax({
@@ -302,27 +303,26 @@ function GetMenucard(sName_sNumber,sFunction){
               dataType: "jSON",
               data: {sFunction:sFunction,sRestName_sSerialNumberNumber:sName_sNumber}
              }).done(function(result){
-                 
-             if(result.result === true){                   
+             if(result.result === true){ 
+
+                    // hide home
+                    //$("#home").velocity("transition.slideUpBigOut", 400);
+                    $("#home").hide();
+
                     $(".spinner div").css('animation-name', 'none');
                     $(".spinner div").css('width', '100%');
                     $(".spinner").remove();
-                    
-                    $.mobile.changePage("#menu", {
-                        transition: "slide"
-                    });
 
                     // HEAD
 
                     var sRestuarentName = result.sRestuarentName; 
                     var sRestuarentAddress = result.sRestuarentAddress;
 
-                    $("#menu").append('<div class="menuheader"><a href="#home" data-transition="slide" data-direction="reverse" id="backButtonL" onclick="ClearSearchInput();"><img class="backBtn" src="img/backWhite.png"></a><div id="scrollerAnchorHead"></div> <div class="headTitle"><h1>'+sRestuarentName+'</h1><p>'+sRestuarentAddress+'</p><p>'+result.iRestuarentInfoZipcode+', '+result.sRestuarentInfoCity+'</p><img class="img_right" onclick="InfoToggle();" src="img/info.png"></div></div>');
+                    $("#menu").append('<div class="menuheader"><a id="backButtonL" onclick="ClearSearchInput();"><img class="backBtn" src="img/backWhite.png"></a><div id="scrollerAnchorHead"></div> <div class="headTitle"><h1>'+sRestuarentName+'</h1><p>'+sRestuarentAddress+'</p><p>'+result.iRestuarentInfoZipcode+', '+result.sRestuarentInfoCity+'</p><img class="img_right" onclick="InfoToggle();" src="img/info.png"></div></div>');
                     
                     $("#menu").append("<ul style='margin: 0 auto -20px auto;'></ul>");
                     
                     // INFO
-
                     $(".menuheader").after('<div id="infoBlock"><ul></ul></div>');
                     var sRestuarentPhone = result.sRestuarentPhone;
                     var sRestuarentPhoneFormat = sRestuarentPhone.substring(0, 2)+' '+sRestuarentPhone.substring(2, 4)+' '+sRestuarentPhone.substring(4, 6)+' '+sRestuarentPhone.substring(6, 8);
@@ -362,20 +362,20 @@ function GetMenucard(sName_sNumber,sFunction){
                             $(".swiper-wrapper").append("<div class='swiper-slide'><img width='100%' height='auto' src='data:image/x-icon;base64,"+sMessageImage+"' /></div>");                                 
                         });
                         $(".swiper-wrapper").append("<div class='headerGalleryFade'></div>");
-                        makeheaderGallery();                                            
+                        makeheaderGallery();  
                     }
                     
                     $("#infoBlock ul").append('<li class="dishPoint button" onclick="InfoToggle();"><img src="img/arrowUp.png"></li>');
 
                     // STAMPS
                     //Get user stamps
-                    if(sFunction === 1){
-                      var sSerialNumberCaps = result.iMenucardSerialNumber.toUpperCase();
+                    if(sName_sNumber == undefined){
+                      var sSerialNumberCaps = result.iMenucardSerialNumber;
                     }
-                    if(sFunction === 2){
-                      var sSerialNumberCaps = sName_sNumbe.toUpperCase();
+                    else{
+                      var sSerialNumberCaps = sName_sNumber;
                     }
-                    
+
                     var iStamps = localStorage.getItem(sSerialNumberCaps+".stamps");
                     //Calculate stamps left
                     var iFreeItems = Math.floor(iStamps / result.oStampcard.iStampcardMaxStamps);
@@ -400,14 +400,14 @@ function GetMenucard(sName_sNumber,sFunction){
                                   $("#messageBlock").append("<div><p>"+sMessageDateCut+"</p><img width='100%' height='auto' src='data:image/x-icon;base64,"+sMessageImage+"'><h1>"+sMessageHeadline+"</h1><h2>"+sMessageBodyText+"</h2></div>");                                 
                                 }
                                 //Check if message has been seen
-                                var PrevMessageDate = localStorage.getItem(result.iMenucardSerialNumber+".message");
-                                if( sMessageDate == PrevMessageDate){
-                                    $(".messageBlock").removeClass("out");
-                                }
-                                else {
-                                  $(".messageBlock").addClass("out");
-                                  localStorage.setItem(result.iMenucardSerialNumber+".message", sMessageDate);
-                                }
+                                // var PrevMessageDate = localStorage.getItem(result.iMenucardSerialNumber+".message");
+                                // if( sMessageDate == PrevMessageDate){
+                                //     $(".messageBlock").removeClass("out");
+                                // }
+                                // else {
+                                //   $(".messageBlock").addClass("out");
+                                  localStorage.setItem(sSerialNumberCaps+".message", sMessageDate);
+                                //}
                           }
 
 
@@ -455,18 +455,12 @@ function GetMenucard(sName_sNumber,sFunction){
                                   $(".MenucardCategoryGroup"+key).append('<li class="dishPoint"><h1>'+item.sMenucardItemName+'</h1>'+Price+'<p>'+item.sMenucardItemDescription+'</p></li>');
                               });
                             }
-
-                          
-                          });                     
-                          
-                          
+                         });               
                           if(sFunction === 'GetMenucardWithRestuarentName'){
                                 //Get with GetMenucardWithRestuarentName
                                 //Add the new cafe to localStorage
                                 SaveUserFavorites(result.iMenucardSerialNumber,sRestuarentName,sRestuarentAddress);                      
-                          }
-                          
-                          $(".ui-btn").on( "swiperight", FavoritDelete );                              
+                          }                            
                 }
                 else {
                         $(".spinner div").css('animation-name', 'none');
@@ -518,7 +512,7 @@ function SaveUserFavorites(iMenucardSerialNumber,sRestuarentName,sRestuarentAddr
                 localStorage.setItem("aUserFavorits", aUserFavorites);
                 //alert('insert new menucard');
                 // make favorit block
-                $("#favoriteWrapper").append('<div class="favoriteItemWrapper"><a id="'+iMenucardSerialNumber+'" href="#" data-transition="slide" class="ui-btn" onclick="GetMenucard(\''+iMenucardSerialNumber+'\',2);">'+sRestuarentName+'<p>'+sRestuarentAddress+'</p></a></div>');
+                $("#favoriteWrapper").append('<a id="'+iMenucardSerialNumber+'" href="#" class="ui-btn" onclick="GetMenucard(\''+iMenucardSerialNumber+'\',2);"><h1>'+sRestuarentName+'</h1><p>'+sRestuarentAddress+'</p></a>');
 
         }
       }else {
@@ -535,7 +529,7 @@ function SaveUserFavorites(iMenucardSerialNumber,sRestuarentName,sRestuarentAddr
 
          //make favorit block
          $("#favoriteWrapper").append("<h6>FAVORITTER</h6>");
-         $("#favoriteWrapper").append('<div class="favoriteItemWrapper"><a id="'+iMenucardSerialNumber+'" href="#" data-transition="slide" class="ui-btn" onclick="GetMenucard(\''+iMenucardSerialNumber+'\',2);">'+sRestuarentName+'<p>'+sRestuarentAddress+'</p></a></div>');
+         $("#favoriteWrapper").append('<a id="'+iMenucardSerialNumber+'" href="#" class="ui-btn" onclick="GetMenucard(\''+iMenucardSerialNumber+'\',2);"><h1>'+sRestuarentName+'</h1><p>'+sRestuarentAddress+'</p></a>');
 
 
       }
