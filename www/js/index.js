@@ -350,6 +350,9 @@ function GetMenucard(sName_sNumber,sFunction){
                                          sMenucardInfoHeadline: value.sMenucardInfoHeadline,
                                          sMenucardInfoParagraph: value.sMenucardInfoParagraph
                                      };
+                            //Replace line breaks with \n 
+                            Info.sMenucardInfoParagraph = Info.sMenucardInfoParagraph.replace(/\r?\n/g, '<br/>');
+
                             $("#infoBlock ul").append('<li class="dishPoint">'+Info.sMenucardInfoHeadline+'<p>'+Info.sMenucardInfoParagraph+'</p></li>');
                     }); 
                     
