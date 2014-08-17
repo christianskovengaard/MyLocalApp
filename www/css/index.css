@@ -301,17 +301,17 @@ margin: 0 auto;
 #backButtonL img {
     width: 25px;
 }
-/*.backBtn {
+.backBtn {
     position: fixed;
     top: 5px;
     left: 5px;
     z-index: 20000;
-}*/
+}
 .menuheader { 
     position: relative;
     background: #333;
     margin: 0px auto 0 auto; 
-    padding: 0px 0 5px 0; 
+    padding: 0px; 
     width: 100%; 
     overflow-x: hidden;
     z-index: 10;
@@ -319,7 +319,7 @@ margin: 0 auto;
 .menuheader h1 { 
     display: inline-block;
     color: #fff;
-    margin: 0px 0 0 10px;
+    margin: 0px 0 0 35px;
 }
 .menuheader p { 
     font-size: 12px;
@@ -329,13 +329,14 @@ margin: 0 auto;
 .swiper-container {
   height: 200px;
   width: 100%;
+  z-index: -1 !important;
 }
 .headerGalleryFade {
-    position: fixed;
+    position: absolute;
     left: 0;
     right: 0;
-    bottom: 0;
-    height: 50%;
+    top: 100px;
+    height: 100px;
     background: -moz-linear-gradient(top, rgba(51,51,51,0) 0%, rgba(51,51,51,0.07) 7%, rgba(51,51,51,1) 100%); /* FF3.6+ */
     background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(51,51,51,0)), color-stop(7%,rgba(51,51,51,0.07)), color-stop(100%,rgba(51,51,51,1))); /* Chrome,Safari4+ */
     background: -webkit-linear-gradient(top, rgba(51,51,51,0) 0%,rgba(51,51,51,0.07) 7%,rgba(51,51,51,1) 100%); /* Chrome10+,Safari5.1+ */
@@ -361,6 +362,10 @@ margin: 0 auto;
   box-shadow: 0px 1px 2px #555 inset;
   margin: 0 3px;
   cursor: pointer;
+}
+
+.headTitle {
+    z-index: 10;
 }
 
 #menu ul {
