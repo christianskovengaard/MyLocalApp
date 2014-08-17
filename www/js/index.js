@@ -347,19 +347,35 @@ function GetMenucard(sName_sNumber,sFunction){
                                          sMenucardInfoHeadline: value.sMenucardInfoHeadline,
                                          sMenucardInfoParagraph: value.sMenucardInfoParagraph
                                      };
+                            //Replace line breaks with \n 
+                            Info.sMenucardInfoParagraph = Info.sMenucardInfoParagraph.replace(/\r?\n/g, '<br/>');
+
                             $("#infoBlock ul").append('<li class="dishPoint">'+Info.sMenucardInfoHeadline+'<p>'+Info.sMenucardInfoParagraph+'</p></li>');
                     }); 
                     
                     //GALLERY
                     if(typeof result.oGallery[0] !== "undefined") {
+<<<<<<< HEAD
                         $(".menuheader").prepend('<div class="swiper-container"><div class="swiper-wrapper"></div></div><div class="pagination"></div>')          
+=======
+                        
+                        $(".menuheader").prepend('<div class="swiper-container"><div class="swiper-wrapper"></div></div><div class="pagination"></div>'); 
+>>>>>>> FETCH_HEAD
                         $.each(result.oGallery, function(key,value){
+                            var sPlaceInList = result.oGallery[key].placeinlist;
                             var sMessageImage = result.oGallery[key].image;
+<<<<<<< HEAD
                             var sPlaceInList = result.oGallery[key].placeinlist;                         
                             $(".swiper-wrapper").append("<div class='swiper-slide'><img width='100%' height='auto' src='data:image/x-icon;base64,"+sMessageImage+"' /></div>");                                 
                         });
                         $(".swiper-wrapper").append("<div class='headerGalleryFade'></div>");
                         makeheaderGallery();         
+=======
+                            $(".swiper-wrapper").append("<div class='swiper-slide'><img width='100%' height='auto' src='data:image/x-icon;base64,"+sMessageImage+"' /></div>");                                 
+                            $(".swiper-wrapper").append("<div class='headerGalleryFade'></div>");
+                            makeheaderGallery();                              
+                        });        
+>>>>>>> FETCH_HEAD
                     }
                     
                     $("#infoBlock ul").append('<li class="dishPoint button" onclick="InfoToggle();"><img src="img/arrowUp.png"></li>');
