@@ -19,7 +19,7 @@ window.onload = function(){
     
     $(".ui-btn").on( "swiperight", FavoritDelete )
 
-    moveScrollerHead();
+    //moveScrollerHead();
 };
 
 function ClearSearchInput(){
@@ -368,12 +368,12 @@ function GetMenucard(sName_sNumber,sFunction){
                     $("#infoBlock ul").append('<li class="dishPoint button" onclick="InfoToggle();"><img src="img/arrowUp.png"></li>');
 
                     // STAMPS
-                    //Get user stamps
-                    if(sFunction === 1){
+                    //Get user stamps'
+                    if(sFunction === 'GetMenucardWithRestuarentName'){
                       var sSerialNumberCaps = result.iMenucardSerialNumber.toUpperCase();
                     }
-                    if(sFunction === 2){
-                      var sSerialNumberCaps = sName_sNumbe.toUpperCase();
+                    if(sFunction === 'GetMenucardWithSerialNumber'){
+                      var sSerialNumberCaps = sName_sNumber.toUpperCase();
                     }
                     
                     var iStamps = localStorage.getItem(sSerialNumberCaps+".stamps");
@@ -381,6 +381,7 @@ function GetMenucard(sName_sNumber,sFunction){
                     var iFreeItems = Math.floor(iStamps / result.oStampcard.iStampcardMaxStamps);
                     var iStampsLeft = iStamps - ( iFreeItems * result.oStampcard.iStampcardMaxStamps); 
                     if(iStampsLeft === null){iStampsLeft = 0;} 
+                   
                     $("#infoBlock").after('<div id="stampBlock"><a id="makeStampPageBtn" onclick="makeStampPage(\''+sSerialNumberCaps+'\','+iStamps+','+result.oStampcard.iStampcardMaxStamps+');"><h3>Stempler</h3> <div id="stampTotal" class="stampCircleIcon"><p>'+iStampsLeft+'</p></div></a></div>');
 
                     // MESSAGES  
@@ -565,6 +566,7 @@ function makeheaderGallery() {
     
     
 function makeStampPage(iMenucardSerialNumber,iUserStamps,MaxStamps){
+
   var iUserStamps = iUserStamps;
   var iStampsForFree = MaxStamps;
   
@@ -653,6 +655,7 @@ function makeStampCounter(iStampsLeft,iStampsForFree){
 }
 
 function GetStamp(iMenucardSerialNumber,sFunction,iMaxStamp){
+
   if(sFunction === 1){
         //Get stamp
         $(".backGetStampBtn").remove();
@@ -702,6 +705,7 @@ function numOfStampsChange(num){
   $("#numOfStamps").text(numbersOfStamps);
 }
 function makeKeypad(id,iMenucardSerialNumber,sFunction,iMaxStamp){
+
     if(sFunction === 1){
         //Get stamp
         $("#"+id).append("<div class='keypad'><div>");
@@ -836,6 +840,7 @@ function UseStamp(iMenucardSerialNumber,iMaxStamp) {
     -Description: Get stamp
  */
 function KeypadOk(iMenucardSerialNumber){
+
   var numbersOfStamps = $("#numOfStamps").text();
   if ($("#inputGetStamp4 span").length == 1){
       
