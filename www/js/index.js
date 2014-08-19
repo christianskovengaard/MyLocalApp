@@ -17,7 +17,7 @@ window.onload = function(){
     getMessagesAndStamps();
     CheckForsCustomerId();
 
-    moveScrollerHead();
+    //moveScrollerHead();
 };
 
 function ClearSearchInput(){
@@ -389,7 +389,6 @@ function GetMenucard(sName_sNumber,sFunction){
                     
                     $("#infoBlock ul").append('<li class="dishPoint button" onclick="InfoToggle();"><img src="img/arrowUp.png"></li>');
 
-                    
                     // MESSAGES  
                     var sSerialNumberCaps = result.iMenucardSerialNumber;
                     if(sSerialNumberCaps == undefined ){
@@ -580,6 +579,7 @@ function makeheaderGallery() {
     
     
 function makeStampPage(iMenucardSerialNumber,iUserStamps,MaxStamps){
+
   var iUserStamps = iUserStamps;
   var iStampsForFree = MaxStamps;
   
@@ -698,6 +698,7 @@ function makeStampCounter(iStampsLeft,iStampsForFree){
 }
 
 function GetStamp(iMenucardSerialNumber,sFunction,iMaxStamp){
+
   if(sFunction === 1){
         //Get stamp
         $(".backGetStampBtn").remove();
@@ -753,6 +754,7 @@ function numOfStampsChange(num){
   $("#numOfStamps").text(numbersOfStamps);
 }
 function makeKeypad(id,iMenucardSerialNumber,sFunction,iMaxStamp){
+
     if(sFunction === 1){
         //Get stamp
         $("#"+id).append("<div class='keypad'><div>");
@@ -887,6 +889,7 @@ function UseStamp(iMenucardSerialNumber,iMaxStamp) {
     -Description: Get stamp
  */
 function KeypadOk(iMenucardSerialNumber){
+
   var numbersOfStamps = $("#numOfStamps").text();
   if ($("#inputGetStamp4 span").length == 1){
       
@@ -907,6 +910,9 @@ function KeypadOk(iMenucardSerialNumber){
                         if( stamps == undefined ) { var stamps = 0; }
                         var stamps = parseInt(stamps) + parseInt(numbersOfStamps);
                         localStorage.setItem(iMenucardSerialNumber+".stamps",stamps);
+
+                        $(".backBtn").attr("onclick","backBtnSwich('home');")
+                        $(".backBtn").addClass("rotate270");
 
                         // animation
                          $("#getStampPage").velocity("transition.slideDownBigOut", 200, function() {
@@ -964,8 +970,7 @@ function KeypadOk(iMenucardSerialNumber){
                                           });
                                           makeStampCounter(0,iStampsForFree);
                                       }, 200);
-
-                                        
+   
                                         var restStamps = newChecker - ( iStampsForFree * counterFree );
                                         setTimeout(function(){makeStampCounter(restStamps,iStampsForFree);},1600);
                                         $("#stampTotal p").text(restStamps);
