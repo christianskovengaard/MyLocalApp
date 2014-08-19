@@ -17,7 +17,7 @@ window.onload = function(){
     getMessagesAndStamps();
     CheckForsCustomerId();
 
-    //moveScrollerHead();
+    moveScrollerHead();
 };
 
 function ClearSearchInput(){
