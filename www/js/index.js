@@ -407,8 +407,8 @@ function GetMenucard(sName_sNumber,sFunction){
                                 $("#messageBlock").show();
                                 if(sMessageImage === undefined) {
                                     $("#messageBlock").append("<div><p>"+sMessageDateCut+"</p><h1>"+sMessageHeadline+"</h1><h2>"+sMessageBodyText+"</h2></div>");
-                                }else {                              
-                                  $("#messageBlock").append("<div><p>"+sMessageDateCut+"</p><img width='100%' height='auto' src='data:image/x-icon;base64,"+sMessageImage+"'><h1>"+sMessageHeadline+"</h1><h2>"+sMessageBodyText+"</h2></div>");                                 
+                                }else {                 
+                                  $("#messageBlock").append("<div><p>"+sMessageDateCut+"</p><img src='data:image/x-icon;base64,"+sMessageImage+"'><h1>"+sMessageHeadline+"</h1><h2>"+sMessageBodyText+"</h2></div>");                                 
                                 }
                                 //Check if message has been seen
                                 // var PrevMessageDate = localStorage.getItem(result.iMenucardSerialNumber+".message");
