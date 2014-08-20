@@ -14,7 +14,8 @@ window.onload = function(){
     //AppIntro(); 
     //}
     makeFavorits()
-    getMessagesAndStamps();
+
+
     CheckForsCustomerId();
 
     moveScrollerHead();
@@ -668,6 +669,8 @@ function backBtnSwich(action){
 function showHomePage(){
   $("#menu").hide();
   $("#home").velocity("fadeIn", 1000);
+  $(".introScreen").hide();
+  getMessagesAndStamps();
 }
 
 function removeStampPage(){
