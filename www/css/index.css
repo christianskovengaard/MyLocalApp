@@ -1,12 +1,19 @@
 @import url(http://fonts.googleapis.com/css?family=Raleway:400,900,100,200,300,500,600,700,800);
+@import url(http://fonts.googleapis.com/css?family=Libre+Baskerville:400,700,400italic);
 
 body {
     position: relative;
  /*TEST for velocity scroling */
     -webkit-overflow-scrolling: touch;
+    /*background: #ddd url("../img/bg.jpg") 0 0 no-repeat;*/
+    background: #333;
+    background-size: 100%;
+    background-attachment: fixed;
+    padding: 0px;
+    margin: 0px;
 }
 
-a,h1,h2,h3,h4,h5,p{
+a,h1,h2,h3,h4,h5,h6,p,li{
     font-family: 'Raleway', sans-serif;
 }
 
@@ -50,12 +57,14 @@ a,h1,h2,h3,h4,h5,p{
     background: tomato !important;
 }
 #home{ 
-    background: #ddd url("../img/bg.jpg") 0 0 no-repeat;
-    background-size: 100%;
-    padding: 0;
+    padding: 0px;
     height: 100%; 
     text-shadow: none;
-    color:#333; 
+    /*background: #ddd url("../img/bg.jpg") 0 0 no-repeat;*/
+    background: #ddd url("https://c2.staticflickr.com/4/3695/8981110642_958366cef2_z.jpg") 0 0 no-repeat;
+/*background: #ddd url("http://i.kinja-img.com/gawker-media/image/upload/s--7tgch_eZ--/c_fit,fl_progressive,q_80,w_636/18mhn407t5dfojpg.jpg") 0 0 no-repeat;*/
+
+    overflow-x: hidden;
 }
 
 .logo_home {
@@ -75,11 +84,11 @@ a,h1,h2,h3,h4,h5,p{
 .logo_home  h1 {
     font-weight: 800;
     margin: 0;
-    color: #333;
+    color: #fff;
 }
 .logo_home  span,.logo_home_small span {
     font-weight: 200;
-    color:#333;
+    color:#fff;
 }
 .logo_home_small {
     width: 100%;
@@ -154,8 +163,8 @@ input[type="search"]::-webkit-search-cancel-button {
 
 .searchWrapper {
     position: relative;
-    width: 90%;
-    margin: 0 auto;
+    width: 100%;
+    margin: 0 auto 10px auto;
     min-height: 25px;
 }
 
@@ -165,130 +174,89 @@ input[type="search"]::-webkit-search-cancel-button {
 
 .favoriteWrapper { 
     position: relative;
-    width: 90%;
     margin: 0 auto;
+    background: #333;
+    padding: 10px 20px 40px 20px;
 }
 .favoriteItemWrapper {
     position: relative;
 }
 
-.FavoritDeleteTjek {
+.editFavorits{  
+    color: #868080; 
     position: absolute;
-    top: 0px;
-    width: 100%;
-    height: 51px;
-    background: #eee;
+    right: 12px;
+    top: 12px;
+}
+.editFavorits.color {
+    color: rgba(233, 150, 63, 1);
+}
+.deleteFavorite {
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    margin-top: -16px; 
+}
+.undoDelFavorite {
+    display: block;
     text-align: center;
-}
-.FavoritDeleteTjek a {
-    display: inline-table;
-    text-decoration: none;
-    margin: 15px 50px 0px 50px;
-    font-weight: 500;
-}
-.FavoritDeleteTjek p {
-    display: inline-table;
-    color: #aaa;
-    background: #aaa;
-    overflow: hidden;
-    width: 1px;
-    height: 30px;
-    font-size: 1px;
-    margin: -2px 0 0 0; 
+    margin: 15px 20px;
+    padding: 15px 0px;
+    line-height: 1px;
+    background: tomato;
+    -webkit-border-radius: 20px;
+    -moz-border-radius: 20px;
+    border-radius: 20px;
 }
 
 .box { background: red; z-index: 10000; }
 
 #home h6 { 
-    font-size: 10px; line-height: 5px;
-    color: rgba(0,0,0,0.5);
-    margin: 15px 0 -1px 0; 
+    display: inline-block;
+    font-size: 0.6em; 
+    color: rgba(255,255,255,0.5);
+    margin: 5px 0 7px 10px; 
 }
-#home a { text-align: left; position: relative; overflow: visible; }
-.ui-page-theme-a a:visited, html .ui-bar-a a:visited, html .ui-body-a a:visited, html body .ui-group-theme-a a:visited {
-    color: #aaa;
+.ui-btn { 
+    text-align: left;
+    position: relative;
+    display: block;
+    padding: 15px 20px;
+    overflow: visible;
+    color: #fff;
+    text-decoration: none;
+    background: #333;
+    border-bottom: 1px solid #4E4E4E;
+}
+.ui-btn h1 {
+    margin: 0;
+    font-size: 1.5em;
+    font-weight: 200;
+}
+.ui-btn p { 
+    margin: 0;
+    font-size: 0.8em;
+    font-weight: 100;
 }
 
-.ui-btn { border: 0px; padding: 9px 10px; }
-.ui-btn p { font-size: 10px; margin: 0; color: #aaa; }
-.ui-btn-active 
-{ 
-    color: #2F3E46 !important; 
-    background: none !important; 
-    background-color: #fff !important;   
-    text-shadow: none !important; 
-}
-.ui-page-theme-a .ui-btn:visited {
-    background: #fff;
-}
-/*.messageAlert {
-    position: absolute;
-    top: 12px; right: 10px;
-    width: 25px; height: 25px;
-    background: url("../img/messageAlert.png");
-    background-size: 25px;
-    color: #fff;
-    text-align: center;
-    font-weight: 100;
-    font-size: 9px;
-}*/
 .newMgs {
     position: absolute;
-    top: 14px; right: 10px; bottom: 16px;
-    width: 32px;
-    background: #F4A720;
-    text-align: center;
-/*    position: absolute;
-    top: 0px; right: 0px; bottom: 0px;
-    width: 40px;
-    background: #F4A720;
-    text-align: center;
-    border: 1px solid #F4AB2C;
-    box-shadow: inset -1px 0px 3px -1px #d4921d;
-    background: rgba(245,167,32,1);
-    background: -moz-linear-gradient(top, rgba(243,179,65,1) 0%, rgba(245,167,32,1) 99%);
-    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(191,190,183,1)), color-stop(99%,rgba(245,167,32,1)));
-    background: -webkit-linear-gradient(top, rgba(243,179,65,1) 0%,rgba(245,167,32,1) 99%);
-    background: -o-linear-gradient(top, rgba(243,179,65,1) 0%,rgba(245,167,32,1) 99%);
-    background: -ms-linear-gradient(top, rgba(243,179,65,1) 0%,rgba(245,167,32,1) 99%);
-    background: linear-gradient(to bottom, rgba(243,179,65,1) 0%,rgba(245,167,32,1) 99%);
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#F3B341', endColorstr='#F4A720',GradientType=0 );*/
+    top: 22px;
+    right: 10px;
+    font-size: 25px;
+    color: #F4A720;
 }
-.newMgs:after{
-    content: '';
-    position: absolute;
-    border-style: solid;
-    border-width:  11px 12px 0 0;
-    border-color: #F4A720 transparent;
-    display: block;
-    width: 0;
-    z-index: -1;
-    bottom: -7px;
-    left: 4px;
-}
-.newMgs p {
-    color: #fff;
-    margin-top: 3px;
-    text-shadow: none;
-    line-height: 12px;
-    font-size: 10px;
-    font-weight: 100;
-    text-shadow: 1px 1px 0 #F3B850, -1px -1px 0px #EFA31F; /* Nede - oppe */
-}
-
 /*   :::::: MENU PAGE :::::: */
 
 #menu { 
-height: 100%;
-background: #ddd url("../img/bg.jpg") 0 0 no-repeat;
-background-size: 100%;
 text-shadow: none;
-height: 100%;
+display: none;
+min-height: 1000px;
+width: 100%;
 text-align: left;
 margin: 0 auto;
-    -webkit-transition: 0.2s;
-    -moz-transition: 0.2s;
-    -o-transition: 0.2s;
+overflow-x: hidden;
+background: #333;
 }
 .error {
     text-align: center;
@@ -296,39 +264,98 @@ margin: 0 auto;
     font-weight: bold;
 }
 #backButtonL{
-    display: inline-block;
+    position: fixed;
+    z-index: 1001;
 }
 #backButtonL img {
     width: 25px;
+}
+.backBtn {
+    position: fixed;
+    top: 5px;
+    left: 5px;
+    z-index: 20000;
+    -moz-transition: 0.5s;
+    -webkit-transition: 0.5s;
+    -o-transition: 0.5s;
+    transition: 0.5s;
 }
 .menuheader { 
     position: relative;
     background: #333;
     margin: 0px auto 0 auto; 
-    padding: 10px 0 5px 0; 
+    padding: 0px; 
     width: 100%; 
     overflow-x: hidden;
     z-index: 10;
 }
-.menuheader h1 { 
+.swiper-container {
+  height: 200px;
+  width: 100%;
+  z-index: 0 !important;
+}
+.headerGalleryFade {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 100px;
+    height: 100px;
+    background: -moz-linear-gradient(top, rgba(51,51,51,0) 0%, rgba(51,51,51,0.07) 7%, rgba(51,51,51,1) 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(51,51,51,0)), color-stop(7%,rgba(51,51,51,0.07)), color-stop(100%,rgba(51,51,51,1))); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top, rgba(51,51,51,0) 0%,rgba(51,51,51,0.07) 7%,rgba(51,51,51,1) 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top, rgba(51,51,51,0) 0%,rgba(51,51,51,0.07) 7%,rgba(51,51,51,1) 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top, rgba(51,51,51,0) 0%,rgba(51,51,51,0.07) 7%,rgba(51,51,51,1) 100%); /* IE10+ */
+    background: linear-gradient(to bottom, rgba(51,51,51,0) 0%,rgba(51,51,51,0.07) 7%,rgba(51,51,51,1) 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00333333', endColorstr='#333333',GradientType=0 ); /* IE6-9 */
+}
+.pagination {  /* viser hvor mange billeder er er slider */
+    display: none;
+  position: absolute;
+  left: 0;
+  text-align: center;
+  bottom:50px;
+  width: 100%;
+}
+.swiper-pagination-switch {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 10px;
+  background: #999;
+  box-shadow: 0px 1px 2px #555 inset;
+  margin: 0 3px;
+  cursor: pointer;
+}
+
+.headTitle {
+    position: relative;
+    z-index: 10;
+    background: #333;
+    width: 100%;
+}
+.headTitle.shadow {
+    box-shadow: 0px 7px 10px rgba(0,0,0,0.2);
+}
+.headTitle h1 { 
     display: inline-block;
     color: #fff;
-    margin: 0px 0 0 10px;
+    margin: 0px 0 0 35px;
 }
-.menuheader p { 
+.headTitle p { 
     font-size: 12px;
     color: #fff;
     margin: 0 0 2px 37px;
 }
 #menu ul {
     list-style-type: none ; padding: 0;
-    width: 90%;
+    width: 100%;
     margin: 20px auto;
 }
 #menu li {
     margin: 0;
     padding: 8px 12px 8px 20px;
     margin: 0 0 2px 0;
+    font-weight: 400;
 }
 #menu li p {
     margin: 5px 0 0 0;
@@ -362,9 +389,13 @@ margin: 0 auto;
 
 .messageBlock{
     position: relative;
-    padding: 0 20px;
-    margin-bottom: 40px;
+    margin-top: 30px;
+margin-bottom: 20px;
+text-align: center;
+font-style: italic;
 }
+
+
 /*.messageBlock:before 
 {
     content: '';
@@ -377,53 +408,63 @@ margin: 0 auto;
 }*/
 .messageBlock:after 
 {
-    /*content: '';
-    position: absolute;
-    background: #DADADA;
-    width: 30px;
-    height: 30px;
-    top: -30px;
-    left: 20px;
-    -webkit-border-radius: 0 0 0 30px;
-    -moz-border-radius: 0 0 0 30px;
-    -ms-border-radius: 0 0 0 30px;
-     border-radius: 0 0 0 30px;*/
     content: '';
     position: absolute;
     border-style: solid;
-    border-width: 0 19px 18px 0;
+    border-width: 0 20px 20px ;
     border-color: #FFFFFF transparent;
     display: block;
     width: 0;
     z-index: 1;
-    top: -18px;
+    top: -10px;
     left: 20px;
 }
 .messageBlock div{
     background: #fff;
     padding: 10px;
-    border: 1px solid #FCA142 0px 0px 0px;
+    color: #333;
+    box-shadow: 0px 0px 10px -3px #333 inset;
 }
 .messageBlock p{
     margin: 0 0 5px 0;
     font-size: 13px;
-    float: right;
+    text-align: right;
 }
 .messageBlock h1 {
     font-size: 20px;
     margin: 10px 0 0px 0;
+    font-family: 'Libre Baskerville', serif;
+    font-size: 1.5em;
+    font-weight: 700;
 }
 .messageBlock h2{
     font-size: 15px;
     margin: 10px 0 20px 0;
+    font-family: 'Libre Baskerville', serif;
+    font-size: 1em;
+    font-weight: 400;
 }
-
+#menuBlock {
+    outline: #333 solid 10px;
+    margin: 80px 10px 15px 10px;
+    border: 2px solid #fff;
+    box-shadow: 0px -13px 10px rgba(0,0,0,0.2);
+}
 #menuBlock h3{
     text-align: center;
     font-size: 30px;
     margin: 0;
     font-weight: 100;
     color: #7F7871;
+}
+.menuBlockHeadline{
+    font-size: 2em;
+    font-weight: 400;
+    text-align: center;
+    color: #fff;
+    background: #333;
+    padding-top: 10px;
+    margin-top: 20px;
 }
 .dishPoint.button {  
     text-align: right;
@@ -440,6 +481,7 @@ margin: 0 auto;
     color: #fff;
     text-transform:uppercase;
     overflow: hidden;
+    border-bottom: 1px solid rgba(68, 68, 68, 0.35);
 }
 .dishHeadline img { 
     position: absolute;
@@ -449,6 +491,7 @@ margin: 0 auto;
 }
 .dishHeadline p{
     font-size: 10px;
+    font-weight: 100;
 }
 .dishPoint { 
     background: #fff;
@@ -604,17 +647,16 @@ transform:rotate(180deg);
 -ms-transform:rotate(180deg); /* IE 9 */
 -webkit-transform:rotate(180deg); /* Opera, Chrome, and Safari */
 }
+.rotate270{
+   transform:rotate(-90deg);
+    -ms-transform:rotate(-90deg); /* IE 9 */
+    -webkit-transform:rotate(-90deg); /* Opera, Chrome, and Safari */ 
+
+}
 
 .introScreen {
-    position: fixed;
-    top: 0px; bottom: 0px;
-    left: 0px; right: 0px;
-    padding: 30px 20px 0px 20px;
-    background: #ddd;
     text-align: center;
-}
-.introScreen img {
-    height: 30%;
+    color: #fff;
 }
 .introScreen h1 {
     margin: 0 0 20px 0;
@@ -643,18 +685,20 @@ transform:rotate(180deg);
 }
 #stampPage{
     text-align: center;
+    color: #FFF;
 }
 #stampBlock{
     padding-bottom: 15px;
     text-align: right;
     background: #333;
     padding: 0;
-    margin-bottom: 30px;
+    margin-bottom: 5px;
+    text-align: center;
 }
 #stampBlock h3 {
-    display: inline-block;
+    display: block;
     color: #fff;
-    margin-right: 5px;
+    margin: 0px;
 }
 .backStampBtn{
     color: #333 !important;
@@ -693,7 +737,7 @@ transform:rotate(180deg);
     display: block;
     height: 200px;
     width: 200px;
-    background: #333;
+    background: #E2F3F5;
     margin: 0 auto;
     padding: 30px;
     overflow: hidden;
@@ -713,6 +757,7 @@ transform:rotate(180deg);
     margin: 0;
     font-weight: 100;
     z-index: 3;
+    color: #333;
 }
 .stampCircle  h3{
     margin: 5px 0;
@@ -721,6 +766,7 @@ transform:rotate(180deg);
     line-height: 18px;
     font-weight: 100;
     z-index: 3;
+    color: #333;
 }
 .stampCircleFill{
     position: absolute;
@@ -769,14 +815,14 @@ transform:rotate(180deg);
 }
 .useStampsBtn{
     font-size: 25px;
-    color: #333 !important;
+    color: #FDA142 !important;
     display: none;
     padding: 10px 20px;
     -webkit-border-radius: 15px;
     -moz-border-radius: 15px;
     -ms-border-radius: 15px;
     border-radius: 15px;
-    border: 1px solid #333;
+    border: 1px solid #FDA142;
 }
 #getStampPage{
     text-align: center;
@@ -785,7 +831,7 @@ transform:rotate(180deg);
 #getStampPage a{
     display: inline-table;
     width: 90px;
-    color: #333;
+    color: #fff;
     font-size: 70px;
     font-weight: 100;
 }
@@ -796,11 +842,13 @@ transform:rotate(180deg);
     font-size: 70px;
     line-height: 0;
     margin: 0;
+    color: #fff;
 }
 #getStampPage p {
     font-weight: 100;
     line-height: 0;
-    margin: 20px 0 -10px 0;
+    margin: 20px 0 0px 0;
+    color: #fff;
 }
 .inputGetStampwrapper{
     position: fixed;
@@ -813,7 +861,7 @@ transform:rotate(180deg);
     width: 32px;
     height: 32px;
     margin: 0px 10px;
-    border: 1px solid #333;
+    border: 1px solid #FFF;
     padding: 4px;
     vertical-align: top;
 }
@@ -821,8 +869,8 @@ transform:rotate(180deg);
     display: block;
     width: 100%;
     height: 100%;
-    background: #333;
-    color: #333;
+    background: #fff;
+    color: #fff;
 }
 .keypad{
     position: fixed;
@@ -839,7 +887,7 @@ transform:rotate(180deg);
 }
 
 .choosenstampicon {
-    background-color: #333;
-    color: #fff !important;
+    background-color: #FDA142;
+    color: #333 !important;
 }
 

@@ -9,17 +9,15 @@ var sAPIURL = 'http://mylocalcafe.dk/API/api.php';
 window.onload = function(){
     CheckInternetConnection();
         
-    var introSeen = localStorage.length;
-    if( introSeen === 0) { 
-    AppIntro(); 
-    }
+    //var introSeen = localStorage.length;
+    //if( introSeen === 0) { 
+    //AppIntro(); 
+    //}
+    makeFavorits()
     getMessagesAndStamps();
-    makeFavorits();
     CheckForsCustomerId();
-    
-    $(".ui-btn").on( "swiperight", FavoritDelete )
 
-    
+    moveScrollerHead();
 };
 
 function ClearSearchInput(){
@@ -65,7 +63,7 @@ function AutocompleteCafename() {
                      //escape single quoates from string 
                      var name = value.name.replace(/'/g, "\\'");
                      
-                     $('#searchWrapper').append('<div class="searchItemWrapper"><a class="ui-btn"  onclick="findMenuCardAutocomplete(\''+name+'\');">'+value.name+'<p>'+value.address+'</p></a></div>');
+                     $('#searchWrapper').append('<a class="ui-btn" onclick="GetMenucard(\''+name+'\',1);"><h1>'+value.name+'</h1><p>'+value.address+'</p></a>');
                    }); 
                  }
              });
@@ -120,79 +118,96 @@ function MenucardItemsToggle(num) {
     $(".MenucardCategoryGroup"+num+" img").toggleClass('rotate');
 }
 
-function FavoritDelete() {
-    
-    var widthBlock = $(this).width();
-    var widthWindow = $( window ).width();
-    var Id = $(this).attr("id");
+function FavoritDelete(i) {
 
-    $(this).before('<div class="FavoritDeleteTjek" id="'+Id+'Wrapper"><a id="'+Id+'Del" href="#">Slet</a><p>.</p><a id="'+Id+'Cancel" href="#">Fortryd</a> </div>');
-    
-    
-    $(this).css({
-        width: widthBlock+"px"
-    });
-    $(this).animate({ marginLeft: widthWindow+"px"} , 200, function() {
-        
-        $("#"+Id+"Del").click( function(){
-            $('#'+Id).parent().remove();
-             
+  var id = i.parentNode.id;
+  
+
+  $('#'+id).velocity("transition.expandOut", 600, function(){
+      $('#'+id).before("<a class='undoDelFavorite "+id+"' data-clicked='no'><i class='fa fa-undo'></i> Fortryd</a>");
+      
+      $('.undoDelFavorite.'+id).click(function() {
+         $(this).attr("data-clicked","yes");
+         $(this).hide();
+         $('#'+id).velocity("transition.expandIn", { display:"block", duration: 600 });
+         var height =  $(this).outerHeight();
+       });
+
+      setTimeout(function(){
+      $(".undoDelFavorite").velocity({ opacity: 0, height : 0 }, 300, function(){
+        $('.undoDelFavorite.'+id).remove();
+      });
+
+      var isClicked = $(".undoDelFavorite").data('clicked');
+      if (isClicked == "no" ){
+            $('#'+id).remove();
             var aUserFavorits = JSON.parse(localStorage.getItem("aUserFavorits"));
-            
             var iUserFavorits = Object.keys(aUserFavorits).length;
-            
             for(var i = 0; i < iUserFavorits; i++){
-                if( aUserFavorits[i]['iMenucardSerialNumber'] === Id){
-                    delete aUserFavorits[i];
-                    aUserFavorits[i] = '';
-                }
+              if( aUserFavorits[i]['iMenucardSerialNumber'] === id){
+              delete aUserFavorits[i];
+              aUserFavorits[i] = '';
+              }
             }
             localStorage.setItem("aUserFavorits", JSON.stringify(aUserFavorits));
-            
-            
-            //TODO: Remove the empty JSON from localStorage
-            
-            //TODO: If the localStorage aUserFavorits is empty then remove the 'Favoritter' headline
-            
-            //TODO: Also remove the cafe stamps
-            
-           //var iUserFavorits = Object.keys(aUserFavorits).length;
-              
-            
-           // aUserFavorits[iUserFavorits]= sSerialNumberCaps;
-
-           //   localStorage.setItem("aUserFavorits", JSON.stringify(aUserFavorits));
-           //   var MyFavorits = JSON.parse(localStorage.getItem("aUserFavorits"));
-            
-            
-        });
-        
-        $("#"+Id+"Cancel").click( function(){
-            var newWidth = $('#favoriteWrapper').width();
-            $('#'+Id).css({width: newWidth - 20 +"px"});
-            $('#'+Id).animate({ marginLeft: 0+"px"});
-            $('#'+Id+'Wrapper').remove();
-        });
-    });
+      }
+      }, 3000);
+  });
+  
+  
+  
+  //TODO: Remove the empty JSON from localStorage
+  
+  //TODO: If the localStorage aUserFavorits is empty then remove the 'Favoritter' headline
+  
+  //TODO: Also remove the cafe stamps
 }
 
-function makeFavorits() {
+function makeFavorits() { 
     $("#favoriteWrapper").empty();
     var aUserFavorits = JSON.parse(localStorage.getItem("aUserFavorits"));
-    var iUserFavorits = Object.keys(aUserFavorits).length;
     
-    if(iUserFavorits > 0){
-        $("#favoriteWrapper").append("<h6>FAVORITTER</h6>");
+    if(aUserFavorits != null ){
+      var iUserFavorits = Object.keys(aUserFavorits).length; 
+        $("#favoriteWrapper").append("<h6>FAVORITTER</h6><a class='editFavorits' onclick='editFavorits();'><i class='fa fa-cog'></i> </a>");
         for(var i = 0; i < iUserFavorits; i++){
             if(aUserFavorits[i].iMenucardSerialNumber !==  undefined) {
                 var sCafeId = aUserFavorits[i].iMenucardSerialNumber;
                 var sCafeName = aUserFavorits[i].cafename;
                 var sCcafeAdress = aUserFavorits[i].cafeaddress;
 
-                $("#favoriteWrapper").append('<div class="favoriteItemWrapper"><a id="'+sCafeId+'" href="#" data-transition="slide" class="ui-btn" onclick="GetMenucardWithSerialNumber(\''+sCafeId+'\');">'+sCafeName+'<p>'+sCcafeAdress+'</p></a></div>');
+                $("#favoriteWrapper").append('<a id="'+sCafeId+'" class="ui-btn" onclick="GetMenucard(\''+sCafeId+'\',2);"><h1>'+sCafeName+'</h1><p>'+sCcafeAdress+'</p></a>');
             }
         }
     }
+    else{
+      //var introHead = "<h3>Velkommen til</h3><h1>MyLocal<span>Café</span></h1>";
+      var introHead = "<h1>Velkommen</h1>";
+      var introDec = "<h2>Her kan du følge dine favorit caféer.</h2><h2>Du kan se info om deres sted, se deres menukort, samt få aktuelle tilbud og beskeder direkte.</h2><h2>Søg blot på dine lokale favorit caféer i søgefeltet for at komme i gang!</h2>";
+      $("#favoriteWrapper").append("<div class='introScreen'><br>"+introHead+introDec+"</div>");
+
+    }
+}
+
+
+function editFavorits(){
+  if( $(".deleteFavorite").length > 0 ){
+    $(".deleteFavorite").remove();
+    $(".favoriteWrapper .ui-btn").each(function(i){
+      var id = $(this).attr('id');
+      $(this).attr("onclick","GetMenucard('"+id+"',2);");
+      $(".editFavorits").removeClass("color");
+      $(".newMgs").show();
+    });
+  }
+  else{
+        $(".favoriteWrapper .ui-btn").each(function(i){
+        $(this).append('<div class="deleteFavorite" onclick="FavoritDelete(this);"> <i class="fa fa-trash-o"></i></div>');
+        $(this).removeAttr("onclick");
+        $(".newMgs").hide();
+        $(".editFavorits").addClass("color");
+      });
+  }
 }
 
 function getMessagesAndStamps() {
@@ -240,7 +255,7 @@ function getMessagesAndStamps() {
                             $("#"+index+" .newMgs").remove();
                         }
                         else {
-                            $("#"+index).append("<div class='newMgs'><p></p><div>");
+                            $("#"+index).append("<div class='newMgs'><i class='fa fa-comment'></i><div>");
                         }
                         // sæt antal stempler på menukortet
                         var Stamps = val.iNumberOfStamps;
@@ -249,7 +264,10 @@ function getMessagesAndStamps() {
                         // gem stempelkort tekst
                         localStorage.setItem(index+".sStampcardText", val.sStampcardText);
                         }
-                });           
+                        // make stamp
+                        //var iNumberOfStamps = val.iNumberOfStamps;
+                        //$("#"+index).append("<div class='stampCircleIcon'>"+iNumberOfStamps+"<div>");
+                });
             }
             else{
             }
@@ -276,46 +294,54 @@ function findMenuCard() {
     }
 }
 
-function findMenuCardAutocomplete(name) {
-    GetMenucardWithRestuarentName(name);
-}
 
-function GetMenucardWithRestuarentName(sRestuarentName) {
-
-    $("#menu").empty();
-    var sRestuarentNameSearch = sRestuarentName;
+function GetMenucard(sName_sNumber,sFunction){
     
-    //Get data            
+    
+    //Check if any AJAX calls are running 
+    //alert($.active);
+    if($.active === 0){
+    
+    if(sFunction === 1){
+        //Get with GetMenucardWithRestuarentName
+        sFunction = 'GetMenucardWithRestuarentName';  
+        CheckForsCustomerId();  
+    }
+    
+    if(sFunction === 2){
+        sFunction = 'GetMenucardWithSerialNumber';      
+    }
+      $("#menu").empty();
+
+      $("#home").velocity("fadeOut", 200, function(){
+        $("#home").hide();
+        $("#menu").show();
+        $(window).scrollTop(0);
+      });
+            //Get data            
             $.ajax({
               type: "GET",
               url: sAPIURL,
               dataType: "jSON",
-              data: {sFunction:"GetMenucardWithRestuarentName",sRestuarentName:sRestuarentName}
+              data: {sFunction:sFunction,sRestName_sSerialNumberNumber:sName_sNumber}
              }).done(function(result){
-                 
-             if(result.result === true){
-                 
-                    
+             if(result.result === true){ 
+
                     $(".spinner div").css('animation-name', 'none');
                     $(".spinner div").css('width', '100%');
                     $(".spinner").remove();
-                    
-                    $.mobile.changePage("#menu", {
-                        transition: "slide"
-                    });
 
                     // HEAD
 
                     var sRestuarentName = result.sRestuarentName; 
                     var sRestuarentAddress = result.sRestuarentAddress;
-
-                    $("#menu").append('<div class="menuheader"><a href="#home" data-transition="slide" data-direction="reverse" id="backButtonL" onclick="ClearSearchInput();"><img src="img/backWhite.png"></a><h1>'+sRestuarentName+'</h1><p>'+sRestuarentAddress+'</p><p>'+result.iRestuarentInfoZipcode+', '+result.sRestuarentInfoCity+'</p><img class="img_right" onclick="InfoToggle();" src="img/info.png"></div>');
+                    $("#menu").append('<a id="backButtonL" onclick="ClearSearchInput();"><img class="backBtn rotate270" src="img/backWhite.png" onclick="backBtnSwich(\'home\');"></a>')
+                    $("#menu").append('<div class="menuheader"></div>');
+                    $("#menu").append('<div id="scrollerAnchorHead"></div> <div class="headTitle"><h1>'+sRestuarentName+'</h1><p>'+sRestuarentAddress+'</p><p>'+result.iRestuarentInfoZipcode+', '+result.sRestuarentInfoCity+'</p><img class="img_right" onclick="InfoToggle();" src="img/info.png"></div>');
                     
                     $("#menu").append("<ul style='margin: 0 auto -20px auto;'></ul>");
-                    
                     // INFO
-
-                    $(".menuheader").after('<div id="infoBlock"><ul></ul></div>');
+                    $(".headTitle").after('<div id="infoBlock"><ul></ul></div>');
                     var sRestuarentPhone = result.sRestuarentPhone;
                     var sRestuarentPhoneFormat = sRestuarentPhone.substring(0, 2)+' '+sRestuarentPhone.substring(2, 4)+' '+sRestuarentPhone.substring(4, 6)+' '+sRestuarentPhone.substring(6, 8);
                     $("#infoBlock ul").append('<li class="dishPoint PhoneNumber"><img src="img/call up.png"><a href="tel:'+sRestuarentPhone+'" rel="external">'+sRestuarentPhoneFormat+'</a></li>');
@@ -339,30 +365,37 @@ function GetMenucardWithRestuarentName(sRestuarentName) {
                                          sMenucardInfoHeadline: value.sMenucardInfoHeadline,
                                          sMenucardInfoParagraph: value.sMenucardInfoParagraph
                                      };
+                            //Replace line breaks with \n 
+                            Info.sMenucardInfoParagraph = Info.sMenucardInfoParagraph.replace(/\r?\n/g, '<br/>');
+
                             $("#infoBlock ul").append('<li class="dishPoint">'+Info.sMenucardInfoHeadline+'<p>'+Info.sMenucardInfoParagraph+'</p></li>');
                     }); 
                     
                     //GALLERY
                     if(typeof result.oGallery[0] !== "undefined") {
+                        $(".menuheader").prepend('<div class="swiper-container"><div class="swiper-wrapper"></div></div><div class="pagination"></div>')          
                         $.each(result.oGallery, function(key,value){
-                            var sMessageImage = result.oGallery[key].image;
-                            var sPlaceInList = result.oGallery[key].placeinlist;                         
-                            $("#infoBlock ul").append("<li class='dishPoint'><img width='100%' height='auto' src='data:image/x-icon;base64,"+sMessageImage+"'></li>");                                 
-                        });        
+                            var sPlaceInList = result.oGallery[key].placeinlist;
+                            var sMessageImage = result.oGallery[key].image;                                                  
+                            $(".swiper-wrapper").append("<div class='swiper-slide'><img width='100%' height='auto' src='data:image/x-icon;base64,"+sMessageImage+"' /></div>");                                 
+                        });
+                        $(".swiper-wrapper").append("<div class='headerGalleryFade'></div>");
+                        makeheaderGallery();  
+                    }
+                    else {
+                      $(".menuheader").prepend('<div class="swiper-container"></div>');
+                      $(".menuheader").css("height","0px");
                     }
                     
                     $("#infoBlock ul").append('<li class="dishPoint button" onclick="InfoToggle();"><img src="img/arrowUp.png"></li>');
 
-                    // STAMPS
-                    
-                    //Get Stamps for the user
-                    var iStamps = localStorage.getItem(result.iMenucardSerialNumber+".stamps");
-                    if(iStamps === null){iStamps = 0;} 
-                    $("#infoBlock").after('<div id="stampBlock"><a id="makeStampPageBtn" onclick="makeStampPage(\''+result.iMenucardSerialNumber+'\','+iStamps+','+result.oStampcard.iStampcardMaxStamps+');"><h3>Stempler</h3> <div id="stampTotal" class="stampCircleIcon"><p>'+iStamps+'</p></div></a></div>');
+                    // MESSAGES  
+                    var sSerialNumberCaps = result.iMenucardSerialNumber;
+                    if(sSerialNumberCaps == undefined ){
+                      var sSerialNumberCaps = sName_sNumber;
+                    }
 
-                    // MESSAGES
-
-                    $("#stampBlock").after('<div id="messageBlock" class="messageBlock"></div>');
+                    $("#infoBlock").after('<div id="messageBlock" class="messageBlock"></div>');
                     $("#messageBlock").empty();
 
                           if(typeof result.oMessages[0] != "undefined") {
@@ -371,29 +404,42 @@ function GetMenucardWithRestuarentName(sRestuarentName) {
                                 var sMessageImage = result.oMessages[0].image;
                                 var sMessageDate = result.oMessages[0].date;
                                 var sMessageDateCut = sMessageDate.substring(0,10);
+                                $("#messageBlock").show();
                                 if(sMessageImage === undefined) {
                                     $("#messageBlock").append("<div><p>"+sMessageDateCut+"</p><h1>"+sMessageHeadline+"</h1><h2>"+sMessageBodyText+"</h2></div>");
                                 }else {                              
                                   $("#messageBlock").append("<div><p>"+sMessageDateCut+"</p><img width='100%' height='auto' src='data:image/x-icon;base64,"+sMessageImage+"'><h1>"+sMessageHeadline+"</h1><h2>"+sMessageBodyText+"</h2></div>");                                 
                                 }
                                 //Check if message has been seen
-                                var PrevMessageDate = localStorage.getItem(result.iMenucardSerialNumber+".message");
-                                if( sMessageDate == PrevMessageDate){
-                                    $(".messageBlock").removeClass("out");
-                                }
-                                else {
-                                  $(".messageBlock").addClass("out");
-                                  localStorage.setItem(result.iMenucardSerialNumber+".message", sMessageDate);
-                                }
+                                // var PrevMessageDate = localStorage.getItem(result.iMenucardSerialNumber+".message");
+                                // if( sMessageDate == PrevMessageDate){
+                                //     $(".messageBlock").removeClass("out");
+                                // }
+                                // else {
+                                //   $(".messageBlock").addClass("out");
+                                  localStorage.setItem(sSerialNumberCaps+".message", sMessageDate);
+                                //}
                           }
+                          else{
+                              $("#messageBlock").hide();
+                          }
+                    // STAMPS
+                    //Get user stamps
+
+                    var iStamps = localStorage.getItem(sSerialNumberCaps+".stamps");
+                    //Calculate stamps left
+                    var iFreeItems = Math.floor(iStamps / result.oStampcard.iStampcardMaxStamps);
+                    var iStampsLeft = iStamps - ( iFreeItems * result.oStampcard.iStampcardMaxStamps); 
+                    if(iStampsLeft === null){iStampsLeft = 0;} 
+                    $("#messageBlock").after('<div id="stampBlock"><a id="makeStampPageBtn" onclick="makeStampPage(\''+sSerialNumberCaps+'\','+iStamps+','+result.oStampcard.iStampcardMaxStamps+');"><div id="stampTotal" class="stampCircleIcon"><p>'+iStampsLeft+'</p></div><h3>Stempler</h3></a></div>');
 
 
 
                     // MENU
 
-                    $("#menu").append("<div id='menuBlock'></div>");
+                    $("#menu").append("<div id='menuBlock'><h1 class='menuBlockHeadline'>~ menu ~</h1></div>");
                     $.each(result.aMenucardCategory, function(key,value){
-//                              alert('liste index: '+key);
+                        
                               var category = {
                                   sMenucardCategoryName: value.sMenucardCategoryName,
                                   sMenucardCategoryDescription: value.sMenucardCategoryDescription,
@@ -421,8 +467,6 @@ function GetMenucardWithRestuarentName(sRestuarentName) {
 //                                      iMenucardItemIdHashed: iMenucardItemIdHashed,
 //                                      iMenucardItemPlaceInList: iMenucardItemPlaceInList
                                   };
-                                  //Append the item to the items in the category obj
-//                                  category.items.push(item);
                                   
                                   if( item.iMenucardItemPrice != ''){ 
                                     var Price = '<h2>'+item.iMenucardItemPrice+',-</h2>';
@@ -433,130 +477,13 @@ function GetMenucardWithRestuarentName(sRestuarentName) {
 
                                   $(".MenucardCategoryGroup"+key).append('<li class="dishPoint"><h1>'+item.sMenucardItemName+'</h1>'+Price+'<p>'+item.sMenucardItemDescription+'</p></li>');
                               });
-                          }
-
-                          
-                          });                     
-                 
-//                    $(".spinner div").css('animation-name', 'none');
-//                    $(".spinner div").css('width', '100%');
-//                    $(".spinner").remove();
-//                    
-//                    $.mobile.changePage("#menu", {
-//                        transition: "slide"
-//                    });
-//                    var sRestuarentName = result.sRestuarentName; 
-//                    var sRestuarentAddress = result.sRestuarentAddress;
-//                    $("#menu").append('<div class="menuheader"><h1>'+sRestuarentName+'</h1><img class="img_left" src="img/message.png" onclick="MessageToggle();"><p>'+sRestuarentAddress+'</p><p>'+result.iRestuarentInfoZipcode+', '+result.sRestuarentInfoCity+'</p><img class="img_right" onclick="InfoToggle();" src="img/info.png"></div>');
-//                    $("#menu").append("<ul style='margin: 0 auto -20px auto;'></ul>");
-//                    $("#menu ul").append('<div id="messageBlock" onclick="MessageToggle();"><ul class="messageBlock"></ul></div>');
-//                    $("#messageBlock").after('<div id="infoBlock"></div>');
-//                    $("#infoBlock").append('<li class="dishPoint"><h1>info</h1></li>');
-//                    var sRestuarentPhone = result.sRestuarentPhone;
-//                    var sRestuarentPhoneFormat = sRestuarentPhone.substring(0, 2)+' '+sRestuarentPhone.substring(2, 4)+' '+sRestuarentPhone.substring(4, 6)+' '+sRestuarentPhone.substring(6, 8);
-//                    $("#infoBlock").append('<li class="dishPoint PhoneNumber"><img src="img/call up.png"><a href="tel:'+sRestuarentPhone+'" rel="external">'+sRestuarentPhoneFormat+'</a></li>');
-//                    $("#infoBlock").append('<li class="dishPoint" id="OpeningHours"></li>');
-//                    
-//                    $.each(result.aMenucardOpeningHours, function(key,value){
-//                            var OpeningHours = {
-//                                         sDayName: value.sDayName,
-//                                         iTimeFrom: value.iTimeFrom,
-//                                         iTimeTo: value.iTimeTo,
-//                                         iClosed: value.iClosed
-//                                     };
-//                            if(OpeningHours.iClosed === '0'){
-//                                $("#OpeningHours").append('<h1>'+OpeningHours.sDayName+'</h1><h2>'+OpeningHours.iTimeFrom+' - '+OpeningHours.iTimeTo+'</h2><br>');
-//                            }else if(OpeningHours.iClosed === '1'){                              
-//                               $("#OpeningHours").append('<h1>'+OpeningHours.sDayName+'</h1><h2>Lukket</h2><br>');
-//                            }
-//                            }); 
-//                    $.each(result.aMenucardInfo, function(key,value){
-//                            var Info = {
-//                                         sMenucardInfoHeadline: value.sMenucardInfoHeadline,
-//                                         sMenucardInfoParagraph: value.sMenucardInfoParagraph
-//                                     };
-//                            $("#infoBlock").append('<li li class="dishPoint">'+Info.sMenucardInfoHeadline+'<p>'+Info.sMenucardInfoParagraph+'</p></li>');
-//                    }); 
-//                    
-//                    $("#infoBlock").append('<li class="dishPoint button" onclick="InfoToggle();"><img src="img/arrowUp.png"></li><br>');
-//
-//                    $.each(result.aMenucardCategory, function(key,value){
-////                              alert('liste index: '+key);
-//                              var category = {
-//                                  sMenucardCategoryName: value.sMenucardCategoryName,
-//                                  sMenucardCategoryDescription: value.sMenucardCategoryDescription,
-////                                  iMenucardCategoryIdHashed: value.iMenucardCategoryIdHashed,
-//                                  items:[]
-//                              };
-//                             $("#menu").append("<ul class='MenucardCategoryGroup"+key+"'></ul>");
-//                             $(".MenucardCategoryGroup"+key).append('<li class="dishHeadline" onclick="MenucardItemsToggle('+key+');">'+category.sMenucardCategoryName+'<p>'+category.sMenucardCategoryDescription+'</p><img src="img/down_arrow.svg"></li>');
-//                             
-//                             if(typeof result['aMenucardCategoryItems'+key] !== "undefined") {
-//                             
-//                              $.each(result['aMenucardCategoryItems'+key].sMenucardItemName, function(keyItem,value){
-//
-//                                  var sMenucardItemName = value;
-//                                  var sMenucardItemDescription = result['aMenucardCategoryItems'+key].sMenucardItemDescription[keyItem];
-//                                  var iMenucardItemPrice = result['aMenucardCategoryItems'+key].iMenucardItemPrice[keyItem];
-////                                  var iMenucardItemIdHashed = result['aMenucardCategoryItems'+key].iMenucardItemIdHashed[keyItem];
-////                                  var iMenucardItemPlaceInList = result['aMenucardCategoryItems'+key].iMenucardItemPlaceInList[keyItem];
-//                                  
-//                                  var item = {
-//                                      sMenucardItemName: sMenucardItemName,
-//                                      sMenucardItemDescription: sMenucardItemDescription,
-////                                      sMenucardItemNumber: sMenucardItemNumber,
-//                                      iMenucardItemPrice: iMenucardItemPrice
-////                                      iMenucardItemIdHashed: iMenucardItemIdHashed,
-////                                      iMenucardItemPlaceInList: iMenucardItemPlaceInList
-//                                  };
-//                                  //Append the item to the items in the category obj
-////                                  category.items.push(item);
-//
-//                                  if( item.iMenucardItemPrice != ''){ 
-//                                    var Price = '<h2>'+item.iMenucardItemPrice+',-</h2>';
-//                                  }
-//                                  else{
-//                                    var Price = '';
-//                                  }
-//                                  $(".MenucardCategoryGroup"+key).append('<li class="dishPoint"><h1>'+item.sMenucardItemName+'</h1>'+Price+'<p>'+item.sMenucardItemDescription+'</p></li>');
-//                              });
-//
-//                              }
-//                          
-//                          });
-//                            
-//                            
-//                          $("#messageBlock ul").empty();
-//                          if(typeof result.oMessages[0] != "undefined") {
-//                                var sMessageHeadline = result.oMessages[0].headline;
-//                                var sMessageBodyText = result.oMessages[0].bodytext;
-//                                var sMessageImage = result.oMessages[0].image;
-//                                var sMessageDate = result.oMessages[0].date;
-//                                var sMessageDateCut = sMessageDate.substring(0,10);
-//                                if(sMessageImage === undefined) {
-//                                    $("#messageBlock ul").append("<li><p>"+sMessageDateCut+"</p><h1>"+sMessageHeadline+"</h1><h2>"+sMessageBodyText+"</h2></li>");
-//                                }else {                              
-//                                  $("#messageBlock ul").append("<li><p>"+sMessageDateCut+"</p><img width='200' height='200' src='data:image/x-icon;base64,"+sMessageImage+"'><h1>"+sMessageHeadline+"</h1><h2>"+sMessageBodyText+"</h2></li>");
-//                                  
-//                                }
-//                                
-//                                var PrevMessageDate = localStorage.getItem(result.iMenucardSerialNumber+".message");
-//                                // tjek if massege is Seen
-//                                if( sMessageDate == PrevMessageDate){
-//                                    $(".messageBlock").removeClass("out");
-//                                }
-//                                else {
-//                                  $(".messageBlock").addClass("out");
-//                                  localStorage.setItem(result.iMenucardSerialNumber+".message", sMessageDate);
-//                                }
-//                          }
-                          
-                          
-                          SaveUserFavorites(result.iMenucardSerialNumber,sRestuarentName,sRestuarentAddress);                      
-                          
-                          //$("#favoriteWrapper").append('<div class="favoriteItemWrapper"><a id="'+iMenucardSerialNumber+'" href="#" data-transition="slide" class="ui-btn" onclick="GetMenucardWithSerialNumber(\''+iMenucardSerialNumber+'\');">'+sRestuarentName+'<p>'+sRestuarentAddress+'</p></a></div>');
-                          $(".ui-btn").on( "swiperight", FavoritDelete );
-                                
+                            }
+                         });             
+                          if(sFunction === 'GetMenucardWithRestuarentName'){
+                                //Get with GetMenucardWithRestuarentName
+                                //Add the new cafe to localStorage
+                                SaveUserFavorites(result.iMenucardSerialNumber,sRestuarentName,sRestuarentAddress);                      
+                          }                            
                 }
                 else {
                         $(".spinner div").css('animation-name', 'none');
@@ -566,6 +493,7 @@ function GetMenucardWithRestuarentName(sRestuarentName) {
                         $('.popMgs').hide().fadeIn().delay(4800).fadeOut(500,function(){ $(this).remove(); });        
                 }
             });
+    }
 }
 
 function SaveUserFavorites(iMenucardSerialNumber,sRestuarentName,sRestuarentAddress) {
@@ -604,7 +532,7 @@ function SaveUserFavorites(iMenucardSerialNumber,sRestuarentName,sRestuarentAddr
                 localStorage.setItem("aUserFavorits", aUserFavorites);
                 //alert('insert new menucard');
                 // make favorit block
-                $("#favoriteWrapper").append('<div class="favoriteItemWrapper"><a id="'+iMenucardSerialNumber+'" href="#" data-transition="slide" class="ui-btn" onclick="GetMenucardWithSerialNumber(\''+iMenucardSerialNumber+'\');">'+sRestuarentName+'<p>'+sRestuarentAddress+'</p></a></div>');
+                $("#favoriteWrapper").append('<a id="'+iMenucardSerialNumber+'" class="ui-btn" onclick="GetMenucard(\''+iMenucardSerialNumber+'\',2);"><h1>'+sRestuarentName+'</h1><p>'+sRestuarentAddress+'</p></a>');
 
         }
       }else {
@@ -621,7 +549,7 @@ function SaveUserFavorites(iMenucardSerialNumber,sRestuarentName,sRestuarentAddr
 
          //make favorit block
          $("#favoriteWrapper").append("<h6>FAVORITTER</h6>");
-         $("#favoriteWrapper").append('<div class="favoriteItemWrapper"><a id="'+iMenucardSerialNumber+'" href="#" data-transition="slide" class="ui-btn" onclick="GetMenucardWithSerialNumber(\''+iMenucardSerialNumber+'\');">'+sRestuarentName+'<p>'+sRestuarentAddress+'</p></a></div>');
+         $("#favoriteWrapper").append('<a id="'+iMenucardSerialNumber+'" class="ui-btn" onclick="GetMenucard(\''+iMenucardSerialNumber+'\',2);"><h1>'+sRestuarentName+'</h1><p>'+sRestuarentAddress+'</p></a>');
 
 
       }
@@ -632,215 +560,70 @@ function SaveUserFavorites(iMenucardSerialNumber,sRestuarentName,sRestuarentAddr
       } 
 }
 
-function GetMenucardWithSerialNumber(sSerialNumber) {
-
-    CheckInternetConnection(); 
-    $("#menu").empty();
+function makeheaderGallery() {
+  var mySwiper = new Swiper('.swiper-container',{
+                pagination: '.pagination',
+                loop:true,
+                grabCursor: true,
+                paginationClickable: true
+              });
+              // $('.arrow-left').on('click', function(e){
+              //   e.preventDefault()
+              //   mySwiper.swipePrev()
+              // });
+              // $('.arrow-right').on('click', function(e){
+              //   e.preventDefault()
+              //   mySwiper.swipeNext()
+              // });
+}
     
-    var sSerialNumberCaps = sSerialNumber.toUpperCase();
-    
-    //Get data            
-            $.ajax({
-              type: "GET",
-              url: sAPIURL,
-              dataType: "jSON",
-              data: {sFunction:"GetMenucardWithSerialNumber",iMenucardSerialNumber:sSerialNumber}
-             }).done(function(result){
-                 
-             if(result.result === true){
-                    $(".spinner div").css('animation-name', 'none');
-                    $(".spinner div").css('width', '100%');
-                    $(".spinner").remove();
-                    
-                    $.mobile.changePage("#menu", {
-                        transition: "slide"
-                    });
-
-                    // HEAD
-
-                    var sRestuarentName = result.sRestuarentName; 
-                    var sRestuarentAddress = result.sRestuarentAddress;
-
-                    $("#menu").append('<div class="menuheader"><a href="#home" data-transition="slide" data-direction="reverse" id="backButtonL" onclick="ClearSearchInput();"><img src="img/backWhite.png"></a><h1>'+sRestuarentName+'</h1><p>'+sRestuarentAddress+'</p><p>'+result.iRestuarentInfoZipcode+', '+result.sRestuarentInfoCity+'</p><img class="img_right" onclick="InfoToggle();" src="img/info.png"></div>');
-                    
-                    $("#menu").append("<ul style='margin: 0 auto -20px auto;'></ul>");
-                    
-                    // INFO
-
-                    $(".menuheader").after('<div id="infoBlock"><ul></ul></div>');
-                    var sRestuarentPhone = result.sRestuarentPhone;
-                    var sRestuarentPhoneFormat = sRestuarentPhone.substring(0, 2)+' '+sRestuarentPhone.substring(2, 4)+' '+sRestuarentPhone.substring(4, 6)+' '+sRestuarentPhone.substring(6, 8);
-                    $("#infoBlock ul").append('<li class="dishPoint PhoneNumber"><img src="img/call up.png"><a href="tel:'+sRestuarentPhone+'" rel="external">'+sRestuarentPhoneFormat+'</a></li>');
-                    $("#infoBlock ul").append('<li class="dishPoint" id="OpeningHours"></li>');
-                    
-                    $.each(result.aMenucardOpeningHours, function(key,value){
-                            var OpeningHours = {
-                                         sDayName: value.sDayName,
-                                         iTimeFrom: value.iTimeFrom,
-                                         iTimeTo: value.iTimeTo,
-                                         iClosed: value.iClosed
-                                     };
-                            if(OpeningHours.iClosed === '0'){
-                                $("#OpeningHours").append('<h1>'+OpeningHours.sDayName+'</h1><h2>'+OpeningHours.iTimeFrom+' - '+OpeningHours.iTimeTo+'</h2><br>');
-                            }else if(OpeningHours.iClosed === '1'){
-                               $("#OpeningHours").append('<h1>'+OpeningHours.sDayName+'</h1><h2>Lukket</h2><br>');
-                            }
-                            }); 
-                    $.each(result.aMenucardInfo, function(key,value){
-                            var Info = {
-                                         sMenucardInfoHeadline: value.sMenucardInfoHeadline,
-                                         sMenucardInfoParagraph: value.sMenucardInfoParagraph
-                                     };
-                            $("#infoBlock ul").append('<li class="dishPoint">'+Info.sMenucardInfoHeadline+'<p>'+Info.sMenucardInfoParagraph+'</p></li>');
-                    }); 
-                    
-                    //GALLERY
-                    if(typeof result.oGallery[0] !== "undefined") {
-                        $.each(result.oGallery, function(key,value){
-                            var sMessageImage = result.oGallery[key].image;
-                            var sPlaceInList = result.oGallery[key].placeinlist;                         
-                            $("#infoBlock ul").append("<li class='dishPoint'><img width='100%' height='auto' src='data:image/x-icon;base64,"+sMessageImage+"'></li>");                                 
-                        });        
-                    }
-                    
-                    $("#infoBlock ul").append('<li class="dishPoint button" onclick="InfoToggle();"><img src="img/arrowUp.png"></li>');
-                    
-                    // STAMPS
-                    //Get user stamps
-                    var iStamps = localStorage.getItem(sSerialNumberCaps+".stamps");
-                    //Calculate stamps left
-                    var iFreeItems = Math.floor(iStamps / result.oStampcard.iStampcardMaxStamps);
-                    var iStampsLeft = iStamps - ( iFreeItems * result.oStampcard.iStampcardMaxStamps); 
-                    if(iStampsLeft === null){iStampsLeft = 0;} 
-                    $("#infoBlock").after('<div id="stampBlock"><a id="makeStampPageBtn" onclick="makeStampPage(\''+sSerialNumberCaps+'\','+iStamps+','+result.oStampcard.iStampcardMaxStamps+');"><h3>Stempler</h3> <div id="stampTotal" class="stampCircleIcon"><p>'+iStampsLeft+'</p></div></a></div>');
-
-                    // MESSAGES
-
-                    $("#stampBlock").after('<div id="messageBlock" class="messageBlock"></div>');
-                    $("#messageBlock").empty();
-
-                          if(typeof result.oMessages[0] != "undefined") {
-                                var sMessageHeadline = result.oMessages[0].headline;
-                                var sMessageBodyText = result.oMessages[0].bodytext;
-                                var sMessageImage = result.oMessages[0].image;
-                                var sMessageDate = result.oMessages[0].date;
-                                var sMessageDateCut = sMessageDate.substring(0,10);
-                                if(sMessageImage === undefined) {
-                                    $("#messageBlock").append("<div><p>"+sMessageDateCut+"</p><h1>"+sMessageHeadline+"</h1><h2>"+sMessageBodyText+"</h2></div>");
-                                }else {                              
-                                  $("#messageBlock").append("<div><p>"+sMessageDateCut+"</p><img width='100%' height='auto' src='data:image/x-icon;base64,"+sMessageImage+"'><h1>"+sMessageHeadline+"</h1><h2>"+sMessageBodyText+"</h2></div>");
-                                  
-                                }
-                                //Check if message has been seen
-                                var PrevMessageDate = localStorage.getItem(sSerialNumberCaps+".message");                               
-                                if( sMessageDate == PrevMessageDate){
-                                    $(".messageBlock").removeClass("out");
-                                }
-                                else {
-                                  $(".messageBlock").addClass("out");
-                                  localStorage.setItem(sSerialNumberCaps+".message", sMessageDate);
-                                }
-                          }
-
-
-
-                    // MENU
-
-                    $("#menu").append("<div id='menuBlock'><h3>Menu</h3></div>");
-                    $.each(result.aMenucardCategory, function(key,value){
-//                              alert('liste index: '+key);
-                              var category = {
-                                  sMenucardCategoryName: value.sMenucardCategoryName,
-                                  sMenucardCategoryDescription: value.sMenucardCategoryDescription,
-//                                  iMenucardCategoryIdHashed: value.iMenucardCategoryIdHashed,
-                                  items:[]
-                              };
-                             $("#menuBlock").append("<ul class='MenucardCategoryGroup"+key+"'></ul>");
-                             $(".MenucardCategoryGroup"+key).append('<li class="dishHeadline" onclick="MenucardItemsToggle('+key+');">'+category.sMenucardCategoryName+'<p>'+category.sMenucardCategoryDescription+'</p><img src="img/down_arrow.svg"></li>');
-                             
-                             if(typeof result['aMenucardCategoryItems'+key] !== "undefined") {
-                             
-                              $.each(result['aMenucardCategoryItems'+key].sMenucardItemName, function(keyItem,value){
-
-                                  var sMenucardItemName = value;
-                                  var sMenucardItemDescription = result['aMenucardCategoryItems'+key].sMenucardItemDescription[keyItem];
-                                  var iMenucardItemPrice = result['aMenucardCategoryItems'+key].iMenucardItemPrice[keyItem];
-//                                  var iMenucardItemIdHashed = result['aMenucardCategoryItems'+key].iMenucardItemIdHashed[keyItem];
-//                                  var iMenucardItemPlaceInList = result['aMenucardCategoryItems'+key].iMenucardItemPlaceInList[keyItem];
-                                  
-                                  var item = {
-                                      sMenucardItemName: sMenucardItemName,
-                                      sMenucardItemDescription: sMenucardItemDescription,
-//                                      sMenucardItemNumber: sMenucardItemNumber,
-                                      iMenucardItemPrice: iMenucardItemPrice,
-//                                      iMenucardItemIdHashed: iMenucardItemIdHashed,
-//                                      iMenucardItemPlaceInList: iMenucardItemPlaceInList
-                                  };
-                                  //Append the item to the items in the category obj
-//                                  category.items.push(item);
-                                  
-                                  if( item.iMenucardItemPrice != ''){ 
-                                    var Price = '<h2>'+item.iMenucardItemPrice+',-</h2>';
-                                  }
-                                  else{
-                                    var Price = '';
-                                  }
-
-                                  $(".MenucardCategoryGroup"+key).append('<li class="dishPoint"><h1>'+item.sMenucardItemName+'</h1>'+Price+'<p>'+item.sMenucardItemDescription+'</p></li>');
-                              });
-                          }
-
-                          
-                          });                                                   
-                }
-                else {
-                        $(".spinner div").css('animation-name', 'none');
-                        $(".spinner div").css('width', '100%');
-                        $(".spinner").remove();
-                        $('#FindCafe').before('<div class="popMgs">'+sSerialNumber+' findes ikke</div>');
-                        $('.popMgs').hide().fadeIn().delay(500).fadeOut(300,function(){ $(this).remove(); });        
-                }
-            });
-    }
     
 function makeStampPage(iMenucardSerialNumber,iUserStamps,MaxStamps){
+
   var iUserStamps = iUserStamps;
   var iStampsForFree = MaxStamps;
   
   var iFreeItems = Math.floor(iUserStamps / iStampsForFree);
   var iStampsLeft = iUserStamps - ( iFreeItems * iStampsForFree);
 
+  // make gallery disapper
+  $("#menuBlock").velocity("transition.slideDownBigOut", 100, function(){
+      $(".swiper-container").velocity({ "height" : 0 }, 300);
+        $("#messageBlock").velocity("transition.slideUpBigOut",200);
+              //$("html").velocity("scroll", { offset: "220px" }, 200);
+                    $("#stampBlock").velocity("transition.slideUpBigOut", 400, function(){
+                                $("#stampBlock").hide();
+                                $("#stampBlock").after("<div id='stampPage'></div>");
+                                
+                                //$("#stampPage").before("<a class='backStampBtn' onclick='removeStampPage();'>tilbage</a>");
+                                // back btn change
+                                $(".backBtn").attr("onclick","backBtnSwich('removeStampPage');")
+                                $(".backBtn").removeClass("rotate270");
 
-  $("#stampBlock").velocity("transition.slideUpBigOut",400);
-  $("#messageBlock").velocity("transition.slideDownBigOut",600);
-  $("#menuBlock").velocity("transition.slideDownBigOut", 400, function(){
-  
-  $("#stampBlock").after("<div id='stampPage'></div>");
-      $("#stampPage").before("<a class='backStampBtn' onclick='removeStampPage();'>tilbage</a>");
-      $("#stampPage a").hide().velocity("transition.bounceDownIn",400);
-        // $("#stampPage").append("<h3>Stempler ("+iUserStamps+")</h3>")
-        
-      $("#stampPage").append("<div class='StampsForNext' onclick='GetStamp(\""+iMenucardSerialNumber+"\",1);'><div class='stampCircle'><p>+</p></div></div>");
-      $(".stampCircle").hide().velocity("transition.expandIn", 200, function(){
-          $(".stampCircle").prepend("<h3>Stempler</h3>");
-          
-          
-          makeStampCounter(iStampsLeft,iStampsForFree);
+                                $("#stampPage a").hide().velocity("transition.bounceDownIn",400);
+                                  // $("#stampPage").append("<h3>Stempler ("+iUserStamps+")</h3>")
+                                  
+                                $("#stampPage").append("<div class='StampsForNext' onclick='GetStamp(\""+iMenucardSerialNumber+"\",1);'><div class='stampCircle'><p>+</p></div></div>");
+                                $(".stampCircle").hide().velocity("transition.expandIn", 200, function(){
+                                        $(".stampCircle").prepend("<h3>Stempler</h3>");
+                                        $(window).scrollTop(0);
+                                        makeStampCounter(iStampsLeft,iStampsForFree);
 
-          $("#stampPage").append("<h4>For hver "+iStampsForFree+". stemple, får du en gratis Kaffe.</h4>");
-          $("#stampPage").append("<h4 class='iFreeItemCounter'>Du har nu "+iFreeItems+" gratis</h4>");
-          $("#stampPage").append("<div id='FreeItemsBlock'></div>");
-          for (var i = 1; i <= iFreeItems; i++){
-              $("#FreeItemsBlock").append("<div class='stampCircleIcon black' onclick='ChooseStampCircle(this);'><p>"+i+"</p></div>");
-          } 
+                                        $("#stampPage").append("<h4>For hver "+iStampsForFree+". stemple, får du en gratis Kaffe.</h4>");
+                                        $("#stampPage").append("<h4 class='iFreeItemCounter'>Du har nu "+iFreeItems+" gratis</h4>");
+                                        $("#stampPage").append("<div id='FreeItemsBlock'></div>");
+                                        for (var i = 1; i <= iFreeItems; i++){
+                                            $("#FreeItemsBlock").append("<div class='stampCircleIcon' onclick='ChooseStampCircle(this);'><p>"+i+"</p></div>");
+                                        } 
 
-          $("#FreeItemsBlock .stampCircleIcon").hide().velocity("transition.slideUpIn", { display:"inline-block", duration: 800 });
-          if( iFreeItems > 0 ){
-              $("#FreeItemsBlock").prepend("<h3>brug:</h3>");
-          }
-          $("#stampPage").append("<a class='useStampsBtn' onclick='GetStamp(\""+iMenucardSerialNumber+"\",2,"+MaxStamps+");'>OK</a>");
+                                        $("#FreeItemsBlock .stampCircleIcon").hide().velocity("transition.slideUpIn", { display:"inline-block", duration: 800 });
+                                        if( iFreeItems > 0 ){
+                                            $("#FreeItemsBlock").prepend("<h3>brug:</h3>");
+                                        }
+                                        $("#stampPage").append("<a class='useStampsBtn' onclick='GetStamp(\""+iMenucardSerialNumber+"\",2,"+MaxStamps+");'>OK</a>");
+                                });
+              });
       });
-  });
 }
 
 function ChooseStampCircle(elem) {
@@ -863,13 +646,43 @@ function ChooseStampCircle(elem) {
     }
     
 }
+function backBtnSwich(action){
+  switch(action) {
+    case "home":
+        showHomePage();
+        break;
+    case "removeStampPage":
+        removeStampPage();
+        break;
+    case "removeGetStampsPage":
+        removeGetStampsPage();
+        break;
+    case "removeGetStampsPage":
+        removeGetStampsPage();
+        break;
+    default:
+        
+  }
+}
+
+function showHomePage(){
+  $("#menu").hide();
+  $("#home").velocity("fadeIn", 1000);
+}
 
 function removeStampPage(){
   $("#stampPage").remove();
   $(".backStampBtn").remove();
+  $(".swiper-container").velocity({ "height" : 200 }, 200);
   $("#stampBlock").velocity("transition.slideDownBigIn",400);
-  $("#messageBlock").velocity("transition.slideUpBigIn",600);
+  if( $("#messageBlock div").length > 0 ){
+    $("#messageBlock").velocity("transition.slideDownBigIn",600);
+  }  
   $("#menuBlock").velocity("transition.slideUpBigIn", 400);
+
+  $(".backBtn").attr("onclick","backBtnSwich('home');")
+  $(".backBtn").addClass("rotate270");
+
 }
 
 function makeStampCounter(iStampsLeft,iStampsForFree){
@@ -885,6 +698,7 @@ function makeStampCounter(iStampsLeft,iStampsForFree){
 }
 
 function GetStamp(iMenucardSerialNumber,sFunction,iMaxStamp){
+
   if(sFunction === 1){
         //Get stamp
         $(".backGetStampBtn").remove();
@@ -893,7 +707,10 @@ function GetStamp(iMenucardSerialNumber,sFunction,iMaxStamp){
           $(".backStampBtn").hide();
           $("#stampPage").hide();
           $("#stampBlock").after("<div id='getStampPage'></div>");
-          $("#getStampPage").before("<a class='backGetStampBtn' onclick='removeGetStampsPage();'>tilbage</a>");
+          //$("#getStampPage").before("<a class='backGetStampBtn' onclick='removeGetStampsPage();'>tilbage</a>");
+          $(".backBtn").attr("onclick","backBtnSwich('removeGetStampsPage');")
+          $(".backBtn").removeClass("rotate270");
+
           $("#getStampPage").append("<p>Antal stempler:</p>");
           $("#getStampPage").append("<a onclick='numOfStampsChange(-1);'>-</a><h1 id='numOfStamps'>1</h1><a onclick='numOfStampsChange(1);'>+</a>");
           $("#getStampPage").append("<div class='inputGetStampwrapper'><div id='inputGetStamp1' class='inputGetStamp'></div><div id='inputGetStamp2' class='inputGetStamp'></div><div id='inputGetStamp3' class='inputGetStamp'></div><div id='inputGetStamp4' class='inputGetStamp'></div></div>");
@@ -913,13 +730,16 @@ function GetStamp(iMenucardSerialNumber,sFunction,iMaxStamp){
           $(".backStampBtn").hide();
           $("#stampPage").hide();
           $("#stampBlock").after("<div id='getStampPage'></div>");
-          $("#getStampPage").before("<a class='backGetStampBtn' onclick='removeGetStampsPage();'>tilbage</a>");
-          $("#getStampPage").append("<p>Indløs stempler</p>");
+          //$("#getStampPage").before("<a class='backGetStampBtn' onclick='removeGetStampsPage();'>tilbage</a>");
+          $(".backBtn").attr("onclick","backBtnSwich('removeGetStampsPage');")
+          $(".backBtn").removeClass("rotate270");
+
+          $("#getStampPage").append("<p>Få gratis</p>");
           //Get number of freeitems
           var iNumberOfFreeItems = $('.choosenstampicon').length;
           //Convert iNumberOfFreeItems to stamps
-          var iNumberOfStamps = iNumberOfFreeItems * iMaxStamp;
-          $("#getStampPage").append("<a onclick=''>-</a><h1 id='numOfStamps'>"+iNumberOfStamps+"</h1><a onclick=''>-</a>");
+          //var iNumberOfStamps = iNumberOfFreeItems * iMaxStamp; <= viser alle stempler
+          $("#getStampPage").append("<h1 id='numOfStamps' style='margin-top: 33px;'>"+iNumberOfFreeItems+"</h1>");
           $("#getStampPage").append("<div class='inputGetStampwrapper'><div id='inputGetStamp1' class='inputGetStamp'></div><div id='inputGetStamp2' class='inputGetStamp'></div><div id='inputGetStamp3' class='inputGetStamp'></div><div id='inputGetStamp4' class='inputGetStamp'></div></div>");
           makeKeypad('getStampPage',iMenucardSerialNumber,2,iMaxStamp);    
           $("#getStampPage").hide().velocity("transition.slideUpBigIn", 200);   
@@ -934,6 +754,7 @@ function numOfStampsChange(num){
   $("#numOfStamps").text(numbersOfStamps);
 }
 function makeKeypad(id,iMenucardSerialNumber,sFunction,iMaxStamp){
+
     if(sFunction === 1){
         //Get stamp
         $("#"+id).append("<div class='keypad'><div>");
@@ -1068,13 +889,14 @@ function UseStamp(iMenucardSerialNumber,iMaxStamp) {
     -Description: Get stamp
  */
 function KeypadOk(iMenucardSerialNumber){
+
   var numbersOfStamps = $("#numOfStamps").text();
   if ($("#inputGetStamp4 span").length == 1){
       
       var Stampcode = $('#inputGetStamp1 span').html()+''+$('#inputGetStamp2 span').html()+''+$('#inputGetStamp3 span').html()+''+$('#inputGetStamp4 span').html();
       Stampcode = parseInt(Stampcode);
+
       var sCustomerId = localStorage.getItem("sCustomerId");
-      
       $.ajax({
               type: "GET",
               url: sAPIURL,
@@ -1083,11 +905,14 @@ function KeypadOk(iMenucardSerialNumber){
              }).done(function(result){
                    
                     if(result.result === 'true') {
-                        
                         // opdater antal stempler i localStorage
                         var stamps = localStorage.getItem(iMenucardSerialNumber+".stamps");
+                        if( stamps == undefined ) { var stamps = 0; }
                         var stamps = parseInt(stamps) + parseInt(numbersOfStamps);
                         localStorage.setItem(iMenucardSerialNumber+".stamps",stamps);
+
+                        $(".backBtn").attr("onclick","backBtnSwich('home');")
+                        $(".backBtn").addClass("rotate270");
 
                         // animation
                          $("#getStampPage").velocity("transition.slideDownBigOut", 200, function() {
@@ -1097,7 +922,7 @@ function KeypadOk(iMenucardSerialNumber){
                                  $("#getStampPage").remove();
                                  $(".backStampBtn").show();
                                  $("#stampPage").velocity("transition.expandIn", 400, function(){
-                                     var stampsCounterText = $("#stampsCounterText").text().split('/');;
+                                     var stampsCounterText = $("#stampsCounterText").text().split('/');
                                      var iStampsLeft = parseInt(stampsCounterText[0]) + stamps;
                                      var iStampsForFree = parseInt(stampsCounterText[1]);
                                      
@@ -1145,8 +970,7 @@ function KeypadOk(iMenucardSerialNumber){
                                           });
                                           makeStampCounter(0,iStampsForFree);
                                       }, 200);
-
-                                        
+   
                                         var restStamps = newChecker - ( iStampsForFree * counterFree );
                                         setTimeout(function(){makeStampCounter(restStamps,iStampsForFree);},1600);
                                         $("#stampTotal p").text(restStamps);
@@ -1154,11 +978,11 @@ function KeypadOk(iMenucardSerialNumber){
                                         //Display all the free items
                                         $("#FreeItemsBlock").prepend("<h3>brug:</h3>");
                                          for (var i = 1; i < iFreeItems; i++){
-                                              $("#FreeItemsBlock").append("<div class='stampCircleIcon black' onclick='ChooseStampCircle(this);'><p>"+i+"</p></div>");
+                                              $("#FreeItemsBlock").append("<div class='stampCircleIcon' onclick='ChooseStampCircle(this);'><p>"+i+"</p></div>");
                                          } 
 
                                         setTimeout(function(){                 
-                                           $("#FreeItemsBlock").append("<div id='getNewfreeAni' class='stampCircleIcon black' onclick='ChooseStampCircle(this);'><p>"+i+"</p></div>");
+                                           $("#FreeItemsBlock").append("<div id='getNewfreeAni' class='stampCircleIcon' onclick='ChooseStampCircle(this);'><p>"+i+"</p></div>");
                                            // New Free item Animation
                                            if( iFreeItems > parseInt(oldFreeItems) ) {                                        
                                               $("#getNewfreeAni").velocity("transition.shrinkIn", { display:"inline-block", stagger: 100, duration: 900 });
@@ -1169,7 +993,7 @@ function KeypadOk(iMenucardSerialNumber){
                                         $("#stampTotal p").text(iStampsLeft);
                                         makeStampCounter(iStampsLeft,iStampsForFree);
                                         for (var i = 1; i <= iFreeItems; i++){
-                                              $("#FreeItemsBlock").append("<div class='stampCircleIcon black' onclick='ChooseStampCircle(this);'><p>"+i+"</p></div>");
+                                              $("#FreeItemsBlock").append("<div class='stampCircleIcon' onclick='ChooseStampCircle(this);'><p>"+i+"</p></div>");
                                          } 
                                     }
                                      //Change onlick event of btn
@@ -1208,24 +1032,57 @@ function removeGetStampsPage(){
       $(".backStampBtn").show();
       $("#stampPage").velocity("transition.shrinkIn", 400);
 
+      $(".backBtn").attr("onclick","backBtnSwich('removeStampPage');")
+      $(".backBtn").addClass("rotate270");
+
   });
   
 }
 
-function AppIntro() {
+ function moveScrollerHead() {
+    var move = function() {
+        var st = $(window).scrollTop();
+        var ot = $("#scrollerAnchorHead").offset().top;
+        var s = $(".headTitle");
+        if(st > ot) {
+            s.css({
+                position: "fixed",
+                top: "0px",
+            });
+            s.addClass("shadow");
+            var height = s.outerHeight();
+            height = height + 22;
+            $(".messageBlock").css("margin-top", height+"px");
 
-  var introHead = "<h3>Velkommen til</h3><h1>MyLocal<span>Café</span></h1>";
-  var introDec = "<h2>Her kan du følge dine favorit caféer.</h2><h2>Du kan se info om deres sted, se deres menukort, samt få aktuelle tilbud og beskeder direkte.</h2><h2>Søg blot på dine lokale favorit caféer i søgefeltet for at komme i gang!</h2>";
-
-  var introDelBtn = "<a class='btn' onclick='ClearAppIntro();'>Til appen</a>"
-
-  $('body').append("<div class='introScreen'><img src='img/logo_4.png'><br>"+introHead+introDec+introDelBtn+"</div>");
-
+        } else {
+            if(st <= ot) {
+                s.css({
+                    position: "relative",
+                    top: ""
+                });
+                s.removeClass("shadow");
+                $(".messageBlock").css("margin-top", "30px");
+            }
+        }
+    };
+    $(window).scroll(move);
+    move();
 }
 
-function ClearAppIntro() {
-  $(".introScreen").remove();
-  $("#FindCafe").focus();
+//function AppIntro() {
 
-  localStorage.setItem("introScreen", "seen");
-}
+//   var introHead = "<h3>Velkommen til</h3><h1>MyLocal<span>Café</span></h1>";
+//   var introDec = "<h2>Her kan du følge dine favorit caféer.</h2><h2>Du kan se info om deres sted, se deres menukort, samt få aktuelle tilbud og beskeder direkte.</h2><h2>Søg blot på dine lokale favorit caféer i søgefeltet for at komme i gang!</h2>";
+
+//   var introDelBtn = "<a class='btn' onclick='ClearAppIntro();'>Til appen</a>"
+
+//   $('body').append("<div class='introScreen'><img src='img/logo_4.png'><br>"+introHead+introDec+introDelBtn+"</div>");
+
+// }
+
+// function ClearAppIntro() {
+//   $(".introScreen").remove();
+//   $("#FindCafe").focus();
+
+//   localStorage.setItem("introScreen", "seen");
+// }
