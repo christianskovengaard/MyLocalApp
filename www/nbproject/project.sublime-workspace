@@ -4,16 +4,28 @@
 		"selected_items":
 		[
 			[
+				"mi",
+				"middle"
+			],
+			[
+				"ve",
+				"vertical-align"
+			],
+			[
 				"ma",
-				"margin-top"
+				"margin"
+			],
+			[
+				"max-",
+				"max-height"
+			],
+			[
+				"ba",
+				"background"
 			],
 			[
 				"font",
 				"font-weight"
-			],
-			[
-				"ba",
-				"background-position"
 			],
 			[
 				"fon",
@@ -204,10 +216,18 @@
 	"buffers":
 	[
 		{
+			"file": "/C/Users/db/Desktop/MyLocal_TODO.txt",
+			"settings":
+			{
+				"buffer_size": 656,
+				"line_ending": "Windows"
+			}
+		},
+		{
 			"file": "/C/wamp/www/MyLocalApp/www/js/index.js",
 			"settings":
 			{
-				"buffer_size": 61692,
+				"buffer_size": 64864,
 				"line_ending": "Windows"
 			}
 		},
@@ -215,15 +235,7 @@
 			"file": "/C/wamp/www/MyLocalApp/www/css/index.css",
 			"settings":
 			{
-				"buffer_size": 15893,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "/C/wamp/www/MyLocalApp/www/index.html",
-			"settings":
-			{
-				"buffer_size": 2567,
+				"buffer_size": 16497,
 				"line_ending": "Windows"
 			}
 		}
@@ -268,10 +280,16 @@
 	},
 	"file_history":
 	[
-		"/C/wamp/www/MyLocalApp/www/css/index.css",
-		"/C/Users/db/Dropbox/Boliga Design/BoligaLejnu/SignUpside/Lejnu-signup-page/index.html",
-		"/C/Users/db/Dropbox/Boliga Design/BoligaLejnu/SignUpside/Lejnu-signup-page/css/bootstrap.css",
+		"/C/Users/db/Dropbox/Boliga Design/BoligaLejnu/SignUpside/Lejnu-signup-page/default.htm",
+		"/C/Users/db/Dropbox/Boliga Design/BoligaLejnu/SignUpside/Lejnu-signup-page/tak.html",
 		"/C/Users/db/Dropbox/Boliga Design/BoligaLejnu/SignUpside/Lejnu-signup-page/css/custom.css",
+		"/C/Users/db/Dropbox/Boliga Design/BoligaLejnu/SignUpside/Lejnu-signup-page/index.html",
+		"/C/Users/db/Dropbox/Public/index.html",
+		"/C/wamp/www/MyLocalApp/www/index.html",
+		"/C/Users/db/Dropbox/Boliga Design/BoligaLejnu/SignUpside/Lejnu-signup-page/css/bootstrap.css",
+		"/C/Users/db/Dropbox/Boliga Design/BoligaLejnu/SignUpside/Lejnu-signup-page/css/font-awesome.min.css",
+		"/C/Users/db/Dropbox/Boliga Design/BoligaLejnu/SignUpside/Lejnu-signup-page/css/all-ie-only.css",
+		"/C/wamp/www/MyLocalApp/www/css/index.css",
 		"/C/Users/db/Dropbox/Boliga Design/BoligaLejnu/SignUpside/Lejnu-signup-page/js/bootstrap.js",
 		"/C/wamp/www/ScavengerHuntWeb/ToDo.txt",
 		"/C/Users/db/Dropbox/iboligen/popup - velkomest/elements/closeBtn.svg",
@@ -289,7 +307,6 @@
 		"/C/Users/db/Desktop/629a6d28_panel-da-dk.js",
 		"/C/Users/db/Downloads/video-js-4.6.4/video-js/demo.html",
 		"/C/wamp/www/MyLocalApp/www/js/index.js",
-		"/C/wamp/www/MyLocalApp/www/index.html",
 		"/C/wamp/www/MyLocalApptestAni/www/js/index.js",
 		"/C/wamp/www/MyLocalApp/www/spec/helper.js",
 		"/C/wamp/www/MyLocalMenu/Controllers/mailgun/vendor/guzzle/guzzle/src/Guzzle/Http/Exception/HttpException.php",
@@ -351,6 +368,24 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"fa-home",
+			".js",
+			"submit",
+			"min-w",
+			"usestamp(",
+			"usestamps(",
+			"removegetstampspage",
+			"usestamp(",
+			"remove",
+			"keypadok(",
+			"freeitemsblock",
+			"UseStamp(",
+			"usestamps(",
+			"usestamps",
+			"$(\"#FreeItemsBlock\").append",
+			"brug",
+			"getstamp(",
+			"keypad",
 			"$(\"#FreeItemsBlock\").append",
 			"keypadok",
 			"ChooseStampCircle(",
@@ -460,11 +495,7 @@
 			",-",
 			"dishHeadline",
 			"MenucardCategoryGroup",
-			"MenucardCategoryGroup0",
-			"Info",
-			"RestuarentInfo",
-			"UpdateRestuarentInfo()",
-			"newsortablediv"
+			"MenucardCategoryGroup0"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -489,76 +520,44 @@
 	"groups":
 	[
 		{
-			"selected": 0,
+			"selected": 2,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "/C/wamp/www/MyLocalApp/www/js/index.js",
+					"file": "/C/Users/db/Desktop/MyLocal_TODO.txt",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 61692,
+						"buffer_size": 656,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								59468,
-								59468
+								303,
+								303
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
+							"syntax": "Packages/Text/Plain text.tmLanguage"
 						},
 						"translation.x": 0.0,
-						"translation.y": 16256.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 0,
-					"type": "text"
-				},
-				{
-					"buffer": 1,
-					"file": "/C/wamp/www/MyLocalApp/www/css/index.css",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 15893,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								15035,
-								15035
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/CSS/CSS.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 10973.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 1,
 					"type": "text"
 				},
 				{
-					"buffer": 2,
-					"file": "/C/wamp/www/MyLocalApp/www/index.html",
+					"buffer": 1,
+					"file": "/C/wamp/www/MyLocalApp/www/js/index.js",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 2567,
+						"buffer_size": 64864,
 						"regions":
 						{
 						},
@@ -571,15 +570,45 @@
 						],
 						"settings":
 						{
-							"syntax": "Packages/HTML/HTML.tmLanguage",
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 15064.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "/C/wamp/www/MyLocalApp/www/css/index.css",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 16497,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								14779,
+								14779
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/CSS/CSS.tmLanguage",
 							"tab_size": 4,
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 113.0,
+						"translation.y": 11205.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 2,
+					"stack_index": 0,
 					"type": "text"
 				}
 			]
@@ -660,7 +689,7 @@
 	"show_minimap": true,
 	"show_open_files": false,
 	"show_tabs": true,
-	"side_bar_visible": false,
+	"side_bar_visible": true,
 	"side_bar_width": 232.0,
 	"status_bar_visible": true,
 	"template_settings":
