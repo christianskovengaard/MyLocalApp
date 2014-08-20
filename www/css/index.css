@@ -60,10 +60,8 @@ a,h1,h2,h3,h4,h5,h6,p,li{
     padding: 0px;
     height: 100%; 
     text-shadow: none;
-    /*background: #ddd url("../img/bg.jpg") 0 0 no-repeat;*/
-    background: #ddd url("https://c2.staticflickr.com/4/3695/8981110642_958366cef2_z.jpg") 0 0 no-repeat;
-/*background: #ddd url("http://i.kinja-img.com/gawker-media/image/upload/s--7tgch_eZ--/c_fit,fl_progressive,q_80,w_636/18mhn407t5dfojpg.jpg") 0 0 no-repeat;*/
-
+    background: #ddd url("../img/bak.png") 0 0 no-repeat;
+    background-size: 100%;
     overflow-x: hidden;
 }
 
@@ -279,6 +277,9 @@ background: #333;
     -webkit-transition: 0.5s;
     -o-transition: 0.5s;
     transition: 0.5s;
+       transform:rotate(-90deg);
+    -ms-transform:rotate(-90deg); /* IE 9 */
+    -webkit-transform:rotate(-90deg); /* Opera, Chrome, and Safari */ 
 }
 .menuheader { 
     position: relative;
@@ -648,9 +649,9 @@ transform:rotate(180deg);
 -webkit-transform:rotate(180deg); /* Opera, Chrome, and Safari */
 }
 .rotate270{
-   transform:rotate(-90deg);
-    -ms-transform:rotate(-90deg); /* IE 9 */
-    -webkit-transform:rotate(-90deg); /* Opera, Chrome, and Safari */ 
+   transform:rotate(0deg);
+    -ms-transform:rotate(0deg); /* IE 9 */
+    -webkit-transform:rotate(0deg); /* Opera, Chrome, and Safari */ 
 
 }
 

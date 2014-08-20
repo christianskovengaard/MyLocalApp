@@ -597,7 +597,7 @@ function makeStampPage(iMenucardSerialNumber,iUserStamps,MaxStamps){
                                 
                                 //$("#stampPage").before("<a class='backStampBtn' onclick='removeStampPage();'>tilbage</a>");
                                 // back btn change
-                                $(".backBtn").attr("onclick","backBtnSwich('removeStampPage');")
+                                $(".backBtn").attr("onclick","backBtnSwich('removeStampPage');");
                                 $(".backBtn").removeClass("rotate270");
 
                                 $("#stampPage a").hide().velocity("transition.bounceDownIn",400);
@@ -826,6 +826,8 @@ function UseStamp(iMenucardSerialNumber,iMaxStamp) {
                  
                  //remove use free item
                  $('.choosenstampicon').remove();
+                 $(".backBtn").attr("onclick","backBtnSwich('removeStampPage');");
+                 $(".backBtn").addClass("rotate270");
                  
                  // opdater antal stempler i localStorage
                  var stamps = localStorage.getItem(iMenucardSerialNumber+".stamps");
@@ -911,7 +913,7 @@ function KeypadOk(iMenucardSerialNumber){
                         var stamps = parseInt(stamps) + parseInt(numbersOfStamps);
                         localStorage.setItem(iMenucardSerialNumber+".stamps",stamps);
 
-                        $(".backBtn").attr("onclick","backBtnSwich('home');")
+                        $(".backBtn").attr("onclick","backBtnSwich('removeStampPage');")
                         $(".backBtn").addClass("rotate270");
 
                         // animation
