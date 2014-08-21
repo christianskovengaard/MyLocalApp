@@ -33,17 +33,11 @@ function AutocompleteCafename() {
    //Check if FindCafe input element is empty
    if($('#FindCafe').val().length === 0 ) {
        $('#searchWrapper').html('');
-
-       // UX-stuff
-       $(".logo_home_small").removeClass('logo_home_small').addClass('logo_home');
-       $(".clear").hide();
    }
    if($('#FindCafe').val().length === 1) {
        $(".clear").show();
    }
    if($('#FindCafe').val().length >= 3) {
-      // UX-stuff
-      $(".logo_home").removeClass('logo_home').addClass('logo_home_small');
             //console.log('search');
        var sCafename = $('#FindCafe').val();
        
@@ -71,6 +65,20 @@ function AutocompleteCafename() {
        
    }
 }
+
+function SearchInputUp() {
+      var height = $(".logo_home").outerHeight();
+      $("#favoriteWrapper").velocity("fadeOut", 100 );
+          $(".logo_home").velocity({ "margin-top" : -height+"px" }, 500, "easeOutCubic");
+          $("#home").css("padding-bottom","250px");
+}
+function SearchInputDown() {
+    // UX-stuff
+       $("#favoriteWrapper").velocity("fadeIn", 100 );
+       $(".logo_home").velocity({ "margin-top" : 0 }, 500, "easeOutCubic");
+       $("#home").css("padding-bottom","0px");
+       $(".clear").hide();
+} 
 
 function CheckForsCustomerId() {
     

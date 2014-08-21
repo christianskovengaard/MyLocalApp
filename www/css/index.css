@@ -67,12 +67,8 @@ a,h1,h2,h3,h4,h5,h6,p,li{
 
 .logo_home {
     width: 100%;
-    padding: 30px 0 20px 0;
+    padding: 30px 0 0px 0;
     text-align: center;
-    -moz-transition: 1s;
-    -webkit-transition: 1s;
-    -o-transition: 1s;
-    transition: 1s;
 }
 .logo_home img {
     width: 40%;
@@ -128,7 +124,7 @@ a,h1,h2,h3,h4,h5,h6,p,li{
     position: relative;
     background: #fff;
     width: 90%;
-    margin: 0 auto;
+    margin: 20px auto 0 auto;
     padding: 10px 0;
 }
 #home input {
@@ -436,6 +432,7 @@ font-style: italic;
     margin: 0 0 5px 0;
     font-size: 13px;
     text-align: right;
+    color: #ACACAC;
 }
 .messageBlock h1 {
     font-size: 20px;
