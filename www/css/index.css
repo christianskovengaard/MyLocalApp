@@ -249,12 +249,13 @@ input[type="search"]::-webkit-search-cancel-button {
 #menu { 
 text-shadow: none;
 display: none;
-min-height: 1000px;
+min-height: 500px;
 width: 100%;
 text-align: left;
 margin: 0 auto;
 overflow-x: hidden;
 background: #333;
+padding-bottom: 40px;
 }
 .error {
     text-align: center;

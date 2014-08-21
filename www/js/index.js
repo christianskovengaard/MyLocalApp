@@ -593,36 +593,37 @@ function makeStampPage(iMenucardSerialNumber,iUserStamps,MaxStamps){
         $("#messageBlock").velocity("transition.slideUpBigOut",200);
               //$("html").velocity("scroll", { offset: "220px" }, 200);
                     $("#stampBlock").velocity("transition.slideUpBigOut", 400, function(){
-                                $("#stampBlock").hide();
-                                $("#stampBlock").after("<div id='stampPage'></div>");
-                                
-                                //$("#stampPage").before("<a class='backStampBtn' onclick='removeStampPage();'>tilbage</a>");
-                                // back btn change
-                                $(".backBtn").attr("onclick","backBtnSwich('removeStampPage');");
-                                $(".backBtn").removeClass("rotate270");
-
-                                $("#stampPage a").hide().velocity("transition.bounceDownIn",400);
-                                  // $("#stampPage").append("<h3>Stempler ("+iUserStamps+")</h3>")
+                          $("#stampBlock").hide();
+                          $("#stampBlock").after("<div id='stampPage'></div>");
+                          
+                          //$("#stampPage").before("<a class='backStampBtn' onclick='removeStampPage();'>tilbage</a>");
+                          // back btn change
+                          $(".backBtn").attr("onclick","backBtnSwich('removeStampPage');");
+                          $(".backBtn").removeClass("rotate270");
+                          $(window).scrollTop(0);
+                          $("#stampPage a").hide().velocity("transition.bounceDownIn",400);
+                            // $("#stampPage").append("<h3>Stempler ("+iUserStamps+")</h3>")
+                          
+                          $("#stampPage").append("<div class='StampsForNext' onclick='GetStamp(\""+iMenucardSerialNumber+"\",1);'><div class='stampCircle'><p>+</p></div></div>");
+                          
+                          $(".stampCircle").hide().velocity("transition.expandIn", 200, function(){
+                                  $(".stampCircle").prepend("<h3>Stempler</h3>");
                                   
-                                $("#stampPage").append("<div class='StampsForNext' onclick='GetStamp(\""+iMenucardSerialNumber+"\",1);'><div class='stampCircle'><p>+</p></div></div>");
-                                $(".stampCircle").hide().velocity("transition.expandIn", 200, function(){
-                                        $(".stampCircle").prepend("<h3>Stempler</h3>");
-                                        $(window).scrollTop(0);
-                                        makeStampCounter(iStampsLeft,iStampsForFree);
+                                  makeStampCounter(iStampsLeft,iStampsForFree);
 
-                                        $("#stampPage").append("<h4>For hver "+iStampsForFree+". stemple, får du en gratis Kaffe.</h4>");
-                                        $("#stampPage").append("<h4 class='iFreeItemCounter'>Du har nu "+iFreeItems+" gratis</h4>");
-                                        $("#stampPage").append("<div id='FreeItemsBlock'></div>");
-                                        for (var i = 1; i <= iFreeItems; i++){
-                                            $("#FreeItemsBlock").append("<div class='stampCircleIcon' onclick='ChooseStampCircle(this);'><p>"+i+"</p></div>");
-                                        } 
+                                  $("#stampPage").append("<h4>For hver "+iStampsForFree+". stemple, får du en gratis Kaffe.</h4>");
+                                  $("#stampPage").append("<h4 class='iFreeItemCounter'>Du har nu "+iFreeItems+" gratis</h4>");
+                                  $("#stampPage").append("<div id='FreeItemsBlock'></div>");
+                                  for (var i = 1; i <= iFreeItems; i++){
+                                      $("#FreeItemsBlock").append("<div class='stampCircleIcon' onclick='ChooseStampCircle(this);'><p>"+i+"</p></div>");
+                                  } 
 
-                                        $("#FreeItemsBlock .stampCircleIcon").hide().velocity("transition.slideUpIn", { display:"inline-block", duration: 800 });
-                                        if( iFreeItems > 0 ){
-                                            $("#FreeItemsBlock").prepend("<h3>brug:</h3>");
-                                        }
-                                        $("#stampPage").append("<a class='useStampsBtn' onclick='GetStamp(\""+iMenucardSerialNumber+"\",2,"+MaxStamps+");'>OK</a>");
-                                });
+                                  $("#FreeItemsBlock .stampCircleIcon").hide().velocity("transition.slideUpIn", { display:"inline-block", duration: 800 });
+                                  if( iFreeItems > 0 ){
+                                      $("#FreeItemsBlock").prepend("<h3>brug:</h3>");
+                                  }
+                                  $("#stampPage").append("<a class='useStampsBtn' onclick='GetStamp(\""+iMenucardSerialNumber+"\",2,"+MaxStamps+");'>OK</a>");
+                      });
               });
       });
 }
@@ -1029,7 +1030,9 @@ function markStampsForUse() {
 }
 
 function removeGetStampsPage(){  
-  $(".keypad").velocity("transition.slideDownBigIn", 400);
+  $(".keypad").velocity("transition.slideDownBigOut", 200);
+        $(".keypad").hide();
+
  $(".inputGetStampwrapper").remove();
   $("#getStampPage").velocity("transition.slideUpBigOut", 200, function() {
       $(".backGetStampBtn").remove();
