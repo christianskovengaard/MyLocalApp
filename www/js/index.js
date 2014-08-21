@@ -25,7 +25,8 @@ function ClearSearchInput(){
       $('#FindCafe').val('');
       AutocompleteCafename();
       getMessagesAndStamps();
-      $(".clear").hide();
+      //$(".clear").hide();
+      SearchInputDown();
 }
 
 function AutocompleteCafename() {
@@ -33,9 +34,10 @@ function AutocompleteCafename() {
    //Check if FindCafe input element is empty
    if($('#FindCafe').val().length === 0 ) {
        $('#searchWrapper').html('');
+        //$(".clear").hide();
    }
    if($('#FindCafe').val().length === 1) {
-       $(".clear").show();
+       //$(".clear").show();
    }
    if($('#FindCafe').val().length >= 3) {
             //console.log('search');
@@ -77,7 +79,7 @@ function SearchInputDown() {
        $("#favoriteWrapper").velocity("fadeIn", 100 );
        $(".logo_home").velocity({ "margin-top" : 0 }, 500, "easeOutCubic");
        $("#home").css("padding-bottom","0px");
-       $(".clear").hide();
+
 } 
 
 function CheckForsCustomerId() {
@@ -213,10 +215,14 @@ function editFavorits(){
         $(".favoriteWrapper .ui-btn").each(function(i){
         $(this).append('<div class="deleteFavorite" onclick="FavoritDelete(this);"> <i class="fa fa-trash-o"></i></div>');
         $(this).removeAttr("onclick");
+        $(this).attr("onclick","editFavoritsAlert();");
         $(".newMgs").hide();
         $(".editFavorits").addClass("color");
       });
   }
+}
+function editFavoritsAlert() {
+    $(".fa-cog").velocity("callout.tadaaa", 700);
 }
 
 function getMessagesAndStamps() {

@@ -123,23 +123,19 @@ a,h1,h2,h3,h4,h5,h6,p,li{
 #home .form {
     position: relative;
     background: #fff;
-    width: 90%;
+    width: 84%;
     margin: 20px auto 0 auto;
-    padding: 10px 0;
+    padding: 10px 3%;
 }
 #home input {
     position: relative;
     display: inline-table;
     border: 0;
-    width: 65%;
+    width: 100%;
     font-size: 23px;
     outline: none;
-    margin: 0 0 0 10px; 
+    margin: 0 0 0 0px; 
     vertical-align: middle;
-}
-/*   fjerner det lille (x) i s?gefeltet   */
-input[type="search"]::-webkit-search-cancel-button {
-    -webkit-appearance: none;
 }
 
 #home .form img {
@@ -148,6 +144,9 @@ input[type="search"]::-webkit-search-cancel-button {
     float: right;
     margin: 0 10px 0 10px;
     width: 28px;
+    position: absolute;
+    top: 10px;
+    right: 0px;
 }
 
 #home .form .clear {
@@ -179,8 +178,8 @@ input[type="search"]::-webkit-search-cancel-button {
 .editFavorits{  
     color: #868080; 
     position: absolute;
-    right: 12px;
-    top: 12px;
+    right: 30px;
+    top: 15px;
 }
 .editFavorits.color {
     color: rgba(233, 150, 63, 1);
@@ -209,7 +208,7 @@ input[type="search"]::-webkit-search-cancel-button {
     display: inline-block;
     font-size: 0.6em; 
     color: rgba(255,255,255,0.5);
-    margin: 5px 0 7px 10px; 
+    margin: 5px 0 14px 10px; 
 }
 .ui-btn { 
     text-align: left;
@@ -220,7 +219,7 @@ input[type="search"]::-webkit-search-cancel-button {
     color: #fff;
     text-decoration: none;
     background: #333;
-    border-bottom: 1px solid #4E4E4E;
+    border-top: 1px solid #4E4E4E;
 }
 .ui-btn h1 {
     margin: 0;

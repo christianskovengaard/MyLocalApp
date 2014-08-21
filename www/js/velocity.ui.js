@@ -82,6 +82,16 @@
                     [ { scaleX: 1, scaleY: 1, rotateZ: 0 }, 0.20 ]
                 ]
             },
+            /* Laver at daniel */
+            "callout.tadaaa": {
+                defaultDuration: 1000,
+                calls: [ 
+                    [ { scaleX: 0.9, scaleY: 0.9, rotateZ: -3 }, 0.10 ],
+                    [ { scaleX: 1.7, scaleY: 1.7, rotateZ: 3 }, 0.10 ],
+                    [ { scaleX: 1.7, scaleY: 1.7, rotateZ: -3 }, 0.10, 3 ],
+                    [ { scaleX: 1, scaleY: 1, rotateZ: 0 }, 0.20 ]
+                ]
+            },
             /* Support: Loses rotation in IE9/Android 2.3. (Fades only.) */
             "transition.flipXIn": {
                 defaultDuration: 700,
