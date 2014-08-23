@@ -385,16 +385,6 @@ function GetMenucard(sName_sNumber,sFunction){
                             }else if(OpeningHours.iClosed === '1'){
                                $("#OpeningHours").append('<h1>'+OpeningHours.sDayName+'</h1><h2>Lukket</h2><br>');
                             }
-                            }); 
-                    $.each(result.aMenucardInfo, function(key,value){
-                            var Info = {
-                                         sMenucardInfoHeadline: value.sMenucardInfoHeadline,
-                                         sMenucardInfoParagraph: value.sMenucardInfoParagraph
-                                     };
-                            //Replace line breaks with \n 
-                            Info.sMenucardInfoParagraph = Info.sMenucardInfoParagraph.replace(/\r?\n/g, '<br/>');
-
-                            $("#infoBlock ul").append('<li class="dishPoint">'+Info.sMenucardInfoHeadline+'<p>'+Info.sMenucardInfoParagraph+'</p></li>');
                     }); 
                     
                     //GALLERY
@@ -510,6 +500,17 @@ function GetMenucard(sName_sNumber,sFunction){
                                 //Add the new cafe to localStorage
                                 SaveUserFavorites(result.iMenucardSerialNumber,sRestuarentName,sRestuarentAddress);                      
                           }                            
+                // INFO
+                    $.each(result.aMenucardInfo, function(key,value){
+                            var Info = {
+                                         sMenucardInfoHeadline: value.sMenucardInfoHeadline,
+                                         sMenucardInfoParagraph: value.sMenucardInfoParagraph
+                                     };
+                            //Replace line breaks with \n 
+                            Info.sMenucardInfoParagraph = Info.sMenucardInfoParagraph.replace(/\r?\n/g, '<br/>');
+
+                            $("#menuBlock").after('<div class="infoBlock"><h4>'+Info.sMenucardInfoHeadline+'</h4><p>'+Info.sMenucardInfoParagraph+'</p></div>');
+                    }); 
                 }
                 else {
                         $(".spinner div").css('animation-name', 'none');
@@ -616,6 +617,7 @@ function makeStampPage(iMenucardSerialNumber,iUserStamps,MaxStamps){
   $("#menuBlock").velocity("transition.slideDownBigOut", 100, function(){
       $(".swiper-container").velocity({ "height" : 0 }, 300);
         $("#messageBlock").velocity("transition.slideUpBigOut",200);
+        $(".infoBlock").velocity("fadeOut",200);
               //$("html").velocity("scroll", { offset: "220px" }, 200);
                     $("#stampBlock").velocity("transition.slideUpBigOut", 400, function(){
                           $("#stampBlock").hide();
@@ -703,6 +705,7 @@ function removeStampPage(){
   $("#stampPage").remove();
   $(".backStampBtn").remove();
   $(".swiper-container").velocity({ "height" : 200 }, 200);
+  $(".infoBlock").velocity("fadeIn",200);
   $("#stampBlock").velocity("transition.slideDownBigIn",400);
   if( $("#messageBlock div").length > 0 ){
     $("#messageBlock").velocity("transition.slideDownBigIn",600);
