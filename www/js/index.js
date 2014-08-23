@@ -864,28 +864,37 @@ function UseStamp(iMenucardSerialNumber,iMaxStamp) {
                  localStorage.setItem(iMenucardSerialNumber+".stamps",stamps);
                  
                  // animation
-                  $(".inputGetStampwrapper").remove();
-                 $("#getStampPage").velocity("transition.slideDownBigOut", 200, function() {
+                 $("#getStampPage").html("<h1 style='padding-top: 50%;'>Sådan!</h1>");
+                 $("#getStampPage").hide().velocity("transition.slideDownBigIn", 300);
+                 setTimeout(function(){
+                    $("#getStampPage").hide().velocity("transition.slideDownBigOut", 300, function() {
 
-                         $(".succesAlert").remove();
-                         $(".backGetStampBtn").remove();
-                         $("#getStampPage").remove();
-                         $(".backStampBtn").show();
-                         $("#stampPage").velocity("transition.expandIn", 400, function(){
-                             var stampsCounterText = $("#stampsCounterText").text().split('/');;
-                             //var iStampsLeft = parseInt(stampsCounterText[0]) + stamps;
-                             var iStampsForFree = parseInt(stampsCounterText[1]);
-                             //Count number of divs to get the number of old free items
-                             var iFreeItems = $("#FreeItemsBlock > div").length;
 
-                             //Update text for free items
-                             $(".iFreeItemCounter").html("Du har nu "+iFreeItems+" gratis:");
+                          $(".inputGetStampwrapper").remove();
+                           $("#getStampPage").velocity("transition.slideDownBigOut", 300, function() {
 
-                             //Change onlick event of btn
-                             $('#makeStampPageBtn').attr('onclick','makeStampPage(\''+iMenucardSerialNumber+'\','+stamps+','+iStampsForFree+')');
+                                   $(".succesAlert").remove();
+                                   $(".backGetStampBtn").remove();
+                                   $("#getStampPage").remove();
+                                   $(".backStampBtn").show();
+                                   $("#stampPage").velocity("transition.expandIn", 400, function(){
+                                       var stampsCounterText = $("#stampsCounterText").text().split('/');;
+                                       //var iStampsLeft = parseInt(stampsCounterText[0]) + stamps;
+                                       var iStampsForFree = parseInt(stampsCounterText[1]);
+                                       //Count number of divs to get the number of old free items
+                                       var iFreeItems = $("#FreeItemsBlock > div").length;
 
-                        });
-                 });
+                                       //Update text for free items
+                                       $(".iFreeItemCounter").html("Du har nu "+iFreeItems+" gratis:");
+
+                                       //Change onlick event of btn
+                                       $('#makeStampPageBtn').attr('onclick','makeStampPage(\''+iMenucardSerialNumber+'\','+stamps+','+iStampsForFree+')');
+
+                                  });
+                                });
+                          });
+
+                }, 400);
                 
                 $(".useStampsBtn").hide(); 
                 if( $("#FreeItemsBlock > div").length <= 0){
@@ -897,7 +906,8 @@ function UseStamp(iMenucardSerialNumber,iMaxStamp) {
                   $(this).html("<p>"+num+"</p>");
                 });
 
-             }else{
+             }
+             else{
                   $("#menu").addClass("error");
                       setTimeout(function(){
                           $("#menu").removeClass("error");
