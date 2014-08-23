@@ -75,11 +75,14 @@ function SearchInputUp() {
           $("#home").css("padding-bottom","250px");
 }
 function SearchInputDown() {
-    // UX-stuff
+    if($('#FindCafe').val().length === 0) {
        $("#favoriteWrapper").velocity("fadeIn", 100 );
        $(".logo_home").velocity({ "margin-top" : 0 }, 500, "easeOutCubic");
        $("#home").css("padding-bottom","0px");
-
+    }
+    else {
+      $('#FindCafe').focus();
+    }
 } 
 
 function CheckForsCustomerId() {
@@ -297,14 +300,22 @@ function findMenuCard() {
           alert('hukommelse tømt');
           location.reload();
         }
-        else {
-          $("#FindCafe").before('<div class="spinner"><div class="bar"></div></div>');
-          var value = $("#FindCafe").val();
-          GetMenucardWithRestuarentName(value);
-        }
+        // else {
+        //   $("#FindCafe").before('<div class="spinner"><div class="bar"></div></div>');
+        //   var value = $("#FindCafe").val();
+          
+        //   setTimeout(function(){
+        //       $(".spinner").empty();
+        //       $(".spinner").hide();
+        //       $("#FindCafe").focus();
+        //   },5000);
+
+        //   GetMenucardWithRestuarentName(value);
+
+        // }
     }
     else {
-        $('#FindCafe').before('<div class="popMgs">Skriv venligt et navn i søgeboksen</div>');
+        $('#FindCafe').before('<div class="popMgs"><h4>Skriv venligt et navn i søgeboksen</h4></div>');
         $('.popMgs').hide().fadeIn().delay(500).fadeOut(4300,function(){ $(this).remove(); }); 
     }
 }

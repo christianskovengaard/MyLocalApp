@@ -33,13 +33,15 @@ a,h1,h2,h3,h4,h5,h6,p,li{
 .Offline {
     display: none;
     position: absolute;
-    background: red;
     width: 100%;
-    top: 270px;
-    bottom: 0px;
-    z-index: 100;
-    background: #ddd;
+    top: 0px;
+    z-index: 1000000;
+    background: rgba(0,0,0,0.8);
     text-align: center;
+}
+.Offline h2{
+    color: #fff;
+    font-size: 1em;
 }
 
 .dim{
@@ -123,9 +125,9 @@ a,h1,h2,h3,h4,h5,h6,p,li{
 #home .form {
     position: relative;
     background: #fff;
-    width: 84%;
+    width: 76%;
     margin: 20px auto 0 auto;
-    padding: 10px 3%;
+    padding: 10px 10% 10px 4%;
 }
 #home input {
     position: relative;
