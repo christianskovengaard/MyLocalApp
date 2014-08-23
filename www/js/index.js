@@ -639,7 +639,7 @@ function makeStampPage(iMenucardSerialNumber,iUserStamps,MaxStamps){
                                   makeStampCounter(iStampsLeft,iStampsForFree);
                                   
 
-                                  $("#stampPage").append("<h4>For hver "+iStampsForFree+". stemple, får du en gratis Kaffe.</h4>");
+                                  $("#stampPage").append("<h4>For hver "+iStampsForFree+". stempel, får du en gratis Kaffe.</h4>");
                                   $("#stampPage").append("<h4 class='iFreeItemCounter'>Du har nu "+iFreeItems+" gratis</h4>");
                                   $("#stampPage").append("<div id='FreeItemsBlock'></div>");
                                   for (var i = 1; i <= iFreeItems; i++){
