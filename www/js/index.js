@@ -790,7 +790,7 @@ function makeKeypad(id,iMenucardSerialNumber,sFunction,iMaxStamp){
         for( var i = 1; i <= 9; i++){
             $("#"+id+" .keypad").append("<a onclick='btnKeypad("+i+");'>"+i+"</a>");
         }        
-        $("#"+id+" .keypad").append("<a onclick='btnKeypad(-1);'><-</a>");
+        $("#"+id+" .keypad").append("<a onclick='btnKeypad(-1);'><img src='img/backspace.svg'></a>");
         $("#"+id+" .keypad").append("<a onclick='btnKeypad(0);'>0</a>");
         $("#"+id+" .keypad").append("<a onclick='KeypadOk(\""+iMenucardSerialNumber+"\");'>ok</a>");
       }else if(sFunction === 2){
@@ -799,7 +799,7 @@ function makeKeypad(id,iMenucardSerialNumber,sFunction,iMaxStamp){
           for( var i = 1; i <= 9; i++){
               $("#"+id+" .keypad").append("<a onclick='btnKeypad("+i+");'>"+i+"</a>");
           }
-          $("#"+id+" .keypad").append("<a onclick='btnKeypad(-1);'><-</a>");
+          $("#"+id+" .keypad").append("<a onclick='btnKeypad(-1);'><img src='img/backspace.svg'></a>");
           $("#"+id+" .keypad").append("<a onclick='btnKeypad(0);'>0</a>");
           $("#"+id+" .keypad").append("<a onclick='UseStamp(\""+iMenucardSerialNumber+"\","+iMaxStamp+");'>ok</a>");
       }

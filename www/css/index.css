@@ -890,6 +890,9 @@ transform:rotate(180deg);
     padding: 5px 0;
     font-size: 40px !important;
 }
+.keypad svg {
+    fill: currentColor;
+}
 
 .choosenstampicon {
     background-color: #FDA142;
