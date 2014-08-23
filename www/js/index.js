@@ -183,7 +183,7 @@ function makeFavorits() {
     
     if(aUserFavorits != null ){
       var iUserFavorits = Object.keys(aUserFavorits).length; 
-        $("#favoriteWrapper").append("<h6>FAVORITTER</h6><a class='editFavorits' onclick='editFavorits();'><i class='fa fa-cog'></i> </a>");
+        $("#favoriteWrapper").append("<h6>Stamsteder</h6><a class='editFavorits' onclick='editFavorits();'><i class='fa fa-cog'></i> </a>");
         for(var i = 0; i < iUserFavorits; i++){
             if(aUserFavorits[i].iMenucardSerialNumber !==  undefined) {
                 var sCafeId = aUserFavorits[i].iMenucardSerialNumber;
@@ -402,8 +402,6 @@ function GetMenucard(sName_sNumber,sFunction){
                       $(".menuheader").prepend('<div class="swiper-container"></div>');
                       $(".menuheader").css("height","0px");
                     }
-                    
-                    $("#infoBlock ul").append('<li class="dishPoint button" onclick="InfoToggle();"><img src="img/arrowUp.png"></li>');
 
                     // MESSAGES  
                     var sSerialNumberCaps = result.iMenucardSerialNumber;
@@ -575,7 +573,7 @@ function SaveUserFavorites(iMenucardSerialNumber,sRestuarentName,sRestuarentAddr
          localStorage.setItem("aUserFavorits", aUserFavorites); 
 
          //make favorit block
-         $("#favoriteWrapper").append("<h6>FAVORITTER</h6>");
+         $("#favoriteWrapper").append("<h6>Stamsteder</h6>");
          $("#favoriteWrapper").append('<a id="'+iMenucardSerialNumber+'" class="ui-btn" onclick="GetMenucard(\''+iMenucardSerialNumber+'\',2);"><h1>'+sRestuarentName+'</h1><p>'+sRestuarentAddress+'</p></a>');
 
 
@@ -583,7 +581,7 @@ function SaveUserFavorites(iMenucardSerialNumber,sRestuarentName,sRestuarentAddr
                           
       // make favorit block
       if($("#favoriteWrapper").html() === ''){
-          $("#favoriteWrapper").append("<h6>FAVORITTER</h6>");
+          $("#favoriteWrapper").append("<h6>Stamsteder</h6>");
       } 
 }
 
@@ -614,10 +612,11 @@ function makeStampPage(iMenucardSerialNumber,iUserStamps,MaxStamps){
   var iStampsLeft = iUserStamps - ( iFreeItems * iStampsForFree);
 
   // make gallery disapper
+  $(".infoBlock").velocity("fadeOut",200);
   $("#menuBlock").velocity("transition.slideDownBigOut", 100, function(){
       $(".swiper-container").velocity({ "height" : 0 }, 300);
         $("#messageBlock").velocity("transition.slideUpBigOut",200);
-        $(".infoBlock").velocity("fadeOut",200);
+        
               //$("html").velocity("scroll", { offset: "220px" }, 200);
                     $("#stampBlock").velocity("transition.slideUpBigOut", 400, function(){
                           $("#stampBlock").hide();
@@ -628,6 +627,7 @@ function makeStampPage(iMenucardSerialNumber,iUserStamps,MaxStamps){
                           $(".backBtn").attr("onclick","backBtnSwich('removeStampPage');");
                           $(".backBtn").removeClass("rotate270");
                           $(window).scrollTop(0);
+                          $("#stampPage").prepend("<h5>Vis denne til din café, og få registreret et stempel</h5>");
                           $("#stampPage a").hide().velocity("transition.bounceDownIn",400);
                             // $("#stampPage").append("<h3>Stempler ("+iUserStamps+")</h3>")
                           
@@ -637,6 +637,7 @@ function makeStampPage(iMenucardSerialNumber,iUserStamps,MaxStamps){
                                   $(".stampCircle").prepend("<h3>Stempler</h3>");
                                   
                                   makeStampCounter(iStampsLeft,iStampsForFree);
+                                  
 
                                   $("#stampPage").append("<h4>For hver "+iStampsForFree+". stemple, får du en gratis Kaffe.</h4>");
                                   $("#stampPage").append("<h4 class='iFreeItemCounter'>Du har nu "+iFreeItems+" gratis</h4>");
@@ -743,6 +744,7 @@ function GetStamp(iMenucardSerialNumber,sFunction,iMaxStamp){
           $(".backBtn").attr("onclick","backBtnSwich('removeGetStampsPage');")
           $(".backBtn").removeClass("rotate270");
 
+          $("#getStampPage").append("<h5>Vis denne til din café, og få registreret et stempel</h5>");
           $("#getStampPage").append("<p>Antal stempler:</p>");
           $("#getStampPage").append("<a onclick='numOfStampsChange(-1);'>-</a><h1 id='numOfStamps'>1</h1><a onclick='numOfStampsChange(1);'>+</a>");
           $("#getStampPage").append("<div class='inputGetStampwrapper'><div id='inputGetStamp1' class='inputGetStamp'></div><div id='inputGetStamp2' class='inputGetStamp'></div><div id='inputGetStamp3' class='inputGetStamp'></div><div id='inputGetStamp4' class='inputGetStamp'></div></div>");
