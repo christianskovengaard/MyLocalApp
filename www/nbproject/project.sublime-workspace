@@ -4,6 +4,14 @@
 		"selected_items":
 		[
 			[
+				"mar",
+				"margin-right"
+			],
+			[
+				"s",
+				"script"
+			],
+			[
 				"ma",
 				"max-height"
 			],
@@ -219,15 +227,7 @@
 			"file": "/C/wamp/www/MyLocalApp/www/css/index.css",
 			"settings":
 			{
-				"buffer_size": 17518,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "/C/wamp/www/MyLocalApp/www/js/index.js",
-			"settings":
-			{
-				"buffer_size": 50991,
+				"buffer_size": 18075,
 				"line_ending": "Windows"
 			}
 		}
@@ -272,13 +272,16 @@
 	},
 	"file_history":
 	[
-		"/C/wamp/www/MyLocalApp/www/index.html",
-		"/C/wamp/www/MyLocalApp/www/css/index.css",
-		"/C/wamp/www/MyLocalApp/www/js/index.js",
-		"/C/Users/db/Desktop/MyLocal_TODO.txt",
-		"/C/Users/db/Dropbox/Boliga Design/BoligaLejnu/SignUpside/Lejnu-signup-page/default.htm",
 		"/C/Users/db/Dropbox/Boliga Design/BoligaLejnu/SignUpside/Lejnu-signup-page/tak.html",
 		"/C/Users/db/Dropbox/Boliga Design/BoligaLejnu/SignUpside/Lejnu-signup-page/css/custom.css",
+		"/C/Users/db/Dropbox/Boliga Design/BoligaLejnu/SignUpside/Lejnu-signup-page/default.htm",
+		"/C/Users/db/Dropbox/Boliga Design/BoligaLejnu/SignUpside/Lejnu-signup-page/js/jquery.placeholder-1.0.6.js",
+		"/C/Users/db/Dropbox/Boliga Design/BoligaLejnu/SignUpside/Lejnu-signup-page/jquery-html5-placeholder-shim-master/jquery-html5-placeholder-shim-master/test.html",
+		"/C/Users/db/Dropbox/Boliga Design/BoligaLejnu/SignUpside/Lejnu-signup-page/jquery-placeholder-master/jquery-placeholder-master/demo.html",
+		"/C/wamp/www/MyLocalApp/www/css/index.css",
+		"/C/wamp/www/MyLocalApp/www/js/index.js",
+		"/C/wamp/www/MyLocalApp/www/index.html",
+		"/C/Users/db/Desktop/MyLocal_TODO.txt",
 		"/C/Users/db/Dropbox/Boliga Design/BoligaLejnu/SignUpside/Lejnu-signup-page/index.html",
 		"/C/Users/db/Dropbox/Public/index.html",
 		"/C/Users/db/Dropbox/Boliga Design/BoligaLejnu/SignUpside/Lejnu-signup-page/css/bootstrap.css",
@@ -361,6 +364,8 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"getstamppage",
+			"<div class=\"col-md-10 col-md-offset-14 col-sm-11 col-sm-offset-12 col-xs-20 col-xs-offset-2 text-center\">                        \n                        <img class=\"logo\" src=\"images/logoWhite.png\" style=\"margin-bottom:7px;\">\n                        <section id=\"frontpage-search\">\n                            <form action=\"http://boliga.createsend.com/t/d/s/jithdi/\" method=\"post\"> \n                                <div class=\"row\">\n                                    <h3>\n                                        Skriv dig op lige her, lige nu -<br>\n                                        Så er du med fra den 1. september\n                                    </h3>\n                                </div>\n                                <div class=\"row\">\n                                    <input id=\"fieldName\" type=\"text\" name=\"cm-name\" value=\"\" placeholder=\"Navn\" class=\"cta-search-input placeholder\">\n                                </div>\n                                <div class=\"row\">\n                                    <input id=\"fieldEmail\" type=\"email\" name=\"cm-jithdi-jithdi\" value=\"\" placeholder=\"E-mail\" class=\"cta-search-input placeholder\">\n                                </div>\n                                <div class=\"row\">\n                                    <button class=\"styled-button\" style=\"min-width:90px; float: right;\" onclick=\"validate();\" type=\"submit\">Ja, tak!<i class=\"fa fa-chevron-right\"></i></button>\n                                </div>     \n                            </form>\n                        </section>\n                    </div>",
 			"showhom",
 			"shoehom",
 			"swit",
@@ -486,9 +491,7 @@
 			"this",
 			"ValidateRegSwitch",
 			"loginButton",
-			"login=false",
-			"?login=false",
-			"er forkert"
+			"login=false"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -513,7 +516,7 @@
 	"groups":
 	[
 		{
-			"selected": 1,
+			"selected": 0,
 			"sheets":
 			[
 				{
@@ -522,55 +525,23 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 17518,
+						"buffer_size": 18075,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								8766,
-								8766
+								16959,
+								16959
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/CSS/CSS.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
+							"syntax": "Packages/CSS/CSS.tmLanguage"
 						},
 						"translation.x": 0.0,
-						"translation.y": 5989.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 1,
-					"type": "text"
-				},
-				{
-					"buffer": 1,
-					"file": "/C/wamp/www/MyLocalApp/www/js/index.js",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 50991,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								30446,
-								30446
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 9321.0,
+						"translation.y": 12601.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 0,

@@ -4,6 +4,10 @@
 		{
 			"follow_symlinks": true,
 			"path": "C:\\wamp\\www\\MyLocalApp"
+		},
+		{
+			"follow_symlinks": true,
+			"path": "C:\\Users\\db\\Dropbox\\Boliga Design\\BoligaLejnu\\SignUpside\\Lejnu-signup-page"
 		}
 	]
 }

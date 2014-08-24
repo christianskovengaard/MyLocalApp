@@ -861,6 +861,7 @@ transform:rotate(180deg);
 #getStampPage{
     text-align: center;
     width: 100%;
+    height: 100%;
 }
 #getStampPage a{
     display: inline-table;
