@@ -183,7 +183,7 @@ function makeFavorits() {
     
     if(aUserFavorits != null ){
       var iUserFavorits = Object.keys(aUserFavorits).length; 
-        $("#favoriteWrapper").append("<h6>Stamsteder</h6><a class='editFavorits' onclick='editFavorits();'><i class='fa fa-cog'></i> </a>");
+        $("#favoriteWrapper").append("<h6>Stamsteder:</h6><a class='editFavorits' onclick='editFavorits();'><i class='fa fa-cog'></i> </a>");
         for(var i = 0; i < iUserFavorits; i++){
             if(aUserFavorits[i].iMenucardSerialNumber !==  undefined) {
                 var sCafeId = aUserFavorits[i].iMenucardSerialNumber;
@@ -573,7 +573,7 @@ function SaveUserFavorites(iMenucardSerialNumber,sRestuarentName,sRestuarentAddr
          localStorage.setItem("aUserFavorits", aUserFavorites); 
 
          //make favorit block
-         $("#favoriteWrapper").append("<h6>Stamsteder</h6>");
+         $("#favoriteWrapper").append("<h6>Stamsteder:</h6>");
          $("#favoriteWrapper").append('<a id="'+iMenucardSerialNumber+'" class="ui-btn" onclick="GetMenucard(\''+iMenucardSerialNumber+'\',2);"><h1>'+sRestuarentName+'</h1><p>'+sRestuarentAddress+'</p></a>');
 
 
@@ -581,7 +581,7 @@ function SaveUserFavorites(iMenucardSerialNumber,sRestuarentName,sRestuarentAddr
                           
       // make favorit block
       if($("#favoriteWrapper").html() === ''){
-          $("#favoriteWrapper").append("<h6>Stamsteder</h6>");
+          $("#favoriteWrapper").append("<h6>Stamsteder:</h6>");
       } 
 }
 
@@ -985,7 +985,7 @@ function KeypadOk(iMenucardSerialNumber){
 
                                      //Update text for free items
 
-                                     $("#stampPage h4:nth-child(3)").html("Du har nu "+iFreeItems+" gratis:");
+                                     $(".iFreeItemCounter").html("Du har nu "+iFreeItems+" gratis:");
                                      //Clear old free items
                                      $("#FreeItemsBlock").html("");
 
@@ -1012,13 +1012,13 @@ function KeypadOk(iMenucardSerialNumber){
                                             });
                                           });
                                           $(".stampCircleFillNew").velocity("callout.pulse", 400, function(){
-                                            $(".stampCircleFillNew").velocity("transition.expandOut",{ delay: 200 }, 400);                                        
+                                            $(".stampCircleFillNew").velocity("transition.expandOut",{ delay: 400 }, 400);                                        
                                           });
                                           makeStampCounter(0,iStampsForFree);
                                       }, 200);
    
                                         var restStamps = newChecker - ( iStampsForFree * counterFree );
-                                        setTimeout(function(){makeStampCounter(restStamps,iStampsForFree);},1600);
+                                        setTimeout(function(){makeStampCounter(restStamps,iStampsForFree);},1900);
                                         $("#stampTotal p").text(restStamps);
 
                                         //Display all the free items
