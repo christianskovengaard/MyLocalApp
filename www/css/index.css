@@ -498,7 +498,7 @@ font-style: italic;
 }
 .dishHeadline p{
     font-size: 12px;
-    font-weight: 100;
+    font-weight: 300;
 }
 .dishPoint { 
     background: #fff;
@@ -753,7 +753,7 @@ transform:rotate(180deg);
 }
 .stampCircleIcon p{
     line-height: 0px;
-    font-size: 18px;
+    font-size: 20px;
 }
 .stampCircleIcon.black{
     border: 1px solid #333;
