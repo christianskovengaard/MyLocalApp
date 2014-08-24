@@ -180,7 +180,7 @@ a,h1,h2,h3,h4,h5,h6,p,li{
 .editFavorits{  
     color: #868080; 
     position: absolute;
-    right: 30px;
+    right: 50px;
     top: 15px;
 }
 .editFavorits.color {
@@ -753,7 +753,8 @@ transform:rotate(180deg);
 }
 .stampCircleIcon p{
     line-height: 0px;
-    font-size: 20px;
+    font-size: 22px;
+    font-weight: 300;
 }
 .stampCircleIcon.black{
     border: 1px solid #333;
