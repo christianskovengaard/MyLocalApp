@@ -776,8 +776,11 @@ function GetStamp(iMenucardSerialNumber,sFunction,iMaxStamp){
           $("#getStampPage").append("<h1 id='numOfStamps' style='margin-top: 33px;'>"+iNumberOfFreeItems+"</h1>");
           $("#getStampPage").append("<div class='inputGetStampwrapper'><div id='inputGetStamp1' class='inputGetStamp'></div><div id='inputGetStamp2' class='inputGetStamp'></div><div id='inputGetStamp3' class='inputGetStamp'></div><div id='inputGetStamp4' class='inputGetStamp'></div></div>");
           makeKeypad('getStampPage',iMenucardSerialNumber,2,iMaxStamp);    
-          $("#getStampPage").hide().velocity("transition.slideUpBigIn", 200);   
-    }); 
+          $(".keypad").hide();
+          $("#getStampPage").hide().velocity("transition.slideUpBigIn", 200, function(){
+              $(".keypad").velocity("transition.slideUpBigIn", 200);
+          }); 
+        }); 
   }
 } 
 
