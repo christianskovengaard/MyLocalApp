@@ -179,9 +179,10 @@ a,h1,h2,h3,h4,h5,h6,p,li{
 
 .editFavorits{  
     color: #868080; 
-    position: absolute;
-    right: 50px;
-    top: 15px;
+    position: relative;
+    float: right;
+    display: inline-table;
+    margin: 4px 10px 0px 0px;
 }
 .editFavorits.color {
     color: rgba(233, 150, 63, 1);
@@ -708,6 +709,7 @@ transform:rotate(180deg);
 #stampPage{
     text-align: center;
     color: #FFF;
+    margin-bottom: 80px;
 }
 #stampPage h5, #getStampPage h5 {
     width: 90%;

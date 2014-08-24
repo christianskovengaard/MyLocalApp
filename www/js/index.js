@@ -183,7 +183,7 @@ function makeFavorits() {
     
     if(aUserFavorits != null ){
       var iUserFavorits = Object.keys(aUserFavorits).length; 
-        $("#favoriteWrapper").append("<h6>Stamsteder:</h6><a class='editFavorits' onclick='editFavorits();'><i class='fa fa-cog'></i> </a>");
+        $("#favoriteWrapper").append("<a class='editFavorits' onclick='editFavorits();'><i class='fa fa-cog'></i> </a><h6>Stamsteder:</h6>");
         for(var i = 0; i < iUserFavorits; i++){
             if(aUserFavorits[i].iMenucardSerialNumber !==  undefined) {
                 var sCafeId = aUserFavorits[i].iMenucardSerialNumber;
