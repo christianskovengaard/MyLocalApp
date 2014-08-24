@@ -902,7 +902,7 @@ function UseStamp(iMenucardSerialNumber,iMaxStamp) {
                                 });
                           });
 
-                }, 400);
+                }, 800);
                 
                 $(".useStampsBtn").hide(); 
                 if( $("#FreeItemsBlock > div").length <= 0){
