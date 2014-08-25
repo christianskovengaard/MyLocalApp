@@ -25,7 +25,7 @@ function ClearSearchInput(){
       $('#FindCafe').val('');
       AutocompleteCafename();
       getMessagesAndStamps();
-      //$(".clear").hide();
+      $(".clear").hide();
       SearchInputDown();
 }
 
@@ -34,10 +34,10 @@ function AutocompleteCafename() {
    //Check if FindCafe input element is empty
    if($('#FindCafe').val().length === 0 ) {
        $('#searchWrapper').html('');
-        //$(".clear").hide();
+        $(".clear").hide();
    }
    if($('#FindCafe').val().length === 1) {
-       //$(".clear").show();
+       $(".clear").show();
    }
    if($('#FindCafe').val().length >= 3) {
             //console.log('search');
@@ -367,7 +367,7 @@ function GetMenucard(sName_sNumber,sFunction){
                     
                     $("#menu").append("<ul style='margin: 0 auto -20px auto;'></ul>");
                     // INFO
-                    $(".headTitle").after('<div id="infoBlock"><ul></ul></div>');
+                    $(".headTitle").append('<div id="infoBlock"><ul></ul></div>');
                     var sRestuarentPhone = result.sRestuarentPhone;
                     var sRestuarentPhoneFormat = sRestuarentPhone.substring(0, 2)+' '+sRestuarentPhone.substring(2, 4)+' '+sRestuarentPhone.substring(4, 6)+' '+sRestuarentPhone.substring(6, 8);
                     $("#infoBlock ul").append('<li class="dishPoint PhoneNumber"><img src="img/call up.png"><a href="tel:'+sRestuarentPhone+'" rel="external">'+sRestuarentPhoneFormat+'</a></li>');
@@ -409,7 +409,7 @@ function GetMenucard(sName_sNumber,sFunction){
                       var sSerialNumberCaps = sName_sNumber;
                     }
 
-                    $("#infoBlock").after('<div id="messageBlock" class="messageBlock"></div>');
+                    $(".headTitle").after('<div id="messageBlock" class="messageBlock"></div>');
                     $("#messageBlock").empty();
 
                           if(typeof result.oMessages[0] != "undefined") {
@@ -631,7 +631,7 @@ function makeStampPage(iMenucardSerialNumber,iUserStamps,MaxStamps){
                           $("#stampPage a").hide().velocity("transition.bounceDownIn",400);
                             // $("#stampPage").append("<h3>Stempler ("+iUserStamps+")</h3>")
                           
-                          $("#stampPage").append("<div class='StampsForNext' onclick='GetStamp(\""+iMenucardSerialNumber+"\",1);'><div class='stampCircle'><p>+</p></div></div>");
+                          $("#stampPage").append("<div class='StampsForNext' onclick='GetStamp(\""+iMenucardSerialNumber+"\",1);'><img class='stampMask' src='img/stampMask.png' /><div class='stampCircle'><p>+</p></div></div>");
                           
                           $(".stampCircle").hide().velocity("transition.expandIn", 200, function(){
                                   $(".stampCircle").prepend("<h3>Stempler</h3>");

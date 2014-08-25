@@ -18,7 +18,7 @@ a,h1,h2,h3,h4,h5,h6,p,li{
 }
 
 .img_left { position: absolute; left: 10px; bottom: 5px; width: 25px; }
-.img_right { position: absolute; right: 10px; bottom: 5px; width: 25px; }
+.img_right { position: absolute; right: 10px; top: 50px; width: 25px; }
 
 #triangle-bottomright {
         position: absolute;
@@ -154,6 +154,7 @@ a,h1,h2,h3,h4,h5,h6,p,li{
 #home .form .clear {
     margin: 0;
     display: none;
+    right: 50px;
 }
 
 .searchWrapper {
@@ -180,7 +181,7 @@ a,h1,h2,h3,h4,h5,h6,p,li{
 .editFavorits{  
     color: #868080; 
     position: relative;
-    /*float: right;*/
+    float: right;
     display: inline-table;
     margin: 4px 10px 0px 0px;
 }
@@ -270,7 +271,7 @@ padding-bottom: 40px;
 }
 .backBtn {
     position: fixed;
-    top: 5px;
+    top: 17px;
     left: 5px;
     z-index: 20000;
     -moz-transition: 0.5s;
@@ -334,6 +335,7 @@ padding-bottom: 40px;
     background: #333;
     width: 100%;
     padding-bottom: 10px;
+    padding-top: 12px;
 }
 .headTitle.shadow {
     box-shadow: 0px 7px 10px rgba(0,0,0,0.2);
@@ -365,7 +367,7 @@ padding-bottom: 40px;
 
 #infoBlock ul{
     width: 100%;
-    margin: 0px auto;
+    margin: 15px auto 0px auto;
 }
 .dishPoint.PhoneNumber {
     text-align: center;
@@ -763,8 +765,16 @@ transform:rotate(180deg);
     color: #333;
 }
 .StampsForNext{
+	position: relative;
     width: 100%;
     text-align: center;
+}
+.stampMask {
+	position: absolute;
+	top: -20px;
+	left: 50%;
+	margin-left: -150px;
+	z-index: 1000;
 }
 .stampCircle {
     position: relative;
@@ -929,3 +939,8 @@ transform:rotate(180deg);
     color: #333 !important;
 }
 
+/* FA 4.0.0 and newer */
+.fa {
+  text-rendering: auto;
+   font-variant: normal;
+}
