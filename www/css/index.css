@@ -245,6 +245,11 @@ a,h1,h2,h3,h4,h5,h6,p,li{
     color: #FCA041;
 }
 /*   :::::: MENU PAGE :::::: */
+.getmenuLoader{
+    display: block;
+    width: 60px;
+    margin: 45% auto 0px auto;
+}
 
 #menu { 
 text-shadow: none;

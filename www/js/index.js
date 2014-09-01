@@ -344,6 +344,7 @@ function GetMenucard(sName_sNumber,sFunction){
         $("#menu").show();
         $(window).scrollTop(0);
       });
+      $("#menu").append("<img class='getmenuLoader' src='img/loader.GIF' />");
             //Get data            
             $.ajax({
               type: "GET",
@@ -356,6 +357,7 @@ function GetMenucard(sName_sNumber,sFunction){
                     $(".spinner div").css('animation-name', 'none');
                     $(".spinner div").css('width', '100%');
                     $(".spinner").remove();
+                    $(".getmenuLoader").remove();
 
                     // HEAD
 
