@@ -447,10 +447,10 @@ function GetMenucard(sName_sNumber,sFunction){
                     //Calculate stamps left
                     var iFreeItems = Math.floor(iStamps / result.oStampcard.iStampcardMaxStamps);
                     var iStampsLeft = iStamps - ( iFreeItems * result.oStampcard.iStampcardMaxStamps); 
+                    var sStampcardText = result.oStampcard.sStampcardText;
+                    localStorage.setItem(sSerialNumberCaps+".sStampcardText", sStampcardText);
                     if(iStampsLeft === null){iStampsLeft = 0;} 
                     $("#messageBlock").after('<div id="stampBlock"><a id="makeStampPageBtn" onclick="makeStampPage(\''+sSerialNumberCaps+'\','+iStamps+','+result.oStampcard.iStampcardMaxStamps+');"><div id="stampTotal" class="stampCircleIcon"><p>'+iStampsLeft+'</p></div><h3>Stempler</h3></a></div>');
-
-
 
                     // MENU
 
@@ -643,9 +643,10 @@ function makeStampPage(iMenucardSerialNumber,iUserStamps,MaxStamps){
                                   $(".stampCircle").prepend("<h3>Stempler</h3>");
                                   
                                   makeStampCounter(iStampsLeft,iStampsForFree);
-                                  
+                                  // $("#stampPage").append("<h4>For hver "+iStampsForFree+". stempel, får du en gratis Kaffe.</h4>");
+                                  var sStampcardText = localStorage.getItem(iMenucardSerialNumber+".sStampcardText");
+                                  $("#stampPage").append("<h4>"+sStampcardText+"</h4>");
 
-                                  $("#stampPage").append("<h4>For hver "+iStampsForFree+". stempel, får du en gratis Kaffe.</h4>");
                                   $("#stampPage").append("<h4 class='iFreeItemCounter'>Du har nu "+iFreeItems+" gratis</h4>");
                                   $("#stampPage").append("<div id='FreeItemsBlock'></div>");
                                   for (var i = 1; i <= iFreeItems; i++){
