@@ -361,13 +361,14 @@ function GetMenucard(sName_sNumber,sFunction){
 
                     var sRestuarentName = result.sRestuarentName; 
                     var sRestuarentAddress = result.sRestuarentAddress;
-                    $("#menu").append('<a id="backButtonL" onclick="ClearSearchInput();"><img class="backBtn rotate270" src="img/backWhite.png" onclick="backBtnSwich(\'home\');"></a>')
+                    $("#menu").append('<a id="backButtonL" onclick="ClearSearchInput();"><img class="backBtn rotate270" src="img/backWhite.png" onclick="backBtnSwich(\'home\');"></a>');
                     $("#menu").append('<div class="menuheader"></div>');
-                    $("#menu").append('<div id="scrollerAnchorHead"></div> <div class="headTitle"><h1>'+sRestuarentName+'</h1><p>'+sRestuarentAddress+'</p><p>'+result.iRestuarentInfoZipcode+', '+result.sRestuarentInfoCity+'</p><img class="img_right" onclick="InfoToggle();" src="img/info.png"></div>');
+                    $("#menu").append('<div id="scrollerAnchorHead"></div> <div class="headTitle"><h1>'+sRestuarentName+'</h1></div>');
+                    $(".headTitle").after('<div class="headTitleInfoblock"><p>'+sRestuarentAddress+'</p><p>'+result.iRestuarentInfoZipcode+', '+result.sRestuarentInfoCity+'</p><img class="img_right" onclick="InfoToggle();" src="img/info.png"></div>');
                     
                     $("#menu").append("<ul style='margin: 0 auto -20px auto;'></ul>");
                     // INFO
-                    $(".headTitle").append('<div id="infoBlock"><ul></ul></div>');
+                    $(".headTitleInfoblock").append('<div id="infoBlock"><ul></ul></div>');
                     var sRestuarentPhone = result.sRestuarentPhone;
                     var sRestuarentPhoneFormat = sRestuarentPhone.substring(0, 2)+' '+sRestuarentPhone.substring(2, 4)+' '+sRestuarentPhone.substring(4, 6)+' '+sRestuarentPhone.substring(6, 8);
                     $("#infoBlock ul").append('<li class="dishPoint PhoneNumber"><img src="img/call up.png"><a href="tel:'+sRestuarentPhone+'" rel="external">'+sRestuarentPhoneFormat+'</a></li>');
@@ -409,7 +410,7 @@ function GetMenucard(sName_sNumber,sFunction){
                       var sSerialNumberCaps = sName_sNumber;
                     }
 
-                    $(".headTitle").after('<div id="messageBlock" class="messageBlock"></div>');
+                    $(".headTitleInfoblock").after('<div id="messageBlock" class="messageBlock"></div>');
                     $("#messageBlock").empty();
 
                           if(typeof result.oMessages[0] != "undefined") {
@@ -614,12 +615,14 @@ function makeStampPage(iMenucardSerialNumber,iUserStamps,MaxStamps){
   // make gallery disapper
   $(".infoBlock").velocity("fadeOut",200);
   $("#menuBlock").velocity("transition.slideDownBigOut", 100, function(){
+      $(".headTitleInfoblock").hide();
       $(".swiper-container").velocity({ "height" : 0 }, 300);
         $("#messageBlock").velocity("transition.slideUpBigOut",200);
         
               //$("html").velocity("scroll", { offset: "220px" }, 200);
                     $("#stampBlock").velocity("transition.slideUpBigOut", 400, function(){
                           $("#stampBlock").hide();
+                          $("#scrollerAnchorHead").hide();
                           $("#stampBlock").after("<div id='stampPage'></div>");
                           
                           //$("#stampPage").before("<a class='backStampBtn' onclick='removeStampPage();'>tilbage</a>");
@@ -627,7 +630,7 @@ function makeStampPage(iMenucardSerialNumber,iUserStamps,MaxStamps){
                           $(".backBtn").attr("onclick","backBtnSwich('removeStampPage');");
                           $(".backBtn").removeClass("rotate270");
                           $(window).scrollTop(0);
-                          $("#stampPage").prepend("<h5>Vis denne til din café, og få registreret et stempel</h5>");
+                          $("#stampPage").prepend("<h5>Vis denne til din café, og få et stempel</h5>");
                           $("#stampPage a").hide().velocity("transition.bounceDownIn",400);
                             // $("#stampPage").append("<h3>Stempler ("+iUserStamps+")</h3>")
                           
@@ -687,9 +690,6 @@ function backBtnSwich(action){
     case "removeGetStampsPage":
         removeGetStampsPage();
         break;
-    case "removeGetStampsPage":
-        removeGetStampsPage();
-        break;
     default:
         
   }
@@ -715,6 +715,8 @@ function removeStampPage(){
 
   $(".backBtn").attr("onclick","backBtnSwich('home');")
   $(".backBtn").addClass("rotate270");
+  $(".headTitleInfoblock").show();
+  $("#scrollerAnchorHead").show();
 
 }
 
@@ -744,7 +746,7 @@ function GetStamp(iMenucardSerialNumber,sFunction,iMaxStamp){
           $(".backBtn").attr("onclick","backBtnSwich('removeGetStampsPage');")
           $(".backBtn").removeClass("rotate270");
 
-          $("#getStampPage").append("<h5>Vis denne til din café, og få registreret et stempel</h5>");
+          $("#getStampPage").append("<h5>Vis denne til din café, og få et stempel</h5>");
           $("#getStampPage").append("<p>Antal stempler:</p>");
           $("#getStampPage").append("<a onclick='numOfStampsChange(-1);'>-</a><h1 id='numOfStamps'>1</h1><a onclick='numOfStampsChange(1);'>+</a>");
           $("#getStampPage").append("<div class='inputGetStampwrapper'><div id='inputGetStamp1' class='inputGetStamp'></div><div id='inputGetStamp2' class='inputGetStamp'></div><div id='inputGetStamp3' class='inputGetStamp'></div><div id='inputGetStamp4' class='inputGetStamp'></div></div>");
@@ -1102,8 +1104,8 @@ function removeGetStampsPage(){
             });
             s.addClass("shadow");
             var height = s.outerHeight();
-            height = height + 22;
-            $(".messageBlock").css("margin-top", height+"px");
+            height = height ;
+            $(".headTitleInfoblock").css("margin-top", height+"px");
 
         } else {
             if(st <= ot) {
@@ -1112,7 +1114,7 @@ function removeGetStampsPage(){
                     top: ""
                 });
                 s.removeClass("shadow");
-                $(".messageBlock").css("margin-top", "30px");
+                $(".headTitleInfoblock").css("margin-top", "0px");
             }
         }
     };

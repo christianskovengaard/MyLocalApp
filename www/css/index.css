@@ -18,7 +18,7 @@ a,h1,h2,h3,h4,h5,h6,p,li{
 }
 
 .img_left { position: absolute; left: 10px; bottom: 5px; width: 25px; }
-.img_right { position: absolute; right: 10px; top: 50px; width: 25px; }
+.img_right { position: absolute; right: 10px; top: 5px; width: 25px; }
 
 #triangle-bottomright {
         position: absolute;
@@ -349,6 +349,13 @@ padding-bottom: 40px;
     font-size: 12px;
     color: #fff;
     margin: 0 0 2px 37px;
+}
+.headTitleInfoblock{
+    position: relative;
+}
+.headTitleInfoblock p{
+    color: #fff;
+    margin: 0px 0px 0px 35px;
 }
 #menu ul {
     list-style-type: none ; padding: 0;
