@@ -750,8 +750,9 @@ function GetStamp(iMenucardSerialNumber,sFunction,iMaxStamp){
           $("#getStampPage").append("<h5>Vis denne til din café, og få et stempel</h5>");
           $("#getStampPage").append("<p>Antal stempler:</p>");
           $("#getStampPage").append("<a onclick='numOfStampsChange(-1);'>-</a><h1 id='numOfStamps'>1</h1><a onclick='numOfStampsChange(1);'>+</a>");
-          $("#getStampPage").append("<div class='inputGetStampwrapper'><div id='inputGetStamp1' class='inputGetStamp'></div><div id='inputGetStamp2' class='inputGetStamp'></div><div id='inputGetStamp3' class='inputGetStamp'></div><div id='inputGetStamp4' class='inputGetStamp'></div></div>");
           makeKeypad('getStampPage',iMenucardSerialNumber,1);    
+          $(".keypad").prepend("<div class='inputGetStampwrapper'><div id='inputGetStamp1' class='inputGetStamp'></div><div id='inputGetStamp2' class='inputGetStamp'></div><div id='inputGetStamp3' class='inputGetStamp'></div><div id='inputGetStamp4' class='inputGetStamp'></div></div>");
+          
           $(".keypad").hide();
            $(".inputGetStampwrapper").hide();
           $("#getStampPage").hide().velocity("transition.slideDownBigIn", 200, function(){
@@ -777,13 +778,15 @@ function GetStamp(iMenucardSerialNumber,sFunction,iMaxStamp){
           //Convert iNumberOfFreeItems to stamps
           //var iNumberOfStamps = iNumberOfFreeItems * iMaxStamp; <= viser alle stempler
           $("#getStampPage").append("<h1 id='numOfStamps' style='margin-top: 33px;'>"+iNumberOfFreeItems+"</h1>");
-          $("#getStampPage").append("<div class='inputGetStampwrapper'><div id='inputGetStamp1' class='inputGetStamp'></div><div id='inputGetStamp2' class='inputGetStamp'></div><div id='inputGetStamp3' class='inputGetStamp'></div><div id='inputGetStamp4' class='inputGetStamp'></div></div>");
-          makeKeypad('getStampPage',iMenucardSerialNumber,2,iMaxStamp);    
+          makeKeypad('getStampPage',iMenucardSerialNumber,2,iMaxStamp);  
+          $(".keypad").prepend("<div class='inputGetStampwrapper'><div id='inputGetStamp1' class='inputGetStamp'></div><div id='inputGetStamp2' class='inputGetStamp'></div><div id='inputGetStamp3' class='inputGetStamp'></div><div id='inputGetStamp4' class='inputGetStamp'></div></div>");
+            
           $(".keypad").hide();
           $("#getStampPage").hide().velocity("transition.slideUpBigIn", 200, function(){
               $(".keypad").velocity("transition.slideUpBigIn", 200);
           }); 
         }); 
+        $(window).scrollTop(0);
   }
 } 
 

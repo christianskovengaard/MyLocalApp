@@ -723,15 +723,17 @@ transform:rotate(180deg);
     text-align: center;
     color: #FFF;
     margin-bottom: 80px;
+    padding-top: 60px;
 }
 #stampPage h5, #getStampPage h5 {
     width: 90%;
-    margin: 0 auto;
+    margin: 0px auto 20px auto;
     font-weight: 300;
     color: #8A8A8A;
-    font-size: 1em;
-    padding: 20px 0;
+    font-size: 4vw;
+    padding: 2px 0;
 }
+
 #stampBlock{
     padding-bottom: 15px;
     text-align: right;
@@ -882,7 +884,8 @@ transform:rotate(180deg);
 #getStampPage{
     text-align: center;
     width: 100%;
-    height: 100%;
+    margin-top: 60px;
+    padding-top: 20px;
 }
 #getStampPage a{
     display: inline-table;
@@ -907,10 +910,9 @@ transform:rotate(180deg);
     color: #fff;
 }
 .inputGetStampwrapper{
-    position: fixed;
     width: 100%;
-    bottom: 270px;
     display: block;
+    margin-bottom: 10px;
 }
 .inputGetStamp {
     display: inline-table;
@@ -934,12 +936,12 @@ transform:rotate(180deg);
     left: 0px;
     right: 0px;
     width: 100%;
-    height: 250px;
+    /*height: 250px;*/
 }
 .keypad a {
     width: 32% !important;
-    padding: 5px 0;
-    font-size: 40px !important;
+    padding: 2% 0;
+    font-size: 6vh !important;
 }
 .keypad svg {
     fill: currentColor;
