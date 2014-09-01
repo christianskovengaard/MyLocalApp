@@ -759,6 +759,7 @@ function GetStamp(iMenucardSerialNumber,sFunction,iMaxStamp){
               $(".keypad").velocity("transition.slideUpBigIn", 200);
               $(".inputGetStampwrapper").velocity("transition.slideUpBigIn", 200);
           });   
+          $(window).scrollTop(0);
     });
   }else if(sFunction === 2){
         //Redeme stamp
