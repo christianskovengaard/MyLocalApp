@@ -14,6 +14,7 @@
 .fa {
   display: inline-block;
   font-family: FontAwesome;
+  text-rendering: auto;
   font-style: normal;
   font-weight: normal;
   line-height: 1;

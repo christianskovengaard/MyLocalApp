@@ -224,10 +224,34 @@
 	"buffers":
 	[
 		{
+			"file": "/C/wamp/www/MyLocalApp/www/index.html",
+			"settings":
+			{
+				"buffer_size": 2638,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "/C/wamp/www/MyLocalApp/www/js/index.js",
+			"settings":
+			{
+				"buffer_size": 52684,
+				"line_ending": "Windows"
+			}
+		},
+		{
 			"file": "/C/wamp/www/MyLocalApp/www/css/index.css",
 			"settings":
 			{
-				"buffer_size": 18075,
+				"buffer_size": 18325,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "/C/wamp/www/MyLocalApp/www/css/font-awesome.css",
+			"settings":
+			{
+				"buffer_size": 25221,
 				"line_ending": "Windows"
 			}
 		}
@@ -272,6 +296,7 @@
 	},
 	"file_history":
 	[
+		"/C/wamp/www/MyLocalAndroid/assets/www/css/font-awesome.css",
 		"/C/Users/db/Dropbox/Boliga Design/BoligaLejnu/SignUpside/Lejnu-signup-page/tak.html",
 		"/C/Users/db/Dropbox/Boliga Design/BoligaLejnu/SignUpside/Lejnu-signup-page/css/custom.css",
 		"/C/Users/db/Dropbox/Boliga Design/BoligaLejnu/SignUpside/Lejnu-signup-page/default.htm",
@@ -364,6 +389,14 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"awesome",
+			"text-rendering",
+			"optimizelegibility",
+			"info",
+			"/*",
+			"clear",
+			"stampCircle",
+			"StampsForNext",
 			"getstamppage",
 			"<div class=\"col-md-10 col-md-offset-14 col-sm-11 col-sm-offset-12 col-xs-20 col-xs-offset-2 text-center\">                        \n                        <img class=\"logo\" src=\"images/logoWhite.png\" style=\"margin-bottom:7px;\">\n                        <section id=\"frontpage-search\">\n                            <form action=\"http://boliga.createsend.com/t/d/s/jithdi/\" method=\"post\"> \n                                <div class=\"row\">\n                                    <h3>\n                                        Skriv dig op lige her, lige nu -<br>\n                                        Så er du med fra den 1. september\n                                    </h3>\n                                </div>\n                                <div class=\"row\">\n                                    <input id=\"fieldName\" type=\"text\" name=\"cm-name\" value=\"\" placeholder=\"Navn\" class=\"cta-search-input placeholder\">\n                                </div>\n                                <div class=\"row\">\n                                    <input id=\"fieldEmail\" type=\"email\" name=\"cm-jithdi-jithdi\" value=\"\" placeholder=\"E-mail\" class=\"cta-search-input placeholder\">\n                                </div>\n                                <div class=\"row\">\n                                    <button class=\"styled-button\" style=\"min-width:90px; float: right;\" onclick=\"validate();\" type=\"submit\">Ja, tak!<i class=\"fa fa-chevron-right\"></i></button>\n                                </div>     \n                            </form>\n                        </section>\n                    </div>",
 			"showhom",
@@ -483,15 +516,7 @@
 			"vel",
 			"font-family:",
 			"scroll",
-			".box",
-			"619px",
-			"ui-btn",
-			"gotoMenuPage",
-			"class=\"ui",
-			"this",
-			"ValidateRegSwitch",
-			"loginButton",
-			"login=false"
+			".box"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -516,24 +541,84 @@
 	"groups":
 	[
 		{
-			"selected": 0,
+			"selected": 3,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "/C/wamp/www/MyLocalApp/www/css/index.css",
+					"file": "/C/wamp/www/MyLocalApp/www/index.html",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 18075,
+						"buffer_size": 2638,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								16959,
-								16959
+								1025,
+								1025
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/HTML/HTML.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 45.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "/C/wamp/www/MyLocalApp/www/js/index.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 52684,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								15909,
+								15909
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 5591.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 3,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "/C/wamp/www/MyLocalApp/www/css/index.css",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 18325,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								18323,
+								18323
 							]
 						],
 						"settings":
@@ -541,7 +626,37 @@
 							"syntax": "Packages/CSS/CSS.tmLanguage"
 						},
 						"translation.x": 0.0,
-						"translation.y": 12601.0,
+						"translation.y": 13890.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "/C/wamp/www/MyLocalApp/www/css/font-awesome.css",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 25221,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								543,
+								543
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/CSS/CSS.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 0,
