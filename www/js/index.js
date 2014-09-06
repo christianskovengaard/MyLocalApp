@@ -449,8 +449,8 @@ function GetMenucard(sName_sNumber,sFunction){
                     var iStampsLeft = iStamps - ( iFreeItems * result.oStampcard.iStampcardMaxStamps); 
                     var sStampcardText = result.oStampcard.sStampcardText;
                     localStorage.setItem(sSerialNumberCaps+".sStampcardText", sStampcardText);
-                    if(iStampsLeft === null){iStampsLeft = 0;} 
-                    $("#messageBlock").after('<div id="stampBlock"><a id="makeStampPageBtn" onclick="makeStampPage(\''+sSerialNumberCaps+'\','+iStamps+','+result.oStampcard.iStampcardMaxStamps+');"><div id="stampTotal" class="stampCircleIcon"><p>'+iStampsLeft+'</p></div><h3>Stempler</h3></a></div>');
+                    if(iStampsLeft === null){iStampsLeft = 0;}                     
+                    $("#messageBlock").after('<div id="stampBlock"><h3>Tryk her for at få et stempel</h3><a id="makeStampPageBtn" onclick="makeStampPage(\''+sSerialNumberCaps+'\','+iStamps+','+result.oStampcard.iStampcardMaxStamps+');"><div id="stampTotal" class="stampCircleIcon"><p>'+iStampsLeft+'</p></div><h3>Stempler</h3></a></div>');
 
                     // MENU
 
@@ -1025,7 +1025,7 @@ function KeypadOk(iMenucardSerialNumber){
                                             });
                                           });
                                           $(".stampCircleFillNew").velocity("callout.pulse", 400, function(){
-                                            $(".stampCircleFillNew").velocity("transition.expandOut",{ delay: 400 }, 400);                                        
+                                            $(".stampCircleFillNew").velocity("transition.expandOut",{ delay: 2500 }, 400);                                        
                                           });
                                           makeStampCounter(0,iStampsForFree);
                                       }, 200);
