@@ -34,7 +34,8 @@ function AutocompleteCafename() {
    //Check if FindCafe input element is empty
    if($('#FindCafe').val().length === 0 ) {
        $('#searchWrapper').html('');
-        $(".clear").hide();
+       $(".clear").hide();
+       $("#home").css("padding-bottom","550px");
    }
    if($('#FindCafe').val().length === 1) {
        $(".clear").show();
@@ -52,7 +53,8 @@ function AutocompleteCafename() {
                  if(result.result == 'true') {
                  //Clear the list
                  $('#searchWrapper').html('');
-                 $('#searchWrapper').append('<h6>Søge resultater</h6>');
+                 $('#searchWrapper').append('<h6></h6>');
+                 var i = 1;
                  $.each(result.cafe, function(key,value){
                      //console.log('name: '+value);
                      //Show list of posible cafenames
@@ -61,7 +63,11 @@ function AutocompleteCafename() {
                      var name = value.name.replace(/'/g, "\\'");
                      
                      $('#searchWrapper').append('<a class="ui-btn" onclick="GetMenucard(\''+name+'\',1);"><h1>'+value.name+'</h1><p>'+value.address+'</p></a>');
-                   }); 
+                     i++;
+                    }); 
+                 }
+                 if(i > 7){
+                    $("#home").css("padding-bottom","0px");
                  }
              });
        
@@ -71,8 +77,9 @@ function AutocompleteCafename() {
 function SearchInputUp() {
       var height = $(".logo_home").outerHeight();
       $("#favoriteWrapper").velocity("fadeOut", 100 );
-          $(".logo_home").velocity({ "margin-top" : -height+"px" }, 500, "easeOutCubic");
-          $("#home").css("padding-bottom","250px");
+      $(".logo_home").velocity({ "margin-top" : -height+"px" }, 500, "easeOutCubic");
+      $("#home").css("padding-bottom","550px");
+      $(".clear").show();
 }
 function SearchInputDown() {
     if($('#FindCafe').val().length === 0) {

@@ -32,7 +32,7 @@
                        <h2>Du skal være online for at bruge appen</h2>
                    </div>
                    <div class="form">
-                        <input onkeyup="AutocompleteCafename();" onfocus="SearchInputUp();" data-role="none" type="text" name="text-basic" id="FindCafe" value="" placeholder="Søg efter café" >
+                        <input onkeyup="AutocompleteCafename();" onfocus="SearchInputUp();" onblur="ClearSearchInput();" data-role="none" type="text" name="text-basic" id="FindCafe" value="" placeholder="Søg efter café" >
                         <!-- onkeyup="if (event.keyCode == 13) { findMenuCard(); }" -->
                         <!-- <img src="img/search.png" onclick="findMenuCard();"> -->
                         <img src="img/search.png">
