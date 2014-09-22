@@ -251,16 +251,28 @@ a,h1,h2,h3,h4,h5,h6,p,li{
     margin: 45% auto 0px auto;
 }
 
+.getmenuLoaderDiv { 
+    text-shadow: none;
+    display: none;
+    min-height: 500px;
+    width: 100%;
+    text-align: left;
+    margin: 0 auto;
+    overflow-x: hidden;
+    background: #333;
+    padding-bottom: 40px;
+}
+
 #menu { 
-text-shadow: none;
-display: none;
-min-height: 500px;
-width: 100%;
-text-align: left;
-margin: 0 auto;
-overflow-x: hidden;
-background: #333;
-padding-bottom: 40px;
+    text-shadow: none;
+    display: none;
+    min-height: 500px;
+    width: 100%;
+    text-align: left;
+    margin: 0 auto;
+    overflow-x: hidden;
+    background: #333;
+    padding-bottom: 40px;
 }
 .error {
     text-align: center;
@@ -317,7 +329,7 @@ padding-bottom: 40px;
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00333333', endColorstr='#333333',GradientType=0 ); /* IE6-9 */
 }
 .pagination {  /* viser hvor mange billeder er er slider */
-    display: none;
+  display: none;
   position: absolute;
   left: 0;
   text-align: center;
@@ -409,6 +421,7 @@ padding-bottom: 40px;
 }
 
 .messageBlock{
+    display: none;
     position: relative;
     margin-top: 30px;
 margin-bottom: 20px;
@@ -639,6 +652,7 @@ font-style: italic;
     box-shadow: inset 1px 1px 3px #01FF70; 
 }
 .popMgs {
+    display: none;
     position: absolute;
     top: -59px; left: 0px; right: 0px;
     margin-bottom: 5px;
@@ -697,6 +711,7 @@ transform:rotate(180deg);
 }
 
 .introScreen {
+    display: none;
     text-align: center;
     color: #fff;
 }
@@ -726,6 +741,7 @@ transform:rotate(180deg);
     width: 50%;
 }
 #stampPage{
+    display: none;
     text-align: center;
     color: #FFF;
     margin-bottom: 80px;
@@ -876,6 +892,14 @@ transform:rotate(180deg);
     margin: 0 10px 0px 0;
     vertical-align: text-bottom;
 }
+
+#redemeStampDiv{
+    display: none;
+}
+
+#getStampDiv {
+    display: none;
+}
 .useStampsBtn{
     font-size: 25px;
     color: #FDA142 !important;
@@ -888,6 +912,7 @@ transform:rotate(180deg);
     border: 1px solid #FDA142;
 }
 #getStampPage{
+    display: none;
     text-align: center;
     width: 100%;
     margin-top: 60px;
@@ -900,7 +925,7 @@ transform:rotate(180deg);
     font-size: 70px;
     font-weight: 100;
 }
-#getStampPage h1{
+#getStampPage h1, #redemeStampDiv h1, #getStampDiv h1{
     display: inline-table;
     width: 50px;
     font-weight: 100;
@@ -909,7 +934,7 @@ transform:rotate(180deg);
     margin: 0;
     color: #fff;
 }
-#getStampPage p {
+#getStampPage p, #redemeStampDiv p, #getStampDiv p {
     font-weight: 100;
     line-height: 0;
     margin: 20px 0 0px 0;
