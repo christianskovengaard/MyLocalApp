@@ -694,6 +694,25 @@ function removeStampPage(){
   $(".headTitle").removeClass("fixedTop");
 }
 
+
+function removeGetStampsPage(){  
+  $(".keypad").velocity("transition.slideDownBigOut", 200);
+        $(".keypad").hide();
+
+ $(".inputGetStampwrapper").remove();
+  $("#getStampPage").velocity("transition.slideUpBigOut", 200, function() {
+      $(".backGetStampBtn").remove();
+      $("#getStampPage").remove();
+      $(".backStampBtn").show();
+      $("#stampPage").velocity("transition.shrinkIn", 400);
+
+      $(".backBtn").attr("onclick","backBtnSwich('removeStampPage');");
+      $(".backBtn").addClass("rotate270");
+
+  });
+  
+}
+
 function makeStampCounter(iStampsLeft,iStampsForFree){
     $("#stampsCounterText").remove();
     $(".stampCircle h3").after("<h3 id='stampsCounterText'>"+iStampsLeft+"/"+iStampsForFree+"</h3>");
@@ -1017,25 +1036,6 @@ function GetStamp(iMenucardSerialNumber){
   }
 }
 
-
-function removeGetStampsPage(){  
-  $(".keypad").velocity("transition.slideDownBigOut", 200);
-        $(".keypad").hide();
-
- $(".inputGetStampwrapper").remove();
-  $("#getStampPage").velocity("transition.slideUpBigOut", 200, function() {
-      $(".backGetStampBtn").remove();
-      $("#getStampPage").remove();
-      $(".backStampBtn").show();
-      $("#stampPage").velocity("transition.shrinkIn", 400);
-
-      $(".backBtn").attr("onclick","backBtnSwich('removeStampPage');");
-      $(".backBtn").addClass("rotate270");
-
-  });
-  
-}
-
  function moveScrollerHead() {
     var move = function() {
         var st = $(window).scrollTop();
@@ -1065,21 +1065,3 @@ function removeGetStampsPage(){
     $(window).scroll(move);
     move();
 }
-
-//function AppIntro() {
-
-//   var introHead = "<h3>Velkommen til</h3><h1>MyLocal<span>Café</span></h1>";
-//   var introDec = "<h2>Her kan du følge dine favorit caféer.</h2><h2>Du kan se info om deres sted, se deres menukort, samt få aktuelle tilbud og beskeder direkte.</h2><h2>Søg blot på dine lokale favorit caféer i søgefeltet for at komme i gang!</h2>";
-
-//   var introDelBtn = "<a class='btn' onclick='ClearAppIntro();'>Til appen</a>"
-
-//   $('body').append("<div class='introScreen'><img src='img/logo_4.png'><br>"+introHead+introDec+introDelBtn+"</div>");
-
-// }
-
-// function ClearAppIntro() {
-//   $(".introScreen").remove();
-//   $("#FindCafe").focus();
-
-//   localStorage.setItem("introScreen", "seen");
-// }
