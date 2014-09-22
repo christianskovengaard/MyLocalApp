@@ -9,11 +9,12 @@ var sAPIURL = 'http://mylocalcafe.dk/API/api.php';
 window.onload = function(){
     CheckInternetConnection();
         
-    //var introSeen = localStorage.length;
-    //if( introSeen === 0) { 
-    //AppIntro(); 
-    //}
-    makeFavorits()
+
+    if(localStorage.length === 0) { 
+        //AppIntro(); 
+        
+    }
+    makeFavorits();
 
 
     CheckForsCustomerId();
