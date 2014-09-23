@@ -366,6 +366,9 @@ function GetMenucard(sName_sNumber,sFunction){
                     
                     //******** GALLERY ********//
                     
+                    //Remove all img in .swiper-wrapper
+                    $('.swiper-wrapper div').remove();
+                    
                     if(typeof result.oGallery[0] !== "undefined") {
                         var galleryimages = '';
                         $.each(result.oGallery, function(key,value){
@@ -430,6 +433,9 @@ function GetMenucard(sName_sNumber,sFunction){
 
                     //********** MENU *********//
                     
+                    //Remove all ul in #menublock
+                    $('#menuBlock ul').remove();
+                    
                     var menucategory = '';
                     var menucategorylastpart = '';
                     $.each(result.aMenucardCategory, function(key,value){
@@ -471,6 +477,7 @@ function GetMenucard(sName_sNumber,sFunction){
                             //Replace line breaks with \n 
                             var sMenucardInfoParagraph = value.sMenucardInfoParagraph.replace(/\r?\n/g, '<br/>');                          
                             $('.infoBlock h4').html(value.sMenucardInfoHeadline);
+                            if(sMenucardInfoParagraph === ''){sMenucardInfoParagraph = '<div></div>';}
                             $('.infoBlock p').html(sMenucardInfoParagraph);
                     }); 
                 }
@@ -583,7 +590,12 @@ function makeheaderGallery() {
     
 
 function ShowStampPage(iMenucardSerialNumber,iUserStamps,MaxStamps){
-
+    
+  //Remove .stampCircleIcon
+  $('#FreeItemsBlock .stampCircleIcon').remove();
+  $('.useStampsBtn').remove();
+  $('.textuse').remove();
+    
   var iUserStamps = iUserStamps;
   var iStampsForFree = MaxStamps;
   
@@ -603,7 +615,7 @@ function ShowStampPage(iMenucardSerialNumber,iUserStamps,MaxStamps){
                           $(".headTitleInfoblock").hide();
 
                           // back btn change
-                          $(".backBtn").attr("onclick","backBtnSwich('HideStampPage');").removeClass("rotate270");;
+                          $(".backBtn").attr("onclick","backBtnSwich('hideStampPage');").removeClass("rotate270");;
                           $(window).scrollTop(0);
                           $("#stampPage a").hide().velocity("transition.bounceDownIn",400);
                           $('.StampsForNext').attr('onclick',"ShowKeyPad(\""+iMenucardSerialNumber+"\",1);");
@@ -623,7 +635,7 @@ function ShowStampPage(iMenucardSerialNumber,iUserStamps,MaxStamps){
 
                                   $("#FreeItemsBlock .stampCircleIcon").hide().velocity("transition.slideUpIn", { display:"inline-block", duration: 800 });
                                   if( iFreeItems > 0 ){
-                                      $("#FreeItemsBlock").prepend("<h3>brug:</h3>");
+                                      $("#FreeItemsBlock").prepend("<h3 class='textuse'>brug:</h3>");
                                   }                          
                                   $("#stampPage").append("<a class='useStampsBtn' onclick='ShowKeyPad(\""+iMenucardSerialNumber+"\",2,"+MaxStamps+");'>OK</a>");
                       });
@@ -657,13 +669,11 @@ function backBtnSwich(action){
     case "home":
         showHomePage();
         break;
-    case "removeStampPage":
-        removeStampPage();
-        //hideStampPage();
+    case "hideStampPage":
+        hideStampPage();
         break;
-    case "removeGetStampsPage":
-        removeGetStampsPage();
-        //hideGetStampsPage();
+    case "hideGetStampsPage":
+        hideGetStampsPage();
         break;
     default:
         
@@ -676,9 +686,8 @@ function showHomePage(){
   $(".introScreen").hide();
 }
 
-function removeStampPage(){
-  $("#stampPage").remove();
-  $(".backStampBtn").remove();
+function hideStampPage(){
+  $("#stampPage").hide();
   $(".swiper-container").velocity({ "height" : 200 }, 200);
   $(".infoBlock").velocity("fadeIn",200);
   $("#stampBlock").velocity("transition.slideDownBigIn",400);
@@ -686,29 +695,20 @@ function removeStampPage(){
     $("#messageBlock").velocity("transition.slideDownBigIn",600);
   }  
   $("#menuBlock").velocity("transition.slideUpBigIn", 400);
-
-  $(".backBtn").attr("onclick","backBtnSwich('home');");
-  $(".backBtn").addClass("rotate270");
+  $(".backBtn").attr("onclick","backBtnSwich('home');").addClass("rotate270");
   $(".headTitleInfoblock").show();
   $("#scrollerAnchorHead").show();
   $(".headTitle").removeClass("fixedTop");
 }
 
 
-function removeGetStampsPage(){  
+function hideGetStampsPage(){  
   $(".keypad").velocity("transition.slideDownBigOut", 200);
-        $(".keypad").hide();
-
- $(".inputGetStampwrapper").remove();
+  $(".keypad").hide();
   $("#getStampPage").velocity("transition.slideUpBigOut", 200, function() {
-      $(".backGetStampBtn").remove();
-      $("#getStampPage").remove();
-      $(".backStampBtn").show();
+      $("#getStampPage").hide();
       $("#stampPage").velocity("transition.shrinkIn", 400);
-
-      $(".backBtn").attr("onclick","backBtnSwich('removeStampPage');");
-      $(".backBtn").addClass("rotate270");
-
+      $(".backBtn").attr("onclick","backBtnSwich('hideStampPage');").addClass("rotate270");
   });
   
 }
@@ -733,7 +733,7 @@ function ShowKeyPad(iMenucardSerialNumber,sFunction,iMaxStamp){
         $("#stampPage").velocity("transition.shrinkOut", 400, function(){
 
           $("#stampPage").hide();         
-          $(".backBtn").attr("onclick","backBtnSwich('removeGetStampsPage');").removeClass("rotate270");
+          $(".backBtn").attr("onclick","backBtnSwich('hideGetStampsPage');").removeClass("rotate270");
           
           $('#GetStampBtn').attr('onclick',"GetStamp(\""+iMenucardSerialNumber+"\");");
 
@@ -751,7 +751,7 @@ function ShowKeyPad(iMenucardSerialNumber,sFunction,iMaxStamp){
         //Show keypad for Redeme stamp
         $("#stampPage").velocity("transition.shrinkOut", 400, function(){
           $("#stampPage").hide();
-          $(".backBtn").attr("onclick","backBtnSwich('removeGetStampsPage');").removeClass("rotate270");
+          $(".backBtn").attr("onclick","backBtnSwich('hideGetStampsPage');").removeClass("rotate270");
 
           //Get number of freeitems
           var iNumberOfFreeItems = $('.choosenstampicon').length;
@@ -831,7 +831,7 @@ function UseStamp(iMenucardSerialNumber,iMaxStamp) {
                  
                  //remove use free item
                  $('.choosenstampicon').remove();
-                 $(".backBtn").attr("onclick","backBtnSwich('removeStampPage');");
+                 $(".backBtn").attr("onclick","backBtnSwich('hideStampPage');");
                  $(".backBtn").addClass("rotate270");
                  
                  // opdater antal stempler i localStorage
@@ -932,7 +932,7 @@ function GetStamp(iMenucardSerialNumber){
                         var stamps = parseInt(stamps) + parseInt(numbersOfStamps);
                         localStorage.setItem(iMenucardSerialNumber+".stamps",stamps);
 
-                        $(".backBtn").attr("onclick","backBtnSwich('removeStampPage');").addClass("rotate270");;
+                        $(".backBtn").attr("onclick","backBtnSwich('hideStampPage');").addClass("rotate270");;
 
                         // animation
                          $("#getStampPage").velocity("transition.slideDownBigOut", 200, function() {
