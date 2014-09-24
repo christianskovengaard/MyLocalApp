@@ -346,7 +346,10 @@ function GetMenucard(sName_sNumber,sFunction){
                     $('#sRestuarentZipcodeAndCityHead').html(result.iRestuarentInfoZipcode+', '+result.sRestuarentInfoCity);
 
                     //******** INFO ********//
-
+                    
+                    //Clear the openinghours
+                    document.getElementById('OpeningHours').innerHTML = '';
+                    
                     var sRestuarentPhone = result.sRestuarentPhone;
                     var sRestuarentPhoneFormat = sRestuarentPhone.substring(0, 2)+' '+sRestuarentPhone.substring(2, 4)+' '+sRestuarentPhone.substring(4, 6)+' '+sRestuarentPhone.substring(6, 8);
                     
