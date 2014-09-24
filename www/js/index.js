@@ -21,7 +21,7 @@ function ClearSearchInput(){
 }
 
 function AutocompleteCafename() {
-   
+    
    //Check if FindCafe input element is empty
    if($('#FindCafe').val().length === 0 ) {
        $('#searchWrapper').html('');
