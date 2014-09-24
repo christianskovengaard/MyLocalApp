@@ -383,8 +383,11 @@ function GetMenucard(sName_sNumber,sFunction){
 
                     //******** MESSAGES ********//
                     
-                    if(result.iMenucardSerialNumber === undefined ){
-                      var sSerialNumberCaps = sName_sNumber;
+                    //Set the serial number to update localStorage data
+                    if(result.iMenucardSerialNumber !== undefined ){
+                      var sSerialNumberCaps = result.iMenucardSerialNumber;
+                    }else{
+                        var sSerialNumberCaps = sName_sNumber;
                     }
 
                     $("#messageBlock").empty();
@@ -926,9 +929,10 @@ function GetStamp(iMenucardSerialNumber){
                         //Remove old password
                         $('.inputGetStamp').html('');
                         
-                        // opdater antal stempler i localStorage
+                        //Opdater antal stempler i localStorage
                         var stamps = localStorage.getItem(iMenucardSerialNumber+".stamps");
-                        if( stamps === undefined ) { var stamps = 0; }
+                        console.log('stamps: '+stamps);
+                        if( stamps === null ) { var stamps = 0; }
                         var stamps = parseInt(stamps) + parseInt(numbersOfStamps);
                         localStorage.setItem(iMenucardSerialNumber+".stamps",stamps);
 
