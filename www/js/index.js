@@ -251,31 +251,29 @@ function getMessagesAndStamps() {
        }).done(function(result) 
        {
            if(result.result === true){
-               // tjek om beskeder fra app
-               
-               //opret nye new meggages
+
                $(".newMgs").remove();
                $.each(result.Menucards, function(index,val){
                         
                         if(typeof val.Messages !== "undefined") {
-                        var sMessageDate = val.Messages[0].dtMessageDate;                     
-                        var PrevMessageDate = localStorage.getItem(index+".message");
-                        //If only one message has been sent then set a default date
-                        if(PrevMessageDate === ''){
-                            PrevMessageDate = '0000-00-00 00:00:00';
-                        }
-                        if (sMessageDate === PrevMessageDate ){
-                            $("#"+index+" .newMgs").remove();
-                        }
-                        else {
-                            $("#"+index).append("<div class='newMgs'><i class='fa fa-comment'></i><div>");
-                        }
-                        // sæt antal stempler på menukortet
-                        var Stamps = val.iNumberOfStamps;
-                        if ( Stamps === null ) { var Stamps = 0; }
-                        localStorage.setItem(index+".stamps", Stamps);
-                        // gem stempelkort tekst
-                        localStorage.setItem(index+".sStampcardText", val.sStampcardText);
+                            var sMessageDate = val.Messages[0].dtMessageDate;                     
+                            var PrevMessageDate = localStorage.getItem(index+".message");
+                            //If only one message has been sent then set a default date
+                            if(PrevMessageDate === ''){
+                                PrevMessageDate = '0000-00-00 00:00:00';
+                            }
+                            if (sMessageDate === PrevMessageDate ){
+                                $("#"+index+" .newMgs").remove();
+                            }
+                            else {
+                                $("#"+index).append("<div class='newMgs'><i class='fa fa-comment'></i><div>");
+                            }
+                            // sæt antal stempler på menukortet
+                            var Stamps = val.iNumberOfStamps;
+                            if ( Stamps === null ) { var Stamps = 0; }
+                            localStorage.setItem(index+".stamps", Stamps);
+                            // gem stempelkort tekst
+                            localStorage.setItem(index+".sStampcardText", val.sStampcardText);
                         }
                 });
             }
@@ -560,8 +558,7 @@ function SaveUserFavorites(iMenucardSerialNumber,sRestuarentName,sRestuarentAddr
          aMenucard['cafeaddress'] = sRestuarentAddress;
 
          aUserFavorites[0]= aMenucard;
-         aUserFavorites = JSON.stringify(aUserFavorites);
-         //alert('aUserFavorites firsttime: '+aUserFavorites);                           
+         aUserFavorites = JSON.stringify(aUserFavorites);                        
          localStorage.setItem("aUserFavorits", aUserFavorites); 
 
          //make favorit block
@@ -728,7 +725,6 @@ function makeStampCounter(iStampsLeft,iStampsForFree){
     var stampIntivals = height / iStampsForFree;
     var fillHeigth = stampIntivals * iStampsLeft;
     $(".stampCircleFill").css("height", fillHeigth);
-    //$(".stampCircleFill").hide().velocity("transition.slideUpBigIn", 400 );
 }
 
 function ShowKeyPad(iMenucardSerialNumber,sFunction,iMaxStamp){
