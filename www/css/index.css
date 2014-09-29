@@ -952,6 +952,7 @@ transform:rotate(180deg);
     width: 100%;
     display: block;
     margin-bottom: 10px;
+    margin-top: 30px;
 }
 .inputGetStamp {
     display: inline-table;
@@ -971,7 +972,7 @@ transform:rotate(180deg);
 }
 .keypad{
     position: fixed;
-    bottom: 0px;
+    bottom: 25px;
     left: 0px;
     right: 0px;
     width: 100%;
