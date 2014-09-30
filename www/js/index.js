@@ -904,7 +904,7 @@ function UseStamp(iMenucardSerialNumber,iMaxStamp) {
                  localStorage.setItem(iMenucardSerialNumber+".stamps",stamps);
                  
                  // animation
-                 $("#getStampPage").html("<h1 style='padding-top: 50%;'>Sådan!</h1>");
+                 $("#getStampPage").html("<h1 style='padding-top: 50%;'>Sådan!</h1><h3>Stemplet er indløst.</h3>");
                  $("#getStampPage").hide().velocity("transition.slideDownBigIn", 300);
                  setTimeout(function(){
                     $("#getStampPage").hide().velocity("transition.slideDownBigOut", 300, function() {
@@ -934,7 +934,7 @@ function UseStamp(iMenucardSerialNumber,iMaxStamp) {
                                 });
                           });
 
-                }, 800);
+                }, 1800);
                 
                 $(".useStampsBtn").hide(); 
                 if( $("#FreeItemsBlock > div").length <= 0){
