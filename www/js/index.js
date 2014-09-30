@@ -11,6 +11,11 @@ window.onload = function(){
     makeFavorits();
     CheckForsCustomerId();
     moveScrollerHead();
+    
+    //Used for search load more, infinite scroll
+    localStorage.iAutocompleteCafeId = 0;
+    localStorage.sAutocompleteLastName = '';
+    
 };
 
 function ClearSearchInput(){
@@ -32,19 +37,32 @@ function AutocompleteCafename() {
        $(".clear").show();
    }
    if($('#FindCafe').val().length >= 3) {
-            //console.log('search');
-       var sCafename = $('#FindCafe').val();
-       
-       //Set the iRestuarantId from localStorage
-       if(localStorage.iAutocompleteCafeId == null || localStorage.iAutocompleteCafeId == ''){
-            var iCafeId = 0;
-            localStorage.iAutocompleteCafeId = 0;
-       }else{
-          iCafeId = localStorage.iAutocompleteCafeId;
-       }
        
        //Check if ajax call is running
        if($.active === 0){
+            
+            //Show loader gif
+            $('.autocompleteLoader').show();
+            
+            //console.log('search');
+            var sCafename = $('#FindCafe').val();
+            
+            //If cafename has changed, reset the iAutocompleteCafeId
+            if(sCafename !== localStorage.sAutocompleteLastName){
+                
+                //Set last cafename search for
+                localStorage.sAutocompleteLastName = sCafename;
+                
+                //Reset the Id
+                localStorage.iAutocompleteCafeId = 0;
+                
+                //Clear the result
+                $('#searchWrapper').html('');
+            }           
+            
+            //Set the id for search
+            var iCafeId = localStorage.iAutocompleteCafeId;
+            
        
             $.ajax({
               type: "GET",
@@ -54,7 +72,7 @@ function AutocompleteCafename() {
              }).done(function(result){
                  if(result.result === 'true') {
                  //Clear the list
-                 $('#searchWrapper').html('').append('<h6></h6>');
+                 //$('#searchWrapper').html('').append('<h6></h6>');
                  //$('#searchWrapper').;
                  var i = 1;
                  var cafenames = '';
@@ -71,9 +89,17 @@ function AutocompleteCafename() {
                     $('#searchWrapper').append(cafenames);
                     //Set id in localStorage
                     localStorage.iAutocompleteCafeId = lastId;
+                    
+                    //hide loader gif
+                    $('.autocompleteLoader').hide(); 
                  }
                  if(i > 7){
                     $("#home").css("padding-bottom","0px");
+                 }
+                 
+                 if(result.result === 'done') {
+                    //hide loader gif
+                    $('.autocompleteLoader').hide(); 
                  }
              });
              
@@ -81,6 +107,19 @@ function AutocompleteCafename() {
        
    }
 }
+
+//********* Detech scroll for Autocomplete *******//
+
+$(window).scroll(function()
+{
+    if($(window).scrollTop() == $(document).height() - $(window).height())
+    {
+        //Run autocomplete 
+        AutocompleteCafename();
+    }
+});
+
+//********* end *********//
 
 function SearchInputUp() {
       var height = $(".logo_home").outerHeight();

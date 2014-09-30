@@ -160,7 +160,7 @@ a,h1,h2,h3,h4,h5,h6,p,li{
 .searchWrapper {
     position: relative;
     width: 100%;
-    margin: 0 auto 10px auto;
+    margin: 20px auto 10px auto;
     min-height: 25px;
 }
 
@@ -261,6 +261,12 @@ a,h1,h2,h3,h4,h5,h6,p,li{
     overflow-x: hidden;
     background: #333;
     padding-bottom: 40px;
+}
+
+.autocompleteLoader{
+    display: none;
+    width: 60px;
+    margin: 1% 50% 0px 43%;
 }
 
 #menu { 
