@@ -105,6 +105,12 @@ function AutocompleteCafename() {
              
       }
        
+   }else{
+       //Set last cafename search for
+       localStorage.sAutocompleteLastName = '';
+                
+       //Reset the Id
+       localStorage.iAutocompleteCafeId = 0;
    }
 }
 
