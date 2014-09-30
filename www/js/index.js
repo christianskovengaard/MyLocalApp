@@ -1,10 +1,10 @@
 //SET GLOBALS
 
 //Offline
-//var sAPIURL = 'http://localhost/MyLocalMenu/API/api.php';
+var sAPIURL = 'http://localhost/MyLocalMenu/API/api.php';
 
 //Online
-var sAPIURL = 'http://mylocalcafe.dk/API/api.php';
+//var sAPIURL = 'http://mylocalcafe.dk/API/api.php';
 
 window.onload = function(){
     CheckInternetConnection();
@@ -35,11 +35,22 @@ function AutocompleteCafename() {
             //console.log('search');
        var sCafename = $('#FindCafe').val();
        
-       $.ajax({
+       //Set the iRestuarantId from localStorage
+       if(localStorage.iAutocompleteCafeId == null || localStorage.iAutocompleteCafeId == ''){
+            var iCafeId = 0;
+            localStorage.iAutocompleteCafeId = 0;
+       }else{
+          iCafeId = localStorage.iAutocompleteCafeId;
+       }
+       
+       //Check if ajax call is running
+       if($.active === 0){
+       
+            $.ajax({
               type: "GET",
               url: sAPIURL,
               dataType: "jSON",
-              data: {sFunction:"AutocompleteCafename",sCafename:sCafename}
+              data: {sFunction:"AutocompleteCafename",sCafename:sCafename,iCafeId:iCafeId}
              }).done(function(result){
                  if(result.result === 'true') {
                  //Clear the list
@@ -61,6 +72,8 @@ function AutocompleteCafename() {
                     $("#home").css("padding-bottom","0px");
                  }
              });
+             
+      }
        
    }
 }
