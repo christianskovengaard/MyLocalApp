@@ -1,10 +1,10 @@
 //SET GLOBALS
 
 //Offline
-var sAPIURL = 'http://localhost/MyLocalMenu/API/api.php';
+//var sAPIURL = 'http://localhost/MyLocalMenu/API/api.php';
 
 //Online
-//var sAPIURL = 'http://mylocalcafe.dk/API/api.php';
+var sAPIURL = 'http://mylocalcafe.dk/API/api.php';
 
 window.onload = function(){
     CheckInternetConnection();
@@ -58,15 +58,19 @@ function AutocompleteCafename() {
                  //$('#searchWrapper').;
                  var i = 1;
                  var cafenames = '';
+                 var lastId = 0;
                  $.each(result.cafe, function(key,value){
                      //Show list of posible cafenames                 
                      //escape single quoates from string 
                      var name = value.name.replace(/'/g, "\\'");
                      cafenames += '<a class="ui-btn" onclick="GetMenucard(\''+name+'\',1);"><h1>'+value.name+'</h1><p>'+value.address+'</p></a>';
+                     lastId = value.id;
                      i++;
                     });
                     //Append result to searchWrapper
                     $('#searchWrapper').append(cafenames);
+                    //Set id in localStorage
+                    localStorage.iAutocompleteCafeId = lastId;
                  }
                  if(i > 7){
                     $("#home").css("padding-bottom","0px");
