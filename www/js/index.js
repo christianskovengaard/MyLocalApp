@@ -118,7 +118,7 @@ function AutocompleteCafename() {
 
 $(window).scroll(function()
 {
-    if($(window).scrollTop() == $(document).height() - $(window).height())
+    if($(window).scrollTop() >= $(document).height() - $(window).height())
     {
         //Run autocomplete 
         AutocompleteCafename();
