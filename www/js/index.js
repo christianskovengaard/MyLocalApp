@@ -31,7 +31,7 @@ function AutocompleteCafename() {
    if($('#FindCafe').val().length === 0 ) {
        $('#searchWrapper').html('');
        $(".clear").hide();
-       $("#home").css("padding-bottom","550px");
+       //$("#home").css("padding-bottom","550px");
    }
    if($('#FindCafe').val().length === 1) {
        $(".clear").show();
