@@ -133,6 +133,7 @@ function SearchInputUp() {
       $(".logo_home").velocity({ "margin-top" : -height+"px" }, 500, "easeOutCubic");
       $("#home").css("padding-bottom","550px");
       $(".clear").show();
+      document.body.scrollTop = 0;
 }
 function SearchInputDown() {
     if($('#FindCafe').val().length === 0) {
