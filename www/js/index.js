@@ -400,7 +400,7 @@ function GetMenucard(sName_sNumber,sFunction){
 
                     var sRestuarentName = result.sRestuarentName; 
                     var sRestuarentAddress = result.sRestuarentAddress;
-
+                    $('.cafeNameField h1').html(result.sRestuarentName);
                     $('.headTitle h1').html(result.sRestuarentName);
                     $('#sRestuarentAddressHead').html(result.sRestuarentAddress);
                     $('#sRestuarentZipcodeAndCityHead').html(result.iRestuarentInfoZipcode+', '+result.sRestuarentInfoCity);

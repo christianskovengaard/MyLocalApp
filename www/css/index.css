@@ -303,6 +303,7 @@ a,h1,h2,h3,h4,h5,h6,p,li{
     top: 17px;
     left: 5px;
     z-index: 20000;
+
     -moz-transition: 0.5s;
     -webkit-transition: 0.5s;
     -webkit-transform: translate(0); /* Fixed the jumping on position fixed */
@@ -319,7 +320,7 @@ a,h1,h2,h3,h4,h5,h6,p,li{
     padding: 0px; 
     width: 100%; 
     overflow-x: hidden;
-    z-index: 10;
+    z-index: 4000;
 }
 .swiper-container {
   height: 200px;
@@ -359,7 +360,7 @@ a,h1,h2,h3,h4,h5,h6,p,li{
   cursor: pointer;
 }
 
-.headTitle {
+.headTitle, .cafeNameField {
     position: relative;
     z-index: 1001;
     background: #333;
@@ -370,11 +371,11 @@ a,h1,h2,h3,h4,h5,h6,p,li{
 .headTitle.shadow {
     box-shadow: 0px 7px 10px rgba(0,0,0,0.2);
 }
-.headTitle.fixedTop{
+.headTitle.fixedTop, .cafeNameField.fixedTop {
     position: fixed !important;
     top: 0px !important;
 }
-.headTitle h1 { 
+.headTitle h1, .cafeNameField h1 { 
     display: inline-block;
     color: #fff;
     margin: 0px 0 0 35px;
