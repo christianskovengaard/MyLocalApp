@@ -10,7 +10,7 @@ window.onload = function(){
     CheckInternetConnection();
     makeFavorits();
     CheckForsCustomerId();
-    moveScrollerHead();
+    //moveScrollerHead();
     
     //Used for search load more, infinite scroll
     localStorage.iAutocompleteCafeId = 0;
