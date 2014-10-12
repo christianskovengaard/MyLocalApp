@@ -33,10 +33,10 @@ function AutocompleteCafename() {
        $(".clear").hide();
        //$("#home").css("padding-bottom","550px");
    }
-   if($('#FindCafe').val().length === 1) {
+   /*if($('#FindCafe').val().length === 1) {
        $(".clear").show();
-   }
-   if($('#FindCafe').val().length >= 3) {
+   }*/
+   if($('#FindCafe').val().length >= 1) {
        
        //Check if ajax call is running
        if($.active === 0){
@@ -99,7 +99,10 @@ function AutocompleteCafename() {
                  
                  if(result.result === 'done') {
                     //hide loader gif
-                    $('.autocompleteLoader').hide(); 
+                    $('.autocompleteLoader').hide();
+                    if($('#searchWrapper').html() === '' ){
+                        alert('Den søgte café findes ikke');
+                    }
                  }
              });
              
