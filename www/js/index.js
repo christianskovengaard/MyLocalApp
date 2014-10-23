@@ -567,8 +567,9 @@ function CheckIfDOMLoaded(){
     var checkDOM = setTimeout(function(){
         if($('.infoBlock p').html() !== ''){
             $(".getmenuLoaderDiv").hide();
-            makeheaderGallery();
             $("#menu").show();
+
+            setTimeout('1000',makeheaderGallery());
             clearTimeout(checkDOM);
         }else{
             console.log('check again');
