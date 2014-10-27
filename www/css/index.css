@@ -278,7 +278,7 @@ a,h1,h2,h3,h4,h5,h6,p,li{
 #menu { 
     text-shadow: none;
     display: none;
-    min-height: 500px;
+    min-height: 300px;
     width: 100%;
     text-align: left;
     margin: 0 auto;
