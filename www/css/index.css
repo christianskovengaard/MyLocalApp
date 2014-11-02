@@ -276,13 +276,12 @@ a,h1,h2,h3,h4,h5,h6,p,li{
 }
 
 #menu { 
-    text-shadow: none;
+   text-shadow: none;
     display: none;
-    min-height: 300px;
+    min-height: 440px;
     width: 100%;
     text-align: left;
     margin: 0 auto;
-    overflow-x: hidden;
     background: #333;
     padding-bottom: 40px;
 }

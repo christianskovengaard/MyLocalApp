@@ -976,6 +976,8 @@ function UseStamp(iMenucardSerialNumber,iMaxStamp) {
  */
 function GetStamp(iMenucardSerialNumber){
 
+  $('.getmenuLoaderDiv').show();
+
   var numbersOfStamps = $("#numOfStamps").text();
   if ($("#inputGetStamp4 span").length === 1){
 
@@ -989,6 +991,7 @@ function GetStamp(iMenucardSerialNumber){
               dataType: "jSON",
               data: {sFunction:"GetStamp",sCustomerId:sCustomerId,Stampcode:Stampcode,iMenucardSerialNumber:iMenucardSerialNumber,iNumberOfStamps:numbersOfStamps}
              }).done(function(result){
+                    $('.getmenuLoaderDiv').hide();
 
                     if(result.result === 'true') {
 
