@@ -133,7 +133,9 @@ $(window).scroll(function()
 function SearchInputUp() {
       var height = $(".logo_home").outerHeight();
       $("#favoriteWrapper").velocity("fadeOut", 100 );
-      $(".logo_home").velocity({ "margin-top" : -height+"px" }, 500, "easeOutCubic");
+      $(".logo_home").velocity({ "margin-top" : -height+"px" }, 500, "easeOutCubic", function(){
+           document.body.scrollTop = 0;
+      });
       $("#home").css("padding-bottom","550px");
       $(".clear").show();
       document.body.scrollTop = 0;
