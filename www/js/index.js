@@ -101,7 +101,9 @@ function AutocompleteCafename() {
                     //hide loader gif
                     $('.autocompleteLoader').hide();
                     if($('#searchWrapper').html() === '' ){
-                        alert('Den søgte café findes ikke');
+                        //alert('Den søgte café findes ikke');
+                        //Show text box
+                        $('#searchWrapper').html('<a class="ui-btn"><h1>Den søgte café findes ikke</h1></a>');
                     }
                  }
              });
