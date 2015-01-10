@@ -3,6 +3,12 @@
 
 body {
     position: relative;
+      -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
  /*TEST for velocity scroling */
     -webkit-overflow-scrolling: touch;
     /*background: #ddd url("../img/bg.jpg") 0 0 no-repeat;*/
@@ -160,7 +166,7 @@ a,h1,h2,h3,h4,h5,h6,p,li{
 .searchWrapper {
     position: relative;
     width: 100%;
-    margin: 0 auto 10px auto;
+    margin: 20px auto 10px auto;
     min-height: 25px;
 }
 
@@ -251,16 +257,33 @@ a,h1,h2,h3,h4,h5,h6,p,li{
     margin: 45% auto 0px auto;
 }
 
+.getmenuLoaderDiv { 
+    text-shadow: none;
+    display: none;
+    min-height: 500px;
+    width: 100%;
+    text-align: left;
+    margin: 0 auto;
+    overflow-x: hidden;
+    background: #333;
+    padding-bottom: 40px;
+}
+
+.autocompleteLoader{
+    display: none;
+    width: 60px;
+    margin: 1% 50% 0px 43%;
+}
+
 #menu { 
-text-shadow: none;
-display: none;
-min-height: 500px;
-width: 100%;
-text-align: left;
-margin: 0 auto;
-overflow-x: hidden;
-background: #333;
-padding-bottom: 40px;
+   text-shadow: none;
+    display: none;
+    min-height: 440px;
+    width: 100%;
+    text-align: left;
+    margin: 0 auto;
+    background: #333;
+    padding-bottom: 40px;
 }
 .error {
     text-align: center;
@@ -279,8 +302,10 @@ padding-bottom: 40px;
     top: 17px;
     left: 5px;
     z-index: 20000;
+
     -moz-transition: 0.5s;
     -webkit-transition: 0.5s;
+    -webkit-transform: translate(0); /* Fixed the jumping on position fixed */
     -o-transition: 0.5s;
     transition: 0.5s;
        transform:rotate(-90deg);
@@ -294,7 +319,7 @@ padding-bottom: 40px;
     padding: 0px; 
     width: 100%; 
     overflow-x: hidden;
-    z-index: 10;
+    z-index: 4000;
 }
 .swiper-container {
   height: 200px;
@@ -316,7 +341,7 @@ padding-bottom: 40px;
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00333333', endColorstr='#333333',GradientType=0 ); /* IE6-9 */
 }
 .pagination {  /* viser hvor mange billeder er er slider */
-    display: none;
+  display: none;
   position: absolute;
   left: 0;
   text-align: center;
@@ -334,7 +359,7 @@ padding-bottom: 40px;
   cursor: pointer;
 }
 
-.headTitle {
+.headTitle, .cafeNameField {
     position: relative;
     z-index: 1001;
     background: #333;
@@ -345,11 +370,11 @@ padding-bottom: 40px;
 .headTitle.shadow {
     box-shadow: 0px 7px 10px rgba(0,0,0,0.2);
 }
-.headTitle.fixedTop{
+.headTitle.fixedTop, .cafeNameField.fixedTop {
     position: fixed !important;
     top: 0px !important;
 }
-.headTitle h1 { 
+.headTitle h1, .cafeNameField h1 { 
     display: inline-block;
     color: #fff;
     margin: 0px 0 0 35px;
@@ -408,6 +433,7 @@ padding-bottom: 40px;
 }
 
 .messageBlock{
+    display: none;
     position: relative;
     margin-top: 30px;
 margin-bottom: 20px;
@@ -472,7 +498,7 @@ font-style: italic;
 }
 #menuBlock {
     outline: #333 solid 10px;
-    margin: 80px 10px 15px 10px;
+    margin: 60px 10px 15px 10px;
     border: 2px solid #fff;
     box-shadow: 0px -13px 10px rgba(0,0,0,0.2);
 }
@@ -638,6 +664,7 @@ font-style: italic;
     box-shadow: inset 1px 1px 3px #01FF70; 
 }
 .popMgs {
+    display: none;
     position: absolute;
     top: -59px; left: 0px; right: 0px;
     margin-bottom: 5px;
@@ -696,6 +723,7 @@ transform:rotate(180deg);
 }
 
 .introScreen {
+    display: none;
     text-align: center;
     color: #fff;
 }
@@ -725,6 +753,7 @@ transform:rotate(180deg);
     width: 50%;
 }
 #stampPage{
+    display: none;
     text-align: center;
     color: #FFF;
     margin-bottom: 80px;
@@ -747,10 +776,12 @@ transform:rotate(180deg);
     margin-bottom: 5px;
     text-align: center;
 }
-#stampBlock h3 {
+
+#stampBlock h5 {
     display: block;
-    color: #fff;
+    color: #FDA142;
     margin: 0px;
+
 }
 .backStampBtn{
     color: #333 !important;
@@ -875,6 +906,14 @@ transform:rotate(180deg);
     margin: 0 10px 0px 0;
     vertical-align: text-bottom;
 }
+
+#redemeStampDiv{
+    display: none;
+}
+
+#getStampDiv {
+    display: none;
+}
 .useStampsBtn{
     font-size: 25px;
     color: #FDA142 !important;
@@ -887,6 +926,7 @@ transform:rotate(180deg);
     border: 1px solid #FDA142;
 }
 #getStampPage{
+    display: none;
     text-align: center;
     width: 100%;
     margin-top: 60px;
@@ -899,7 +939,7 @@ transform:rotate(180deg);
     font-size: 70px;
     font-weight: 100;
 }
-#getStampPage h1{
+#getStampPage h1, #redemeStampDiv h1, #getStampDiv h1{
     display: inline-table;
     width: 50px;
     font-weight: 100;
@@ -908,7 +948,10 @@ transform:rotate(180deg);
     margin: 0;
     color: #fff;
 }
-#getStampPage p {
+#getStampPage h3{
+    color: #fff;
+}
+#getStampPage p, #redemeStampDiv p, #getStampDiv p {
     font-weight: 100;
     line-height: 0;
     margin: 20px 0 0px 0;
@@ -918,6 +961,7 @@ transform:rotate(180deg);
     width: 100%;
     display: block;
     margin-bottom: 10px;
+    margin-top: 20px;
 }
 .inputGetStamp {
     display: inline-table;
@@ -937,7 +981,7 @@ transform:rotate(180deg);
 }
 .keypad{
     position: fixed;
-    bottom: 0px;
+    bottom: 25px;
     left: 0px;
     right: 0px;
     width: 100%;

@@ -4,23 +4,12 @@
         <meta charset="utf-8" />
         <meta name="format-detection" content="telephone=no" />
         <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
-        <!--<link rel="stylesheet" href="css/themes/default/jquery.mobile-1.4.0.min.css">-->
-        <script src="js/jquery.js"></script>
-        <!--<script src="js/jquery.mobile-1.4.0.js"></script>-->
-        <script type="text/javascript" src="js/jquery.velocity.min.js"></script>
-        <script type="text/javascript" src="js/velocity.ui.js"></script>  
-
-        <!--<script type="text/javascript" src="js/jquery.touchSwipe.min.js"></script>-->
-
         <link rel="stylesheet" type="text/css" href="css/index.css" />
         <link href="css/font-awesome.css" rel="stylesheet">
         <link rel="stylesheet" href="css/idangerous.swiper.css">
-
         <title>MyLocalCafe</title>
-    </head>
-    
+    </head>  
     <body>
-
         <div id="home">
                 <div class="logo_home">
                     <img src="img/logo_4.png"><br>
@@ -31,29 +20,141 @@
                        <h2>Du er offline</h2>
                        <h2>Du skal være online for at bruge appen</h2>
                    </div>
-                   <div class="form">
-                        <input onkeyup="AutocompleteCafename();" onfocus="SearchInputUp();" data-role="none" type="text" name="text-basic" id="FindCafe" value="" placeholder="Søg efter café" >
+                   <div class="form"> <!-- onblur="ClearSearchInput();" -->
+                        <div class="popMgs">Denne café er endnu ikke medlem af My Local Café. Følg med og like os på facebook. Der kommer hele tiden nye Caféer til.</div>
+                        <input onkeyup="AutocompleteCafename();" onfocus="SearchInputUp();"  data-role="none" type="text" name="text-basic" id="FindCafe" value="" placeholder="Søg efter café" >
                         <!-- onkeyup="if (event.keyCode == 13) { findMenuCard(); }" -->
                         <!-- <img src="img/search.png" onclick="findMenuCard();"> -->
                         <img src="img/search.png">
                         <img src="img/clear.svg" class="clear" onclick="ClearSearchInput();">
                    </div>
                    <div class="searchWrapper" id="searchWrapper"></div>
-                   <div class="favoriteWrapper" id="favoriteWrapper"></div>
+                   <img class='autocompleteLoader' src='img/loader.GIF' alt='' />
+                   <div class="favoriteWrapper" id="favoriteWrapper">
+                       <div class='introScreen'>
+                           <br>
+                           <h1>Velkommen</h1>
+                           <h2>Her kan du følge dine favorit caféer.</h2>
+                           <h2>Du kan se info om deres sted, se deres menukort, samt få aktuelle tilbud og beskeder direkte.</h2>
+                           <h2>Søg blot på dine lokale favorit caféer i søgefeltet for at komme i gang!</h2>
+                       </div>
+                   </div>
         </div>
-
+        <div class='getmenuLoaderDiv'>
+            <img class='getmenuLoader' src='img/loader.GIF' alt='' />
+        </div>
         <div id="menu">
-            <div class="pageWrapper" id="pageWrapper">   </div>     
-        </div>
+            <div class="pageWrapper" id="pageWrapper"></div>        
+            <a id="backButtonL" onclick="ClearSearchInput();"><img class="backBtn rotate270" src="img/backWhite.png"< alt="backbutton" onclick="backBtnSwich('home');"></a>
+            <div class="cafeNameField fixedTop"><h1></h1></div>
+            <div class="menuheader">
+                <div class="swiper-container">
+                    <div class="swiper-wrapper"></div> 
+                </div>
+                <div class="pagination"></div>
+            </div>
+            <div id="scrollerAnchorHead"></div>
+            <div class="headTitle"><h1></h1></div>
+            <div class="headTitleInfoblock">
+                <p id="sRestuarentAddressHead"></p>
+                <p id="sRestuarentZipcodeAndCityHead"></p>
+                <img class="img_right" alt="" onclick="InfoToggle();" src="img/info.png">
+                <div id="infoBlock">
+                    <ul>
+                        <li class="dishPoint PhoneNumber">
+                            <img alt='' src="img/call up.png">
+                            <a href="" rel="external">'+sRestuarentPhoneFormat+'</a>
+                        </li>
+                        <li class="dishPoint" id="OpeningHours"></li>
+                    </ul>
+                </div>
+            </div>
+            <div id="messageBlock" class="messageBlock"></div>
+            <div id="stampBlock">
+                <a id="makeStampPageBtn" onclick="makeStampPage();">
+                    <div id="stampTotal" class="stampCircleIcon">
+                        <p></p>
+                    </div>
+                <h5>Få et stempel</h5>
+                </a>
+            </div>
+            <div id='getStampPage'>
+                <div id='getStampDiv'>
+                    <h5>Vis denne til din café, og få et stempel</h5>
+                    <p>Antal stempler:</p>
+                    <a onclick='numOfStampsChange(-1);'>-</a>
+                    <h1 id='numOfStamps'>1</h1>
+                    <a onclick='numOfStampsChange(1);'>+</a>
+                </div>
+                <div id='redemeStampDiv'>
+                    <h5>Vis denne til din café</h5>
+                    <p>Antal gratis:</p>
+                    <h1 class='numOfStamps' id='numOfStamps' style='margin-top: 33px;'></h1>
+                </div>
+                <div class='inputGetStampwrapper'>
+                    <div id='inputGetStamp1' class='inputGetStamp'></div>
+                    <div id='inputGetStamp2' class='inputGetStamp'></div>
+                    <div id='inputGetStamp3' class='inputGetStamp'></div>
+                    <div id='inputGetStamp4' class='inputGetStamp'></div>                      
+                </div>
+                <div class='keypad'>
+                    <a onclick='btnKeypad(1);'>1</a>
+                    <a onclick='btnKeypad(2);'>2</a>
+                    <a onclick='btnKeypad(3);'>3</a>
+                    <a onclick='btnKeypad(4);'>4</a>
+                    <a onclick='btnKeypad(5);'>5</a>
+                    <a onclick='btnKeypad(6);'>6</a>
+                    <a onclick='btnKeypad(7);'>7</a>
+                    <a onclick='btnKeypad(8);'>8</a>
+                    <a onclick='btnKeypad(9);'>9</a>
+                    <a onclick='btnKeypad(-1);'>
+                        <img src='img/backspace.svg'>
+                    </a>
+                    <a onclick='btnKeypad(0);'>0</a>
+                    <a id='GetStampBtn' onclick='KeypadOk(\""+iMenucardSerialNumber+"\");'>ok</a>
+                </div>
+                <div class="stampRedemeMessage" style="display: none"><h1 style='padding-top: 50%;'>Sådan!</h1><h3>Stemplet er indløst.</h3></div>
+            </div>
+            <div id='stampPage'>
+                <h5>Vis denne til din café, og få et stempel</h5>
+                <div class='StampsForNext' onclick='ShowKeyPad();'>
+                    <img class='stampMask' src='img/stampMask.png' alt='' />
+                    <div class='stampCircle'>
+                        <h3>Stempler</h3>
+                        <p>+</p>
+                    </div>
+                </div>
+                <h4 class='stampcardText'></h4>
+                <h4 class='iFreeItemCounter'></h4>
+                <div id='FreeItemsBlock'></div>
+            </div>
+            <ul style='margin: 0 auto -20px auto;'></ul>
+            <div id='menuBlock'>
+                <h1 class='menuBlockHeadline'>~ menu ~</h1>
+            </div>
+            <div class="infoBlock">
+                <h4></h4>
+                <p></p>
+            </div>
+        </div> <!-- end id=menu -->
         
-   
-        
-        
-        <script type="text/javascript" src="cordova.js"></script>
+        <script src="js/jquery.js"></script>
+        <script type="text/javascript" src="js/jquery.velocity.min.js"></script>
+        <script type="text/javascript" src="js/velocity.ui.js"></script>       
+        <script type="text/javascript" src="js/idangerous.swiper-2.1.min.js"></script>         
         <script type="text/javascript" src="js/index.js"></script>
-        <script type="text/javascript">
+        <script type="text/javascript" src="js/fastclick.js"></script>
+        <script>
+            $(document).ready(function(){
+                getMessagesAndStamps();
+                FastClick.attach(document.body);
+            });
+            
+        </script>
+        <!--<script type="text/javascript" src="cordova.js"></script>-->
+        <!--<script type="text/javascript">
           app.initialize();
-        </script>       
-        <script type="text/javascript" src="js/idangerous.swiper-2.1.min.js"></script>        
+        </script>-->       
+              
     </body>
 </html>
