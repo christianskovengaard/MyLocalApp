@@ -812,6 +812,7 @@ transform:rotate(180deg);
     line-height: 0px;
     font-size: 22px;
     font-weight: 300;
+    margin-top: 45%;
 }
 .stampCircleIcon.black{
     border: 1px solid #333;
@@ -848,13 +849,15 @@ transform:rotate(180deg);
 .stampCircle  p{
     position: absolute;
     top: 50%;
-    left: 36%;
+    left: 50%;
     font-size: 170px;
     line-height: 0px;
     margin: 0;
     font-weight: 100;
     z-index: 3;
     color: #333;
+    width: 70px;
+    margin-left: -35px;
 }
 .stampCircle  h3{
     margin: 5px 0;
