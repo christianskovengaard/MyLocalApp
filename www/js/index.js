@@ -637,7 +637,7 @@ function makeStampPage(iMenucardSerialNumber,iUserStamps,MaxStamps){
                           $("#stampPage a").hide().velocity("transition.bounceDownIn",400);
                             // $("#stampPage").append("<h3>Stempler ("+iUserStamps+")</h3>")
                           
-                          $("#stampPage").append("<div class='StampsForNext' onclick='GetStamp(\""+iMenucardSerialNumber+"\",1);'><img class='stampMask' src='img/stampMask.png' /><div class='stampCircle'><p>+</p></div></div>");
+                          $("#stampPage").append("<div class='StampsForNext' onclick='GetStamp(\""+iMenucardSerialNumber+"\",1);'><img class='stampMask' src='img/stampMask.png' /><div class='stampCircle'></div></div>");
                           
                           $(".stampCircle").hide().velocity("transition.expandIn", 200, function(){
                                   $(".stampCircle").prepend("<h3>Stempler</h3>");

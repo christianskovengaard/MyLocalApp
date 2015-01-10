@@ -224,34 +224,18 @@
 	"buffers":
 	[
 		{
-			"file": "/C/wamp/www/MyLocalApp/www/index.html",
+			"file": "/C/Users/db/Desktop/GDN1/GDN1/index_edge.js",
 			"settings":
 			{
-				"buffer_size": 2638,
+				"buffer_size": 1728,
 				"line_ending": "Windows"
 			}
 		},
 		{
-			"file": "/C/wamp/www/MyLocalApp/www/js/index.js",
+			"file": "/C/Users/db/Desktop/GDN1/GDN1/index.html",
 			"settings":
 			{
-				"buffer_size": 52684,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "/C/wamp/www/MyLocalApp/www/css/index.css",
-			"settings":
-			{
-				"buffer_size": 18325,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "/C/wamp/www/MyLocalApp/www/css/font-awesome.css",
-			"settings":
-			{
-				"buffer_size": 25221,
+				"buffer_size": 2163,
 				"line_ending": "Windows"
 			}
 		}
@@ -296,6 +280,19 @@
 	},
 	"file_history":
 	[
+		"/C/Users/db/Desktop/GDN1/GDN1/index_edgeActions.js",
+		"/C/Users/db/Desktop/GDN1/GDN1/manifest.json",
+		"/C/Users/db/Desktop/GDN1/GDN1/edge_includes/edge.1.5.0.min.js",
+		"/C/Users/db/Desktop/GDN1/GDN1/index_edgePreload.js",
+		"/C/Users/db/Desktop/standard-image-banner-320x50/index.html",
+		"/C/Users/db/Desktop/standard-image-banner-320x50/manifest.json",
+		"/C/wamp/www/MyLocalApp/www/js/index.js",
+		"/C/HG/Source/Boliga.Web.Tilstandsrapporter/Boliga.Web.Tilstandsrapporter/Boliga.Web.Tilstandsrapporter/Views/Shared/_Layout.cshtml",
+		"/C/Users/db/Dropbox/Boliga Design/Mailsignatur/signatur/index_normal.html",
+		"/C/Users/db/AppData/Roaming/Microsoft/Signatures/test.htm",
+		"/C/wamp/www/MyLocalApp/www/index.html",
+		"/C/wamp/www/MyLocalApp/www/css/index.css",
+		"/C/wamp/www/MyLocalApp/www/css/font-awesome.css",
 		"/C/wamp/www/MyLocalAndroid/assets/www/css/font-awesome.css",
 		"/C/Users/db/Dropbox/Boliga Design/BoligaLejnu/SignUpside/Lejnu-signup-page/tak.html",
 		"/C/Users/db/Dropbox/Boliga Design/BoligaLejnu/SignUpside/Lejnu-signup-page/css/custom.css",
@@ -303,9 +300,6 @@
 		"/C/Users/db/Dropbox/Boliga Design/BoligaLejnu/SignUpside/Lejnu-signup-page/js/jquery.placeholder-1.0.6.js",
 		"/C/Users/db/Dropbox/Boliga Design/BoligaLejnu/SignUpside/Lejnu-signup-page/jquery-html5-placeholder-shim-master/jquery-html5-placeholder-shim-master/test.html",
 		"/C/Users/db/Dropbox/Boliga Design/BoligaLejnu/SignUpside/Lejnu-signup-page/jquery-placeholder-master/jquery-placeholder-master/demo.html",
-		"/C/wamp/www/MyLocalApp/www/css/index.css",
-		"/C/wamp/www/MyLocalApp/www/js/index.js",
-		"/C/wamp/www/MyLocalApp/www/index.html",
 		"/C/Users/db/Desktop/MyLocal_TODO.txt",
 		"/C/Users/db/Dropbox/Boliga Design/BoligaLejnu/SignUpside/Lejnu-signup-page/index.html",
 		"/C/Users/db/Dropbox/Public/index.html",
@@ -389,6 +383,11 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"launchComposition",
+			"adf",
+			"banner",
+			"test-filer\n",
+			"\"/>\n",
 			"awesome",
 			"text-rendering",
 			"optimizelegibility",
@@ -511,12 +510,7 @@
 			"messageBlock",
 			"mes",
 			"header",
-			"makehead",
-			"Stempler",
-			"vel",
-			"font-family:",
-			"scroll",
-			".box"
+			"makehead"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -541,34 +535,34 @@
 	"groups":
 	[
 		{
-			"selected": 3,
+			"selected": 1,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "/C/wamp/www/MyLocalApp/www/index.html",
+					"file": "/C/Users/db/Desktop/GDN1/GDN1/index_edge.js",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 2638,
+						"buffer_size": 1728,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1025,
-								1025
+								1728,
+								1728
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/HTML/HTML.tmLanguage",
-							"tab_size": 4,
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"tab_size": 3,
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 45.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 1,
@@ -576,87 +570,28 @@
 				},
 				{
 					"buffer": 1,
-					"file": "/C/wamp/www/MyLocalApp/www/js/index.js",
+					"file": "/C/Users/db/Desktop/GDN1/GDN1/index.html",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 52684,
+						"buffer_size": 2163,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								15909,
-								15909
+								2155,
+								1204
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
+							"syntax": "Packages/HTML/HTML.tmLanguage",
+							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 5591.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 3,
-					"type": "text"
-				},
-				{
-					"buffer": 2,
-					"file": "/C/wamp/www/MyLocalApp/www/css/index.css",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 18325,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								18323,
-								18323
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/CSS/CSS.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 13890.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 2,
-					"type": "text"
-				},
-				{
-					"buffer": 3,
-					"file": "/C/wamp/www/MyLocalApp/www/css/font-awesome.css",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 25221,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								543,
-								543
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/CSS/CSS.tmLanguage",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 583.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 0,
