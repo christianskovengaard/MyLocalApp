@@ -94,20 +94,17 @@ function AutocompleteCafename() {
                     $('.autocompleteLoader').hide();
                  }
                  if(i > 7){
-                    $("#home").css("padding-bottom","550px");
+                    $("#home").css("padding-bottom","0px");
                  }
 
                  if(result.result === 'done') {
                     //hide loader gif
                     $('.autocompleteLoader').hide();
                     if($('#searchWrapper').html() === '' ){
-<<<<<<< HEAD
-                        
-=======
+
                         //alert('Den søgte café findes ikke');
                         //Show text box
                         $('#searchWrapper').html('<a class="ui-btn"><h1>Den søgte café findes ikke</h1></a>');
->>>>>>> FETCH_HEAD
                     }
                  }
              });
@@ -144,7 +141,8 @@ function SearchInputUp() {
       });
       $("#home").css("padding-bottom","550px");
       $(".clear").show();
-      
+
+      document.body.scrollTop = 0;
 }
 function SearchInputDown() {
     if($('#FindCafe').val().length === 0) {
@@ -637,7 +635,7 @@ function SaveUserFavorites(iMenucardSerialNumber,sRestuarentName,sRestuarentAddr
          localStorage.setItem("aUserFavorits", aUserFavorites);
 
          //make favorit block
-         $("#favoriteWrapper").append("<h6>Stamsteder:</h6>");
+         $("#favoriteWrapper").append("<a class='editFavorits' onclick='editFavorits();'><i class='fa fa-cog'></i> </a><h6>Stamsteder:</h6>");
          $("#favoriteWrapper").append('<a id="'+iMenucardSerialNumber+'" class="ui-btn" onclick="GetMenucard(\''+iMenucardSerialNumber+'\',2);"><h1>'+sRestuarentName+'</h1><p>'+sRestuarentAddress+'</p></a>');
 
 
@@ -917,18 +915,27 @@ function UseStamp(iMenucardSerialNumber,iMaxStamp) {
                  localStorage.setItem(iMenucardSerialNumber+".stamps",stamps);
 
                  // animation
-                 $("#getStampPage").html("<h1 style='padding-top: 50%;'>Sådan!</h1><h3>Stemplet er indløst.</h3>");
-                 $("#getStampPage").hide().velocity("transition.slideDownBigIn", 300);
+                $(".stampRedemeMessage").show();
+                 
+                 $('.keypad').hide();
+                 $('.inputGetStampwrapper').hide();
+                 $('#redemeStampDiv').hide();
                  setTimeout(function(){
+                    $(".stampRedemeMessage").hide(); 
+                    $('.keypad').show();
+                    $('.inputGetStampwrapper').show();
+                    $('#redemeStampDiv').show(); 
+                    
+                    //Remove old password
+                    $('.inputGetStamp').html(''); 
+
                     $("#getStampPage").hide().velocity("transition.slideDownBigOut", 300, function() {
 
 
-                          $(".inputGetStampwrapper").remove();
+                          //$(".inputGetStampwrapper").remove();
                            $("#getStampPage").velocity("transition.slideDownBigOut", 300, function() {
 
-                                   $(".succesAlert").remove();
-                                   $(".backGetStampBtn").remove();
-                                   $("#getStampPage").remove();
+                                  $(".stampRedemeMessage").hide();
                                    $(".backStampBtn").show();
                                    $("#stampPage").velocity("transition.expandIn", 400, function(){
                                        var stampsCounterText = $("#stampsCounterText").text().split('/');;
@@ -983,11 +990,11 @@ function UseStamp(iMenucardSerialNumber,iMaxStamp) {
     -Description: Get stamp
  */
 function GetStamp(iMenucardSerialNumber){
-$('.getmenuLoaderDiv').show();
+
                      
   var numbersOfStamps = $("#numOfStamps").text();
   if ($("#inputGetStamp4 span").length === 1){
-
+      $('.getmenuLoaderDiv').show();
       var Stampcode = $('#inputGetStamp1 span').html()+''+$('#inputGetStamp2 span').html()+''+$('#inputGetStamp3 span').html()+''+$('#inputGetStamp4 span').html();
       Stampcode = parseInt(Stampcode);
 
