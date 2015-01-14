@@ -784,7 +784,7 @@ function hideGetStampsPage(){
   $("#getStampPage").velocity("transition.slideUpBigOut", 200, function() {
       $("#getStampPage").hide();
       $("#stampPage").velocity("transition.shrinkIn", 400);
-      $(".backBtn").attr("onclick","backBtnSwich('hideStampPage');").addClass("rotate270");
+      $(".backBtn").attr("onclick","backBtnSwich('hideStampPage');").removeClass("rotate270");
   });
 
 }
@@ -808,7 +808,7 @@ function ShowKeyPad(iMenucardSerialNumber,sFunction,iMaxStamp){
         $("#stampPage").velocity("transition.shrinkOut", 400, function(){
 
           $("#stampPage").hide();
-          $(".backBtn").attr("onclick","backBtnSwich('hideGetStampsPage');").removeClass("rotate270");
+          $(".backBtn").attr("onclick","backBtnSwich('hideGetStampsPage');").addClass("rotate270");
 
           $('#GetStampBtn').attr('onclick',"GetStamp(\""+iMenucardSerialNumber+"\");");
 
@@ -826,7 +826,7 @@ function ShowKeyPad(iMenucardSerialNumber,sFunction,iMaxStamp){
         //Show keypad for Redeme stamp
         $("#stampPage").velocity("transition.shrinkOut", 400, function(){
           $("#stampPage").hide();
-          $(".backBtn").attr("onclick","backBtnSwich('hideGetStampsPage');").removeClass("rotate270");
+          $(".backBtn").attr("onclick","backBtnSwich('hideGetStampsPage');").addClass("rotate270");
 
           //Get number of freeitems
           var iNumberOfFreeItems = $('.choosenstampicon').length;
@@ -906,7 +906,7 @@ function UseStamp(iMenucardSerialNumber,iMaxStamp) {
 
                  //remove use free item
                  $('.choosenstampicon').remove();
-                 $(".backBtn").attr("onclick","backBtnSwich('hideStampPage');");
+                 $(".backBtn").attr("onclick","backBtnSwich('hideStampPage');").removeClass("rotate270");
                  $(".backBtn").addClass("rotate270");
 
                  // opdater antal stempler i localStorage
@@ -994,7 +994,7 @@ function GetStamp(iMenucardSerialNumber){
                      
   var numbersOfStamps = $("#numOfStamps").text();
   if ($("#inputGetStamp4 span").length === 1){
-      $('.getmenuLoaderDiv').show();
+$('.getmenuLoaderDiv').show();
       var Stampcode = $('#inputGetStamp1 span').html()+''+$('#inputGetStamp2 span').html()+''+$('#inputGetStamp3 span').html()+''+$('#inputGetStamp4 span').html();
       Stampcode = parseInt(Stampcode);
 
@@ -1018,7 +1018,7 @@ function GetStamp(iMenucardSerialNumber){
                         var stamps = parseInt(stamps) + parseInt(numbersOfStamps);
                         localStorage.setItem(iMenucardSerialNumber+".stamps",stamps);
 
-                        $(".backBtn").attr("onclick","backBtnSwich('hideStampPage');").addClass("rotate270");;
+                        $(".backBtn").attr("onclick","backBtnSwich('hideStampPage');").removeClass("rotate270");;
 
                         // animation
                          $("#getStampPage").velocity("transition.slideDownBigOut", 200, function() {
