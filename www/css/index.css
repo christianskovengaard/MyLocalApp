@@ -189,7 +189,12 @@ a,h1,h2,h3,h4,h5,h6,p,li{
     position: relative;
     float: right;
     display: inline-table;
-    margin: 4px 10px 0px 0px;
+    position: relative;
+    width: 40px;
+    height: 40px;
+    text-align: center;
+    padding-top: 10px;
+
 }
 .editFavorits.color {
     color: rgba(233, 150, 63, 1);
