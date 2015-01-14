@@ -101,13 +101,7 @@ function AutocompleteCafename() {
                     //hide loader gif
                     $('.autocompleteLoader').hide();
                     if($('#searchWrapper').html() === '' ){
-<<<<<<< HEAD
                         
-=======
-                        //alert('Den søgte café findes ikke');
-                        //Show text box
-                        $('#searchWrapper').html('<a class="ui-btn"><h1>Den søgte café findes ikke</h1></a>');
->>>>>>> FETCH_HEAD
                     }
                  }
              });
@@ -637,7 +631,7 @@ function SaveUserFavorites(iMenucardSerialNumber,sRestuarentName,sRestuarentAddr
          localStorage.setItem("aUserFavorits", aUserFavorites);
 
          //make favorit block
-         $("#favoriteWrapper").append("<h6>Stamsteder:</h6>");
+         $("#favoriteWrapper").append("<a class='editFavorits' onclick='editFavorits();'><i class='fa fa-cog'></i> </a><h6>Stamsteder:</h6>");
          $("#favoriteWrapper").append('<a id="'+iMenucardSerialNumber+'" class="ui-btn" onclick="GetMenucard(\''+iMenucardSerialNumber+'\',2);"><h1>'+sRestuarentName+'</h1><p>'+sRestuarentAddress+'</p></a>');
 
 
@@ -704,9 +698,7 @@ function ShowStampPage(iMenucardSerialNumber,iUserStamps,MaxStamps){
 
                                   $('.stampcardText').html(localStorage.getItem(iMenucardSerialNumber+".sStampcardText"));
                                   $('.iFreeItemCounter').html('Du har nu '+iFreeItems+' gratis');
-                                  if( iFreeItems > 0 ){
-                                      $("#FreeItemsBlock").html("<h3 class='textuse'>brug:</h3>");
-                                  }
+
                                   var freeItemsString = '';
                                   for (var i = 1; i <= iFreeItems; i++){
                                       freeItemsString += "<div class='stampCircleIcon' onclick='ChooseStampCircle(this);'><p>"+i+"</p></div>";
@@ -714,7 +706,9 @@ function ShowStampPage(iMenucardSerialNumber,iUserStamps,MaxStamps){
                                   $("#FreeItemsBlock").append(freeItemsString);
 
                                   $("#FreeItemsBlock .stampCircleIcon").hide().velocity("transition.slideUpIn", { display:"inline-block", duration: 800 });
-                                  
+                                  if( iFreeItems > 0 ){
+                                      $("#FreeItemsBlock").prepend("<h3 class='textuse'>brug:</h3>");
+                                  }
                                   $("#stampPage").append("<a class='useStampsBtn' onclick='ShowKeyPad(\""+iMenucardSerialNumber+"\",2,"+MaxStamps+");'>OK</a>");
                       });
               });
