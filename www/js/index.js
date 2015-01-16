@@ -493,19 +493,25 @@ function GetMenucard(sName_sNumber,sFunction){
 
 
                     //******** STAMPS ********//
+                    
+                    
+                    //Hide or show stampcard
+                    if(result.oStampcard.iStampcardActive === '1'){
+                        //Get user stamps
+                        var iStamps = localStorage.getItem(sSerialNumberCaps+".stamps");
+                        //Calculate stamps left
+                        var iFreeItems = Math.floor(iStamps / result.oStampcard.iStampcardMaxStamps);
+                        var iStampsLeft = iStamps - ( iFreeItems * result.oStampcard.iStampcardMaxStamps);
+                        var sStampcardText = result.oStampcard.sStampcardText;
+                        localStorage.setItem(sSerialNumberCaps+".sStampcardText", sStampcardText);
+                        if(iStampsLeft === null){iStampsLeft = 0;}
 
-                    //Get user stamps
-                    var iStamps = localStorage.getItem(sSerialNumberCaps+".stamps");
-                    //Calculate stamps left
-                    var iFreeItems = Math.floor(iStamps / result.oStampcard.iStampcardMaxStamps);
-                    var iStampsLeft = iStamps - ( iFreeItems * result.oStampcard.iStampcardMaxStamps);
-                    var sStampcardText = result.oStampcard.sStampcardText;
-                    localStorage.setItem(sSerialNumberCaps+".sStampcardText", sStampcardText);
-                    if(iStampsLeft === null){iStampsLeft = 0;}
-
-                    $('#makeStampPageBtn').attr('onclick','ShowStampPage(\''+sSerialNumberCaps+'\','+iStamps+','+result.oStampcard.iStampcardMaxStamps+');');
-                    $('#stampTotal p').html(iStampsLeft);
-
+                        $('#makeStampPageBtn').attr('onclick','ShowStampPage(\''+sSerialNumberCaps+'\','+iStamps+','+result.oStampcard.iStampcardMaxStamps+');');
+                        $('#stampTotal p').html(iStampsLeft);
+                    }else{
+                       //Hide stampcard button
+                       $('#stampBlock').hide();
+                    }
 
                     //********** MENU *********//
 
