@@ -508,6 +508,8 @@ function GetMenucard(sName_sNumber,sFunction){
 
                         $('#makeStampPageBtn').attr('onclick','ShowStampPage(\''+sSerialNumberCaps+'\','+iStamps+','+result.oStampcard.iStampcardMaxStamps+');');
                         $('#stampTotal p').html(iStampsLeft);
+                        
+                        $('#stampBlock').show();
                     }else{
                        //Hide stampcard button
                        $('#stampBlock').hide();
