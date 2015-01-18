@@ -26,7 +26,7 @@
                         <!-- onkeyup="if (event.keyCode == 13) { findMenuCard(); }" -->
                         <!-- <img src="img/search.png" onclick="findMenuCard();"> -->
                         <img src="img/search.png">
-                        <img src="img/clear.svg" class="clear" onclick="ClearSearchInput();">
+                        <img src="img/back.png" class="clear" onclick="ClearSearchInput();">
                    </div>
                    <div class="searchWrapper" id="searchWrapper"></div>
                    <img class='autocompleteLoader' src='img/loader.GIF' alt='' />
@@ -45,7 +45,7 @@
         </div>
         <div id="menu">
             <div class="pageWrapper" id="pageWrapper"></div>        
-            <a id="backButtonL" onclick="ClearSearchInput();"><img class="backBtn rotate270" src="img/backWhite.png"< alt="backbutton" onclick="backBtnSwich('home');"></a>
+            <a id="backButtonL" onclick="ClearSearchInput();"><img class="backBtn rotate270" src="img/backWhite.png" alt="backbutton" onclick="backBtnSwich('home');"></a>
             <div class="cafeNameField fixedTop"><h1></h1></div>
             <div class="menuheader">
                 <div class="swiper-container">
@@ -59,6 +59,7 @@
                 <p id="sRestuarentAddressHead"></p>
                 <p id="sRestuarentZipcodeAndCityHead"></p>
                 <img class="img_right" alt="" onclick="InfoToggle();" src="img/info.png">
+                <img class="img_map_right" id="openMapFromRes" alt="" onclick=""  src="img/map_marker.png">
                 <div id="infoBlock">
                     <ul>
                         <li class="dishPoint PhoneNumber">
@@ -137,19 +138,93 @@
                 <p></p>
             </div>
         </div> <!-- end id=menu -->
-        
+
+
+        <div id="map">
+            <div id="map_go_back">
+                <img src="img/backWhite.png" height="40" alt=""/>
+            </div>
+            <div id="map_henter_placering">
+                <img src="img/loader.GIF" alt=""/>
+
+                <p>Henter placering . . .</p>
+            </div>
+            <div id="google_map">
+
+            </div>
+
+
+            <div id="map_toggle_outer" >
+                <div id="toggle_ma">luk</div>
+            </div>
+            <div id="map_placering_outer"  >
+                <div id="toggle_pl">
+                    <span></span>
+                    Min placering</div>
+            </div>
+
+
+            <div id="map_list">
+                <div id="map_list_ingen_resultater">
+                    Ingen cafere inde for 5 km
+                </div>
+                <div id="map_list_data"></div>
+            </div>
+        </div>
+
+
+        <div id="res_map">
+            <div id="res_map_go_back" onclick="resMap.close()">
+                <img src="img/backWhite.png" height="40" alt=""/>
+            </div>
+
+            <div id="res_map_google_map">
+
+            </div>
+
+            <div id="res_map_addr">
+                <table style="width: 100%;">
+                    <tr>
+                        <td>
+                            <table>
+                                <tr>
+                                    <td id="res_map_addr_navn" style="font-family: 'Roboto', sans-serif;font-size: 22px;">
+                                        navn
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td id="res_map_addr_addr">
+                                        addr
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                        <td style="width: 100px; text-align: center" onclick="resMap.openLink()">
+                            <img width="50" src="img/google_maps.png" alt=""/><br/>
+                            <span style="font-size: 15px; text-decoration: none; color: #000">Google maps</span>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+
+
         <script src="js/jquery.js"></script>
+        <!--<script src="cordova.js"></script>-->
         <script type="text/javascript" src="js/jquery.velocity.min.js"></script>
-        <script type="text/javascript" src="js/velocity.ui.js"></script>       
-        <script type="text/javascript" src="js/idangerous.swiper-2.1.min.js"></script>         
+        <script type="text/javascript" src="js/velocity.ui.js"></script>
+        <script type="text/javascript" src="js/idangerous.swiper-2.1.min.js"></script>
+        <script type="text/javascript" src="js/maps.js"></script>
         <script type="text/javascript" src="js/index.js"></script>
         <script type="text/javascript" src="js/fastclick.js"></script>
         <script>
             $(document).ready(function(){
                 getMessagesAndStamps();
                 FastClick.attach(document.body);
+                initilizeEvents();
             });
-            
+
         </script>
         <!--<script type="text/javascript" src="cordova.js"></script>-->
         <!--<script type="text/javascript">

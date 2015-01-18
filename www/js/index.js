@@ -1,10 +1,12 @@
 //SET GLOBALS
 
 //Offline
-//var sAPIURL = 'http://localhost/MyLocalMenu/API/api.php';
+var sAPIURL = 'http://192.168.87.103/MyLocalMenu/API/api.php';
+var sAPIURLmapdata = 'http://192.168.87.103/MyLocalMenu/API/map_data.json';
 
 //Online
-var sAPIURL = 'http://mylocalcafe.dk/API/api.php';
+//var sAPIURL = 'http://mylocalcafe.dk/API/api.php';
+//var sAPIURLmapdata = 'http://mylocalcafe.dk/API/map_data.json';
 
 window.onload = function(){
     CheckInternetConnection();
@@ -30,7 +32,7 @@ function AutocompleteCafename() {
    //Check if FindCafe input element is empty
    if($('#FindCafe').val().length === 0 ) {
        $('#searchWrapper').html('');
-       $(".clear").hide();
+       //$(".clear").hide();
        //$("#home").css("padding-bottom","550px");
    }
    /*if($('#FindCafe').val().length === 1) {
@@ -101,7 +103,7 @@ function AutocompleteCafename() {
                     //hide loader gif
                     $('.autocompleteLoader').hide();
                     if($('#searchWrapper').html() === '' ){
-                        
+
                     }
                  }
              });
@@ -138,7 +140,7 @@ function SearchInputUp() {
       });
       $("#home").css("padding-bottom","550px");
       $(".clear").show();
-      
+
 }
 function SearchInputDown() {
     if($('#FindCafe').val().length === 0) {
@@ -266,26 +268,28 @@ function makeFavorits() {
     }
 }
 
-
-function editFavorits(){
-  if( $(".deleteFavorite").length > 0 ){
-    $(".deleteFavorite").remove();
-    $(".favoriteWrapper .ui-btn").each(function(i){
-      var id = $(this).attr('id');
-      $(this).attr("onclick","GetMenucard('"+id+"',2);");
-      $(".editFavorits").removeClass("color");
-      $(".newMgs").show();
-    });
-  }
-  else{
-        $(".favoriteWrapper .ui-btn").each(function(i){
-        $(this).append('<div class="deleteFavorite" onclick="FavoritDelete(this);"> <i class="fa fa-trash-o"></i></div>');
-        $(this).removeAttr("onclick");
-        $(this).attr("onclick","editFavoritsAlert();");
-        $(".newMgs").hide();
+var editFav = false;
+function editFavorits() {
+    if (editFav) {
+        editFav = false;
+        $(".editFavorits").removeClass("color");
+        $(".deleteFavorite").remove();
+        $(".favoriteWrapper .ui-btn").each(function (i) {
+            var id = $(this).attr('id');
+            $(this).attr("onclick", "GetMenucard('" + id + "',2);");
+            $(".newMgs").show();
+        });
+    }
+    else {
+        editFav = true;
         $(".editFavorits").addClass("color");
-      });
-  }
+        $(".favoriteWrapper .ui-btn").each(function (i) {
+            $(this).append('<div class="deleteFavorite" onclick="FavoritDelete(this);"> <i class="fa fa-trash-o"></i></div>');
+            $(this).removeAttr("onclick");
+            $(this).attr("onclick", "editFavoritsAlert();");
+            $(".newMgs").hide();
+        });
+    }
 }
 function editFavoritsAlert() {
     $(".fa-cog").velocity("callout.tadaaa", 700);
@@ -366,7 +370,7 @@ function getMessagesAndStamps() {
     }
 }*/
 
-
+var IsAGalleryInRestuatent = false;
 function GetMenucard(sName_sNumber,sFunction){
 
 
@@ -445,9 +449,15 @@ function GetMenucard(sName_sNumber,sFunction){
                         });
                         galleryimages += "<div class='headerGalleryFade'></div>";
                         $(".swiper-wrapper").append(galleryimages);
+                        $(".menuheader").css('height','auto');
+                        $('.headTitle').css('visibility', "visible");
+                        IsAGalleryInRestuatent = true;
+
                     }
                     else {
+                        IsAGalleryInRestuatent = false;
                       $(".menuheader").css("height","0px");
+                        $('.headTitle').css('visibility', 'hidden');
                     }
 
                     //******** MESSAGES ********//
@@ -552,6 +562,11 @@ function GetMenucard(sName_sNumber,sFunction){
                             if(sMenucardInfoParagraph === ''){sMenucardInfoParagraph = '<div></div>';}
                             $('.infoBlock p').html(sMenucardInfoParagraph);
                     });
+
+                    $('#openMapFromRes').attr("onclick", "resMap.open('" + result.sRestuarentName.replace(/'/g, "\\'") + "','"+result.sRestuarentAddress.replace(/'/g, "\\'")+"',"+result.oPlace.dLat+","+result.oPlace.dLng+");");
+
+
+                 startRequestAnimationFrame();
                 }
                 else {
                     $(".spinner div").css({'animation-name':'none','width':'100%'});
@@ -561,6 +576,43 @@ function GetMenucard(sName_sNumber,sFunction){
                 }
             });
             CheckIfDOMLoaded();
+    }
+}
+window.requestAnimFrame = (function(){
+    return  window.requestAnimationFrame       ||
+        window.webkitRequestAnimationFrame ||
+        window.mozRequestAnimationFrame    ||
+        function( callback ){
+            window.setTimeout(callback, 1000 / 60);
+        };
+})();
+
+var isStaticHeaderVisible = true;
+var requestAnimationFrameContinue = false;
+var startRequestAnimationFrameOnResume = false;
+function startRequestAnimationFrame(){
+    requestAnimationFrameContinue = true;
+    requestAnimFrame(removeStaticHeaderInPoint);
+}
+function removeStaticHeaderInPoint() {
+    console.log('animatinframe');
+    // Do whatever
+    if(IsAGalleryInRestuatent ) {
+        if(window.pageYOffset>197) {
+            if (isStaticHeaderVisible) {
+                $('.headTitle').css('visibility', 'hidden');
+                isStaticHeaderVisible = false;
+            }
+        }else {
+            if (!isStaticHeaderVisible) {
+                $('.headTitle').css('visibility', "visible");
+                isStaticHeaderVisible = true;
+            }
+        }
+    }
+
+    if(requestAnimationFrameContinue) {
+        requestAnimFrame(removeStaticHeaderInPoint);
     }
 }
 
@@ -739,7 +791,13 @@ function ChooseStampCircle(elem) {
 function backBtnSwich(action){
   switch(action) {
     case "home":
-        showHomePage();
+        requestAnimationFrameContinue = false;
+        IsAGalleryInRestuatent = false;
+        if(pinMap.openFromMap) {
+            pinMap.goBackFromMenu()
+        }else{
+            showHomePage();
+        }
         break;
     case "hideStampPage":
         hideStampPage();
@@ -797,7 +855,7 @@ function makeStampCounter(iStampsLeft,iStampsForFree){
 }
 
 function ShowKeyPad(iMenucardSerialNumber,sFunction,iMaxStamp){
-
+    $('.inputGetStamp span').remove();
   if(sFunction === 1){
 
         //Show the keypad for get stamp
@@ -977,10 +1035,10 @@ function UseStamp(iMenucardSerialNumber,iMaxStamp) {
     -Description: Get stamp
  */
 function GetStamp(iMenucardSerialNumber){
-$('.getmenuLoaderDiv').show();
-                     
-  var numbersOfStamps = $("#numOfStamps").text();
   if ($("#inputGetStamp4 span").length === 1){
+      $('.getmenuLoaderDiv').show();
+
+      var numbersOfStamps = $("#numOfStamps").text();
 
       var Stampcode = $('#inputGetStamp1 span').html()+''+$('#inputGetStamp2 span').html()+''+$('#inputGetStamp3 span').html()+''+$('#inputGetStamp4 span').html();
       Stampcode = parseInt(Stampcode);
@@ -1137,4 +1195,369 @@ $('.getmenuLoaderDiv').show();
     };
     $(window).scroll(move);
     move();
+}
+var resMap = {
+    map:false,
+    pin: false,
+    place: {lat:0,lng:0},
+    open:function(navn, addr, lat, lng){
+        this.place.lat = lat;
+        this.place.lng = lng;
+        $('#menu').velocity('fadeOut',200);
+        $('#res_map').velocity('fadeIn',200);
+        $('#res_map_addr_navn').html(navn);
+        $('#res_map_addr_addr').html(addr);
+        if(this.map===false) {
+            this.map = new google.maps.Map(document.getElementById("res_map_google_map"), {
+                center: new google.maps.LatLng(lat, lng),
+                zoom: 15,
+                mapTypeId: google.maps.MapTypeId.ROADMAP,
+                disableDefaultUI: true,
+                styles: [
+                    {
+                        featureType: "poi",
+                        elementType: "labels",
+                        stylers: [
+                            { visibility: "off" }
+                        ]
+                    }
+                ]
+            });
+            google.maps.event.addListenerOnce(this.map, 'idle', function(){
+                google.maps.event.trigger(resMap.map, "resize");
+                resMap.map.setCenter(new google.maps.LatLng(lat, lng));
+            });
+            this.pin = new google.maps.Marker({
+                position: new google.maps.LatLng(lat, lng),
+                title: navn,
+                animation: google.maps.Animation.DROP,
+                icon: new google.maps.MarkerImage("img/cafeHere.png",
+                    new google.maps.Size(42, 50),
+                    new google.maps.Point(0,0),
+                    new google.maps.Point(21, 50)
+                )
+            });
+            this.pin.setMap(this.map);
+        }else {
+            this.map.setCenter(new google.maps.LatLng(lat, lng));
+            this.pin.setCenter(new google.maps.LatLng(lat, lng));
+            this.pin.setTitle(navn);
+        }
+    },
+    openLink: function(){
+        openURL("http://maps.google.com/maps?q="+this.place.lat+","+this.place.lng+"&ll="+this.place.lat+","+this.place.lng+"&z="+this.map.getZoom())
+    },
+    close:function(){
+        $('#menu').velocity('fadeIn',200);
+        $('#res_map').velocity('fadeOut',200)
+    }
+};
+var pinMap = {
+    distanceFrom:function(points) {
+        return 6371 * 2 * Math.asin(Math.min(1, Math.sqrt(Math.pow(Math.sin((points.lat1 * (Math.PI / 180) - points.lat2 * (Math.PI / 180)) / 2), 2.0) + Math.cos(points.lat1 * (Math.PI / 180)) * Math.cos(points.lat2 * (Math.PI / 180)) * Math.pow(Math.sin((points.lng1 * (Math.PI / 180) - points.lng2 * (Math.PI / 180)) / 2), 2.0))));
+    },
+    firstLocation: true,
+    map:false,
+    mapData:false,
+    pinsIsShow:[],
+    pinData:[],
+    wathId:false,
+    herErJeg: new google.maps.Marker({
+        position: new google.maps.LatLng(0, 0),
+        icon: new google.maps.MarkerImage("img/mapHereAreYou.png",
+            new google.maps.Size(14, 14),
+            new google.maps.Point(0,0),
+            new google.maps.Point(7,7)
+        )
+    }),
+    herErJegA: new google.maps.Circle({
+        center:new google.maps.LatLng(0, 0),
+        radius:0,
+        fillColor:"#1966e8",
+        fillOpacity:0.1,
+        strokeOpacity:0,
+        strokeWeight:0
+    }),
+    openFromMap: false,
+    isListOpen: true,
+    lastPosition: {latitude:0,longitude:0},
+    showPosition: function (position) {
+        if (pinMap.firstLocation) {
+            pinMap.firstLocation = false;
+            $('#map_henter_placering').velocity("fadeOut", 200);
+            $('#map_list, #map_toggle_outer, #map_placering_outer').velocity('fadeIn', 200);
+            pinMap.map = new google.maps.Map(document.getElementById("google_map"), {
+                center: new google.maps.LatLng(position.coords.latitude, position.coords.longitude),
+                zoom: 14,
+                mapTypeId: google.maps.MapTypeId.ROADMAP,
+                disableDefaultUI: true,
+                styles: [
+                    {
+                        featureType: "poi",
+                        elementType: "labels",
+                        stylers: [
+                            { visibility: "off" }
+                        ]
+                    }
+                ]
+            });
+            google.maps.event.addListenerOnce(pinMap.map, 'idle', function(){
+                google.maps.event.trigger(pinMap.map, "resize");
+            });
+            google.maps.event.addListener(pinMap.map, 'dragend', function() {
+                if(pinMap.mapData !== false) {
+                    pinMap.updatePins();
+                }
+            });
+            google.maps.event.addListener(pinMap.map, 'zoom_changed', function() {
+                if(pinMap.mapData !== false) {
+                    pinMap.updatePins();
+                }
+            });
+            pinMap.herErJeg.setMap(pinMap.map);
+            pinMap.herErJegA.setMap(pinMap.map);
+        }
+        pinMap.herErJeg.setPosition(new google.maps.LatLng(position.coords.latitude, position.coords.longitude));
+        pinMap.herErJegA.setCenter(new google.maps.LatLng(position.coords.latitude, position.coords.longitude));
+        pinMap.herErJegA.setRadius(position.coords.accuracy)
+        if(pinMap.mapData === false) {
+            $.get(sAPIURLmapdata, function(data) {
+                if(typeof data == "string") {
+                    data = JSON.parse(data)
+                }
+                pinMap.mapData=data;
+                pinMap.updatePins();
+                pinMap.updateList(position.coords);
+            })
+        }else {
+            pinMap.updatePins();
+            pinMap.updateList(position.coords);
+        }
+        delete pinMap;
+    },
+    gps_fail: function(error) {
+        $('#map_henter_placering p').html("Henter placering . . .<br><span style='font-weight: bold'>Aktiver din gps hvis den er slået fra</span>")
+    },
+    openMap: function openMapFromHome() {
+        $("#home").velocity("fadeOut", 200, function () {
+            $(window).scrollTop(0);
+        }).hide();
+        $('#map').velocity('fadeIn', 200);
+        this.wathId = navigator.geolocation.watchPosition(
+            this.showPosition
+            ,this.gps_fail, {
+                 'enableHighAccuracy': true,
+                'maximumAge': 15000,
+                'timeout': 14000
+            });
+        setInterval(function(){
+            if(pinMap.firstLocation) {
+                navigator.geolocation.clearWatch(pinMap.wathId);
+                pinMap.wathId = navigator.geolocation.watchPosition(
+                    pinMap.showPosition
+                    ,pinMap.gps_fail, {
+                         'enableHighAccuracy': true,
+                        'maximumAge': 15000,
+                        'timeout': 14000
+                    });
+            }
+        },33000)
+    },
+    updatePins: function (){
+        var area = this.map.getBounds();
+        for (var i = 0; i < this.mapData.length; i++) {
+            var obj = this.mapData[i];
+            if(!(this.pinsIsShow.indexOf(i) > -1)) {
+                if(
+                    obj[2] > area.Ea.k &&
+                    obj[2] < area.Ea.j &&
+                    obj[3] > area.wa.j &&
+                    obj[3] < area.wa.k
+                ){
+                    this.pinsIsShow.push(i);
+                    var mapmarker = new google.maps.Marker({
+                        position: new google.maps.LatLng(obj[2], obj[3]),
+                        title: obj[1],
+                        animation: google.maps.Animation.DROP,
+                        icon: new google.maps.MarkerImage("img/cafeHere.png",
+                            new google.maps.Size(42, 50),
+                            new google.maps.Point(0,0),
+                            new google.maps.Point(21, 50)
+                        )
+                    });
+                    this.pinData[i] = (
+                    {
+                        obj: obj,
+                        mapmarker: mapmarker
+                    }
+                    );
+                    this.pinData[i].mapmarker.setMap(this.map);
+                    google.maps.event.addListener(mapmarker, 'click', (function (mapmarker, i) {
+                        return function () {
+                            pinMap.openMenu(pinMap.pinData[i].obj[0])
+                        }
+                    })(mapmarker, i));
+                }
+            }
+        }
+    },
+    updateList: function (cords){
+        if(
+            Math.abs(cords.latitude-this.lastPosition.latitude) < 0.0003 &&
+            Math.abs(cords.longitude-this.lastPosition.longitude) < 0.0003
+        ){
+            return;
+        }
+        this.lastPosition = cords;
+        var result = [];
+        for (var i = 0; i < this.mapData.length; i++) {
+            var obj = this.mapData[i]
+            var afstand = this.distanceFrom({
+                'lat1': cords.latitude,
+                'lng1': cords.longitude,
+                'lat2': obj[2],
+                'lng2': obj[3]
+            })
+            if (afstand < 5.01) {
+                result.push({afstand: afstand, hvad: obj});
+            }
+            delete obj;
+            delete afstand;
+        }
+        result.sort(function (a, b) {
+            return a.afstand - b.afstand;
+        });
+        if (result.length == 0) {
+            $('#vis').html('');
+            $('#map_list_ingen_resultater').show();
+        } else {
+            $('#map_list_ingen_resultater').hide();
+        }
+        var liste_html="";
+        for (var i = 0; i < result.length; i++) {
+            liste_html += '<div onclick="pinMap.openMenu(\''+result[i].hvad[0].replace(/'/g, "\\'")+'\')"><table><tr><td>' + result[i].hvad[0] + '</td><td>' + Math.round(result[i].afstand * 10) / 10 + ' km</td></tr><tr><td>' + result[i].hvad[1] + '</td></tr></table></div>'
+        }
+        $('#map_list_data').html(liste_html);
+        delete liste_html;
+    },
+    openMenu: function(navn){
+        navigator.geolocation.clearWatch(this.wathId);
+        $('#map').velocity('fadeOut', 200);
+        pinMap.openFromMap = true;
+        GetMenucard(navn,1)
+    },
+    goBackFromMenu: function(){
+        pinMap.openFromMap = false;
+        $("#menu").hide();
+        $(".introScreen").hide();
+        $('#map').velocity('fadeIn', 200);
+        this.wathId = navigator.geolocation.watchPosition(
+            this.showPosition
+            ,this.gps_fail, {
+                'enableHighAccuracy': true,
+                'maximumAge': 15000,
+                'timeout': 14000
+            });
+    },
+    closeMap: function () {
+        navigator.geolocation.clearWatch(this.wathId);
+        $('#map').velocity('fadeOut', 200);
+        $("#home").velocity("fadeIn", 200);
+    },
+    toggleList: function () {
+        if(this.isListOpen) {
+            this.isListOpen = false;
+            $('#map #map_toggle_outer, #map #map_list, #map #map_placering_outer').addClass('luk');
+            $('#toggle_ma').html('åben')
+        }else {
+            this.isListOpen = true;
+            $('#map #map_toggle_outer, #map #map_list, #map #map_placering_outer').removeClass('luk');
+            $('#toggle_ma').html('luk')
+        }
+    },
+    centerMapLocation: function(){
+        if(this.map) {
+            this.map.panTo(this.herErJeg.getPosition())
+        }
+    }
+};
+google.maps.event.addDomListener(window, 'load', function(){
+    $('#map_go_back').click(function(){
+        pinMap.closeMap()
+    });
+    $('.logo_home').click(function(){
+        pinMap.openMap()
+    });
+    $('#toggle_ma').click(function () {
+        pinMap.toggleList();
+    });
+    $('#toggle_pl').click(function () {
+        pinMap.centerMapLocation();
+    });
+});
+function initilizeEvents() {
+    document.addEventListener('deviceready', onDeviceReady, false);
+}
+function onDeviceReady() {
+    document.addEventListener("pause", onPause, false);
+    document.addEventListener("resume", onResume, false);
+    document.addEventListener("backbutton", onBackKeyDown, false);
+}
+function onBackKeyDown() {
+    if($('#map').is(":visible")) {
+        pinMap.closeMap();
+        return true;
+    }
+    if($('#home').is(":visible") && $('#home').css('paddingBottom') == "550px"){
+        ClearSearchInput();
+        return true;
+    }
+    if($('#menu').is(":visible")) {
+        if($('#menuBlock').is(":visible")) {
+            backBtnSwich('home');
+            return true;
+        }
+        if($('#stampPage').is(":visible")) {
+            backBtnSwich('hideStampPage');
+            return true;
+        }
+        if($('#getStampPage').is(":visible")) {
+            backBtnSwich('hideGetStampsPage');
+            return true;
+        }
+    }
+    navigator.app.exitApp();
+}
+function onResume() {
+    console.log('resume');
+    if($('#map').is(":visible")){
+        pinMap.wathId = navigator.geolocation.watchPosition(
+            pinMap.showPosition
+            ,pinMap.gps_fail, {
+                'enableHighAccuracy': true,
+                'maximumAge': 15000,
+                'timeout': 14000
+            });
+    }
+    if(startRequestAnimationFrameOnResume) {
+        startRequestAnimationFrameOnResume = false;
+        startRequestAnimationFrame();
+    }
+}
+function onPause() {
+    console.log('pause');
+    if(pinMap.wathId) {
+        navigator.geolocation.clearWatch(pinMap.wathId)
+    }
+    if(requestAnimationFrameContinue) {
+        startRequestAnimationFrameOnResume = true;
+        requestAnimationFrameContinue = false;
+    }
+}
+function openURL(urlString){
+    myURL = encodeURI(urlString);
+    // Android:
+    navigator.app.loadUrl(myURL, {openExternal : true});
+    // IOS:
+    //window.open(myURL, '_system');
 }
