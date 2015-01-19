@@ -133,22 +133,19 @@ a,h1,h2,h3,h4,h5,h6,p,li{
     background: #fff;
     width: 76%;
     margin: 20px auto 0 auto;
-    padding: 10px 7% 10px 7%;
+    padding: 10px 10% 10px 4%;;
 }
-@media screen and (max-width: 420px){
-    #home .form {
-        padding: 10px 5% 10px 9%;
-    }
-}
+
 #home input {
     position: relative;
     display: inline-table;
     border: 0;
-    width: 100%;
+    width: 92%;
     font-size: 23px;
     outline: none;
     margin: 0 0 0 0px; 
     vertical-align: middle;
+    left: 5px;
 }
 
 #home .form img {
