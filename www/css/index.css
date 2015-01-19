@@ -133,7 +133,12 @@ a,h1,h2,h3,h4,h5,h6,p,li{
     background: #fff;
     width: 76%;
     margin: 20px auto 0 auto;
-    padding: 10px 10% 10px 4%;
+    padding: 10px 7% 10px 7%;
+}
+@media screen and (max-width: 420px){
+    #home .form {
+        padding: 10px 5% 10px 9%;
+    }
 }
 #home input {
     position: relative;
@@ -151,16 +156,17 @@ a,h1,h2,h3,h4,h5,h6,p,li{
     display: inline-table;
     float: right;
     margin: 0 10px 0 10px;
-    width: 28px;
+    width: 23px;
     position: absolute;
-    top: 10px;
+    top: 11px;
     right: 0px;
+    opacity: .5;
 }
 
 #home .form .clear {
     margin: 0;
     display: none;
-    right: 50px;
+    left: 2%;
 }
 
 .searchWrapper {

@@ -30,7 +30,7 @@ function AutocompleteCafename() {
    //Check if FindCafe input element is empty
    if($('#FindCafe').val().length === 0 ) {
        $('#searchWrapper').html('');
-       $(".clear").hide();
+       //$(".clear").hide();
        //$("#home").css("padding-bottom","550px");
    }
    /*if($('#FindCafe').val().length === 1) {
@@ -270,26 +270,28 @@ function makeFavorits() {
     }
 }
 
-
-function editFavorits(){
-  if( $(".deleteFavorite").length > 0 ){
-    $(".deleteFavorite").remove();
-    $(".favoriteWrapper .ui-btn").each(function(i){
-      var id = $(this).attr('id');
-      $(this).attr("onclick","GetMenucard('"+id+"',2);");
-      $(".editFavorits").removeClass("color");
-      $(".newMgs").show();
-    });
-  }
-  else{
-        $(".favoriteWrapper .ui-btn").each(function(i){
-        $(this).append('<div class="deleteFavorite" onclick="FavoritDelete(this);"> <i class="fa fa-trash-o"></i></div>');
-        $(this).removeAttr("onclick");
-        $(this).attr("onclick","editFavoritsAlert();");
-        $(".newMgs").hide();
+var editFav = false;
+function editFavorits() {
+    if (editFav) {
+        editFav = false;
+        $(".editFavorits").removeClass("color");
+        $(".deleteFavorite").remove();
+        $(".favoriteWrapper .ui-btn").each(function (i) {
+            var id = $(this).attr('id');
+            $(this).attr("onclick", "GetMenucard('" + id + "',2);");
+            $(".newMgs").show();
+        });
+    }
+    else {
+        editFav = true;
         $(".editFavorits").addClass("color");
-      });
-  }
+        $(".favoriteWrapper .ui-btn").each(function (i) {
+            $(this).append('<div class="deleteFavorite" onclick="FavoritDelete(this);"> <i class="fa fa-trash-o"></i></div>');
+            $(this).removeAttr("onclick");
+            $(this).attr("onclick", "editFavoritsAlert();");
+            $(".newMgs").hide();
+        });
+    }
 }
 function editFavoritsAlert() {
     $(".fa-cog").velocity("callout.tadaaa", 700);
@@ -370,7 +372,7 @@ function getMessagesAndStamps() {
     }
 }*/
 
-
+var IsAGalleryInRestuatent = false;
 function GetMenucard(sName_sNumber,sFunction){
 
 
@@ -449,9 +451,15 @@ function GetMenucard(sName_sNumber,sFunction){
                         });
                         galleryimages += "<div class='headerGalleryFade'></div>";
                         $(".swiper-wrapper").append(galleryimages);
+                        $(".menuheader").css('height','auto');
+                        $('.headTitle').css('visibility', "visible");
+                        IsAGalleryInRestuatent = true;
+
                     }
                     else {
+                        IsAGalleryInRestuatent = false;
                       $(".menuheader").css("height","0px");
+                        $('.headTitle').css('visibility', 'hidden');
                     }
 
                     //******** MESSAGES ********//
@@ -493,8 +501,8 @@ function GetMenucard(sName_sNumber,sFunction){
 
 
                     //******** STAMPS ********//
-                    
-                    
+
+
                     //Hide or show stampcard
                     if(result.oStampcard.iStampcardActive === '1'){
                         //Get user stamps
@@ -508,7 +516,7 @@ function GetMenucard(sName_sNumber,sFunction){
 
                         $('#makeStampPageBtn').attr('onclick','ShowStampPage(\''+sSerialNumberCaps+'\','+iStamps+','+result.oStampcard.iStampcardMaxStamps+');');
                         $('#stampTotal p').html(iStampsLeft);
-                        
+
                         $('#stampBlock').show();
                     }else{
                        //Hide stampcard button
@@ -564,6 +572,8 @@ function GetMenucard(sName_sNumber,sFunction){
                             if(sMenucardInfoParagraph === ''){sMenucardInfoParagraph = '<div></div>';}
                             $('.infoBlock p').html(sMenucardInfoParagraph);
                     });
+
+                 startRequestAnimationFrame();
                 }
                 else {
                     $(".spinner div").css({'animation-name':'none','width':'100%'});
@@ -573,6 +583,43 @@ function GetMenucard(sName_sNumber,sFunction){
                 }
             });
             CheckIfDOMLoaded();
+    }
+}
+window.requestAnimFrame = (function(){
+    return  window.requestAnimationFrame       ||
+        window.webkitRequestAnimationFrame ||
+        window.mozRequestAnimationFrame    ||
+        function( callback ){
+            window.setTimeout(callback, 1000 / 60);
+        };
+})();
+
+var isStaticHeaderVisible = true;
+var requestAnimationFrameContinue = false;
+var startRequestAnimationFrameOnResume = false;
+function startRequestAnimationFrame(){
+    requestAnimationFrameContinue = true;
+    requestAnimFrame(removeStaticHeaderInPoint);
+}
+function removeStaticHeaderInPoint() {
+    console.log('animatinframe');
+    // Do whatever
+    if(IsAGalleryInRestuatent ) {
+        if(window.pageYOffset>197) {
+            if (isStaticHeaderVisible) {
+                $('.headTitle').css('visibility', 'hidden');
+                isStaticHeaderVisible = false;
+            }
+        }else {
+            if (!isStaticHeaderVisible) {
+                $('.headTitle').css('visibility', "visible");
+                isStaticHeaderVisible = true;
+            }
+        }
+    }
+
+    if(requestAnimationFrameContinue) {
+        requestAnimFrame(removeStaticHeaderInPoint);
     }
 }
 
@@ -751,6 +798,8 @@ function ChooseStampCircle(elem) {
 function backBtnSwich(action){
   switch(action) {
     case "home":
+        requestAnimationFrameContinue = false;
+        IsAGalleryInRestuatent = false;
         showHomePage();
         break;
     case "hideStampPage":
@@ -809,7 +858,7 @@ function makeStampCounter(iStampsLeft,iStampsForFree){
 }
 
 function ShowKeyPad(iMenucardSerialNumber,sFunction,iMaxStamp){
-
+    $('.inputGetStamp span').remove();
   if(sFunction === 1){
 
         //Show the keypad for get stamp
@@ -1158,4 +1207,51 @@ $('.getmenuLoaderDiv').show();
     };
     $(window).scroll(move);
     move();
+}
+
+
+
+
+function initilizeEvents() {
+    document.addEventListener('deviceready', onDeviceReady, false);
+}
+function onDeviceReady() {
+    document.addEventListener("pause", onPause, false);
+    document.addEventListener("resume", onResume, false);
+    document.addEventListener("backbutton", onBackKeyDown, false);
+}
+function onBackKeyDown() {
+
+    if($('#home').is(":visible") && $('#home').css('paddingBottom') == "550px"){
+        ClearSearchInput();
+        return true;
+    }
+    if($('#menu').is(":visible")) {
+        if($('#menuBlock').is(":visible")) {
+            backBtnSwich('home');
+            return true;
+        }
+        if($('#stampPage').is(":visible")) {
+            backBtnSwich('hideStampPage');
+            return true;
+        }
+        if($('#getStampPage').is(":visible")) {
+            backBtnSwich('hideGetStampsPage');
+            return true;
+        }
+    }
+    navigator.app.exitApp();
+}
+function onResume() {
+
+    if(startRequestAnimationFrameOnResume) {
+        startRequestAnimationFrameOnResume = false;
+        startRequestAnimationFrame();
+    }
+}
+function onPause() {
+    if(requestAnimationFrameContinue) {
+        startRequestAnimationFrameOnResume = true;
+        requestAnimationFrameContinue = false;
+    }
 }

@@ -26,7 +26,7 @@
                         <!-- onkeyup="if (event.keyCode == 13) { findMenuCard(); }" -->
                         <!-- <img src="img/search.png" onclick="findMenuCard();"> -->
                         <img src="img/search.png">
-                        <img src="img/clear.svg" class="clear" onclick="ClearSearchInput();">
+                        <img src="img/back.png" class="clear" onclick="ClearSearchInput();">
                    </div>
                    <div class="searchWrapper" id="searchWrapper"></div>
                    <img class='autocompleteLoader' src='img/loader.GIF' alt='' />
@@ -139,6 +139,7 @@
         </div> <!-- end id=menu -->
         
         <script src="js/jquery.js"></script>
+        <script src="cordova.js"></script>
         <script type="text/javascript" src="js/jquery.velocity.min.js"></script>
         <script type="text/javascript" src="js/velocity.ui.js"></script>       
         <script type="text/javascript" src="js/idangerous.swiper-2.1.min.js"></script>         
@@ -148,6 +149,7 @@
             $(document).ready(function(){
                 getMessagesAndStamps();
                 FastClick.attach(document.body);
+                initilizeEvents();
             });
             
         </script>
