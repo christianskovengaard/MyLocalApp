@@ -1509,7 +1509,7 @@ function onBackKeyDown() {
         return true;
     }
     if($('#res_map').is(":visible")) {
-        resMap.closeMap();
+        resMap.close();
         return true;
     }
     if($('#home').is(":visible") && $('#home').css('paddingBottom') == "550px"){
