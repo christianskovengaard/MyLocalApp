@@ -1508,6 +1508,10 @@ function onBackKeyDown() {
         pinMap.closeMap();
         return true;
     }
+    if($('#res_map').is(":visible")) {
+        resMap.closeMap();
+        return true;
+    }
     if($('#home').is(":visible") && $('#home').css('paddingBottom') == "550px"){
         ClearSearchInput();
         return true;
