@@ -1,8 +1,8 @@
 //SET GLOBALS
 
 //Offline
-var sAPIURL = 'http://192.168.87.103/MyLocalMenu/API/api.php';
-var sAPIURLmapdata = 'http://192.168.87.103/MyLocalMenu/API/map_data.json';
+var sAPIURL = 'http://localhost/MyLocalMenu/API/api.php';
+var sAPIURLmapdata = 'http://localhost/MyLocalMenu/API/map_data.json';
 
 //Online
 //var sAPIURL = 'http://mylocalcafe.dk/API/api.php';
@@ -1240,7 +1240,7 @@ var resMap = {
             this.pin.setMap(this.map);
         }else {
             this.map.setCenter(new google.maps.LatLng(lat, lng));
-            this.pin.setCenter(new google.maps.LatLng(lat, lng));
+            this.pin.setPosition(new google.maps.LatLng(lat, lng));
             this.pin.setTitle(navn);
         }
     },
