@@ -1,0 +1,1050 @@
+@import url(http://fonts.googleapis.com/css?family=Raleway:100,300,400,500,700,800);
+@import url(http://fonts.googleapis.com/css?family=Libre+Baskerville:400,700,400italic);
+
+html {
+  font-size: 62.5%;
+}
+body {
+    position: relative;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    /*TEST for velocity scroling */
+    -webkit-overflow-scrolling: touch;
+    /*background: #ddd url("../img/bg.jpg") 0 0 no-repeat;*/
+    background: #333;
+    background-size: 100%;
+    background-attachment: fixed;
+    padding: 0px;
+    margin: 0px;
+    font-size: 1.6rem;
+}
+
+a,h1,h2,h3,h4,h5,h6,p,li{
+    font-family: 'Raleway', sans-serif;
+}
+
+.img_left { position: absolute; left: 10px; bottom: 5px; width: 25px; }
+.img_right { position: absolute; right: 10px; top: 5px; width: 25px; }
+
+#triangle-bottomright {
+    position: absolute;
+    background: red;
+    border-bottom: 100px solid red;
+    border-left: 50px solid transparent;
+    border-right: 50px solid transparent;
+    height: 0;
+    width: 100px;
+    z-index: 0;
+}
+.Offline {
+    display: none;
+    position: absolute;
+    width: 100%;
+    top: 0px;
+    z-index: 1000000;
+    background: rgba(0,0,0,0.8);
+    text-align: center;
+}
+.Offline h2{
+    color: #fff;
+    font-size: 1rem;
+}
+
+.dim{
+    position: absolute;
+    top: 0px;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+    z-index: 0;
+}
+.dim.color {
+    background: rgba(253,161,66,0.4);
+}
+.error {
+    background: tomato !important;
+}
+#home{ 
+    padding: 0px;
+    height: 100%; 
+    text-shadow: none;
+    background: #ddd url("../img/bak.png") 0 0 no-repeat;
+    background-size: 100%;
+    overflow-x: hidden;
+}
+
+.logo_home {
+    width: 100%;
+    padding: 30px 0 0px 0;
+    text-align: center;
+}
+.logo_home img {
+    width: 40%;
+    max-width: 150px;
+}
+
+.logo_home  h1 {
+    font-weight: 800;
+    margin: 0;
+    color: #fff;
+}
+.logo_home  span,.logo_home_small span {
+    font-weight: 300;
+    color:#fff;
+}
+.logo_home_small {
+    width: 100%;
+    padding: 0px;
+    height: 60px;
+    text-align: center;
+}
+.logo_home_small  h1 {
+    font-weight: 800;
+    margin: -10px;
+    color: #333;
+}
+.logo_home_small img {
+    width: 0px;
+      -webkit-animation: stretch 0.2s;
+      animation: stretch 0.2s;
+}
+@-webkit-keyframes stretch {
+  0% { width: 40%; max-width: 150px; }
+  99% { width: 40%; margin-top: -100%;}
+  100% { width: 0%;}
+}
+
+@keyframes stretchd {
+  0% { 
+    width: 40%;
+    max-width: 150px;
+  }  
+    99% { 
+        width: 40%;
+        margin-top: -100%; 
+    }
+  100% { 
+    width: 0%;
+  }
+}
+
+#home .form {
+    position: relative;
+    background: #fff;
+    width: 76%;
+    margin: 20px auto 0 auto;
+    padding: 10px 10% 10px 4%;
+}
+#home input {
+    position: relative;
+    display: inline-table;
+    border: 0;
+    width: 100%;
+    font-size: 23px;
+    font-size: 2.3rem;
+    outline: none;
+    margin: 0 0 0 0px; 
+    vertical-align: middle;
+}
+
+#home .form img {
+    vertical-align: middle;
+    display: inline-table;
+    float: right;
+    margin: 0 10px 0 10px;
+    width: 28px;
+    position: absolute;
+    top: 10px;
+    right: 0px;
+}
+
+#home .form .clear {
+    margin: 0;
+    display: none;
+    right: 50px;
+}
+
+.searchWrapper {
+    position: relative;
+    width: 100%;
+    margin: 20px auto 10px auto;
+    min-height: 25px;
+}
+
+.searchItemWrapper {
+   position: relative; 
+}
+
+.favoriteWrapper { 
+    position: relative;
+    margin: 0 auto;
+    background: #333;
+    padding: 10px 20px 40px 20px;
+}
+.favoriteItemWrapper {
+    position: relative;
+}
+
+.editFavorits{
+    color: #868080; 
+    position: relative;
+    float: right;
+    display: inline-table;
+    position: relative;
+    width: 40px;
+    height: 40px;
+    text-align: center;
+    padding-top: 5px;
+
+}
+.editFavorits.color {
+    color: rgba(233, 150, 63, 1);
+}
+.deleteFavorite {
+    position: absolute;
+    right: 0px;
+    top: 50%;
+    margin-top: -28px;
+    padding-top: 20px;
+    width: 40px;
+    height: 50px;
+    text-align: center;
+}
+.undoDelFavorite {
+    display: block;
+    text-align: center;
+    margin: 15px 20px;
+    padding: 15px 0px;
+    line-height: 1px;
+    background: tomato;
+    -webkit-border-radius: 20px;
+    -moz-border-radius: 20px;
+    border-radius: 20px;
+}
+
+.box { background: red; z-index: 10000; }
+
+#home h6 { 
+    display: inline-block;
+    font-size: 14px;
+    font-size: 1.4rem;
+    font-weight: 300; 
+    color: rgba(255,255,255,0.5);
+    margin: 5px 0 10px 10px; 
+}
+.ui-btn { 
+    text-align: left;
+    position: relative;
+    display: block;
+    padding: 15px 20px;
+    overflow: visible;
+    color: #fff;
+    text-decoration: none;
+    background: #333;
+    border-top: 1px solid #4E4E4E;
+}
+.ui-btn h1 {
+    margin: 0;
+    font-size: 1.5em;
+    font-weight: 300;
+}
+.ui-btn p { 
+    margin: 0;
+    font-size: 0.8em;
+    font-weight: 100;
+}
+
+.newMgs {
+    position: absolute;
+    top: 22px;
+    right: 10px;
+    font-size: 25px;
+    color: #FCA041;
+}
+/*   :::::: MENU PAGE :::::: */
+.getmenuLoader{
+    display: block;
+    width: 60px;
+    margin: 45% auto 0px auto;
+}
+
+.getmenuLoaderDiv { 
+    text-shadow: none;
+    display: none;
+    min-height: 500px;
+    width: 100%;
+    text-align: left;
+    margin: 0 auto;
+    overflow-x: hidden;
+    background: #333;
+    padding-bottom: 40px;
+}
+
+.autocompleteLoader{
+    display: none;
+    width: 60px;
+    margin: 1% 50% 0px 43%;
+}
+
+#menu { 
+   text-shadow: none;
+    display: none;
+    min-height: 440px;
+    width: 100%;
+    text-align: left;
+    margin: 0 auto;
+    background: #333;
+    padding-bottom: 40px;
+}
+.error {
+    text-align: center;
+    margin: 50% auto 0 auto;
+    font-weight: 800;
+}
+#backButtonL{
+    position: fixed;
+    z-index: 5000;
+}
+#backButtonL img {
+    width: 25px;
+}
+.backBtn {
+    position: fixed;
+    top: 17px;
+    left: 5px;
+    z-index: 20000;
+
+    -moz-transition: 0.5s;
+    -webkit-transition: 0.5s;
+    -webkit-transform: translate(0); /* Fixed the jumping on position fixed */
+    -o-transition: 0.5s;
+    transition: 0.5s;
+       transform:rotate(-90deg);
+    -ms-transform:rotate(-90deg); /* IE 9 */
+    -webkit-transform:rotate(-90deg); /* Opera, Chrome, and Safari */ 
+}
+.menuheader { 
+    position: relative;
+    background: #333;
+    margin: 0px auto 0 auto; 
+    padding: 0px; 
+    width: 100%; 
+    overflow-x: hidden;
+    z-index: 4000;
+}
+.swiper-container {
+  height: 200px;
+  width: 100%;
+  z-index: 0 !important;
+}
+.headerGalleryFade {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 100px;
+    height: 100px;
+    background: -moz-linear-gradient(top, rgba(51,51,51,0) 0%, rgba(51,51,51,0.07) 7%, rgba(51,51,51,1) 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(51,51,51,0)), color-stop(7%,rgba(51,51,51,0.07)), color-stop(100%,rgba(51,51,51,1))); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top, rgba(51,51,51,0) 0%,rgba(51,51,51,0.07) 7%,rgba(51,51,51,1) 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top, rgba(51,51,51,0) 0%,rgba(51,51,51,0.07) 7%,rgba(51,51,51,1) 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top, rgba(51,51,51,0) 0%,rgba(51,51,51,0.07) 7%,rgba(51,51,51,1) 100%); /* IE10+ */
+    background: linear-gradient(to bottom, rgba(51,51,51,0) 0%,rgba(51,51,51,0.07) 7%,rgba(51,51,51,1) 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00333333', endColorstr='#333333',GradientType=0 ); /* IE6-9 */
+}
+.pagination {  /* viser hvor mange billeder er er slider */
+  display: none;
+  position: absolute;
+  left: 0;
+  text-align: center;
+  bottom:50px;
+  width: 100%;
+}
+.swiper-pagination-switch {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 10px;
+  background: #999;
+  box-shadow: 0px 1px 2px #555 inset;
+  margin: 0 3px;
+  cursor: pointer;
+}
+
+.headTitle, .cafeNameField {
+    position: relative;
+    z-index: 1001;
+    background: #333;
+    width: 100%;
+    padding-bottom: 10px;
+    padding-top: 12px;
+}
+.headTitle.shadow {
+    box-shadow: 0px 7px 10px rgba(0,0,0,0.2);
+}
+.headTitle.fixedTop, .cafeNameField.fixedTop {
+    position: fixed !important;
+    top: 0px !important;
+}
+.headTitle h1, .cafeNameField h1 { 
+    display: inline-block;
+    color: #fff;
+    margin: 0px 0 0 35px;
+}
+.headTitle p { 
+    font-size: 12px;
+    color: #fff;
+    margin: 0 0 2px 37px;
+}
+.headTitleInfoblock{
+    position: relative;
+}
+.headTitleInfoblock p{
+    color: #fff;
+    margin: 0px 0px 0px 35px;
+}
+#menu ul {
+    list-style-type: none ; padding: 0;
+    width: 100%;
+    margin: 20px auto;
+}
+#menu li {
+    margin: 0;
+    padding: 8px 12px 8px 20px;
+    margin: 0 0 2px 0;
+    font-weight: 400;
+}
+#menu li p {
+    margin: 0 0 15px 0;
+}
+
+#infoBlock ul{
+    width: 100%;
+    margin: 15px auto 0px auto;
+}
+.dishPoint.PhoneNumber {
+    text-align: center;
+}
+.dishPoint.PhoneNumber a {
+    font-weight: bold;
+    font-size: 18px;
+    color: #333;
+    text-decoration: none;
+}
+.dishPoint.PhoneNumber img {
+    vertical-align: middle;
+    width: 25px;
+    margin: 0 0 3px -25px;
+} 
+#OpeningHours h1 {
+    width: 50px;
+}
+#OpeningHours h2 {
+    width: 180px;
+    text-align: left;
+}
+
+.messageBlock{
+    display: none;
+    position: relative;
+    margin-top: 30px;
+margin-bottom: 20px;
+text-align: center;
+font-style: italic;
+}
+
+
+/*.messageBlock:before 
+{
+    content: '';
+    position: absolute;
+    background: #fff;
+    width: 30px;
+    height: 30px;
+    top: -30px;
+    left: 20px;
+}*/
+.messageBlock:after 
+{
+    content: '';
+    position: absolute;
+    border-style: solid;
+    border-width: 0 20px 20px ;
+    border-color: #FFFFFF transparent;
+    display: block;
+    width: 0;
+    z-index: 1;
+    top: -10px;
+    left: 20px;
+}
+.messageBlock div{
+    background: #fff;
+    padding: 10px;
+    color: #333;
+    box-shadow: 0px 0px 10px -3px #333 inset;
+}
+.messageBlock div img {
+    display: block;
+    max-width: 100%;
+    height: auto !important;
+}
+.messageBlock p{
+    margin: 0 0 5px 0;
+    font-size: 13px;
+    text-align: right;
+    color: #ACACAC;
+}
+.messageBlock h1 {
+    font-size: 20px;
+    font-size: 2.0rem;
+    margin: 10px 0 0px 0;
+    font-family: 'Libre Baskerville', serif;
+    font-weight: 700;
+}
+.messageBlock h2{
+    font-size: 16px;
+    font-size: 1.6rem;
+    margin: 10px 0 20px 0;
+    font-family: 'Libre Baskerville', serif;
+    font-weight: 400;
+}
+#menuBlock {
+    outline: #333 solid 10px;
+    margin: 60px 10px 15px 10px;
+    border: 2px solid #fff;
+    box-shadow: 0px -13px 10px rgba(0,0,0,0.2);
+}
+#menuBlock h3{
+    text-align: center;
+    font-size: 30px;
+    font-size: 3.0rem;
+    margin: 0;
+    font-weight: 100;
+    color: #7F7871;
+}
+.menuBlockHeadline{
+    font-size: 26px;
+    font-size: 2.6rem;
+    font-weight: 200;
+    text-align: center;
+    color: #fff;
+    background: #333;
+    padding-top: 10px;
+    margin-top: 20px;
+}
+.dishPoint.button {  
+    text-align: right;
+    background: #c6c6c6;
+}
+.dishPoint.button img {
+    vertical-align: middle;
+    width: 30px;
+}
+.dishHeadline {
+    position: relative;
+    background: #333;
+    font-size: 19px; 
+    font-size: 1.9rem;
+    font-weight: bold;
+    color: #fff;
+    text-transform:uppercase;
+    overflow: hidden;
+    border-bottom: 1px solid rgba(68, 68, 68, 0.35);
+}
+.dishHeadline img { 
+    position: absolute;
+    top: 12px;
+    right: 15px;
+    width: 20px;
+}
+.dishHeadline p {
+    font-size: 16px;
+    font-size: 1.6rem;
+    font-weight: 300;
+}
+.dishPoint { 
+    background: #fff;
+    overflow: hidden;
+    max-height: 0;
+    padding: 0 12px 0px 20px !important;
+    margin: 0 !important;
+    -moz-transition: 0.1s;
+    -webkit-transition: 0.1s;
+    -o-transition: 0.1s;
+    transition: 0.1s;
+}
+
+.dishPoint.out { 
+    padding: 8px 12px 8px 20px !important;
+    margin: 0 0 2px 0 !important;
+    max-height: 50%;
+    overflow: hidden;
+    
+    -moz-transition: 0.3s;
+    -webkit-transition: 0.3s;
+    -o-transition: 0.3s;
+    transition: 0.3s;
+}
+
+.dishPoint h1 { 
+    display: inline-table;
+    font-size: 16px; 
+    font-size: 1.6rem;
+    font-weight: 700;
+    text-transform:uppercase; 
+    width: 85%;
+}
+.dishPoint h2 { 
+    display: inline-table;
+    font-size: 16px; 
+    font-size: 1.6rem;
+    font-weight: 700;
+    margin: 0;
+    width: 15%;
+    text-align: right;
+}
+.dishPoint p {
+    font-size: 16px;
+    font-size: 1.6rem;
+    text-transform: none;
+}
+
+.infoBlock {
+    color: #fff;
+    text-align: center;
+    width: 90%;
+    margin: 0 auto;
+    border-top: 1px solid #575656;
+    margin-top: 40px;
+}
+.infoBlock h4 {
+    font-weight: 500;
+    font-size: 16px;
+    font-size: 1.6rem;
+    margin: 10px 0px;
+}
+.infoBlock p {
+    font-weight: 100;
+}
+#HandInCard {
+    background: #dddddd;
+    height: 100%;
+    text-shadow: none;
+}
+
+.HandInCardWrapper {
+    position: relative;
+    width: 90%;
+    margin: 0 auto;
+    overflow: hidden;
+    text-align: center;
+}
+.HandInCardWrapper p {
+    font-size: 25px;
+    font-size: 2.5rem;
+    color: #333;
+    text-align: center;
+}
+
+.HandInCardWrapper .StampCard { width: 90%; }
+
+.codebutton {
+    display: inline-table;
+    text-align: center;
+    background: #555;
+    color: #fff;
+    margin: 5px 15px;
+    padding: 5px 0px;
+    width: 60px;
+    font-size: 25px; 
+    font-size: 2.5rem;
+}
+
+.HandInBotton {
+    background: #F4A720;
+    padding: 50px 0;
+    margin: 10% 0;
+    text-align: center;
+     -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+    border: 2px solid #F4A720;
+    box-shadow: inset 1px 1px 3px #f4ba55; 
+    color: #fff;
+}
+.HandInBotton h1 {
+    display: block;
+    margin: 0;
+    font-size: 40px;
+    font-size: 4.0rem;
+}
+.HandInBotton p {
+    margin: 0;
+    color: #fff;
+    font-size: 17px;
+    font-size: 1.7rem;
+}
+.HandInBotton.ConfirmCounddown {
+    background: #2ECC40;
+    border: 2px solid #2ECC40; 
+    box-shadow: inset 1px 1px 3px #01FF70; 
+}
+.popMgs {
+    display: none;
+    position: absolute;
+    top: -59px; left: 0px; right: 0px;
+    margin-bottom: 5px;
+    height: 59px;
+    color: #ddd;
+    background: #333;
+    z-index: 10;
+    padding: 0px;
+    text-align: center;
+}
+
+/* load'er' */
+.spinner { 
+  position: absolute; 
+  top: 0px; left: 0; bottom: 0; right: 0;
+  z-index: 10;
+}
+.spinner > div {
+  margin-left: 0;
+  background-color: #f7b850;
+  opacity: 0.5;
+  height: 100%;
+  width: 5%;
+  display: inline-block;
+  -webkit-animation: stretchdelay 20s infinite ease-in-out;
+  animation: stretchdelay 20s infinite ease-in-out;
+}
+@-webkit-keyframes stretchdelay {
+  0% { width: 5%; }
+  50% { width: 100%; }
+  100% { width: 5%; }
+}
+
+@keyframes stretchdelay {
+  0% { 
+    width: 5%;
+  }  
+  50% { 
+    width: 100%;
+  }
+  100% { 
+    width: 5%;
+  }
+}
+
+.rotate {
+transform:rotate(180deg);
+-ms-transform:rotate(180deg); /* IE 9 */
+-webkit-transform:rotate(180deg); /* Opera, Chrome, and Safari */
+}
+.rotate270{
+   transform:rotate(0deg);
+    -ms-transform:rotate(0deg); /* IE 9 */
+    -webkit-transform:rotate(0deg); /* Opera, Chrome, and Safari */ 
+
+}
+
+.introScreen {
+    display: none;
+    text-align: center;
+    color: #fff;
+}
+.introScreen h1 {
+    margin: 0 0 20px 0;
+}
+.introScreen h1 span {
+    font-weight: 100;
+}
+.introScreen h2 {
+    margin: 10px 0;
+    font-size: 17px;
+    font-size: 1.7rem;
+    font-weight: 100;
+}
+.introScreen h3 {
+    margin: 0;
+    font-weight: 100;
+}
+.introScreen .btn {
+    display: block;
+    margin: 20px auto 0 auto;
+    padding: 10px 0;
+    background: #FCA142;
+    font-size: 20px;
+    font-size: 2.0rem;
+    text-shadow: none;
+    color: #fff;
+    width: 50%;
+}
+#stampPage{
+    display: none;
+    text-align: center;
+    color: #FFF;
+    margin-bottom: 80px;
+    padding-top: 60px;
+}
+#stampPage h5, #getStampPage h5 {
+    width: 90%;
+    margin: 0px auto 40px auto;
+    font-weight: 300;
+    color: #8A8A8A;
+    font-size: 30px;
+    font-size: 3.0rem;
+    padding: 2px 0;
+}
+
+#stampBlock{
+    padding-bottom: 15px;
+    text-align: right;
+    background: #333;
+    padding: 0;
+    margin-bottom: 5px;
+    text-align: center;
+}
+
+#stampBlock h5 {
+    display: block;
+    color: #FDA142;
+    margin: 0px;
+
+}
+.backStampBtn{
+    color: #333 !important;
+}
+.stampCircleIcon{
+    position: relative;
+    display: inline-block;
+    height: 40px;
+    width: 40px;
+    margin-right: 5px;
+    margin-bottom: 5px;
+    background: none;
+    border: 1px solid #FDA142;
+  -webkit-border-radius: 100%;
+     -moz-border-radius: 100%;
+      -ms-border-radius: 100%;
+          border-radius: 100%;
+    z-index: 1;
+    color: #FDA142;
+    vertical-align: middle;
+    text-align: center;
+}
+.stampCircleIcon p{
+    line-height: 0px;
+    font-size: 22px;
+    font-size: 2.2rem;
+    font-weight: 300;
+    margin-top: 45%;
+}
+.stampCircleIcon.black{
+    border: 1px solid #333;
+    color: #333;
+}
+.StampsForNext{
+	position: relative;
+    width: 100%;
+    text-align: center;
+}
+.stampMask {
+	position: absolute;
+	top: -20px;
+	left: 50%;
+	margin-left: -150px;
+	z-index: 1000;
+}
+.stampCircle {
+    position: relative;
+    display: block;
+    height: 200px;
+    width: 200px;
+    background: #E2F3F5;
+    margin: 0 auto;
+    padding: 30px;
+    overflow: hidden;
+  -webkit-border-radius: 100%;
+     -moz-border-radius: 100%;
+      -ms-border-radius: 100%;
+          border-radius: 100%;
+    z-index: 1;
+    color: #fff;
+}
+.stampCircle  p{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    font-size: 170px;
+    font-size: 17.0rem;
+    line-height: 0px;
+    margin: 0;
+    font-weight: 100;
+    z-index: 3;
+    color: #333;
+    width: 70px;
+    margin-left: -35px;
+}
+.stampCircle  h3{
+    margin: 5px 0;
+    color: #fff;
+    font-size: 18px;
+    font-size: 1.8rem;
+    line-height: 18px;
+    font-weight: 100;
+    z-index: 3;
+    color: #333;
+}
+.stampCircleFill{
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background: #FDA142;
+    z-index: -1;
+}
+.stampCircleFillNew {
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: block;
+    height: 200px;
+    width: 200px;
+    background: #FDA142;
+    margin: 0 auto;
+    padding: 30px;
+    overflow: hidden;
+  -webkit-border-radius: 100%;
+     -moz-border-radius: 100%;
+      -ms-border-radius: 100%;
+          border-radius: 100%;
+    z-index: 5;
+    color: #fff;
+}
+.stampCircleFillNew h1{
+    font-size: 20px;
+    font-size: 2.0rem;
+    font-weight: 100;    
+}
+.stampCircleFillNew h2{
+    font-size: 90px;
+    font-size: 9.0rem;
+    line-height: 66px;
+    margin: 0px 0px 27px 0px;
+    font-weight: 100;
+}
+
+#FreeItemsBlock{
+    margin-bottom: 30px;
+}
+#FreeItemsBlock h3{
+    display: inline-table;
+    margin: 0 10px 0px 0;
+    vertical-align: text-bottom;
+}
+
+#redemeStampDiv{
+    display: none;
+}
+
+#getStampDiv {
+    display: none;
+}
+.useStampsBtn{
+    font-size: 25px;
+    color: #FDA142 !important;
+    display: none;
+    padding: 10px 20px;
+    -webkit-border-radius: 15px;
+    -moz-border-radius: 15px;
+    -ms-border-radius: 15px;
+    border-radius: 15px;
+    border: 1px solid #FDA142;
+}
+#getStampPage{
+    display: none;
+    text-align: center;
+    width: 100%;
+    margin-top: 60px;
+    padding-top: 20px;
+}
+#getStampPage a{
+    display: inline-table;
+    width: 90px;
+    color: #fff;
+    font-size: 70px;
+    font-size: 7.0rem;
+    font-weight: 100;
+}
+#getStampPage h1, #redemeStampDiv h1, #getStampDiv h1{
+    display: inline-table;
+    width: 50px;
+    font-weight: 100;
+    font-size: 70px;
+    font-size: 7.0rem;
+    line-height: 0;
+    margin: 0;
+    color: #fff;
+}
+#getStampPage h3{
+    color: #fff;
+}
+#getStampPage p, #redemeStampDiv p, #getStampDiv p {
+    font-weight: 100;
+    line-height: 0;
+    margin: 20px 0 0px 0;
+    color: #fff;
+}
+.inputGetStampwrapper{
+    width: 100%;
+    display: block;
+    margin-bottom: 10px;
+    margin-top: 20px;
+}
+.inputGetStamp {
+    display: inline-table;
+    width: 32px;
+    height: 32px;
+    margin: 0px 10px;
+    border: 1px solid #FFF;
+    padding: 4px;
+    vertical-align: top;
+}
+.inputGetStamp span {
+    display: block;
+    width: 100%;
+    height: 100%;
+    background: #fff;
+    color: #fff;
+}
+.keypad{
+    position: fixed;
+    bottom: 25px;
+    left: 0px;
+    right: 0px;
+    width: 100%;
+    /*height: 250px;*/
+}
+.keypad a {
+    width: 32% !important;
+    padding: 2% 0;
+    font-size: 6vh !important;
+}
+.keypad svg {
+    fill: currentColor;
+}
+
+.choosenstampicon {
+    background-color: #FDA142;
+    color: #333 !important;
+}
+
+/* FA 4.0.0 and newer */
+.fa {
+  text-rendering: auto;
+   font-variant: normal;
+}
