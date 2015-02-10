@@ -29,7 +29,11 @@
                         <img src="img/search.png">
                         <img src="img/clear.svg" class="clear" onclick="ClearSearchInput();">
                    </div>
-                   <div class="searchWrapper" id="searchWrapper"></div>
+            <div class="openMap">
+                <img src="img/map.svg"> Find cafer nær dig
+            </div>
+                   <div class="searchWrapper" id="searchWrapper">
+                   </div>
                    <img class='autocompleteLoader' src='img/loader.GIF' alt='' />
                    <div class="favoriteWrapper" id="favoriteWrapper">
                        <div class='introScreen'>
@@ -57,8 +61,14 @@
             <div id="scrollerAnchorHead"></div>
             <div class="headTitle"><h1></h1></div>
             <div class="headTitleInfoblock">
-                <p id="sRestuarentAddressHead"></p>
-                <p id="sRestuarentZipcodeAndCityHead"></p>
+                <div id="headaddress">
+                    <img id="openMapFromRes" alt=""  src="img/map.svg">
+                    <div id="headaddressName">
+                        <p id="sRestuarentAddressHead"></p>
+                        <p id="sRestuarentZipcodeAndCityHead"></p>
+                    </div>
+                    <div style="clear: both"></div>
+                </div>
                 <img class="img_right" alt="" onclick="InfoToggle();" src="img/info.png">
                 <div id="infoBlock">
                     <ul>
@@ -138,12 +148,121 @@
                 <p></p>
             </div>
         </div> <!-- end id=menu -->
-        
+
+
+        <div id="map">
+            <div id="map_go_back">
+                <img src="img/backWhite.png" height="40" alt=""/>
+            </div>
+            <div id="map_henter_placering">
+                <div id="map_henter_placering_inner">
+                    <img src="img/loader.GIF" alt=""/>
+                    <p>Henter placering . . .</p>
+                </div>
+            </div>
+            <div id="google_map">
+
+            </div>
+
+
+            <div id="map_min_placering" >
+                <span class="fa fa-crosshairs"></span>
+            </div>
+
+            <div id="map_list">
+                <div id="map_list_inner">
+
+                    <div id="before_open_cafe">
+                        <table>
+
+                            <tr>
+                                <td id="before_open_cafe_name"></td>
+                                <td id="before_open_cafe_dist"></td>
+                            </tr>
+                            <tr>
+                                <td id="before_open_cafe_addr"></td>
+                            </tr>
+
+                        </table>
+                    </div>
+
+                    <div id="map_list_outer">
+                        <div id="map_drag_up">
+                            Cafer i nærheden
+                        </div>
+                        <div id="map_list_content">
+                            <div id="map_list_ingen_resultater">
+                                Ingen cafere inde for 5 km
+                            </div>
+                            <div id="map_list_data"></div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+
+        <div id="res_map">
+            <div id="res_map_go_back" onclick="resMap.close()">
+                <img src="img/backWhite.png" height="40" alt=""/>
+            </div>
+
+            <div id="res_map_google_map">
+
+            </div>
+
+            <div id="res_map_gps_fail">
+                Aktiver din gps
+            </div>
+            <div id="res_map_min_placering" >
+                <span class="fa fa-crosshairs"></span>
+            </div>
+            <div id="res_map_min_placering_load" >
+                <span class="fa-spin">
+                    <span id="res_map_min_placering_load_dot"></span>
+                </span>
+            </div>
+
+
+            <div id="res_map_addr">
+                <table>
+                    <tr>
+                        <td>
+                            <p id="res_map_addr_navn">
+
+                            </p>
+
+                            <p id="res_map_addr_addr">
+
+                            </p>
+                            <p id="res_map_addr_by">
+
+                            </p>
+
+                        </td>
+                        <td style="width: 100px; text-align: center; opacity: .5">
+                            <a href="" id="res_map_link">
+                                <span>
+                                    <img width="25" src="img/directionsIconWhite.svg" alt=""/><br/>
+                                    <span>Google maps</span>
+                                </span>
+                            </a>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+
+
         <script src="js/jquery.js"></script>
         <script src="cordova.js"></script>
         <script type="text/javascript" src="js/jquery.velocity.min.js"></script>
-        <script type="text/javascript" src="js/velocity.ui.js"></script>       
-        <script type="text/javascript" src="js/idangerous.swiper-2.1.min.js"></script>         
+        <script type="text/javascript" src="js/velocity.ui.js"></script>
+        <script type="text/javascript" src="js/idangerous.swiper-2.1.min.js"></script>
+        <script type="text/javascript" src="js/maps.js"></script>
         <script type="text/javascript" src="js/index.js"></script>
         <script type="text/javascript" src="js/fastclick.js"></script>
         <script>
@@ -152,7 +271,7 @@
                 FastClick.attach(document.body);
                 initilizeEvents();
             });
-            
+
         </script>
         <!--<script type="text/javascript" src="cordova.js"></script>-->
         <!--<script type="text/javascript">
