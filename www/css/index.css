@@ -131,9 +131,9 @@ a,h1,h2,h3,h4,h5,h6,p,li{
 #home .form {
     position: relative;
     background: #fff;
-    width: calc(90% - 105px);
+    width: 76%;
     margin: 20px auto 0 auto;
-    padding: 10px 60px 10px 45px;
+    padding: 10px 10% 10px 4%;
 }
 #home input {
     position: relative;
@@ -151,20 +151,13 @@ a,h1,h2,h3,h4,h5,h6,p,li{
     display: inline-table;
     float: right;
     margin: 0 10px 0 10px;
-    width: 23px;
+    width: 28px;
     position: absolute;
-    top: 11px;
+    top: 10px;
     right: 0px;
-    opacity: .5;
 }
 
 #home .form .clear {
-    margin: 0;
-    display: none;
-    left: 15px;
-}
-
-#home .form .clearInput {
     margin: 0;
     display: none;
     right: 50px;
@@ -193,7 +186,7 @@ a,h1,h2,h3,h4,h5,h6,p,li{
    position: relative;
 }
 
-.favoriteWrapper { 
+.favoriteWrapper {
     position: relative;
     margin: 0 auto;
     background: #333;
@@ -203,8 +196,8 @@ a,h1,h2,h3,h4,h5,h6,p,li{
     position: relative;
 }
 
-.editFavorits{  
-    color: #868080; 
+.editFavorits{
+    color: #868080;
     position: relative;
     float: right;
     display: inline-table;

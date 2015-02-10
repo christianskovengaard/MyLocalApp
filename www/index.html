@@ -26,8 +26,7 @@
                         <!-- onkeyup="if (event.keyCode == 13) { findMenuCard(); }" -->
                         <!-- <img src="img/search.png" onclick="findMenuCard();"> -->
                         <img src="img/search.png">
-                        <img src="img/back.png" class="clear" onclick="ClearSearchInput();">
-                        <img src="img/clear.png" class="clearInput" onclick="$('#FindCafe').val(''); AutocompleteCafename();">
+                        <img src="img/clear.svg" class="clear" onclick="ClearSearchInput();">
                    </div>
             <div class="openMap">
                 <img src="img/map.svg"> Find cafer nær dig
@@ -270,10 +269,6 @@
                 getMessagesAndStamps();
                 FastClick.attach(document.body);
                 initilizeEvents();
-                $('#home .form').css("width", window.innerWidth *.9-105);
-                $(window).resize(function () {
-                    $('#home .form').css("width", window.innerWidth *.9-105);
-                });
             });
 
         </script>

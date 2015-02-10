@@ -1,8 +1,8 @@
 //SET GLOBALS
 
 //Offline
-var sAPIURL = 'http://192.168.43.29/MyLocalMenu/API/api.php';
-var sAPIURLmapdata = 'http://192.168.43.29/MyLocalMenu/API/map_data.json';
+var sAPIURL = 'http://localhost/MyLocalMenu/API/api.php';
+var sAPIURLmapdata = 'http://localhost/MyLocalMenu/API/map_data.json';
 
 //Online
 //var sAPIURL = 'http://mylocalcafe.dk/API/api.php';
@@ -32,11 +32,12 @@ function AutocompleteCafename() {
    //Check if FindCafe input element is empty
    if($('#FindCafe').val().length === 0 ) {
        $('#searchWrapper').html('');
-       $(".clearInput").hide();
+       //$(".clear").hide();
        //$("#home").css("padding-bottom","550px");
-   }else {
-       $(".clearInput").show();
    }
+   /*if($('#FindCafe').val().length === 1) {
+       $(".clear").show();
+   }*/
    if($('#FindCafe').val().length >= 1) {
 
        //Check if ajax call is running
@@ -95,7 +96,7 @@ function AutocompleteCafename() {
                     $('.autocompleteLoader').hide();
                  }
                  if(i > 7){
-                    $("#home").css("padding-bottom","550px");
+                    $("#home").css("padding-bottom","0px");
                  }
 
                  if(result.result === 'done') {
@@ -103,6 +104,9 @@ function AutocompleteCafename() {
                     $('.autocompleteLoader').hide();
                     if($('#searchWrapper').html() === '' ){
 
+                        //alert('Den søgte café findes ikke');
+                        //Show text box
+                        $('#searchWrapper').html('<a class="ui-btn"><h1>Den søgte café findes ikke</h1></a>');
                     }
                  }
              });
@@ -141,8 +145,7 @@ function SearchInputUp() {
       $(".clear, #searchWrapper").show();
 
     $(".openMap").hide();
-
-
+    document.body.scrollTop = 0;
 }
 function SearchInputDown() {
     if($('#FindCafe').val().length === 0) {
@@ -504,18 +507,26 @@ function GetMenucard(sName_sNumber,sFunction){
 
                     //******** STAMPS ********//
 
-                    //Get user stamps
-                    var iStamps = localStorage.getItem(sSerialNumberCaps+".stamps");
-                    //Calculate stamps left
-                    var iFreeItems = Math.floor(iStamps / result.oStampcard.iStampcardMaxStamps);
-                    var iStampsLeft = iStamps - ( iFreeItems * result.oStampcard.iStampcardMaxStamps);
-                    var sStampcardText = result.oStampcard.sStampcardText;
-                    localStorage.setItem(sSerialNumberCaps+".sStampcardText", sStampcardText);
-                    if(iStampsLeft === null){iStampsLeft = 0;}
 
-                    $('#makeStampPageBtn').attr('onclick','ShowStampPage(\''+sSerialNumberCaps+'\','+iStamps+','+result.oStampcard.iStampcardMaxStamps+');');
-                    $('#stampTotal p').html(iStampsLeft);
+                    //Hide or show stampcard
+                    if(result.oStampcard.iStampcardActive === '1'){
+                        //Get user stamps
+                        var iStamps = localStorage.getItem(sSerialNumberCaps+".stamps");
+                        //Calculate stamps left
+                        var iFreeItems = Math.floor(iStamps / result.oStampcard.iStampcardMaxStamps);
+                        var iStampsLeft = iStamps - ( iFreeItems * result.oStampcard.iStampcardMaxStamps);
+                        var sStampcardText = result.oStampcard.sStampcardText;
+                        localStorage.setItem(sSerialNumberCaps+".sStampcardText", sStampcardText);
+                        if(iStampsLeft === null){iStampsLeft = 0;}
 
+                        $('#makeStampPageBtn').attr('onclick','ShowStampPage(\''+sSerialNumberCaps+'\','+iStamps+','+result.oStampcard.iStampcardMaxStamps+');');
+                        $('#stampTotal p').html(iStampsLeft);
+
+                        $('#stampBlock').show();
+                    }else{
+                       //Hide stampcard button
+                       $('#stampBlock').hide();
+                    }
 
                     //********** MENU *********//
 
@@ -754,7 +765,9 @@ function ShowStampPage(iMenucardSerialNumber,iUserStamps,MaxStamps){
 
                                   $('.stampcardText').html(localStorage.getItem(iMenucardSerialNumber+".sStampcardText"));
                                   $('.iFreeItemCounter').html('Du har nu '+iFreeItems+' gratis');
-
+                                  if( iFreeItems > 0 ){
+                                      $("#FreeItemsBlock").html("<h3 class='textuse'>brug:</h3>");
+                                  }
                                   var freeItemsString = '';
                                   for (var i = 1; i <= iFreeItems; i++){
                                       freeItemsString += "<div class='stampCircleIcon' onclick='ChooseStampCircle(this);'><p>"+i+"</p></div>";
@@ -762,9 +775,7 @@ function ShowStampPage(iMenucardSerialNumber,iUserStamps,MaxStamps){
                                   $("#FreeItemsBlock").append(freeItemsString);
 
                                   $("#FreeItemsBlock .stampCircleIcon").hide().velocity("transition.slideUpIn", { display:"inline-block", duration: 800 });
-                                  if( iFreeItems > 0 ){
-                                      $("#FreeItemsBlock").prepend("<h3 class='textuse'>brug:</h3>");
-                                  }
+
                                   $("#stampPage").append("<a class='useStampsBtn' onclick='ShowKeyPad(\""+iMenucardSerialNumber+"\",2,"+MaxStamps+");'>OK</a>");
                       });
               });
@@ -842,7 +853,7 @@ function hideGetStampsPage(){
   $("#getStampPage").velocity("transition.slideUpBigOut", 200, function() {
       $("#getStampPage").hide();
       $("#stampPage").velocity("transition.shrinkIn", 400);
-      $(".backBtn").attr("onclick","backBtnSwich('hideStampPage');").addClass("rotate270");
+      $(".backBtn").attr("onclick","backBtnSwich('hideStampPage');").removeClass("rotate270");
   });
 
 }
@@ -866,7 +877,7 @@ function ShowKeyPad(iMenucardSerialNumber,sFunction,iMaxStamp){
         $("#stampPage").velocity("transition.shrinkOut", 400, function(){
 
           $("#stampPage").hide();
-          $(".backBtn").attr("onclick","backBtnSwich('hideGetStampsPage');").removeClass("rotate270");
+          $(".backBtn").attr("onclick","backBtnSwich('hideGetStampsPage');").addClass("rotate270");
 
           $('#GetStampBtn').attr('onclick',"GetStamp(\""+iMenucardSerialNumber+"\");");
 
@@ -884,7 +895,7 @@ function ShowKeyPad(iMenucardSerialNumber,sFunction,iMaxStamp){
         //Show keypad for Redeme stamp
         $("#stampPage").velocity("transition.shrinkOut", 400, function(){
           $("#stampPage").hide();
-          $(".backBtn").attr("onclick","backBtnSwich('hideGetStampsPage');").removeClass("rotate270");
+          $(".backBtn").attr("onclick","backBtnSwich('hideGetStampsPage');").addClass("rotate270");
 
           //Get number of freeitems
           var iNumberOfFreeItems = $('.choosenstampicon').length;
@@ -964,7 +975,7 @@ function UseStamp(iMenucardSerialNumber,iMaxStamp) {
 
                  //remove use free item
                  $('.choosenstampicon').remove();
-                 $(".backBtn").attr("onclick","backBtnSwich('hideStampPage');");
+                 $(".backBtn").attr("onclick","backBtnSwich('hideStampPage');").removeClass("rotate270");
                  $(".backBtn").addClass("rotate270");
 
                  // opdater antal stempler i localStorage
@@ -973,18 +984,27 @@ function UseStamp(iMenucardSerialNumber,iMaxStamp) {
                  localStorage.setItem(iMenucardSerialNumber+".stamps",stamps);
 
                  // animation
-                 $("#getStampPage").html("<h1 style='padding-top: 50%;'>Sådan!</h1><h3>Stemplet er indløst.</h3>");
-                 $("#getStampPage").hide().velocity("transition.slideDownBigIn", 300);
+                $(".stampRedemeMessage").show();
+
+                 $('.keypad').hide();
+                 $('.inputGetStampwrapper').hide();
+                 $('#redemeStampDiv').hide();
                  setTimeout(function(){
+                    $(".stampRedemeMessage").hide();
+                    $('.keypad').show();
+                    $('.inputGetStampwrapper').show();
+                    $('#redemeStampDiv').show();
+
+                    //Remove old password
+                    $('.inputGetStamp').html('');
+
                     $("#getStampPage").hide().velocity("transition.slideDownBigOut", 300, function() {
 
 
-                          $(".inputGetStampwrapper").remove();
+                          //$(".inputGetStampwrapper").remove();
                            $("#getStampPage").velocity("transition.slideDownBigOut", 300, function() {
 
-                                   $(".succesAlert").remove();
-                                   $(".backGetStampBtn").remove();
-                                   $("#getStampPage").remove();
+                                  $(".stampRedemeMessage").hide();
                                    $(".backStampBtn").show();
                                    $("#stampPage").velocity("transition.expandIn", 400, function(){
                                        var stampsCounterText = $("#stampsCounterText").text().split('/');;
@@ -1039,11 +1059,11 @@ function UseStamp(iMenucardSerialNumber,iMaxStamp) {
     -Description: Get stamp
  */
 function GetStamp(iMenucardSerialNumber){
+
+
+  var numbersOfStamps = $("#numOfStamps").text();
   if ($("#inputGetStamp4 span").length === 1){
-      $('.getmenuLoaderDiv').show();
-
-      var numbersOfStamps = $("#numOfStamps").text();
-
+$('.getmenuLoaderDiv').show();
       var Stampcode = $('#inputGetStamp1 span').html()+''+$('#inputGetStamp2 span').html()+''+$('#inputGetStamp3 span').html()+''+$('#inputGetStamp4 span').html();
       Stampcode = parseInt(Stampcode);
 
@@ -1067,7 +1087,7 @@ function GetStamp(iMenucardSerialNumber){
                         var stamps = parseInt(stamps) + parseInt(numbersOfStamps);
                         localStorage.setItem(iMenucardSerialNumber+".stamps",stamps);
 
-                        $(".backBtn").attr("onclick","backBtnSwich('hideStampPage');").addClass("rotate270");;
+                        $(".backBtn").attr("onclick","backBtnSwich('hideStampPage');").removeClass("rotate270");;
 
                         // animation
                          $("#getStampPage").velocity("transition.slideDownBigOut", 200, function() {
