@@ -1,12 +1,12 @@
 //SET GLOBALS
 
 //Offline
-var sAPIURL = 'http://localhost/MyLocalMenu/API/api.php';
-var sAPIURLmapdata = 'http://localhost/MyLocalMenu/API/map_data.json';
+//var sAPIURL = 'http://localhost/MyLocalMenu/API/api.php';
+//var sAPIURLmapdata = 'http://localhost/MyLocalMenu/API/map_data.json';
 
 //Online
-//var sAPIURL = 'http://mylocalcafe.dk/API/api.php';
-//var sAPIURLmapdata = 'http://mylocalcafe.dk/API/map_data.json';
+var sAPIURL = 'http://mylocalcafe.dk/API/api.php';
+var sAPIURLmapdata = 'http://mylocalcafe.dk/API/map_data.json';
 
 window.onload = function(){
     CheckInternetConnection();
@@ -823,10 +823,8 @@ function backBtnSwich(action){
         requestAnimationFrameContinue = false;
         IsAGalleryInRestuatent = false;
 
-        showHomePage();
-
         if(pinMap.openFromMap) {
-            pinMap.goBackFromMenu()
+            pinMap.goBackFromMenu();
         }else{
             showHomePage();
         }
@@ -1279,7 +1277,15 @@ var resMap = {
         $('#res_map_addr_navn').html(navn);
         $('#res_map_addr_addr').html(addr);
         $('#res_map_addr_by').html(by);
-        $('#res_map_link').attr("href","geo:"+lat+","+lng);
+        //Check for platform
+        if(device.platform === 'iOS'){
+            //var geolink = 'comgooglemaps://?center='+lat+','+lng+'&zoom=14';
+            var geolink = 'maps:q=loc:'+lat+'+'+lng;
+        }
+        else{
+            geolink = 'geo:'+lat+','+lng;
+        }
+        $('#res_map_link').attr("href",geolink);
         if(this.map===false) {
             this.map = new google.maps.Map(document.getElementById("res_map_google_map"), {
                 center: new google.maps.LatLng(lat, lng),
@@ -1985,7 +1991,7 @@ function onBackKeyDown() {
         return true;
     }
 
-    if($('#home').is(":visible") && $('#home').css('paddingBottom') == "550px"){
+    if($('#home').is(":visible") && $('#home').css('paddingBottom') === "550px"){
         ClearSearchInput();
         return true;
     }
