@@ -69,13 +69,11 @@
                     </div>
                     <div style="clear: both"></div>
                 </div>
-                <img class="img_right" alt="" onclick="InfoToggle();" src="img/info.png">
+                <div id="OpeningHoursTodayblock" class="OpeningHoursToday" onclick="InfoToggle();" >
+                    <img class="rotate90" alt="" src="img/backWhite.png">
+                </div>
                 <div id="infoBlock">
                     <ul>
-                        <li class="dishPoint PhoneNumber">
-                            <img alt='' src="img/call up.png">
-                            <a href="" rel="external">'+sRestuarentPhoneFormat+'</a>
-                        </li>
                         <li class="dishPoint" id="OpeningHours"></li>
                     </ul>
                 </div>
@@ -147,6 +145,11 @@
                 <h4></h4>
                 <p></p>
             </div>
+            <div class="PhoneNumber">
+                <!--<img alt='' src="img/call up.png">-->
+                <p><b>Tlf:</b></p>
+                <a href="" rel="external">'+sRestuarentPhoneFormat+'</a>
+            </li>
         </div> <!-- end id=menu -->
 
 

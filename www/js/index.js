@@ -431,6 +431,7 @@ function GetMenucard(sName_sNumber,sFunction){
 
                     //Clear the openinghours
                     document.getElementById('OpeningHours').innerHTML = '';
+                    $("#OpeningHoursTodayblock p").remove();
 
                     var sRestuarentPhone = result.sRestuarentPhone;
                     var sRestuarentPhoneFormat = sRestuarentPhone.substring(0, 2)+' '+sRestuarentPhone.substring(2, 4)+' '+sRestuarentPhone.substring(4, 6)+' '+sRestuarentPhone.substring(6, 8);
@@ -445,7 +446,12 @@ function GetMenucard(sName_sNumber,sFunction){
                                OpeningHours += '<h1>'+value.sDayName+'</h1><h2>Lukket</h2><br>';
                             }
                     });
+
+                    var OpeningHoursToday = "00:00 - 00:00"
+
                     //Append the result
+
+                    $("#OpeningHoursTodayblock").prepend("<p><b>Åben i dag: </b>"+OpeningHoursToday+"</p>") // hvis lukket tekst: "Lukket i dag"
                     $("#OpeningHours").append(OpeningHours);
 
 

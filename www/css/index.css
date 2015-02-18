@@ -456,7 +456,18 @@ a,h1,h2,h3,h4,h5,h6,p,li{
     vertical-align: middle;
     width: 25px;
     margin: 0 0 3px -25px;
+}
+.PhoneNumber {
+    text-align: center;
 } 
+.PhoneNumber p,
+.PhoneNumber a {
+    display: inline-block;
+    color: #fff; 
+    text-decoration: none;
+    font-size: 20px;
+}
+
 #OpeningHours h1 {
     width: 50px;
 }
@@ -464,7 +475,20 @@ a,h1,h2,h3,h4,h5,h6,p,li{
     width: 180px;
     text-align: left;
 }
-
+.OpeningHoursToday {
+    text-align: center;
+    margin-top: 10px;
+}
+.OpeningHoursToday p,
+.OpeningHoursToday img {
+    display: inline-block;
+    margin: 0;
+    vertical-align: middle;
+}
+.OpeningHoursToday img {
+    height: 15px;
+    margin-left: 6px;
+}
 .messageBlock{
     display: none;
     position: relative;
@@ -531,7 +555,7 @@ font-style: italic;
 }
 #menuBlock {
     outline: #333 solid 10px;
-    margin: 60px 10px 15px 10px;
+    margin: 40px 10px 15px 10px;
     border: 2px solid #fff;
     box-shadow: 0px -13px 10px rgba(0,0,0,0.2);
 }
@@ -592,7 +616,7 @@ font-style: italic;
 
 .dishPoint.out { 
     padding: 8px 12px 8px 20px !important;
-    margin: 0 0 2px 0 !important;
+    margin: 0 0 15px 0 !important;
     max-height: 50%;
     overflow: hidden;
     
@@ -752,9 +776,12 @@ transform:rotate(180deg);
    transform:rotate(0deg);
     -ms-transform:rotate(0deg); /* IE 9 */
     -webkit-transform:rotate(0deg); /* Opera, Chrome, and Safari */ 
-
 }
-
+.rotate90{
+   transform:rotate(270deg);
+    -ms-transform:rotate(270deg); /* IE 9 */
+    -webkit-transform:rotate(270deg); /* Opera, Chrome, and Safari */ 
+}
 .introScreen {
     display: none;
     text-align: center;
