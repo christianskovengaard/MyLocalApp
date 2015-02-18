@@ -616,7 +616,7 @@ font-style: italic;
 
 .dishPoint.out { 
     padding: 8px 12px 8px 20px !important;
-    margin: 0 0 15px 0 !important;
+    margin: 0 0 2px 0 !important;
     max-height: 50%;
     overflow: hidden;
     
