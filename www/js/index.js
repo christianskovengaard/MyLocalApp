@@ -445,17 +445,15 @@ function GetMenucard(sName_sNumber,sFunction){
                                 OpeningHours += '<h1>'+value.sDayName+'</h1><h2>'+value.iTimeFrom+' - '+value.iTimeTo+'</h2><br>';
                             }else if(value.iClosed === '1'){
                                OpeningHours += '<h1>'+value.sDayName+'</h1><h2>Lukket</h2><br>';
-                            }
-                            if(result.aMenucardOpeningHours.Today === value.sDayName){
-                                if(value.iClosed === '0'){
-                                    OpeningHoursToday = "<b>Åben i dag: </b> "+value.iTimeFrom+' - '+value.iTimeTo;
-                                }else if(value.iClosed === '1'){
-                                    OpeningHoursToday = '<b>Lukket i dag</b>';
-                                }
-                            }
+                            }                          
                     });
                     
-                   
+                    if(result.aMenucardOpeningHours.sRestuarentOpenningToday === '0'){
+                        OpeningHoursToday = "<b>Åben i dag: </b> "+result.aMenucardOpeningHours.sRestuarentOpenningHoursToday;
+                    }else if(value.iClosed === '1'){
+                        OpeningHoursToday = '<b>Lukket i dag</b>';
+                    }
+                    
                     //Append the result
 
                     $("#OpeningHoursTodayblock").prepend("<p>"+OpeningHoursToday+"</p>");
