@@ -13,10 +13,9 @@
     <body>
         <div id="home">
                 <div class="logo_home">
-                    <img src="img/logo_4.png"><br>
+                    <img src="img/logo_4.png" alt="" /><br>
                     <h1>MyLocal<span>Café</span></h1>
                 </div>
-                <!--<div>Intro tekst i fold-ud format</div>-->
                    <div id="Offline" class="Offline">
                        <h2>Du er offline</h2>
                        <h2>Du skal være online for at bruge appen</h2>
@@ -26,11 +25,11 @@
                         <input onkeyup="AutocompleteCafename();" onfocus="SearchInputUp();"  data-role="none" type="text" name="text-basic" id="FindCafe" value="" placeholder="Søg efter café" >
                         <!-- onkeyup="if (event.keyCode == 13) { findMenuCard(); }" -->
                         <!-- <img src="img/search.png" onclick="findMenuCard();"> -->
-                        <img src="img/search.png">
-                        <img src="img/clear.svg" class="clear" onclick="ClearSearchInput();">
+                        <img src="img/search.png" alt="" />
+                        <img src="img/clear.svg" class="clear" onclick="ClearSearchInput();" alt="" />
                    </div>
             <div class="openMap">
-                <img src="img/map.svg"> Find cafer nær dig
+                <img src="img/map.svg" alt="" /> Find caféer nær dig
             </div>
                    <div class="searchWrapper" id="searchWrapper">
                    </div>
@@ -117,7 +116,7 @@
                     <a onclick='btnKeypad(8);'>8</a>
                     <a onclick='btnKeypad(9);'>9</a>
                     <a onclick='btnKeypad(-1);'>
-                        <img src='img/backspace.svg'>
+                        <img src='img/backspace.svg' alt="" />
                     </a>
                     <a onclick='btnKeypad(0);'>0</a>
                     <a id='GetStampBtn' onclick='KeypadOk(\""+iMenucardSerialNumber+"\");'>ok</a>
@@ -149,7 +148,6 @@
                 <!--<img alt='' src="img/call up.png">-->
                 <p><b>Tlf:</b></p>
                 <a href="" rel="external">'+sRestuarentPhoneFormat+'</a>
-            </li>
         </div> <!-- end id=menu -->
 
 
@@ -195,7 +193,7 @@
                         </div>
                         <div id="map_list_content">
                             <div id="map_list_ingen_resultater">
-                                Ingen cafere inde for 5 km
+                                Ingen caféer indenfor 5 km
                             </div>
                             <div id="map_list_data"></div>
                         </div>
