@@ -1,0 +1,29 @@
+#res_map_addr {
+	margin-bottom: -1px !important;
+}
+
+.favoriteWrapper{
+	margin-bottom: -1px !important;
+}
+
+.backBtn{
+	position: absolute !important;
+}
+
+/* Position map img on front page*/
+.openMap img{
+    width: 15px;
+}
+
+/* 'Find vej' img */
+#res_map_link span img{
+	width: 25px !important;
+	height: 25px !important;
+}
+
+
+/* Position map img on menu page*/
+#openMapFromRes{
+	width: 20px !important;
+	height: 40px !important;
+}
