@@ -437,7 +437,7 @@ function GetMenucard(sName_sNumber,sFunction){
 
                     $('.PhoneNumber a').attr('href','tel:'+sRestuarentPhone+'').html(sRestuarentPhoneFormat);
                     
-                    var OpeningHoursToday = 'Error';
+                    var OpeningHoursToday = '';
                     
                     $.each(result.aMenucardOpeningHours, function(key,value){
 
@@ -448,9 +448,9 @@ function GetMenucard(sName_sNumber,sFunction){
                             }                          
                     });
                     
-                    if(result.aMenucardOpeningHours.sRestuarentOpenningToday === '0'){
-                        OpeningHoursToday = "<b>Åben i dag: </b> "+result.aMenucardOpeningHours.sRestuarentOpenningHoursToday;
-                    }else if(value.iClosed === '1'){
+                    if(result.sRestuarentOpenningToday.iClosed === '0'){
+                        OpeningHoursToday = "<b>Åben i dag: </b> "+result.sRestuarentOpenningHoursToday;
+                    }else if(result.sRestuarentOpenningToday.iClosed === '1'){
                         OpeningHoursToday = '<b>Lukket i dag</b>';
                     }
                     
