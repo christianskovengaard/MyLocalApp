@@ -3,6 +3,8 @@
 //Offline
 //var sAPIURL = 'http://localhost/MyLocalMenu/API/api.php';
 //var sAPIURLmapdata = 'http://localhost/MyLocalMenu/API/map_data.json';
+//good for local testing
+//device={platform :'2'};
 
 //Online
 var sAPIURL = 'http://mylocalcafe.dk/API/api.php';
@@ -735,9 +737,9 @@ function SaveUserFavorites(iMenucardSerialNumber,sRestuarentName,sRestuarentAddr
           $("#favoriteWrapper").append("<h6>Stamsteder:</h6>");
       }
 }
-
+var SwipperGallery = false;
 function makeheaderGallery() {
-  var mySwiper = new Swiper('.swiper-container',{
+  SwipperGallery = new Swiper('.swiper-container',{
                 pagination: '.pagination',
                 loop:true,
                 grabCursor: true,
@@ -1281,9 +1283,11 @@ var resMap = {
         strokeOpacity:0,
         strokeWeight:0
     }),
+    isResMapOpen:false,
     open:function(navn, addr, by, lat, lng){
         this.place.lat = lat;
         this.place.lng = lng;
+        this.isResMapOpen = true;
         $('#menu').velocity('fadeOut',200);
         $('#res_map').velocity('fadeIn',200);
         $('#res_map_addr_navn').html(navn);
@@ -1298,6 +1302,14 @@ var resMap = {
             geolink = 'geo:'+lat+','+lng;
         }
         $('#res_map_link').attr("href",geolink);
+
+
+        window.requestAnimationFrame(function(){
+            $('#res_map_gps_fail, #res_map_min_placering, #res_map_min_placering_load').css('bottom', $('#res_map_addr').height()+45);
+        });
+
+
+
         if(this.map===false) {
             this.map = new google.maps.Map(document.getElementById("res_map_google_map"), {
                 center: new google.maps.LatLng(lat, lng),
@@ -1342,6 +1354,10 @@ var resMap = {
             });
             this.pin.setMap(this.map);
         }else {
+            setTimeout(function(){
+                google.maps.event.trigger(resMap.map, "resize");
+            }, 500)
+
             this.map.setCenter(new google.maps.LatLng(lat, lng));
             this.pin.setPosition(new google.maps.LatLng(lat, lng));
             this.pin.setTitle(navn);
@@ -1438,11 +1454,15 @@ var resMap = {
         this.map.panTo(this.herErJeg.getPosition());
     },
     close:function(){
+        this.isResMapOpen = false;
         if( pinMap.wathId ) {
             navigator.geolocation.clearWatch(pinMap.wathId);
         }
         $('#menu').velocity('fadeIn',200);
         $('#res_map').velocity('fadeOut',200);
+        setTimeout(function(){
+            SwipperGallery.resizeFix()
+        }, 50)
     }
 };
 var pinMap = {
@@ -1598,6 +1618,11 @@ var pinMap = {
                     });
             }
         },33000);
+        if(this.map!==false) {
+            setTimeout(function(){
+                google.maps.event.trigger(pinMap.map, "resize");
+            }, 500)
+        }
         if(this.updatePinsAndListOnOpen && this.lastPosition.latitude !== 0 && this.lastPosition.longitude !== 0) {
             this.updatePinsAndListOnOpen = false;
             this.firstLocation = false;
@@ -1721,7 +1746,6 @@ var pinMap = {
 
             $('#map_list_outer').velocity({opacity: 0}).delay(400).hide();
             $('#before_open_cafe').velocity({opacity: 1, bottom: 0}).show();
-            $('#map_min_placering').velocity({bottom: 114});
 
             setTimeout(function () {
                 $("#map_list").css("bottom", -1000);
@@ -1736,6 +1760,7 @@ var pinMap = {
                 'lng2': obj[3]
             })) * 10) / 10 + "km");
 
+            $('#map_min_placering').velocity({bottom: $('#before_open_cafe').height()+50 });
 
             for (marker in pinMap.pinData) {
                 if (pinMap.pinData[marker].obj !== obj) {
@@ -1861,10 +1886,16 @@ google.maps.event.addDomListener(window, 'load', function(){
     var drag_down = false;
     var drag_up = false;
     $( window ).resize(function() {
-        if(pinMap.isListOpen) {
-            map_min_placering.style.bottom = window.innerHeight * .45 + 20 + "px";
-        }else {
+        if(!pinMap.isListOpen) {
             map_list.style.bottom =  "-"+(((window.innerHeight*.45)-32))+"px";
+        }
+        if(pinMap.previewCafe !== false){
+            map_min_placering.style.bottom = $('#before_open_cafe').height()+50+"px";
+        }else if(pinMap.isListOpen) {
+            map_min_placering.style.bottom = window.innerHeight * .45 + 20 + "px";
+        }
+        if(resMap.isResMapOpen) {
+            $('#res_map_gps_fail, #res_map_min_placering, #res_map_min_placering_load').css('bottom', $('#res_map_addr').height()+45);
         }
     });
     map_drag_up.onclick=function(){
