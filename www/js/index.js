@@ -1299,7 +1299,7 @@ var resMap = {
             var geolink = 'maps:q=loc:'+lat+'+'+lng;
         }
         else{
-            geolink = 'geo:'+lat+','+lng;
+            geolink = 'geo:'+lat+','+lng+'?q='+addr+'+'+by;
         }
         $('#res_map_link').attr("href",geolink);
 
