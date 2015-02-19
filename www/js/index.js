@@ -12,7 +12,6 @@ window.onload = function(){
     CheckInternetConnection();
     makeFavorits();
     CheckForsCustomerId();
-    //moveScrollerHead();
 
     //Used for search load more, infinite scroll
     localStorage.iAutocompleteCafeId = 0;
@@ -437,7 +436,9 @@ function GetMenucard(sName_sNumber,sFunction){
                     var sRestuarentPhoneFormat = sRestuarentPhone.substring(0, 2)+' '+sRestuarentPhone.substring(2, 4)+' '+sRestuarentPhone.substring(4, 6)+' '+sRestuarentPhone.substring(6, 8);
 
                     $('.PhoneNumber a').attr('href','tel:'+sRestuarentPhone+'').html(sRestuarentPhoneFormat);
-
+                    
+                    var OpeningHoursToday = 'Error';
+                    
                     $.each(result.aMenucardOpeningHours, function(key,value){
 
                             if(value.iClosed === '0'){
@@ -445,13 +446,19 @@ function GetMenucard(sName_sNumber,sFunction){
                             }else if(value.iClosed === '1'){
                                OpeningHours += '<h1>'+value.sDayName+'</h1><h2>Lukket</h2><br>';
                             }
+                            if(result.aMenucardOpeningHours.Today === value.sDayName){
+                                if(value.iClosed === '0'){
+                                    OpeningHoursToday = "<b>Åben i dag: </b> "+value.iTimeFrom+' - '+value.iTimeTo;
+                                }else if(value.iClosed === '1'){
+                                    OpeningHoursToday = '<b>Lukket i dag</b>';
+                                }
+                            }
                     });
-
-                    var OpeningHoursToday = "00:00 - 00:00"
-
+                    
+                   
                     //Append the result
 
-                    $("#OpeningHoursTodayblock").prepend("<p><b>Åben i dag: </b>"+OpeningHoursToday+"</p>") // hvis lukket tekst: "Lukket i dag"
+                    $("#OpeningHoursTodayblock").prepend("<p>"+OpeningHoursToday+"</p>");
                     $("#OpeningHours").append(OpeningHours);
 
 
@@ -660,6 +667,7 @@ function CheckIfDOMLoaded(){
 
             setTimeout('1000',makeheaderGallery());
             clearTimeout(checkDOM);
+            console.log('DOM loaded');
         }else{
             console.log('check again');
             CheckIfDOMLoaded();
