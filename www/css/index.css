@@ -431,7 +431,7 @@ a,h1,h2,h3,h4,h5,h6,p,li{
 }
 #menu li {
     margin: 0;
-    padding: 8px 12px 8px 20px;
+    padding: 8px 18px 8px 20px;
     margin: 0 0 2px 0;
     font-weight: 400;
 }
@@ -477,13 +477,19 @@ a,h1,h2,h3,h4,h5,h6,p,li{
 }
 .OpeningHoursToday {
     text-align: center;
-    margin-top: 10px;
+    padding-top: 10px;
 }
 .OpeningHoursToday p,
 .OpeningHoursToday img {
     display: inline-block;
     margin: 0;
     vertical-align: middle;
+    color: #aaa;
+        -moz-transition: 0.5s;
+    -webkit-transition: 0.5s;
+    -o-transition: 0.5s;
+    transition: 0.5s;
+
 }
 .OpeningHoursToday img {
     height: 15px;
@@ -644,6 +650,12 @@ font-style: italic;
     font-size: 14px;
     text-transform: none;
 }
+.dishPointDownArrow {
+       -moz-transition: 0.3s;
+    -webkit-transition: 0.3s;
+    -o-transition: 0.3s;
+    transition: 0.3s;
+}
 
 .infoBlock {
     color: #fff;
@@ -781,6 +793,11 @@ transform:rotate(180deg);
    transform:rotate(270deg);
     -ms-transform:rotate(270deg); /* IE 9 */
     -webkit-transform:rotate(270deg); /* Opera, Chrome, and Safari */ 
+}
+.rotate180{
+   transform:rotate(90deg);
+    -ms-transform:rotate(90deg); /* IE 9 */
+    -webkit-transform:rotate(90deg); /* Opera, Chrome, and Safari */ 
 }
 .introScreen {
     display: none;

@@ -201,10 +201,9 @@ function InfoToggle(){
    // $("#infoBlock .dishPoint").show();
   //  $("#infoBlock").slideToggle(400);
     $("#infoBlock .dishPoint").toggleClass('out');
-    var scrollTop = $("#menu").scrollTop();
-    if( scrollTop >= 150 ){
-        $("#menu").animate({ scrollTop: 0 }, 400);
-    }
+    
+    $("#OpeningHoursTodayblock img").toggleClass("rotate180","rotate90");
+    
 }
 
 function MenucardItemsToggle(num) {
@@ -562,7 +561,7 @@ function GetMenucard(sName_sNumber,sFunction){
                     var menucategorylastpart = '';
                     $.each(result.aMenucardCategory, function(key,value){
 
-                             menucategory += '<ul class="MenucardCategoryGroup'+key+'"><li class="dishHeadline" onclick="MenucardItemsToggle('+key+');">'+value.sMenucardCategoryName+'<p>'+value.sMenucardCategoryDescription+'</p><img src="img/down_arrow.svg"></li>';
+                             menucategory += '<ul class="MenucardCategoryGroup'+key+'"><li class="dishHeadline" onclick="MenucardItemsToggle('+key+');">'+value.sMenucardCategoryName+'<p>'+value.sMenucardCategoryDescription+'</p><img class="dishPointDownArrow" src="img/down_arrow.svg"></li>';
                              menucategorylastpart = '</ul>';
 
                              if(typeof result['aMenucardCategoryItems'+key] !== "undefined") {
@@ -743,7 +742,8 @@ function makeheaderGallery() {
                 pagination: '.pagination',
                 loop:true,
                 grabCursor: true,
-                paginationClickable: true
+                paginationClickable: true,
+                autoplay: 5000
               });
               // $('.arrow-left').on('click', function(e){
               //   e.preventDefault()
@@ -1293,7 +1293,7 @@ var resMap = {
         $('#res_map_addr_navn').html(navn);
         $('#res_map_addr_addr').html(addr);
         $('#res_map_addr_by').html(by);
-        //Check for platform
+        //Check for platform©
         if(device.platform === 'iOS'){
             //var geolink = 'comgooglemaps://?center='+lat+','+lng+'&zoom=14';
             var geolink = 'maps:q=loc:'+lat+'+'+lng;
