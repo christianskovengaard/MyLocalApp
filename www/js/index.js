@@ -449,11 +449,11 @@ function GetMenucard(sName_sNumber,sFunction){
                             }                          
                     });
                     
-                    if(result.sRestuarentOpenningToday.iClosed === '0'){
+                    /*if(result.sRestuarentOpenningToday.iClosed === '0'){
                         OpeningHoursToday = "<b>Åben i dag: </b> "+result.sRestuarentOpenningHoursToday;
                     }else if(result.sRestuarentOpenningToday.iClosed === '1'){
                         OpeningHoursToday = '<b>Lukket i dag</b>';
-                    }
+                    }*/
                     
                     //Append the result
 
