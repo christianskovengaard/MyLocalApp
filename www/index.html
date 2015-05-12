@@ -7,14 +7,14 @@
         <link rel="stylesheet" type="text/css" href="css/index.css" />
         <link href="css/font-awesome.css" rel="stylesheet">
         <link rel="stylesheet" href="css/idangerous.swiper.css">
-        <title>MyLocal</title>
+        <title>MyLocalCafe</title>
         <link rel="stylesheet" href="css/android.css"/>
     </head>  
     <body>
         <div id="home">
                 <div class="logo_home">
                     <img src="img/logo_4.png" alt="" /><br>
-                    <h1>MyLocal</h1>
+                    <h1>MyLocal<span>Café</span></h1>
                 </div>
                    <div id="Offline" class="Offline">
                        <h2>Du er offline</h2>
@@ -22,14 +22,14 @@
                    </div>
                    <div class="form"> <!-- onblur="ClearSearchInput();" -->
                         <div class="popMgs">Denne café er endnu ikke medlem af My Local Café. Følg med og like os på facebook. Der kommer hele tiden nye Caféer til.</div>
-                        <input onkeyup="AutocompleteCafename();" onfocus="SearchInputUp();"  data-role="none" type="text" name="text-basic" id="FindCafe" value="" placeholder="Søg efter sted" >
+                        <input onkeyup="AutocompleteCafename();" onfocus="SearchInputUp();"  data-role="none" type="text" name="text-basic" id="FindCafe" value="" placeholder="Søg efter café" >
                         <!-- onkeyup="if (event.keyCode == 13) { findMenuCard(); }" -->
                         <!-- <img src="img/search.png" onclick="findMenuCard();"> -->
                         <img src="img/search.png" alt="" />
                         <img src="img/clear.svg" class="clear" onclick="ClearSearchInput();" alt="" />
                    </div>
             <div class="openMap">
-                <img src="img/map.svg" alt="" /> Find steder nær dig
+                <img src="img/map.svg" alt="" /> Find caféer nær dig
             </div>
                    <div class="searchWrapper" id="searchWrapper">
                    </div>
@@ -190,11 +190,11 @@
 
                     <div id="map_list_outer">
                         <div id="map_drag_up">
-                            Steder i nærheden
+                            Cafer i nærheden
                         </div>
                         <div id="map_list_content">
                             <div id="map_list_ingen_resultater">
-                                Fandt intet indenfor 5 km
+                                Ingen caféer indenfor 5 km
                             </div>
                             <div id="map_list_data"></div>
                         </div>
